@@ -26,5 +26,9 @@ var annotated_dup =
         ] ],
         [ "Utils", "classlib_1_1utils_1_1_utils.html", null ]
       ] ]
+    ] ],
+    [ "MyLibrary", null, [
+      [ "Example", "class_my_library_1_1_example.html", "class_my_library_1_1_example" ],
+      [ "SubclassExample", "class_my_library_1_1_subclass_example.html", "class_my_library_1_1_subclass_example" ]
     ] ]
 ];

@@ -1,8 +1,5 @@
 var searchData=
 [
-  ['configautochooser_2',['configAutoChooser',['../classfrc_1_1robot_1_1_robot_container.html#ae1156b480d772c3072a9d281ad1eb67d',1,'frc::robot::RobotContainer']]],
-  ['configcall_3',['ConfigCall',['../interfacelib_1_1utils_1_1drivers_1_1_c_t_r_e_util_1_1_config_call.html',1,'lib::utils::drivers::CTREUtil']]],
-  ['constants_4',['Constants',['../classfrc_1_1robot_1_1_constants.html',1,'frc::robot']]],
-  ['ctremodulestate_5',['CTREModuleState',['../classlib_1_1utils_1_1_swerve_1_1_c_t_r_e_module_state.html',1,'lib::utils::Swerve']]],
-  ['ctreutil_6',['CTREUtil',['../classlib_1_1utils_1_1drivers_1_1_c_t_r_e_util.html',1,'lib::utils::drivers']]]
+  ['autonomousinit_1',['autonomousInit',['../classfrc_1_1robot_1_1_robot.html#a5b1c022cd3e2b9f6e5dde62571839173',1,'frc::robot::Robot']]],
+  ['autonomousperiodic_2',['autonomousPeriodic',['../classfrc_1_1robot_1_1_robot.html#a7dcfe7d0d65d1051eb095b8eb1aebd72',1,'frc::robot::Robot']]]
 ];
