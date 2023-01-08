@@ -1,7 +1,7 @@
 DOXYFILE_ENCODING = UTF-8
 PROJECT_NAME = 2023 Charge Up
 PROJECT_NUMBER = 0.1.0
-PROJECT_BRIEF = "Java rewrite of the Titanium Titans (FRC Team #4467)'s 2023 robot"
+PROJECT_BRIEF = "Code for the Titanium Titans (FRC Team #4467)'s 2023 robot"
 PROJECT_LOGO = docs/favicon.ico
 OUTPUT_DIRECTORY = docs
 CREATE_SUBDIRS = NO
