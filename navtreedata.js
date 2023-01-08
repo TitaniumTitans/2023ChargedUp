@@ -24,7 +24,7 @@
 */
 var NAVTREE =
 [
-  [ "2022 Hyperion Rewrite", "index.html", [
+  [ "2023 Charge Up", "index.html", [
     [ "Main Page", "index.html", null ],
     [ "Customization", "md_docs_doxygen_awesome_css_docs_customization.html", null ],
     [ "Extensions", "md_docs_doxygen_awesome_css_docs_extensions.html", null ],
