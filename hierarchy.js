@@ -4,9 +4,6 @@ var hierarchy =
     [ "frc.robot.Constants", "classfrc_1_1robot_1_1_constants.html", null ],
     [ "lib.utils.Swerve.CTREModuleState", "classlib_1_1utils_1_1_swerve_1_1_c_t_r_e_module_state.html", null ],
     [ "lib.utils.drivers.CTREUtil", "classlib_1_1utils_1_1drivers_1_1_c_t_r_e_util.html", null ],
-    [ "MyLibrary::Example", "class_my_library_1_1_example.html", [
-      [ "MyLibrary::SubclassExample< TemplatedClass >", "class_my_library_1_1_subclass_example.html", null ]
-    ] ],
     [ "LoggedRobot", null, [
       [ "frc.robot.Robot", "classfrc_1_1robot_1_1_robot.html", null ]
     ] ],

@@ -25,16 +25,6 @@
 var NAVTREE =
 [
   [ "2023 Charge Up", "index.html", [
-    [ "Main Page", "index.html", null ],
-    [ "Customization", "md_docs_doxygen_awesome_css_docs_customization.html", null ],
-    [ "Extensions", "md_docs_doxygen_awesome_css_docs_extensions.html", null ],
-    [ "Tips & Tricks", "md_docs_doxygen_awesome_css_docs_tricks.html", null ],
-    [ "Doxygen Awesome", "md_docs_doxygen_awesome_css__r_e_a_d_m_e.html", null ],
-    [ "2023ChargedUp", "md__r_e_a_d_m_e.html", null ],
-    [ "WPILib-License", "md__w_p_i_lib__license.html", null ],
-    [ "Bug List", "bug.html", null ],
-    [ "Deprecated List", "deprecated.html", null ],
-    [ "Todo List", "todo.html", null ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
@@ -43,9 +33,6 @@ var NAVTREE =
         [ "All", "functions.html", null ],
         [ "Functions", "functions_func.html", null ]
       ] ]
-    ] ],
-    [ "Files", "files.html", [
-      [ "File List", "files.html", "files_dup" ]
     ] ]
   ] ]
 ];
