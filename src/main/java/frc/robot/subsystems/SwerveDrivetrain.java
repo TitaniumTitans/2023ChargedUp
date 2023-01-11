@@ -32,10 +32,52 @@ public class SwerveDrivetrain extends SubsystemBase{
     blModule = new SwerveModFalcon(3, DriveConstants.kModBlOffset, DriveConstants.kMod3Cans);
 
     gyro = new PigeonIMU(15);
-    odometry = new SwerveDriveOdometry(DriveConstants.kDriveKinematics, getGyro(), new Pose2d());
+    odometry = new SwerveDriveOdometry(DriveConstants.kDriveKinematics, getGyro(), getModulePositions());
     counter = 0;
   }
 
+  
+
+  // Getter Methods here
+  //////////////////////////////////////////////////////////////////////
+  public Rotation2d getGyro(){
+    return Rotation2d.fromDegrees(gyro.getYaw());
+  }
+
+  
+  public SwerveModulePosition[] getModulePositions(){
+    SwerveModulePosition[] modulePositions = {new SwerveModulePosition(), 
+      new SwerveModulePosition(), 
+      new SwerveModulePosition(), 
+      new SwerveModulePosition()};
+
+    modulePositions[0] = frModule.getPosition();
+    modulePositions[1] = flModule.getPosition();
+    modulePositions[2] = brModule.getPosition();
+    modulePositions[3] = blModule.getPosition();
+
+    return modulePositions;
+  }
+
+  /** Gets the current state of each module as an array of 
+   * SwerveModuleState objects, going from Fr, Fl, Br, Bl modules
+   * @return An SwerveModuleState array
+   */
+  public SwerveModuleState[] getModuleStates(){
+    SwerveModuleState[] moduleStates = {new SwerveModuleState(),
+      new SwerveModuleState(),
+      new SwerveModuleState(),
+      new SwerveModuleState()};
+
+      moduleStates[0] = frModule.getState();
+      moduleStates[1] = flModule.getState();
+      moduleStates[2] = brModule.getState();
+      moduleStates[3] = blModule.getState();
+
+      return moduleStates;
+  }
+  // Setter Methods here
+  //////////////////////////////////////////////////////////////////////
   public void setModuleState(double xTranslation, double yTranslation, double zRotation, boolean fieldRelative){
     //Converts controller inputs to working chassis speeds, to working swerve module state array
     SwerveModuleState[] swerveModuleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates( 
@@ -63,29 +105,6 @@ public class SwerveDrivetrain extends SubsystemBase{
         counter = 0;
       }
   }
-
-  // Getter Methods here
-  //////////////////////////////////////////////////////////////////////
-  public Rotation2d getGyro(){
-    return Rotation2d.fromDegrees(gyro.getYaw());
-  }
-
-  
-  public SwerveModulePosition[] getModulePositions(){
-    SwerveModulePosition[] modulePositions = {new SwerveModulePosition(), 
-      new SwerveModulePosition(), 
-      new SwerveModulePosition(), 
-      new SwerveModulePosition()};
-
-    modulePositions[0] = frModule.getState();
-    modulePositions[1] = flModule.getState();
-    modulePositions[2] = brModule.getState();
-    modulePositions[3] = blModule.getState();
-
-    return modulePositions;
-  }
-  // Setter Methods here
-  //////////////////////////////////////////////////////////////////////
   public void setAbsoluteAngles(){
     frModule.resetToAbsolute();
     flModule.resetToAbsolute();
@@ -98,7 +117,7 @@ public class SwerveDrivetrain extends SubsystemBase{
    *
    * @return a command
    */
-  public CommandBase exampleMethodCommand() {
+  public CommandBase resetGyro() {
     // Inline construction of command goes here.
     // Subsystem::RunOnce implicitly requires `this` subsystem.
     return runOnce(
