@@ -1,7 +1,5 @@
 package lib.utils.Swerve;
 
-import javax.naming.ldap.ControlFactory;
-
 import com.ctre.phoenix.motorcontrol.ControlFrame;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
