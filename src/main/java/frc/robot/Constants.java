@@ -64,6 +64,7 @@ public final class Constants {
     }
 
     public static final Mode currentMode = Mode.REAL;
+    public static final int driverPort = 0;
 
     public static enum Mode {
         /** Running on a real robot. */

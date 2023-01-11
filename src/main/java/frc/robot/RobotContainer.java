@@ -8,10 +8,11 @@ import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.commands.SwerveTeleopDrive;
+import frc.robot.subsystems.SwerveDrivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -20,10 +21,11 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  //Subsystems
+  private final SwerveDrivetrain m_drive = new SwerveDrivetrain();
 
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  //Controllers
+  private final CommandXboxController m_driveController = new CommandXboxController(Constants.driverPort);
 
   //Logged chooser for auto
   private final LoggedDashboardChooser<Command> autoChooser = new LoggedDashboardChooser<>("Auto Modes");
@@ -40,7 +42,11 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+    m_drive.setDefaultCommand(new SwerveTeleopDrive(m_drive, m_driveController));
+
+    m_driveController.start().onTrue(m_drive.resetGyroBase());
+  }
 
   /**
    * Use this method to add autonomous routines to a sendable chooser
@@ -57,6 +63,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return autoChooser.get();
   }
 }
