@@ -12,6 +12,7 @@ import com.ctre.phoenix.sensors.CANCoder;
 import com.ctre.phoenix.sensors.SensorInitializationStrategy;
 
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 
 public class SwerveModFalcon {
@@ -81,12 +82,12 @@ public class SwerveModFalcon {
         return new SwerveModuleState(velocity, angle);
     }
 
-    /*
+    
     public SwerveModulePosition getPosition() {
-        double distance = (driveFx.getSelectedSensorPosition() / 4096) * Constants.kWheelCircumfrance;
+        double distance = (driveFx.getSelectedSensorPosition() / 4096) * ModuleConstants.kWheelCircumference;
         return new SwerveModulePosition(distance, getCanCoder());
     }
-    */
+    
 
     public void resetToAbsolute(){
         double absolutePosition = Utils.degreesToFalcon(encoder.getAbsolutePosition(), ModuleConstants.kTurningRatio);

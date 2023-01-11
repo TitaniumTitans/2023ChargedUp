@@ -7,6 +7,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -70,18 +71,18 @@ public class SwerveDrivetrain extends SubsystemBase{
   }
 
   
-  public SwerveModuleState[] getModuleStates(){
-    SwerveModuleState[] moduleStates = {new SwerveModuleState(), 
-      new SwerveModuleState(), 
-      new SwerveModuleState(), 
-      new SwerveModuleState()};
+  public SwerveModulePosition[] getModulePositions(){
+    SwerveModulePosition[] modulePositions = {new SwerveModulePosition(), 
+      new SwerveModulePosition(), 
+      new SwerveModulePosition(), 
+      new SwerveModulePosition()};
 
-    moduleStates[0] = frModule.getState();
-    moduleStates[1] = flModule.getState();
-    moduleStates[2] = brModule.getState();
-    moduleStates[3] = blModule.getState();
+    modulePositions[0] = frModule.getState();
+    modulePositions[1] = flModule.getState();
+    modulePositions[2] = brModule.getState();
+    modulePositions[3] = blModule.getState();
 
-    return moduleStates;
+    return modulePositions;
   }
   // Setter Methods here
   //////////////////////////////////////////////////////////////////////
