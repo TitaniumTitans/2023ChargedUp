@@ -5,6 +5,8 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.SwerveDrivetrain;
+import lib.utils.Utils;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
@@ -37,15 +39,9 @@ public class SwerveTeleopDrive extends CommandBase {
     double y = m_driverController.getLeftX();
     double z = m_driverController.getRightX();
 
-    if(Math.abs(x) < 0.1){
-      x = 0;
-    }
-    if(Math.abs(y) < 0.1){
-      y = 0;
-    }
-    if(Math.abs(z) < 0.1){
-      z = 0;
-    }
+    x = Utils.deadBand(x);
+    y = Utils.deadBand(y);
+    z = Utils.deadBand(z);
     m_drive.setModuleState(x, y, z, false);
   }
 
