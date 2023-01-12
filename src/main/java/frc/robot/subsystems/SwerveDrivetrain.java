@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+//Imports
 //import com.ctre.phoenix.sensors.Pigeon2;
 import com.ctre.phoenix.sensors.PigeonIMU;
 
@@ -15,14 +16,14 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;;
 
 public class SwerveDrivetrain extends SubsystemBase{
-  private SwerveModFalcon m_frModule;
-  private SwerveModFalcon m_flModule;
-  private SwerveModFalcon m_brModule;
-  private SwerveModFalcon m_blModule;
-  private PigeonIMU m_gyro;
+  private SwerveModFalcon m_frModule; // Front Right Wheel
+  private SwerveModFalcon m_flModule; // Front Left Wheel
+  private SwerveModFalcon m_brModule; // Back Right Wheel
+  private SwerveModFalcon m_blModule; // Back Left Wheel
+  private PigeonIMU m_gyro; // Gyro for Balancing and 
 
-  private int counter;
-  private boolean fieldRelative;
+  private int counter; //Counter variable for periodically resetting encoders
+  private boolean fieldRelative; //Sees if it is field oriented
 
   private SwerveDriveOdometry m_odometry;
   /** Creates a new ExampleSubsystem. */
@@ -42,6 +43,11 @@ public class SwerveDrivetrain extends SubsystemBase{
 
   // Getter Methods here
   //////////////////////////////////////////////////////////////////////
+
+  /**
+   * Gets the Rotation of Gyro.
+   * @return Rotation of Gyro
+   */
   public Rotation2d getGyro(){
     return Rotation2d.fromDegrees(m_gyro.getYaw());
   }
@@ -85,6 +91,14 @@ public class SwerveDrivetrain extends SubsystemBase{
   }
   // Setter Methods here
   //////////////////////////////////////////////////////////////////////
+
+  /**
+   * 
+   * @param xTranslation Forward/Backwards
+   * @param yTranslation Left/Right
+   * @param zRotation Rotation
+   * @param fieldRelative is it field oriented
+   */
   public void setModuleState(double xTranslation, double yTranslation, double zRotation, boolean fieldRelative){
     //Converts controller inputs to working chassis speeds, to working swerve module state array
     SwerveModuleState[] swerveModuleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates( 
@@ -112,6 +126,10 @@ public class SwerveDrivetrain extends SubsystemBase{
         counter = 0;
       }
   }
+
+  /**
+   * Matching the encoder in the Motor to the CANcoder 
+   */
   public void setAbsoluteAngles(){
     m_frModule.resetToAbsolute();
     m_flModule.resetToAbsolute();
@@ -119,6 +137,9 @@ public class SwerveDrivetrain extends SubsystemBase{
     m_brModule.resetToAbsolute();
   }
 
+  /**
+   * Resets the Rotation of Gyro
+   */
   public void resetGyro(){
     m_gyro.setYaw(0);
   }
@@ -137,6 +158,7 @@ public class SwerveDrivetrain extends SubsystemBase{
           resetGyro();
         });
   }
+
 
   public CommandBase toggleFieldRelative(){
     return runOnce(
