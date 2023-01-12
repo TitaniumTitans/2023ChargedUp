@@ -30,7 +30,7 @@ var NAVTREE =
     [ "Extensions", "md_docs_doxygen_awesome_css_docs_extensions.html", null ],
     [ "Tips & Tricks", "md_docs_doxygen_awesome_css_docs_tricks.html", null ],
     [ "Doxygen Awesome", "md_docs_doxygen_awesome_css__r_e_a_d_m_e.html", null ],
-    [ "2023ChargedUp", "md__r_e_a_d_m_e.html", null ],
+    [ "README", "md__r_e_a_d_m_e.html", null ],
     [ "WPILib-License", "md__w_p_i_lib__license.html", null ],
     [ "Bug List", "bug.html", null ],
     [ "Deprecated List", "deprecated.html", null ],
