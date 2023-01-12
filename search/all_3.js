@@ -1,7 +1,9 @@
 var searchData=
 [
-  ['deadband_9',['deadBand',['../classlib_1_1utils_1_1_utils.html#a75c701c912a8db0fbf514b8aede70a3c',1,'lib::utils::Utils']]],
-  ['deprecated_20list_10',['Deprecated List',['../deprecated.html',1,'']]],
-  ['disabledinit_11',['disabledInit',['../classfrc_1_1robot_1_1_robot.html#ac19810fbf26efd4cd47cbd7568b4ad2a',1,'frc::robot::Robot']]],
-  ['doxygen_20awesome_12',['Doxygen Awesome',['../md_docs_doxygen_awesome_css__r_e_a_d_m_e.html',1,'']]]
+  ['configautochooser_4',['configAutoChooser',['../classfrc_1_1robot_1_1_robot_container.html#ae1156b480d772c3072a9d281ad1eb67d',1,'frc::robot::RobotContainer']]],
+  ['configcall_5',['ConfigCall',['../interfacelib_1_1utils_1_1drivers_1_1_c_t_r_e_util_1_1_config_call.html',1,'lib::utils::drivers::CTREUtil']]],
+  ['constants_6',['Constants',['../classfrc_1_1robot_1_1_constants.html',1,'frc::robot']]],
+  ['ctremodulestate_7',['CTREModuleState',['../classlib_1_1utils_1_1_swerve_1_1_c_t_r_e_module_state.html',1,'lib::utils::Swerve']]],
+  ['ctreutil_8',['CTREUtil',['../classlib_1_1utils_1_1drivers_1_1_c_t_r_e_util.html',1,'lib::utils::drivers']]],
+  ['customization_9',['Customization',['../md_docs_doxygen_awesome_css_docs_customization.html',1,'']]]
 ];

@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['optimize_24',['optimize',['../classlib_1_1utils_1_1_swerve_1_1_c_t_r_e_module_state.html#abc282beadeb2e6d7b144959da8fbbf58',1,'lib::utils::Swerve::CTREModuleState']]]
+  ['main_22',['Main',['../classfrc_1_1robot_1_1_main.html',1,'frc::robot']]],
+  ['main_23',['main',['../classfrc_1_1robot_1_1_main.html#ae60066a646cefc16d3e7d57b8fa22097',1,'frc::robot::Main']]],
+  ['main_20page_24',['Main Page',['../index.html',1,'']]]
 ];
