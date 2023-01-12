@@ -159,6 +159,8 @@ public class SwerveDrivetrain extends SubsystemBase{
     SmartDashboard.putNumber("Fl Setpoint", m_flModule.getTargetAngle());
     SmartDashboard.putNumber("Br Setpoint", m_brModule.getTargetAngle());
     SmartDashboard.putNumber("Bl Setpoint", m_blModule.getTargetAngle());
+
+    SmartDashboard.putBoolean("Field Oriented?", fieldRelative);
   }
 
   @Override
