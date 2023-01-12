@@ -46,6 +46,7 @@ public class RobotContainer {
     m_drive.setDefaultCommand(new SwerveTeleopDrive(m_drive, m_driveController));
 
     m_driveController.start().onTrue(m_drive.resetGyroBase());
+    m_driveController.button(9).onTrue(m_drive.toggleFieldRelative());
   }
 
   /**

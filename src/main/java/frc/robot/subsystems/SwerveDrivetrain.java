@@ -20,7 +20,9 @@ public class SwerveDrivetrain extends SubsystemBase{
   private SwerveModFalcon m_brModule;
   private SwerveModFalcon m_blModule;
   private PigeonIMU m_gyro;
+
   private int counter;
+  private boolean fieldRelative;
 
   private SwerveDriveOdometry m_odometry;
   /** Creates a new ExampleSubsystem. */
@@ -33,6 +35,7 @@ public class SwerveDrivetrain extends SubsystemBase{
     m_gyro = new PigeonIMU(15);
     m_odometry = new SwerveDriveOdometry(DriveConstants.kDriveKinematics, getGyro(), getModulePositions());
     counter = 0;
+    fieldRelative = false;
   }
 
   
@@ -43,7 +46,11 @@ public class SwerveDrivetrain extends SubsystemBase{
     return Rotation2d.fromDegrees(m_gyro.getYaw());
   }
 
-  
+  /**
+   * Gets the current state of each module as an array of
+   * SwerveModulePositions, going from Fr, Fl, Br, Bl modules
+   * @return A SwerveModulePosition
+   */
   public SwerveModulePosition[] getModulePositions(){
     SwerveModulePosition[] modulePositions = {new SwerveModulePosition(), 
       new SwerveModulePosition(), 
@@ -61,7 +68,7 @@ public class SwerveDrivetrain extends SubsystemBase{
   /** 
    * Gets the current state of each module as an array of 
    * SwerveModuleState objects, going from Fr, Fl, Br, Bl modules
-   * @return An SwerveModuleState array
+   * @return A SwerveModuleState array
    */
   public SwerveModuleState[] getModuleStates(){
     SwerveModuleState[] moduleStates = {new SwerveModuleState(),
@@ -129,6 +136,13 @@ public class SwerveDrivetrain extends SubsystemBase{
           /* one-time action goes here */
           resetGyro();
         });
+  }
+
+  public CommandBase toggleFieldRelative(){
+    return runOnce(
+      () -> {
+      fieldRelative = !fieldRelative;
+    });
   }
 
   @Override
