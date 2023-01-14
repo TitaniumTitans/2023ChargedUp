@@ -33,6 +33,11 @@ public class SwerveDrivetrain extends SubsystemBase{
     m_brModule = new SwerveModFalcon(2, DriveConstants.kModBrOffset, DriveConstants.kMod2Cans);
     m_blModule = new SwerveModFalcon(3, DriveConstants.kModBlOffset, DriveConstants.kMod3Cans);
 
+    // m_frModule = new SwerveModCANCoder(0, DriveConstants.kModFrOffset, DriveConstants.kMod0Cans);
+    // m_flModule = new SwerveModCANCoder(1, DriveConstants.kModFlOffset, DriveConstants.kMod1Cans);
+    // m_brModule = new SwerveModCANCoder(2, DriveConstants.kModBrOffset, DriveConstants.kMod2Cans);
+    // m_blModule = new SwerveModCANCoder(3, DriveConstants.kModBlOffset, DriveConstants.kMod3Cans);
+
     m_gyro = new PigeonIMU(15);
     m_odometry = new SwerveDriveOdometry(DriveConstants.kDriveKinematics, getGyro(), getModulePositions());
     counter = 0;

@@ -5,6 +5,7 @@ import lib.utils.Utils;
 import lib.utils.Swerve.CTREModuleState;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.sensors.AbsoluteSensorRange;
@@ -15,7 +16,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 
-public class SwerveModFalcon {
+public class SwerveModCANCoder {
     // Physical motors/sensors
     private TalonFX m_driveFx;
     private TalonFX m_azimuthFx;
@@ -27,7 +28,7 @@ public class SwerveModFalcon {
     public double magnetOffset;
     private int count = 0;
 
-    public SwerveModFalcon(int moduleNumber, double magnetOffset, int[] canIds){
+    public SwerveModCANCoder(int moduleNumber, double magnetOffset, int[] canIds){
         this.magnetOffset = magnetOffset;
         this.moduleNumber = moduleNumber;
 
@@ -38,7 +39,6 @@ public class SwerveModFalcon {
         // Drive motor config
         m_driveFx.setNeutralMode(NeutralMode.Brake);
         m_driveFx.configOpenloopRamp(0.75);
-        m_driveFx.configNeutralDeadband(0.01);
 
         // Azimuth/turning motor config
         m_azimuthFx.configFactoryDefault();
@@ -48,8 +48,8 @@ public class SwerveModFalcon {
         m_azimuthFx.setInverted(false);
         m_azimuthFx.setSensorPhase(false);
         m_azimuthFx.configIntegratedSensorInitializationStrategy(SensorInitializationStrategy.BootToZero);
-        m_azimuthFx.configNeutralDeadband(0.01);
-        
+        m_azimuthFx.configRemoteFeedbackFilter(m_encoder, 0);
+
         // Encoder configuration
         m_encoder.configFactoryDefault();
         m_encoder.configSensorInitializationStrategy(SensorInitializationStrategy.BootToAbsolutePosition);
@@ -58,7 +58,7 @@ public class SwerveModFalcon {
         m_encoder.configMagnetOffset(magnetOffset);
         
         // Update azimuth encoder to match absolute value encoder
-        resetToAbsolute();
+        // resetToAbsolute();
     }
 
     /**
@@ -66,11 +66,11 @@ public class SwerveModFalcon {
      * @param state the desired state of the module
      */
     public void setDesiredState(SwerveModuleState state){
-        SwerveModuleState desiredState = CTREModuleState.optimize(state, Rotation2d.fromDegrees(getAzimuthAngle()));
+        SwerveModuleState desiredState = CTREModuleState.optimize(state, getCanCoder());
         // double desiredSpeed = desiredState.speedMetersPerSecond;
         double percentOutput = desiredState.speedMetersPerSecond / ModuleConstants.kMaxSpeedMetersPerSecond; //This is swerve max speed , figure ths out
         
-        double angle = Utils.degreesToFalcon(desiredState.angle.getDegrees(), ModuleConstants.kTurningRatio); 
+        double angle = Utils.degreesToFalcon(desiredState.angle.getDegrees(), 1); 
 
         // Check to see if the module is actually moving, helps prevent additional jittering
         if(Math.abs(desiredState.speedMetersPerSecond) > 0.01){        
@@ -86,7 +86,7 @@ public class SwerveModFalcon {
      */
     public SwerveModuleState getState() {
         double velocity = Utils.falconToMPS(m_driveFx.getSelectedSensorVelocity(), ModuleConstants.kWheelCircumference, ModuleConstants.kDriveRatio);
-        Rotation2d angle = Rotation2d.fromDegrees(Utils.falconToDegrees(m_azimuthFx.getSelectedSensorPosition(), ModuleConstants.kTurningRatio));
+        Rotation2d angle = Rotation2d.fromDegrees(Utils.falconToDegrees(m_azimuthFx.getSelectedSensorPosition(), 1));
         return new SwerveModuleState(velocity, angle);
     }
 
@@ -103,8 +103,8 @@ public class SwerveModFalcon {
      * Resets the encoder in the Azimuth motor to match the absolute value read by the absolute encoder
      */
     public void resetToAbsolute(){
-        double absolutePosition = Utils.degreesToFalcon(m_encoder.getAbsolutePosition(), ModuleConstants.kTurningRatio);
-        m_azimuthFx.setSelectedSensorPosition(absolutePosition);  
+        double absolutePosition = Utils.degreesToFalcon(m_encoder.getAbsolutePosition(), 1);
+        m_azimuthFx.setSelectedSensorPosition(absolutePosition);
     }
 
     /**
