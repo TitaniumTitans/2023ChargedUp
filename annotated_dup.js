@@ -7,6 +7,7 @@ var annotated_dup =
         ] ],
         [ "subsystems", null, [
           [ "SwerveDrivetrain", "classfrc_1_1robot_1_1subsystems_1_1_swerve_drivetrain.html", "classfrc_1_1robot_1_1subsystems_1_1_swerve_drivetrain" ],
+          [ "SwerveModCANCoder", "classfrc_1_1robot_1_1subsystems_1_1_swerve_mod_c_a_n_coder.html", "classfrc_1_1robot_1_1subsystems_1_1_swerve_mod_c_a_n_coder" ],
           [ "SwerveModFalcon", "classfrc_1_1robot_1_1subsystems_1_1_swerve_mod_falcon.html", "classfrc_1_1robot_1_1subsystems_1_1_swerve_mod_falcon" ]
         ] ],
         [ "Constants", "classfrc_1_1robot_1_1_constants.html", null ],

@@ -1,12 +1,12 @@
 var searchData=
 [
-  ['getautonomouscommand_85',['getAutonomousCommand',['../classfrc_1_1robot_1_1_robot_container.html#ac61d2476e65873e263f844c1c721a82e',1,'frc::robot::RobotContainer']]],
-  ['getazimuthangle_86',['getAzimuthAngle',['../classfrc_1_1robot_1_1subsystems_1_1_swerve_mod_falcon.html#a44033eecccc3b5a398c59d0482f4572b',1,'frc::robot::subsystems::SwerveModFalcon']]],
-  ['getcancoder_87',['getCanCoder',['../classfrc_1_1robot_1_1subsystems_1_1_swerve_mod_falcon.html#a7f270e8c2dbabc153701b736b6c83002',1,'frc::robot::subsystems::SwerveModFalcon']]],
-  ['getgyro_88',['getGyro',['../classfrc_1_1robot_1_1subsystems_1_1_swerve_drivetrain.html#a119a04b6f5f0df027b94a2b9af028615',1,'frc::robot::subsystems::SwerveDrivetrain']]],
-  ['getmodulepositions_89',['getModulePositions',['../classfrc_1_1robot_1_1subsystems_1_1_swerve_drivetrain.html#add218ce4f7f229af88a93da93cb8238e',1,'frc::robot::subsystems::SwerveDrivetrain']]],
-  ['getmodulestates_90',['getModuleStates',['../classfrc_1_1robot_1_1subsystems_1_1_swerve_drivetrain.html#a058aedf6fadd3644f31fa955e2002d2d',1,'frc::robot::subsystems::SwerveDrivetrain']]],
-  ['getposition_91',['getPosition',['../classfrc_1_1robot_1_1subsystems_1_1_swerve_mod_falcon.html#a4cfc7df6988a31ca9934d3980b0352f3',1,'frc::robot::subsystems::SwerveModFalcon']]],
-  ['getstate_92',['getState',['../classfrc_1_1robot_1_1subsystems_1_1_swerve_mod_falcon.html#ac33374df0e56245f75a0b60ecd50f247',1,'frc::robot::subsystems::SwerveModFalcon']]],
-  ['gettargetangle_93',['getTargetAngle',['../classfrc_1_1robot_1_1subsystems_1_1_swerve_mod_falcon.html#a6c8f327634219a9d1844c9dc8b4932a1',1,'frc::robot::subsystems::SwerveModFalcon']]]
+  ['getautonomouscommand_87',['getAutonomousCommand',['../classfrc_1_1robot_1_1_robot_container.html#ac61d2476e65873e263f844c1c721a82e',1,'frc::robot::RobotContainer']]],
+  ['getazimuthangle_88',['getAzimuthAngle',['../classfrc_1_1robot_1_1subsystems_1_1_swerve_mod_c_a_n_coder.html#af3f454e7bde0cc8452cfa885d48ed525',1,'frc.robot.subsystems.SwerveModCANCoder.getAzimuthAngle()'],['../classfrc_1_1robot_1_1subsystems_1_1_swerve_mod_falcon.html#a44033eecccc3b5a398c59d0482f4572b',1,'frc.robot.subsystems.SwerveModFalcon.getAzimuthAngle()']]],
+  ['getcancoder_89',['getCanCoder',['../classfrc_1_1robot_1_1subsystems_1_1_swerve_mod_c_a_n_coder.html#aa59a274f4e1b2bf4737aa1d14e314a74',1,'frc.robot.subsystems.SwerveModCANCoder.getCanCoder()'],['../classfrc_1_1robot_1_1subsystems_1_1_swerve_mod_falcon.html#a7f270e8c2dbabc153701b736b6c83002',1,'frc.robot.subsystems.SwerveModFalcon.getCanCoder()']]],
+  ['getgyro_90',['getGyro',['../classfrc_1_1robot_1_1subsystems_1_1_swerve_drivetrain.html#a119a04b6f5f0df027b94a2b9af028615',1,'frc::robot::subsystems::SwerveDrivetrain']]],
+  ['getmodulepositions_91',['getModulePositions',['../classfrc_1_1robot_1_1subsystems_1_1_swerve_drivetrain.html#add218ce4f7f229af88a93da93cb8238e',1,'frc::robot::subsystems::SwerveDrivetrain']]],
+  ['getmodulestates_92',['getModuleStates',['../classfrc_1_1robot_1_1subsystems_1_1_swerve_drivetrain.html#a058aedf6fadd3644f31fa955e2002d2d',1,'frc::robot::subsystems::SwerveDrivetrain']]],
+  ['getposition_93',['getPosition',['../classfrc_1_1robot_1_1subsystems_1_1_swerve_mod_c_a_n_coder.html#ae3d23c5a96d1b81458a522c3300c5b1f',1,'frc.robot.subsystems.SwerveModCANCoder.getPosition()'],['../classfrc_1_1robot_1_1subsystems_1_1_swerve_mod_falcon.html#a4cfc7df6988a31ca9934d3980b0352f3',1,'frc.robot.subsystems.SwerveModFalcon.getPosition()']]],
+  ['getstate_94',['getState',['../classfrc_1_1robot_1_1subsystems_1_1_swerve_mod_c_a_n_coder.html#a7ea38a26239780867e0c2ce0912bdaca',1,'frc.robot.subsystems.SwerveModCANCoder.getState()'],['../classfrc_1_1robot_1_1subsystems_1_1_swerve_mod_falcon.html#ac33374df0e56245f75a0b60ecd50f247',1,'frc.robot.subsystems.SwerveModFalcon.getState()']]],
+  ['gettargetangle_95',['getTargetAngle',['../classfrc_1_1robot_1_1subsystems_1_1_swerve_mod_c_a_n_coder.html#a0c48fc8a7ecb3bcf49c065d3db2d6c7e',1,'frc.robot.subsystems.SwerveModCANCoder.getTargetAngle()'],['../classfrc_1_1robot_1_1subsystems_1_1_swerve_mod_falcon.html#a6c8f327634219a9d1844c9dc8b4932a1',1,'frc.robot.subsystems.SwerveModFalcon.getTargetAngle()']]]
 ];
