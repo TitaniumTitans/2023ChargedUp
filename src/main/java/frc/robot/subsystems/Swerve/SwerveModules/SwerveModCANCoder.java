@@ -1,4 +1,4 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems.Swerve.SwerveModules;
 
 import frc.robot.Constants.ModuleConstants;
 import lib.utils.Utils;

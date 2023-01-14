@@ -1,4 +1,4 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems.Swerve;
 
 //Imports
 //import com.ctre.phoenix.sensors.Pigeon2;
@@ -13,9 +13,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-import frc.robot.Constants.DriveConstants;;
+import frc.robot.Constants.DriveConstants;
+import frc.robot.subsystems.Swerve.SwerveIO.SwerveIOInputs;
+import frc.robot.subsystems.Swerve.SwerveModules.SwerveModFalcon;;
 
-public class SwerveDrivetrainIO extends SubsystemBase implements SwerveIO{
+public class SwerveFalconIO extends SubsystemBase implements SwerveIO{
   private SwerveModFalcon m_frModule; // Front Right Wheel
   private SwerveModFalcon m_flModule; // Front Left Wheel
   private SwerveModFalcon m_brModule; // Back Right Wheel
@@ -27,7 +29,7 @@ public class SwerveDrivetrainIO extends SubsystemBase implements SwerveIO{
 
   private SwerveDriveOdometry m_odometry;
   /** Creates a new ExampleSubsystem. */
-  public SwerveDrivetrainIO() {
+  public SwerveFalconIO() {
     m_frModule = new SwerveModFalcon(0, DriveConstants.kModFrOffset, DriveConstants.kMod0Cans);
     m_flModule = new SwerveModFalcon(1, DriveConstants.kModFlOffset, DriveConstants.kMod1Cans);
     m_brModule = new SwerveModFalcon(2, DriveConstants.kModBrOffset, DriveConstants.kMod2Cans);

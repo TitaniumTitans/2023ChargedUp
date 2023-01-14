@@ -9,7 +9,7 @@ import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.SwerveTeleopDrive;
-import frc.robot.subsystems.SwerveDrivetrainIO;
+import frc.robot.subsystems.Swerve.SwerveFalconIO;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -22,7 +22,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
  */
 public class RobotContainer {
   //Subsystems
-  private final SwerveDrivetrainIO m_drive = new SwerveDrivetrainIO();
+  private final SwerveFalconIO m_drive = new SwerveFalconIO();
 
   //Controllers
   private final CommandXboxController m_driveController = new CommandXboxController(Constants.driverPort);
