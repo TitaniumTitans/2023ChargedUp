@@ -4,21 +4,26 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.SwerveDrivetrain;
+import lib.utils.Utils;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 /** An example command that uses an example subsystem. */
-public class ExampleCommand extends CommandBase {
+public class SwerveTeleopDrive extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final ExampleSubsystem m_subsystem;
+  private final SwerveDrivetrain m_drive;
+  private final CommandXboxController m_driverController;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ExampleCommand(ExampleSubsystem subsystem) {
-    m_subsystem = subsystem;
+  public SwerveTeleopDrive(SwerveDrivetrain subsystem, CommandXboxController controller) {
+    m_drive = subsystem;
+    m_driverController = controller;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -29,7 +34,16 @@ public class ExampleCommand extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    double x = -m_driverController.getLeftY();
+    double y = m_driverController.getLeftX();
+    double z = m_driverController.getRightX();
+
+    x = Utils.deadBand(x);
+    y = Utils.deadBand(y);
+    z = Utils.deadBand(z);
+    m_drive.setModuleState(x, y, z, false);
+  }
 
   // Called once the command ends or is interrupted.
   @Override
