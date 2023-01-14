@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants.DriveConstants;;
 
-public class SwerveDrivetrain extends SubsystemBase{
+public class SwerveDrivetrainIO extends SubsystemBase implements SwerveIO{
   private SwerveModFalcon m_frModule; // Front Right Wheel
   private SwerveModFalcon m_flModule; // Front Left Wheel
   private SwerveModFalcon m_brModule; // Back Right Wheel
@@ -27,7 +27,7 @@ public class SwerveDrivetrain extends SubsystemBase{
 
   private SwerveDriveOdometry m_odometry;
   /** Creates a new ExampleSubsystem. */
-  public SwerveDrivetrain() {
+  public SwerveDrivetrainIO() {
     m_frModule = new SwerveModFalcon(0, DriveConstants.kModFrOffset, DriveConstants.kMod0Cans);
     m_flModule = new SwerveModFalcon(1, DriveConstants.kModFlOffset, DriveConstants.kMod1Cans);
     m_brModule = new SwerveModFalcon(2, DriveConstants.kModBrOffset, DriveConstants.kMod2Cans);
@@ -104,7 +104,7 @@ public class SwerveDrivetrain extends SubsystemBase{
    * @param zRotation Rotation
    * @param fieldRelative is it field oriented
    */
-  public void setModuleState(double xTranslation, double yTranslation, double zRotation, boolean fieldRelative){
+  public void setModuleState(double xTranslation, double yTranslation, double zRotation){
     //Converts controller inputs to working chassis speeds, to working swerve module state array
     SwerveModuleState[] swerveModuleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates( 
       fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(
@@ -131,6 +131,28 @@ public class SwerveDrivetrain extends SubsystemBase{
         counter = 0;
       }
       
+  }
+
+  public void updateInputs(SwerveIOInputs inputs){
+    // FR module
+    inputs.frAngleDeg = m_frModule.getState().angle.getDegrees();
+    inputs.frDriveSpeedMPS = m_frModule.getState().speedMetersPerSecond;
+
+    // FL module
+    inputs.flAngleDeg = m_flModule.getState().angle.getDegrees();
+    inputs.flDriveSpeedMPS = m_flModule.getState().speedMetersPerSecond;
+
+    // BL module
+    inputs.blAngleDeg = m_blModule.getState().angle.getDegrees();
+    inputs.blDriveSpeedMPS = m_blModule.getState().speedMetersPerSecond;
+
+    // BR module
+    inputs.brAngleDeg = m_brModule.getState().angle.getDegrees();
+    inputs.brDriveSpeedMPS = m_brModule.getState().speedMetersPerSecond;
+
+    // Gyro values
+    inputs.gyroPitchDeg = m_gyro.getPitch();
+    inputs.gyroYawDeg = m_gyro.getYaw();
   }
 
   /**

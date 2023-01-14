@@ -4,7 +4,7 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.SwerveDrivetrain;
+import frc.robot.subsystems.SwerveDrivetrainIO;
 import lib.utils.Utils;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 /** An example command that uses an example subsystem. */
 public class SwerveTeleopDrive extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final SwerveDrivetrain m_drive;
+  private final SwerveDrivetrainIO m_drive;
   private final CommandXboxController m_driverController;
 
   /**
@@ -21,7 +21,7 @@ public class SwerveTeleopDrive extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public SwerveTeleopDrive(SwerveDrivetrain subsystem, CommandXboxController controller) {
+  public SwerveTeleopDrive(SwerveDrivetrainIO subsystem, CommandXboxController controller) {
     m_drive = subsystem;
     m_driverController = controller;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -42,7 +42,7 @@ public class SwerveTeleopDrive extends CommandBase {
     x = Utils.deadBand(x);
     y = Utils.deadBand(y);
     z = Utils.deadBand(z);
-    m_drive.setModuleState(x, y, z, false);
+    m_drive.setModuleState(x, y, z);
   }
 
   // Called once the command ends or is interrupted.
