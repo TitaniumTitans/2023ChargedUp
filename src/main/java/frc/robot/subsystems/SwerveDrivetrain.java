@@ -120,13 +120,12 @@ public class SwerveDrivetrain extends SubsystemBase{
       m_brModule.setDesiredState(swerveModuleStates[3]);
 
       //Counter + logic for resetting to absolute
-      /* 
       counter++;
       if(counter == 200){
         setAbsoluteAngles();
         counter = 0;
       }
-      */
+      
   }
 
   /**

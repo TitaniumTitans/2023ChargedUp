@@ -65,13 +65,13 @@ public class SwerveModFalcon {
      */
     public void setDesiredState(SwerveModuleState state){
         SwerveModuleState desiredState = CTREModuleState.optimize(state, Rotation2d.fromDegrees(getAzimuthAngle()));
-
-        double percentOutput = desiredState.speedMetersPerSecond / ModuleConstants.kMaxSpeedMetersPerSecond * 0.2; //This is swerve max speed , figure ths out
+        // double desiredSpeed = desiredState.speedMetersPerSecond;
+        double percentOutput = desiredState.speedMetersPerSecond / ModuleConstants.kMaxSpeedMetersPerSecond; //This is swerve max speed , figure ths out
         
         double angle = Utils.degreesToFalcon(desiredState.angle.getDegrees(), ModuleConstants.kTurningRatio); 
 
         // Check to see if the module is actually moving, helps prevent additional jittering
-        if(desiredState.speedMetersPerSecond > ModuleConstants.kMaxSpeedMetersPerSecond * 0.01){        
+        if(Math.abs(desiredState.speedMetersPerSecond) > 0.01){        
             m_azimuthFx.set(ControlMode.Position, angle); 
         }
         m_driveFx.set(ControlMode.PercentOutput, percentOutput);
