@@ -23,6 +23,7 @@ public final class Constants {
         // Physical wheel constants
         public static final double kWheelDiameterMeters = Units.inchesToMeters(4.0);
         public static final double kWheelCircumference = 2 * Math.PI * (kWheelDiameterMeters / 2);
+        public static final double kMaxSpeedMetersPerSecond = Units.feetToMeters(12);
 
         // Gear ratio
         public static final double kTurningRatio = (50.0 / 14.0) * (60.0 / 10.0);
