@@ -17,7 +17,7 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.Swerve.SwerveIO.SwerveIOInputs;
 import frc.robot.subsystems.Swerve.SwerveModules.SwerveModFalcon;;
 
-public class SwerveFalconIO extends SubsystemBase implements SwerveIO{
+public class SwerveFalconIO implements SwerveIO{
   private SwerveModFalcon m_frModule; // Front Right Wheel
   private SwerveModFalcon m_flModule; // Front Left Wheel
   private SwerveModFalcon m_brModule; // Back Right Wheel
@@ -55,6 +55,7 @@ public class SwerveFalconIO extends SubsystemBase implements SwerveIO{
    * Gets the Rotation of Gyro.
    * @return Rotation of Gyro
    */
+  @Override
   public Rotation2d getGyro(){
     return Rotation2d.fromDegrees(m_gyro.getYaw());
   }
@@ -64,6 +65,7 @@ public class SwerveFalconIO extends SubsystemBase implements SwerveIO{
    * SwerveModulePositions, going from Fr, Fl, Br, Bl modules
    * @return A SwerveModulePosition
    */
+  @Override
   public SwerveModulePosition[] getModulePositions(){
     SwerveModulePosition[] modulePositions = {new SwerveModulePosition(), 
       new SwerveModulePosition(), 
@@ -83,6 +85,7 @@ public class SwerveFalconIO extends SubsystemBase implements SwerveIO{
    * SwerveModuleState objects, going from Fr, Fl, Br, Bl modules
    * @return A SwerveModuleState array
    */
+  @Override
   public SwerveModuleState[] getModuleStates(){
     SwerveModuleState[] moduleStates = {new SwerveModuleState(),
       new SwerveModuleState(),
@@ -106,7 +109,8 @@ public class SwerveFalconIO extends SubsystemBase implements SwerveIO{
    * @param zRotation Rotation
    * @param fieldRelative is it field oriented
    */
-  public void setModuleState(double xTranslation, double yTranslation, double zRotation){
+  @Override
+  public void setModuleStates(double xTranslation, double yTranslation, double zRotation, boolean fieldRelative){
     //Converts controller inputs to working chassis speeds, to working swerve module state array
     SwerveModuleState[] swerveModuleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates( 
       fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(
@@ -135,6 +139,7 @@ public class SwerveFalconIO extends SubsystemBase implements SwerveIO{
       
   }
 
+  @Override
   public void updateInputs(SwerveIOInputs inputs){
     // FR module
     inputs.frAngleDeg = m_frModule.getState().angle.getDegrees();
@@ -160,6 +165,7 @@ public class SwerveFalconIO extends SubsystemBase implements SwerveIO{
   /**
    * Matching the encoder in the Motor to the CANcoder 
    */
+  @Override
   public void setAbsoluteAngles(){
     m_frModule.resetToAbsolute();
     m_flModule.resetToAbsolute();
@@ -170,6 +176,7 @@ public class SwerveFalconIO extends SubsystemBase implements SwerveIO{
   /**
    * Resets the Rotation of Gyro
    */
+  @Override
   public void resetGyro(){
     m_gyro.setYaw(0);
   }
@@ -179,29 +186,27 @@ public class SwerveFalconIO extends SubsystemBase implements SwerveIO{
    *
    * @return a command
    */
-  public CommandBase resetGyroBase() {
+  // public CommandBase resetGyroBase() {
     // Inline construction of command goes here.
     // Subsystem::RunOnce implicitly requires `this` subsystem.
-    return runOnce(
-        () -> {
-          /* one-time action goes here */
-          resetGyro();
-        });
-  }
+  //   return runOnce(
+  //       () -> {
+  //         /* one-time action goes here */
+  //         resetGyro();
+  //       });
+  // }
 
 
-  public CommandBase toggleFieldRelative(){
-    return runOnce(
-      () -> {
-      fieldRelative = !fieldRelative;
-    });
-  }
+  // public CommandBase toggleFieldRelative(){
+  //   return runOnce(
+  //     () -> {
+  //     fieldRelative = !fieldRelative;
+  //   });
+  // }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    m_odometry.update(getGyro(), getModulePositions());
-
     SmartDashboard.putNumber("Fr Azimuth", m_frModule.getAzimuthAngle());
     SmartDashboard.putNumber("Fl Azimuth", m_flModule.getAzimuthAngle());
     SmartDashboard.putNumber("Br Azimuth", m_brModule.getAzimuthAngle());
@@ -213,10 +218,5 @@ public class SwerveFalconIO extends SubsystemBase implements SwerveIO{
     SmartDashboard.putNumber("Bl Setpoint", m_blModule.getTargetAngle());
 
     SmartDashboard.putBoolean("Field Oriented?", fieldRelative);
-  }
-
-  @Override
-  public void simulationPeriodic() {
-    // This method will be called once per scheduler run during simulation
   }
 }

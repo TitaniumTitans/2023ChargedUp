@@ -2,6 +2,10 @@ package frc.robot.subsystems.Swerve;
 
 import org.littletonrobotics.junction.AutoLog;
 
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
+import edu.wpi.first.math.kinematics.SwerveModuleState;
+
 public interface SwerveIO {
 
     @AutoLog
@@ -27,9 +31,25 @@ public interface SwerveIO {
         public double gyroPitchDeg = 0.0;
     }
 
-    public default void updateInputs(SwerveIOInputs inputs){
+    public default void updateInputs(SwerveIOInputs inputs){}
+
+    public default void setModuleStates(double xTranslation, double yTranslation, double zRotation, boolean fieldRelative){}
+
+    public default void periodic(){}
+
+    public default void setAbsoluteAngles(){}
+
+    public default SwerveModuleState[] getModuleStates(){
+        return null;
     }
 
-    public default void setModuleStates(double xTranslation, double yTranslation, double zRotation){
+    public default SwerveModulePosition[] getModulePositions(){
+        return null;
     }
+
+    public default Rotation2d getGyro(){
+        return null;
+    }
+
+    public default void resetGyro(){}
 }
