@@ -38,6 +38,7 @@ public class SwerveModFalcon {
         // Drive motor config
         m_driveFx.setNeutralMode(NeutralMode.Brake);
         m_driveFx.configOpenloopRamp(0.75);
+        m_driveFx.configNeutralDeadband(0.01);
 
         // Azimuth/turning motor config
         m_azimuthFx.configFactoryDefault();
@@ -47,6 +48,7 @@ public class SwerveModFalcon {
         m_azimuthFx.setInverted(false);
         m_azimuthFx.setSensorPhase(false);
         m_azimuthFx.configIntegratedSensorInitializationStrategy(SensorInitializationStrategy.BootToZero);
+        m_azimuthFx.configNeutralDeadband(0.01);
         
         // Encoder configuration
         m_encoder.configFactoryDefault();

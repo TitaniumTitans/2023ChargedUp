@@ -126,7 +126,7 @@ public class SwerveDrivetrain extends SubsystemBase{
 
       //Counter + logic for resetting to absolute
       counter++;
-      if(counter == 200){
+      if(counter == 200 && (xTranslation + yTranslation + zRotation) < 0.01){
         setAbsoluteAngles();
         counter = 0;
       }
