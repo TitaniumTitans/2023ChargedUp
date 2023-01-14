@@ -6,15 +6,11 @@ import com.ctre.phoenix.sensors.PigeonIMU;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants.DriveConstants;
-import frc.robot.subsystems.Swerve.SwerveIO.SwerveIOInputs;
 import frc.robot.subsystems.Swerve.SwerveModules.SwerveModFalcon;;
 
 public class SwerveFalconIO implements SwerveIO{
@@ -27,7 +23,6 @@ public class SwerveFalconIO implements SwerveIO{
   private int counter; //Counter variable for periodically resetting encoders
   private boolean fieldRelative; //Sees if it is field oriented
 
-  private SwerveDriveOdometry m_odometry;
   /** Creates a new ExampleSubsystem. */
   public SwerveFalconIO() {
     m_frModule = new SwerveModFalcon(0, DriveConstants.kModFrOffset, DriveConstants.kMod0Cans);
@@ -41,7 +36,6 @@ public class SwerveFalconIO implements SwerveIO{
     // m_blModule = new SwerveModCANCoder(3, DriveConstants.kModBlOffset, DriveConstants.kMod3Cans);
 
     m_gyro = new PigeonIMU(15);
-    m_odometry = new SwerveDriveOdometry(DriveConstants.kDriveKinematics, getGyro(), getModulePositions());
     counter = 0;
     fieldRelative = false;
   }

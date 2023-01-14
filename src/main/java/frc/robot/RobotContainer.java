@@ -23,7 +23,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
  */
 public class RobotContainer {
   //Subsystems
-  private final SwerveDrivetrain m_drive = new SwerveDrivetrain(new SwerveFalconIO());
+  private SwerveDrivetrain m_drive; 
 
   //Controllers
   private final CommandXboxController m_driveController = new CommandXboxController(Constants.driverPort);
@@ -33,6 +33,22 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+  switch (Constants.currentMode){
+    // Beta robot hardware implementation
+    case THANOS:
+      m_drive = new SwerveDrivetrain(new SwerveFalconIO());
+      break;
+    
+    case ALPHA:
+      break;
+
+    case SIM:
+      break;
+
+    // Default case, should be set to a replay mode
+    default:
+      m_drive = new SwerveDrivetrain(new SwerveFalconIO());
+  }
     // Configure the button bindings
     configureButtonBindings();
   }
