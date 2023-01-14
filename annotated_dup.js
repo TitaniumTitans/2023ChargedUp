@@ -3,10 +3,11 @@ var annotated_dup =
     [ "frc", null, [
       [ "robot", null, [
         [ "commands", null, [
-          [ "ExampleCommand", "classfrc_1_1robot_1_1commands_1_1_example_command.html", "classfrc_1_1robot_1_1commands_1_1_example_command" ]
+          [ "SwerveTeleopDrive", "classfrc_1_1robot_1_1commands_1_1_swerve_teleop_drive.html", "classfrc_1_1robot_1_1commands_1_1_swerve_teleop_drive" ]
         ] ],
         [ "subsystems", null, [
-          [ "ExampleSubsystem", "classfrc_1_1robot_1_1subsystems_1_1_example_subsystem.html", "classfrc_1_1robot_1_1subsystems_1_1_example_subsystem" ]
+          [ "SwerveDrivetrain", "classfrc_1_1robot_1_1subsystems_1_1_swerve_drivetrain.html", "classfrc_1_1robot_1_1subsystems_1_1_swerve_drivetrain" ],
+          [ "SwerveModFalcon", "classfrc_1_1robot_1_1subsystems_1_1_swerve_mod_falcon.html", "classfrc_1_1robot_1_1subsystems_1_1_swerve_mod_falcon" ]
         ] ],
         [ "Constants", "classfrc_1_1robot_1_1_constants.html", null ],
         [ "Main", "classfrc_1_1robot_1_1_main.html", null ],

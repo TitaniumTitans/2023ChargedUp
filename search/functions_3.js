@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['examplecommand_63',['ExampleCommand',['../classfrc_1_1robot_1_1commands_1_1_example_command.html#a3f5856d8cf8ab063b1e9c8de9008aebf',1,'frc::robot::commands::ExampleCommand']]],
-  ['examplesubsystem_64',['ExampleSubsystem',['../classfrc_1_1robot_1_1subsystems_1_1_example_subsystem.html#a9b7d64dd8309d6e26fd900dd3c8665b9',1,'frc::robot::subsystems::ExampleSubsystem']]]
+  ['falcontodegrees_81',['falconToDegrees',['../classlib_1_1utils_1_1_utils.html#aea6f6ae543a35f30b758575e5c090198',1,'lib::utils::Utils']]],
+  ['falcontomps_82',['falconToMPS',['../classlib_1_1utils_1_1_utils.html#ab7eafdbffac60ca395d98392461694f5',1,'lib::utils::Utils']]],
+  ['falcontorpm_83',['falconToRPM',['../classlib_1_1utils_1_1_utils.html#a142f152727eb53777c7ad8cbe64be89a',1,'lib::utils::Utils']]],
+  ['function_5ftemplate_5ftest_84',['function_template_test',['../class_my_library_1_1_subclass_example.html#a306486db0c0bcdcaff339ced71393c63',1,'MyLibrary::SubclassExample']]]
 ];
