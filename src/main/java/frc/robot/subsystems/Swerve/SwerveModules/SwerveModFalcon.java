@@ -68,7 +68,7 @@ public class SwerveModFalcon {
     public void setDesiredState(SwerveModuleState state){
         SwerveModuleState desiredState = CTREModuleState.optimize(state, Rotation2d.fromDegrees(getAzimuthAngle()));
         // double desiredSpeed = desiredState.speedMetersPerSecond;
-        double percentOutput = desiredState.speedMetersPerSecond / ModuleConstants.kMaxSpeedMetersPerSecond; //This is swerve max speed , figure ths out
+        double percentOutput = desiredState.speedMetersPerSecond; /// ModuleConstants.kMaxSpeedMetersPerSecond; //This is swerve max speed , figure ths out
         
         double angle = Utils.degreesToFalcon(desiredState.angle.getDegrees(), ModuleConstants.kTurningRatio); 
 
