@@ -43,10 +43,10 @@ public final class Constants {
         public static final int kGyroCan = 15;
 
         //Thanos Offsets
-        public static final double kModFrOffset = 160.400;//360 - 160.400;
-        public static final double kModFlOffset = 215.508;//360 - 215.508;
-        public static final double kModBlOffset = 105.820;//360 - 105.820;
-        public static final double kModBrOffset = 97.119;//360 - 97.119;
+        public static final double kModFrOffset = currentMode == Mode.THANOS ? 160.400 : 357.803;//360 - 160.400;
+        public static final double kModFlOffset = currentMode == Mode.THANOS ? 215.508 : 349.629;//360 - 215.508;
+        public static final double kModBlOffset = currentMode == Mode.THANOS ? 105.820 : 180 + 46.143;//360 - 105.820; 70.488
+        public static final double kModBrOffset = currentMode == Mode.THANOS ? 97.119 : 180 + 70.488;//360 - 97.119;
         // Competition Offsets
         // TODO competition offsets
 
@@ -64,7 +64,7 @@ public final class Constants {
         new Translation2d(-kWheelBase / 2, -kTrackWidth / 2));
     }
 
-    public static final Mode currentMode = Mode.THANOS;
+    public static final Mode currentMode = Mode.ALPHA;
     public static final int driverPort = 0;
 
     public static enum Mode {
