@@ -1,4 +1,4 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems.Swerve;
 
 //Imports
 //import com.ctre.phoenix.sensors.Pigeon2;
@@ -6,16 +6,14 @@ import com.ctre.phoenix.sensors.PigeonIMU;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-import frc.robot.Constants.DriveConstants;;
+import frc.robot.Constants.DriveConstants;
+import frc.robot.subsystems.Swerve.SwerveModules.SwerveModFalcon;;
 
-public class SwerveDrivetrain extends SubsystemBase{
+public class SwerveFalconIO implements SwerveIO{
   private SwerveModFalcon m_frModule; // Front Right Wheel
   private SwerveModFalcon m_flModule; // Front Left Wheel
   private SwerveModFalcon m_brModule; // Back Right Wheel
@@ -25,9 +23,8 @@ public class SwerveDrivetrain extends SubsystemBase{
   private int counter; //Counter variable for periodically resetting encoders
   private boolean fieldRelative; //Sees if it is field oriented
 
-  private SwerveDriveOdometry m_odometry;
   /** Creates a new ExampleSubsystem. */
-  public SwerveDrivetrain() {
+  public SwerveFalconIO() {
     m_frModule = new SwerveModFalcon(0, DriveConstants.kModFrOffset, DriveConstants.kMod0Cans);
     m_flModule = new SwerveModFalcon(1, DriveConstants.kModFlOffset, DriveConstants.kMod1Cans);
     m_brModule = new SwerveModFalcon(2, DriveConstants.kModBrOffset, DriveConstants.kMod2Cans);
@@ -39,7 +36,6 @@ public class SwerveDrivetrain extends SubsystemBase{
     // m_blModule = new SwerveModCANCoder(3, DriveConstants.kModBlOffset, DriveConstants.kMod3Cans);
 
     m_gyro = new PigeonIMU(15);
-    m_odometry = new SwerveDriveOdometry(DriveConstants.kDriveKinematics, getGyro(), getModulePositions());
     counter = 0;
     fieldRelative = false;
   }
@@ -53,6 +49,7 @@ public class SwerveDrivetrain extends SubsystemBase{
    * Gets the Rotation of Gyro.
    * @return Rotation of Gyro
    */
+  @Override
   public Rotation2d getGyro(){
     return Rotation2d.fromDegrees(m_gyro.getYaw());
   }
@@ -62,6 +59,7 @@ public class SwerveDrivetrain extends SubsystemBase{
    * SwerveModulePositions, going from Fr, Fl, Br, Bl modules
    * @return A SwerveModulePosition
    */
+  @Override
   public SwerveModulePosition[] getModulePositions(){
     SwerveModulePosition[] modulePositions = {new SwerveModulePosition(), 
       new SwerveModulePosition(), 
@@ -81,6 +79,7 @@ public class SwerveDrivetrain extends SubsystemBase{
    * SwerveModuleState objects, going from Fr, Fl, Br, Bl modules
    * @return A SwerveModuleState array
    */
+  @Override
   public SwerveModuleState[] getModuleStates(){
     SwerveModuleState[] moduleStates = {new SwerveModuleState(),
       new SwerveModuleState(),
@@ -104,7 +103,8 @@ public class SwerveDrivetrain extends SubsystemBase{
    * @param zRotation Rotation
    * @param fieldRelative is it field oriented
    */
-  public void setModuleState(double xTranslation, double yTranslation, double zRotation, boolean fieldRelative){
+  @Override
+  public void setModuleStates(double xTranslation, double yTranslation, double zRotation, boolean fieldRelative){
     //Converts controller inputs to working chassis speeds, to working swerve module state array
     SwerveModuleState[] swerveModuleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates( 
       fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(
@@ -133,9 +133,33 @@ public class SwerveDrivetrain extends SubsystemBase{
       
   }
 
+  @Override
+  public void updateInputs(SwerveIOInputs inputs){
+    // FR module
+    inputs.frAngleDeg = m_frModule.getState().angle.getDegrees();
+    inputs.frDriveSpeedMPS = m_frModule.getState().speedMetersPerSecond;
+
+    // FL module
+    inputs.flAngleDeg = m_flModule.getState().angle.getDegrees();
+    inputs.flDriveSpeedMPS = m_flModule.getState().speedMetersPerSecond;
+
+    // BL module
+    inputs.blAngleDeg = m_blModule.getState().angle.getDegrees();
+    inputs.blDriveSpeedMPS = m_blModule.getState().speedMetersPerSecond;
+
+    // BR module
+    inputs.brAngleDeg = m_brModule.getState().angle.getDegrees();
+    inputs.brDriveSpeedMPS = m_brModule.getState().speedMetersPerSecond;
+
+    // Gyro values
+    inputs.gyroPitchDeg = m_gyro.getPitch();
+    inputs.gyroYawDeg = m_gyro.getYaw();
+  }
+
   /**
    * Matching the encoder in the Motor to the CANcoder 
    */
+  @Override
   public void setAbsoluteAngles(){
     m_frModule.resetToAbsolute();
     m_flModule.resetToAbsolute();
@@ -146,6 +170,7 @@ public class SwerveDrivetrain extends SubsystemBase{
   /**
    * Resets the Rotation of Gyro
    */
+  @Override
   public void resetGyro(){
     m_gyro.setYaw(0);
   }
@@ -155,29 +180,27 @@ public class SwerveDrivetrain extends SubsystemBase{
    *
    * @return a command
    */
-  public CommandBase resetGyroBase() {
+  // public CommandBase resetGyroBase() {
     // Inline construction of command goes here.
     // Subsystem::RunOnce implicitly requires `this` subsystem.
-    return runOnce(
-        () -> {
-          /* one-time action goes here */
-          resetGyro();
-        });
-  }
+  //   return runOnce(
+  //       () -> {
+  //         /* one-time action goes here */
+  //         resetGyro();
+  //       });
+  // }
 
 
-  public CommandBase toggleFieldRelative(){
-    return runOnce(
-      () -> {
-      fieldRelative = !fieldRelative;
-    });
-  }
+  // public CommandBase toggleFieldRelative(){
+  //   return runOnce(
+  //     () -> {
+  //     fieldRelative = !fieldRelative;
+  //   });
+  // }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    m_odometry.update(getGyro(), getModulePositions());
-
     SmartDashboard.putNumber("Fr Azimuth", m_frModule.getAzimuthAngle());
     SmartDashboard.putNumber("Fl Azimuth", m_flModule.getAzimuthAngle());
     SmartDashboard.putNumber("Br Azimuth", m_brModule.getAzimuthAngle());
@@ -189,10 +212,5 @@ public class SwerveDrivetrain extends SubsystemBase{
     SmartDashboard.putNumber("Bl Setpoint", m_blModule.getTargetAngle());
 
     SmartDashboard.putBoolean("Field Oriented?", fieldRelative);
-  }
-
-  @Override
-  public void simulationPeriodic() {
-    // This method will be called once per scheduler run during simulation
   }
 }

@@ -64,12 +64,15 @@ public final class Constants {
         new Translation2d(-kWheelBase / 2, -kTrackWidth / 2));
     }
 
-    public static final Mode currentMode = Mode.REAL;
+    public static final Mode currentMode = Mode.THANOS;
     public static final int driverPort = 0;
 
     public static enum Mode {
-        /** Running on a real robot. */
-        REAL,
+        /** Running on the test bot */
+        THANOS,
+
+        /**Running on the competition bot */
+        ALPHA,
 
         /** Running a physics simulator */
         SIM,
