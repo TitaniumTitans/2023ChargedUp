@@ -23,7 +23,7 @@ public final class Constants {
         // Physical wheel constants
         public static final double kWheelDiameterMeters = Units.inchesToMeters(4.0);
         public static final double kWheelCircumference = 2 * Math.PI * (kWheelDiameterMeters / 2);
-        public static final double kMaxSpeedMetersPerSecond = Units.feetToMeters(12);
+        public static final double kMaxSpeedMetersPerSecond = Units.feetToMeters(120);
 
         // Gear ratio
         public static final double kTurningRatio = (50.0 / 14.0) * (60.0 / 10.0);
@@ -43,10 +43,10 @@ public final class Constants {
         public static final int kGyroCan = 15;
 
         //Thanos Offsets
-        public static final double kModFrOffset = currentMode == Mode.THANOS ? 160.400 : 357.803;//360 - 160.400;
-        public static final double kModFlOffset = currentMode == Mode.THANOS ? 215.508 : 349.629;//360 - 215.508;
-        public static final double kModBlOffset = currentMode == Mode.THANOS ? 105.820 : 180 + 46.143;//360 - 105.820; 70.488
-        public static final double kModBrOffset = currentMode == Mode.THANOS ? 97.119 : 180 + 70.488;//360 - 97.119;
+        public static final double kMod0Offset = currentMode == Mode.THANOS ? 160.400 : 357.803;//360 - 160.400;
+        public static final double kMod1Offset = currentMode == Mode.THANOS ? 215.508 : 349.629;//360 - 215.508;
+        public static final double kMod3Offset = currentMode == Mode.THANOS ? 96.943 : 180 + 46.143;//360 - 105.820; 70.488
+        public static final double kMod2Offset = currentMode == Mode.THANOS ? 105.381 : 180 + 70.488;//360 - 97.119; 96.943
         // Competition Offsets
         // TODO competition offsets
 
@@ -64,7 +64,7 @@ public final class Constants {
         new Translation2d(-kWheelBase / 2, -kTrackWidth / 2));
     }
 
-    public static final Mode currentMode = Mode.ALPHA;
+    public static final Mode currentMode = Mode.THANOS;
     public static final int driverPort = 0;
 
     public static enum Mode {
