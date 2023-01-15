@@ -13,14 +13,17 @@ var hierarchy =
     [ "frc.robot.Main", "classfrc_1_1robot_1_1_main.html", null ],
     [ "frc.robot.RobotContainer", "classfrc_1_1robot_1_1_robot_container.html", null ],
     [ "lib.utils.Swerve.SwerveAzimuthFactoy", "classlib_1_1utils_1_1_swerve_1_1_swerve_azimuth_factoy.html", null ],
-    [ "frc.robot.subsystems.SwerveModCANCoder", "classfrc_1_1robot_1_1subsystems_1_1_swerve_mod_c_a_n_coder.html", null ],
-    [ "frc.robot.subsystems.SwerveModFalcon", "classfrc_1_1robot_1_1subsystems_1_1_swerve_mod_falcon.html", null ],
+    [ "frc.robot.subsystems.Swerve.SwerveIO", "interfacefrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_i_o.html", [
+      [ "frc.robot.subsystems.Swerve.SwerveFalconIO", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_falcon_i_o.html", null ]
+    ] ],
+    [ "frc.robot.subsystems.Swerve.SwerveModules.SwerveModCANCoder", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_modules_1_1_swerve_mod_c_a_n_coder.html", null ],
+    [ "frc.robot.subsystems.Swerve.SwerveModules.SwerveModFalcon", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_modules_1_1_swerve_mod_falcon.html", null ],
     [ "lib.utils.drivers.TalonEnhanced", "classlib_1_1utils_1_1drivers_1_1_talon_enhanced.html", null ],
     [ "lib.utils.Utils", "classlib_1_1utils_1_1_utils.html", null ],
     [ "CommandBase", null, [
       [ "frc.robot.commands.SwerveTeleopDrive", "classfrc_1_1robot_1_1commands_1_1_swerve_teleop_drive.html", null ]
     ] ],
     [ "SubsystemBase", null, [
-      [ "frc.robot.subsystems.SwerveDrivetrain", "classfrc_1_1robot_1_1subsystems_1_1_swerve_drivetrain.html", null ]
+      [ "frc.robot.subsystems.Swerve.SwerveDrivetrain", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_drivetrain.html", null ]
     ] ]
 ];
