@@ -33,7 +33,9 @@ public interface SwerveIO {
 
     public default void updateInputs(SwerveIOInputs inputs){}
 
-    public default void setModuleStates(double xTranslation, double yTranslation, double zRotation, boolean fieldRelative){}
+    public default void drive(double xTranslation, double yTranslation, double zRotation, boolean fieldRelative){}
+
+    public default void setModuleStates(SwerveModuleState[] states){}
 
     public default void periodic(){}
 

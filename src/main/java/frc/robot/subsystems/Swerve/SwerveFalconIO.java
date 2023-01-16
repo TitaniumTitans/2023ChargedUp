@@ -104,7 +104,7 @@ public class SwerveFalconIO implements SwerveIO{
    * @param fieldRelative is it field oriented
    */
   @Override
-  public void setModuleStates(double xTranslation, double yTranslation, double zRotation, boolean fieldRelative){
+  public void drive(double xTranslation, double yTranslation, double zRotation, boolean fieldRelative){
     //Converts controller inputs to working chassis speeds, to working swerve module state array
     SwerveModuleState[] swerveModuleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates( 
       fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(
@@ -131,6 +131,14 @@ public class SwerveFalconIO implements SwerveIO{
         counter = 0;
       }
       
+  }
+
+  @Override
+  public void setModuleStates(SwerveModuleState[] states){
+    m_frModule.setDesiredState(states[0]);
+    m_flModule.setDesiredState(states[1]);
+    m_blModule.setDesiredState(states[2]);
+    m_brModule.setDesiredState(states[3]);
   }
 
   @Override
