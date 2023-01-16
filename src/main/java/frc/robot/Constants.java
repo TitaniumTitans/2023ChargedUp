@@ -70,18 +70,18 @@ public final class Constants {
     }
 
     public static final class AutoConstants{
-        public static final double kMaxVelocityMPS = 0.0;
-        public static final double kMaxAccelerationMPS = 0.0;
+        public static final double kMaxVelocityMPS = 5.0;
+        public static final double kMaxAccelerationMPS = 5.0;
 
-        public static final double kThetaP  = 0.0;
-        public static final double kXP = 0.0;
-        public static final double kYP = 0.0;
+        public static final double kThetaP  = 0.2;
+        public static final double kXP = 0.3;
+        public static final double kYP = 0.3;
 
         public static final PIDController kControllerX = new PIDController(kXP, 0.0, 0.0);
         public static final PIDController kControllerY = new PIDController(kYP, 0.0, 0.0);
 
-        public static final double kMaxThetaVelocity = 0.0;
-        public static final double kMaxThetaAcceleration = 0.0;
+        public static final double kMaxThetaVelocity = 5.0;
+        public static final double kMaxThetaAcceleration = 5.0;
         public static final TrapezoidProfile.Constraints kThetaConstraints = 
             new TrapezoidProfile.Constraints(kMaxThetaVelocity, kMaxThetaAcceleration);
 
