@@ -83,6 +83,12 @@ public class SwerveDrivetrain extends SubsystemBase {
     SmartDashboard.putNumber("Gyro", getGyro().getDegrees());
     SmartDashboard.putData("Field", m_field);
 
+    boolean resetPose = SmartDashboard.getBoolean("Reset Pose?", false);
+
+    if(resetPose){
+      resetPose();
+    }
+
   }
 
   public CommandBase resetGyroBase(){
@@ -99,5 +105,9 @@ public class SwerveDrivetrain extends SubsystemBase {
 
   public void resetPose(Pose2d pose){
     m_odometry.resetPosition(getGyro(), getModulePostitions(), pose);
+  }
+
+  public void resetPose(){
+    resetPose(new Pose2d());
   }
 }
