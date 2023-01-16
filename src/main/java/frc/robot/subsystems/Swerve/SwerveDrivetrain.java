@@ -22,7 +22,7 @@ public class SwerveDrivetrain extends SubsystemBase {
   private SwerveIO m_io;
   private SwerveDriveOdometry m_odometry;
   private SwerveIOInputsAutoLogged inputs;
-  private Field2d m_field;
+  private final  Field2d m_field;
 
   private boolean fieldRelative;
   /** Creates a new SwerveDrivetrain. */
@@ -35,6 +35,8 @@ public class SwerveDrivetrain extends SubsystemBase {
     inputs = new SwerveIOInputsAutoLogged();
     
     fieldRelative = false;
+    m_field = new Field2d();
+    SmartDashboard.putData("Field", m_field);
   }
 
   public Rotation2d getGyro(){
@@ -81,7 +83,7 @@ public class SwerveDrivetrain extends SubsystemBase {
 
     SmartDashboard.putBoolean("Field Relative", fieldRelative);
     SmartDashboard.putNumber("Gyro", getGyro().getDegrees());
-    SmartDashboard.putData("Field", m_field);
+    SmartDashboard.putData("field", m_field);
 
     boolean resetPose = SmartDashboard.getBoolean("Reset Pose?", false);
 

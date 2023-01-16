@@ -66,10 +66,10 @@ public class SwerveFalconIO implements SwerveIO{
       new SwerveModulePosition(), 
       new SwerveModulePosition()};
 
-    modulePositions[0] = m_frModule.getPosition();
-    modulePositions[1] = m_flModule.getPosition();
-    modulePositions[2] = m_brModule.getPosition();
-    modulePositions[3] = m_blModule.getPosition();
+    modulePositions[0] = m_flModule.getPosition();
+    modulePositions[1] = m_frModule.getPosition();
+    modulePositions[2] = m_blModule.getPosition();
+    modulePositions[3] = m_brModule.getPosition();
 
     return modulePositions;
   }
