@@ -14,6 +14,7 @@ import com.ctre.phoenix.sensors.SensorInitializationStrategy;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class SwerveModFalcon {
     // Physical motors/sensors
@@ -68,8 +69,10 @@ public class SwerveModFalcon {
     public void setDesiredState(SwerveModuleState state){
         SwerveModuleState desiredState = CTREModuleState.optimize(state, Rotation2d.fromDegrees(getAzimuthAngle()));
         // double desiredSpeed = desiredState.speedMetersPerSecond;
-        double percentOutput = desiredState.speedMetersPerSecond / ModuleConstants.kMaxSpeedMetersPerSecond; //This is swerve max speed , figure ths out
-        
+        double percentOutput = desiredState.speedMetersPerSecond; /// ModuleConstants.kMaxSpeedMetersPerSecond; //This is swerve max speed , figure ths out
+
+        SmartDashboard.putNumber("Drive Power", percentOutput);
+
         double angle = Utils.degreesToFalcon(desiredState.angle.getDegrees(), ModuleConstants.kTurningRatio); 
 
         // Check to see if the module is actually moving, helps prevent additional jittering

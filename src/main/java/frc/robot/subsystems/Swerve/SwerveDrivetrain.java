@@ -10,6 +10,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
@@ -63,6 +64,10 @@ public class SwerveDrivetrain extends SubsystemBase {
 
     m_io.updateInputs(inputs);
     Logger.getInstance().processInputs("Drive", inputs);
+
+    SmartDashboard.putBoolean("Field Relative", fieldRelative);
+    SmartDashboard.putNumber("Gyro", getGyro().getDegrees());
+
   }
 
   public CommandBase resetGyroBase(){

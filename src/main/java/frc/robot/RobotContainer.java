@@ -40,6 +40,7 @@ public class RobotContainer {
       break;
     
     case ALPHA:
+      m_drive = new SwerveDrivetrain(new SwerveFalconIO());
       break;
 
     case SIM:
@@ -62,8 +63,8 @@ public class RobotContainer {
   private void configureButtonBindings() {
     m_drive.setDefaultCommand(new SwerveTeleopDrive(m_drive, m_driveController));
 
-    m_driveController.start().onTrue(m_drive.resetGyroBase());
-    m_driveController.button(9).onTrue(m_drive.toggleFieldRelative());
+    m_driveController.button(7).onTrue(m_drive.resetGyroBase());
+    m_driveController.button(8).onTrue(m_drive.toggleFieldRelative());
   }
 
   /**
