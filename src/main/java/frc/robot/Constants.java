@@ -32,6 +32,7 @@ public final class Constants {
         // PID constants
         public static final double kModuleKp = 0.16;
         public static final double kModuleKd = 3;
+        public static final double kPositionConversionFactor = (Math.PI * 2) / kTurningRatio;
     }
 
     public static final class DriveConstants{
