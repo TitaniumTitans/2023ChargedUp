@@ -27,17 +27,17 @@ public class SwerveNeoIO implements SwerveIO{
     private Field2d m_field;
 
     public SwerveNeoIO(){
-        m_flMod = new SwerveModNeo(0, DriveConstants.kMod0Offset, DriveConstants.kMod0Cans, false);
-        m_frMod = new SwerveModNeo(1, DriveConstants.kMod1Offset, DriveConstants.kMod1Cans, false);
-        m_blMod = new SwerveModNeo(2, DriveConstants.kMod2Offset, DriveConstants.kMod2Cans, false);
-        m_brMod = new SwerveModNeo(3, DriveConstants.kMod3Offset, DriveConstants.kMod3Cans, false);
+        m_flMod = new SwerveModNeo(0, DriveConstants.kModFlOffset, DriveConstants.kModFlCans, false);
+        m_frMod = new SwerveModNeo(1, DriveConstants.kModFrOffset, DriveConstants.kModFrCans, false);
+        m_blMod = new SwerveModNeo(2, DriveConstants.kModBlOffset, DriveConstants.kModBlCans, false);
+        m_brMod = new SwerveModNeo(3, DriveConstants.kModBrOffset, DriveConstants.kModBrCans, false);
         m_modules = new SwerveModNeo[] {m_flMod, m_frMod, m_blMod, m_brMod};
 
         m_gyro = new PigeonIMU(DriveConstants.kGyroCan);
 
         m_odometry = new SwerveDriveOdometry(DriveConstants.kDriveKinematics, getGyroYaw(), getModulePositions());
         m_field = new Field2d();
-        SmartDashboard.putData("Field", m_field);
+        // SmartDashboard.putData("Field", m_field);
     }
 
     // Getters
@@ -45,9 +45,10 @@ public class SwerveNeoIO implements SwerveIO{
     public SwerveModulePosition[] getModulePositions(){
         SwerveModulePosition[] modPos = new SwerveModulePosition[4];
 
-        for(int i = 0; i <= m_modules.length; i++){
-            modPos[i] = m_modules[i].getPosition();
-        }
+        modPos[0] = m_flMod.getPosition();
+        modPos[1] = m_frMod.getPosition();
+        modPos[2] = m_blMod.getPosition();
+        modPos[3] = m_brMod.getPosition();
 
     return modPos;
     }
@@ -82,12 +83,13 @@ public class SwerveNeoIO implements SwerveIO{
                 yTranslation,
                 zRotation
             ));
+
     setModuleStates(states);
     }
 
     public void setModuleStates(SwerveModuleState[] states){
-        m_flMod.setDesiredState(states[0]);
-        m_frMod.setDesiredState(states[1]);
+        m_flMod.setDesiredState(states[1]);
+        m_frMod.setDesiredState(states[0]);
         m_blMod.setDesiredState(states[2]);
         m_brMod.setDesiredState(states[3]);
     }
@@ -120,8 +122,9 @@ public class SwerveNeoIO implements SwerveIO{
 
     @Override
     public void periodic(){
-        m_odometry.update(Rotation2d.fromDegrees(m_gyro.getYaw()), getModulePositions());
-        m_field.setRobotPose(m_odometry.getPoseMeters());
+        // m_odometry.update(Rotation2d.fromDegrees(m_gyro.getYaw()), getModulePositions());
+        // m_field.setRobotPose(m_odometry.getPoseMeters());
+        // SmartDashboard.putData("Field", m_field);
     }
     
 }
