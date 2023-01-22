@@ -90,8 +90,8 @@ public class SwerveNeoIO implements SwerveIO{
     public void setModuleStates(SwerveModuleState[] states){
         m_flMod.setDesiredState(states[1]);
         m_frMod.setDesiredState(states[0]);
-        m_blMod.setDesiredState(states[2]);
-        m_brMod.setDesiredState(states[3]);
+        m_blMod.setDesiredState(states[3]);
+        m_brMod.setDesiredState(states[2]);
     }
 
     @Override
