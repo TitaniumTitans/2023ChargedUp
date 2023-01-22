@@ -25,7 +25,7 @@ public class SwerveDrivetrain extends SubsystemBase {
   public SwerveDrivetrain(SwerveIO io) {
     m_io = io;
     m_odometry = new SwerveDriveOdometry(DriveConstants.kDriveKinematics, 
-      m_io.getGyro(), 
+      m_io.getGyroYaw(), 
       m_io.getModulePositions());
 
     inputs = new SwerveIOInputsAutoLogged();
@@ -33,8 +33,8 @@ public class SwerveDrivetrain extends SubsystemBase {
     fieldRelative = false;
   }
 
-  public Rotation2d getGyro(){
-    return m_io.getGyro();
+  public Rotation2d getGyroYaw(){
+    return m_io.getGyroYaw();
   }
 
   public SwerveModulePosition[] getModulePostitions(){
@@ -60,13 +60,13 @@ public class SwerveDrivetrain extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    m_odometry.update(m_io.getGyro(), m_io.getModulePositions());
+    m_odometry.update(m_io.getGyroYaw(), m_io.getModulePositions());
 
     m_io.updateInputs(inputs);
     Logger.getInstance().processInputs("Drive", inputs);
 
     SmartDashboard.putBoolean("Field Relative", fieldRelative);
-    SmartDashboard.putNumber("Gyro", getGyro().getDegrees());
+    SmartDashboard.putNumber("Gyro", getGyroYaw().getDegrees());
 
   }
 

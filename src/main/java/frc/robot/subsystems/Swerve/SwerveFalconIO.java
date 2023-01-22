@@ -50,7 +50,7 @@ public class SwerveFalconIO implements SwerveIO{
    * @return Rotation of Gyro
    */
   @Override
-  public Rotation2d getGyro(){
+  public Rotation2d getGyroYaw(){
     return Rotation2d.fromDegrees(m_gyro.getYaw() * -1);
   }
 
@@ -111,7 +111,7 @@ public class SwerveFalconIO implements SwerveIO{
       xTranslation, 
       yTranslation, 
       zRotation, 
-      getGyro()
+      getGyroYaw()
   )
   : new ChassisSpeeds(
       xTranslation, 

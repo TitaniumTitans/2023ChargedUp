@@ -47,7 +47,7 @@ public interface SwerveIO {
         return null;
     }
 
-    public default Rotation2d getGyro(){
+    public default Rotation2d getGyroYaw(){
         return null;
     }
 
