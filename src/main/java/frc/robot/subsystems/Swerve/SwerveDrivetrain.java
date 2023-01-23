@@ -6,6 +6,7 @@ package frc.robot.subsystems.Swerve;
 
 import org.littletonrobotics.junction.Logger;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
@@ -50,8 +51,12 @@ public class SwerveDrivetrain extends SubsystemBase {
     return m_io.getModuleStates();
   }
 
-  public void setModuleStates(double xTranslation, double yTranslation, double zRotation){
+  public void drive(double xTranslation, double yTranslation, double zRotation){
     m_io.setModuleStates(xTranslation, yTranslation, zRotation, fieldRelative);
+  }
+
+  public void setModuleStates(SwerveModuleState[] states){
+    m_io.setModuleStates(states);
   }
 
   public void setAbsoluteAngles(){
@@ -60,6 +65,18 @@ public class SwerveDrivetrain extends SubsystemBase {
 
   public void resetGyro(){
     m_io.resetGyro();
+  }
+
+  public Pose2d getPose(){
+    return m_odometry.getPoseMeters();
+  }
+
+  public void setPose(Pose2d pose){
+    m_odometry.resetPosition(getGyroYaw(), getModulePostitions(), pose);
+  }
+
+  public void resetPose(){
+    setPose(new Pose2d());
   }
 
   @Override

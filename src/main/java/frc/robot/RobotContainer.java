@@ -9,6 +9,7 @@ import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.SwerveTeleopDrive;
+import frc.robot.commands.Autonomous.AutoUtils;
 import frc.robot.subsystems.Swerve.SwerveDrivetrain;
 import frc.robot.subsystems.Swerve.SwerveFalconIO;
 import frc.robot.subsystems.Swerve.SwerveNeoIO;
@@ -53,6 +54,7 @@ public class RobotContainer {
   }
     // Configure the button bindings
     configureButtonBindings();
+    configAutoChooser();
   }
 
   /**
@@ -72,7 +74,7 @@ public class RobotContainer {
    * Use this method to add autonomous routines to a sendable chooser
    */
   public void configAutoChooser(){
-    autoChooser.addDefaultOption("Option 1", new InstantCommand());
+    autoChooser.addDefaultOption("Default Trajectory", AutoUtils.getDefaultTrajectory(m_drive));
     autoChooser.addOption("Option 2", new InstantCommand());
   }
 

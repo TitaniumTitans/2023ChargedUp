@@ -4,8 +4,11 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 import edu.wpi.first.math.util.Units;
 
 /**
@@ -63,6 +66,23 @@ public final class Constants {
         new Translation2d(kWheelBase / 2, -kTrackWidth / 2),
         new Translation2d(-kWheelBase / 2, kTrackWidth / 2),
         new Translation2d(-kWheelBase / 2, -kTrackWidth / 2));
+    }
+
+    public static class AutoConstants{
+        public static final double kMaxVelocityMPS = 0.5;
+        public static final double kMaxAccerlerationMPS = 0.5;
+
+        public static final Constraints kThetaConstraints = 
+            new Constraints(kMaxVelocityMPS, kMaxAccerlerationMPS);
+
+        public static final ProfiledPIDController kThetaController = 
+            new ProfiledPIDController(0.0, 0.0, 0.0, kThetaConstraints);
+        
+        public static final PIDController kXController =
+            new PIDController(0.00001, 0, 0);
+        public static final PIDController kYController =
+            new PIDController(0, 0, 0);
+            
     }
 
     public static final Mode currentMode = Mode.THANOS;
