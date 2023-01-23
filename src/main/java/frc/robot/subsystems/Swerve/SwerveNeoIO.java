@@ -19,24 +19,24 @@ public class SwerveNeoIO implements SwerveIO{
     private SwerveModNeo m_flMod;
     private SwerveModNeo m_blMod;
     private SwerveModNeo m_brMod;
-    private SwerveModNeo[] m_modules;
+    // private SwerveModNeo[] m_modules;
 
     private PigeonIMU m_gyro;
-    private SwerveDriveOdometry m_odometry;
+    // private SwerveDriveOdometry m_odometry;
 
-    private Field2d m_field;
+    // private Field2d m_field;
 
     public SwerveNeoIO(){
         m_flMod = new SwerveModNeo(0, DriveConstants.kModFlOffset, DriveConstants.kModFlCans, false);
         m_frMod = new SwerveModNeo(1, DriveConstants.kModFrOffset, DriveConstants.kModFrCans, false);
         m_blMod = new SwerveModNeo(2, DriveConstants.kModBlOffset, DriveConstants.kModBlCans, false);
         m_brMod = new SwerveModNeo(3, DriveConstants.kModBrOffset, DriveConstants.kModBrCans, false);
-        m_modules = new SwerveModNeo[] {m_flMod, m_frMod, m_blMod, m_brMod};
+        // m_modules = new SwerveModNeo[] {m_flMod, m_frMod, m_blMod, m_brMod};
 
         m_gyro = new PigeonIMU(DriveConstants.kGyroCan);
 
-        m_odometry = new SwerveDriveOdometry(DriveConstants.kDriveKinematics, getGyroYaw(), getModulePositions());
-        m_field = new Field2d();
+        // m_odometry = new SwerveDriveOdometry(DriveConstants.kDriveKinematics, getGyroYaw(), getModulePositions());
+        // m_field = new Field2d();
         // SmartDashboard.putData("Field", m_field);
     }
 
@@ -87,11 +87,12 @@ public class SwerveNeoIO implements SwerveIO{
     setModuleStates(states);
     }
 
+    @Override
     public void setModuleStates(SwerveModuleState[] states){
-        m_flMod.setDesiredState(states[1]);
-        m_frMod.setDesiredState(states[0]);
-        m_blMod.setDesiredState(states[3]);
-        m_brMod.setDesiredState(states[2]);
+        m_flMod.setDesiredState(states[0]);
+        m_frMod.setDesiredState(states[1]);
+        m_blMod.setDesiredState(states[2]);
+        m_brMod.setDesiredState(states[3]);
     }
 
     @Override
