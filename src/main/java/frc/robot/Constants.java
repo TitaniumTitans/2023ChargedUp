@@ -44,10 +44,10 @@ public final class Constants {
         public static final int kGyroCan = 15;
 
         //Thanos Offsets
-        public static final double kModFrOffset = currentMode == Mode.THANOS ? 180 + 74.0 : 357.803;//360 - 160.400;
-        public static final double kModFlOffset = currentMode == Mode.THANOS ? 264.3 : 349.629;//360 - 215.508;
-        public static final double kModBrOffset = currentMode == Mode.THANOS ? 149.6 : 180 + 46.143;//360 - 105.820; 70.488
-        public static final double kModBlOffset = currentMode == Mode.THANOS ? 198.2 : 180 + 70.488;//360 - 97.119; 96.943 149.6
+        public static final double kModFrOffset = currentMode == Mode.THANOS ? 198.8: 357.803;//360 - 160.400;
+        public static final double kModFlOffset = currentMode == Mode.THANOS ? 145.9 : 349.629;//360 - 215.508;
+        public static final double kModBrOffset = currentMode == Mode.THANOS ? 263.1 : 180 + 46.143;//360 - 105.820; 70.488
+        public static final double kModBlOffset = currentMode == Mode.THANOS ? 254.1 : 180 + 70.488;//360 - 97.119; 96.943 149.6
         // Competition Offsets
         // TODO competition offsets
 
