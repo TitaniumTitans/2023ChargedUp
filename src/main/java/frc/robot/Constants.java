@@ -4,9 +4,14 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj2.command.ProfiledPIDCommand;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -63,6 +68,26 @@ public final class Constants {
         new Translation2d(kWheelBase / 2, -kTrackWidth / 2),
         new Translation2d(-kWheelBase / 2, kTrackWidth / 2),
         new Translation2d(-kWheelBase / 2, -kTrackWidth / 2));
+    }
+
+    public static final class AutoConstants{
+        public static final double kMaxVelocityMPS = 5.0;
+        public static final double kMaxAccelerationMPS = 5.0;
+
+        public static final double kThetaP  = 0.2;
+        public static final double kXP = 0.3;
+        public static final double kYP = 0.3;
+
+        public static final PIDController kControllerX = new PIDController(kXP, 0.0, 0.0);
+        public static final PIDController kControllerY = new PIDController(kYP, 0.0, 0.0);
+
+        public static final double kMaxThetaVelocity = 5.0;
+        public static final double kMaxThetaAcceleration = 5.0;
+        public static final TrapezoidProfile.Constraints kThetaConstraints = 
+            new TrapezoidProfile.Constraints(kMaxThetaVelocity, kMaxThetaAcceleration);
+
+        public static final ProfiledPIDController kThetaController =
+            new ProfiledPIDController(kThetaP, 0.0, 0.0, kThetaConstraints);
     }
 
     public static final Mode currentMode = Mode.THANOS;

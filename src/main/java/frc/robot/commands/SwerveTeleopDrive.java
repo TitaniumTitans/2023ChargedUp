@@ -42,7 +42,7 @@ public class SwerveTeleopDrive extends CommandBase {
     x = Utils.deadBand(x);
     y = Utils.deadBand(y);
     z = Utils.deadBand(z);
-    m_drive.setModuleStates(x, y, z);
+    m_drive.drive(x, y, z);
   }
 
   // Called once the command ends or is interrupted.
