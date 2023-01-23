@@ -10,6 +10,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -19,22 +20,26 @@ public class SwerveDrivetrain extends SubsystemBase {
   private SwerveIO m_io;
   private SwerveDriveOdometry m_odometry;
   private SwerveIOInputsAutoLogged inputs;
+  private Field2d m_field;
 
   private boolean fieldRelative;
   /** Creates a new SwerveDrivetrain. */
   public SwerveDrivetrain(SwerveIO io) {
     m_io = io;
     m_odometry = new SwerveDriveOdometry(DriveConstants.kDriveKinematics, 
-      m_io.getGyro(), 
+      m_io.getGyroYaw(), 
       m_io.getModulePositions());
 
     inputs = new SwerveIOInputsAutoLogged();
+
+    m_field = new Field2d();
+    SmartDashboard.putData("Field", m_field);
     
     fieldRelative = false;
   }
 
-  public Rotation2d getGyro(){
-    return m_io.getGyro();
+  public Rotation2d getGyroYaw(){
+    return m_io.getGyroYaw();
   }
 
   public SwerveModulePosition[] getModulePostitions(){
@@ -60,13 +65,14 @@ public class SwerveDrivetrain extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    m_odometry.update(m_io.getGyro(), m_io.getModulePositions());
+    m_odometry.update(m_io.getGyroYaw(), m_io.getModulePositions());
 
     m_io.updateInputs(inputs);
     Logger.getInstance().processInputs("Drive", inputs);
+    m_field.setRobotPose(m_odometry.getPoseMeters());
 
     SmartDashboard.putBoolean("Field Relative", fieldRelative);
-    SmartDashboard.putNumber("Gyro", getGyro().getDegrees());
+    SmartDashboard.putNumber("Gyro", getGyroYaw().getDegrees());
 
   }
 
