@@ -1,7 +1,7 @@
 var classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_drivetrain =
 [
     [ "SwerveDrivetrain", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_drivetrain.html#a2dc0b2229d075e013761995bf1a4c2ab", null ],
-    [ "getGyro", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_drivetrain.html#adbae7ad0ef06e4bfbebc8dd85d7daae8", null ],
+    [ "getGyroYaw", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_drivetrain.html#a546e1f7eb9e1af535efa2589bea46680", null ],
     [ "getModulePostitions", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_drivetrain.html#a469b18b94b764c09cce9ae6f9b5a3933", null ],
     [ "getModuleStates", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_drivetrain.html#a8e058e5fabf17042b17af4aad239c1cb", null ],
     [ "periodic", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_drivetrain.html#a7623d019517f8f0db3134e0f87558b2b", null ],

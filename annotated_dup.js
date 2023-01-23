@@ -9,11 +9,13 @@ var annotated_dup =
           [ "Swerve", null, [
             [ "SwerveModules", null, [
               [ "SwerveModCANCoder", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_modules_1_1_swerve_mod_c_a_n_coder.html", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_modules_1_1_swerve_mod_c_a_n_coder" ],
-              [ "SwerveModFalcon", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_modules_1_1_swerve_mod_falcon.html", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_modules_1_1_swerve_mod_falcon" ]
+              [ "SwerveModFalcon", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_modules_1_1_swerve_mod_falcon.html", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_modules_1_1_swerve_mod_falcon" ],
+              [ "SwerveModNeo", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_modules_1_1_swerve_mod_neo.html", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_modules_1_1_swerve_mod_neo" ]
             ] ],
             [ "SwerveDrivetrain", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_drivetrain.html", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_drivetrain" ],
             [ "SwerveFalconIO", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_falcon_i_o.html", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_falcon_i_o" ],
-            [ "SwerveIO", "interfacefrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_i_o.html", "interfacefrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_i_o" ]
+            [ "SwerveIO", "interfacefrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_i_o.html", "interfacefrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_i_o" ],
+            [ "SwerveNeoIO", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_neo_i_o.html", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_neo_i_o" ]
           ] ]
         ] ],
         [ "Constants", "classfrc_1_1robot_1_1_constants.html", null ],
