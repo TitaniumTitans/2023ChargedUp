@@ -112,15 +112,21 @@ SwerveModulePosition[]&#160;</td><td class="memItemRight" valign="bottom"><b>get
 <tr class="memitem:a8e058e5fabf17042b17af4aad239c1cb"><td class="memItemLeft" align="right" valign="top"><a id="a8e058e5fabf17042b17af4aad239c1cb"></a>
 SwerveModuleState[]&#160;</td><td class="memItemRight" valign="bottom"><b>getModuleStates</b> ()</td></tr>
 <tr class="separator:a8e058e5fabf17042b17af4aad239c1cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0cce83016ae27ad20063606a04eb946"><td class="memItemLeft" align="right" valign="top"><a id="ad0cce83016ae27ad20063606a04eb946"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setModuleStates</b> (double xTranslation, double yTranslation, double zRotation)</td></tr>
-<tr class="separator:ad0cce83016ae27ad20063606a04eb946"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad80699feaf539e298aea24e576f3cafd"><td class="memItemLeft" align="right" valign="top"><a id="ad80699feaf539e298aea24e576f3cafd"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>drive</b> (double xTranslation, double yTranslation, double zRotation)</td></tr>
+<tr class="separator:ad80699feaf539e298aea24e576f3cafd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8743e2ba70acfa65d6f575de69b2bea"><td class="memItemLeft" align="right" valign="top"><a id="ae8743e2ba70acfa65d6f575de69b2bea"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setModuleStates</b> (SwerveModuleState[] states)</td></tr>
+<tr class="separator:ae8743e2ba70acfa65d6f575de69b2bea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5bd0004783fa6aa210fca18d4fab5625"><td class="memItemLeft" align="right" valign="top"><a id="a5bd0004783fa6aa210fca18d4fab5625"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setAbsoluteAngles</b> ()</td></tr>
 <tr class="separator:a5bd0004783fa6aa210fca18d4fab5625"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aba0f65e51f91a7c4319fbefe7b286c8b"><td class="memItemLeft" align="right" valign="top"><a id="aba0f65e51f91a7c4319fbefe7b286c8b"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>resetGyro</b> ()</td></tr>
 <tr class="separator:aba0f65e51f91a7c4319fbefe7b286c8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6349d25c809b892afb6339d9bd6a9afd"><td class="memItemLeft" align="right" valign="top"><a id="a6349d25c809b892afb6339d9bd6a9afd"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setFieldTrajectory</b> (Trajectory traj)</td></tr>
+<tr class="separator:a6349d25c809b892afb6339d9bd6a9afd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7623d019517f8f0db3134e0f87558b2b"><td class="memItemLeft" align="right" valign="top"><a id="a7623d019517f8f0db3134e0f87558b2b"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>periodic</b> ()</td></tr>
 <tr class="separator:a7623d019517f8f0db3134e0f87558b2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -130,6 +136,15 @@ CommandBase&#160;</td><td class="memItemRight" valign="bottom"><b>resetGyroBase<
 <tr class="memitem:a21c24d3e020c05d2c0b74ec435f3cc87"><td class="memItemLeft" align="right" valign="top"><a id="a21c24d3e020c05d2c0b74ec435f3cc87"></a>
 CommandBase&#160;</td><td class="memItemRight" valign="bottom"><b>toggleFieldRelative</b> ()</td></tr>
 <tr class="separator:a21c24d3e020c05d2c0b74ec435f3cc87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a358d55fd6dd586eccdfe5273760604b2"><td class="memItemLeft" align="right" valign="top"><a id="a358d55fd6dd586eccdfe5273760604b2"></a>
+Pose2d&#160;</td><td class="memItemRight" valign="bottom"><b>getPose</b> ()</td></tr>
+<tr class="separator:a358d55fd6dd586eccdfe5273760604b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f2f5193eaaace3ebe4a37cf7920c49f"><td class="memItemLeft" align="right" valign="top"><a id="a5f2f5193eaaace3ebe4a37cf7920c49f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>resetPose</b> (Pose2d pose)</td></tr>
+<tr class="separator:a5f2f5193eaaace3ebe4a37cf7920c49f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7509584f80689a55b317334971ff44f"><td class="memItemLeft" align="right" valign="top"><a id="aa7509584f80689a55b317334971ff44f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>resetPose</b> ()</td></tr>
+<tr class="separator:aa7509584f80689a55b317334971ff44f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a2dc0b2229d075e013761995bf1a4c2ab"></a>

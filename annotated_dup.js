@@ -2,6 +2,9 @@ var annotated_dup =
 [
     [ "frc", null, [
       [ "robot", null, [
+        [ "autonomous", null, [
+          [ "TrajectoryFactory", "classfrc_1_1robot_1_1autonomous_1_1_trajectory_factory.html", "classfrc_1_1robot_1_1autonomous_1_1_trajectory_factory" ]
+        ] ],
         [ "commands", null, [
           [ "SwerveTeleopDrive", "classfrc_1_1robot_1_1commands_1_1_swerve_teleop_drive.html", "classfrc_1_1robot_1_1commands_1_1_swerve_teleop_drive" ]
         ] ],

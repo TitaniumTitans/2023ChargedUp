@@ -112,8 +112,11 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a31103cdb75e380483c2d492ca6a64a3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a72152440341ab5ea7046733352508ddc"><td class="memItemLeft" align="right" valign="top">SwerveModuleState[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_falcon_i_o.html#a72152440341ab5ea7046733352508ddc">getModuleStates</a> ()</td></tr>
 <tr class="separator:a72152440341ab5ea7046733352508ddc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa066ee9df21061724e20d97fd35b1754"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_falcon_i_o.html#aa066ee9df21061724e20d97fd35b1754">setModuleStates</a> (double xTranslation, double yTranslation, double zRotation, boolean fieldRelative)</td></tr>
-<tr class="separator:aa066ee9df21061724e20d97fd35b1754"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:affa929ba4e1a7d7e6d9e32d9cd52131b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_falcon_i_o.html#affa929ba4e1a7d7e6d9e32d9cd52131b">drive</a> (double xTranslation, double yTranslation, double zRotation, boolean fieldRelative)</td></tr>
+<tr class="separator:affa929ba4e1a7d7e6d9e32d9cd52131b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51a1b9435c58261d372ddac86f7cd506"><td class="memItemLeft" align="right" valign="top"><a id="a51a1b9435c58261d372ddac86f7cd506"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setModuleStates</b> (SwerveModuleState[] states)</td></tr>
+<tr class="separator:a51a1b9435c58261d372ddac86f7cd506"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad1bb8ea7880103d6270cb438ff9d1ca1"><td class="memItemLeft" align="right" valign="top"><a id="ad1bb8ea7880103d6270cb438ff9d1ca1"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>updateInputs</b> (SwerveIOInputs inputs)</td></tr>
 <tr class="separator:ad1bb8ea7880103d6270cb438ff9d1ca1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -123,10 +126,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>updateInputs</b> (Swe
 <tr class="separator:a5de0f7f184588081ea42a69e0533be87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a20ebc35fd82e0e551eb2d3c9f64448b8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_falcon_i_o.html#a20ebc35fd82e0e551eb2d3c9f64448b8">periodic</a> ()</td></tr>
 <tr class="separator:a20ebc35fd82e0e551eb2d3c9f64448b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_interfacefrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_i_o"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_interfacefrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_i_o')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="interfacefrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_i_o.html">frc.robot.subsystems.Swerve.SwerveIO</a></td></tr>
-<tr class="memitem:a4d8b96a76793a7cd1f55688cab28e6df inherit pub_methods_interfacefrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_i_o"><td class="memItemLeft" align="right" valign="top"><a id="a4d8b96a76793a7cd1f55688cab28e6df"></a>
-default void&#160;</td><td class="memItemRight" valign="bottom"><b>setModuleStates</b> (SwerveModuleState[] states)</td></tr>
-<tr class="separator:a4d8b96a76793a7cd1f55688cab28e6df inherit pub_methods_interfacefrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_i_o"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a25141a57fa1587ce0a92dff5f683b329"></a>
@@ -148,6 +147,57 @@ default void&#160;</td><td class="memItemRight" valign="bottom"><b>setModuleStat
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="affa929ba4e1a7d7e6d9e32d9cd52131b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#affa929ba4e1a7d7e6d9e32d9cd52131b">&#9670;&nbsp;</a></span>drive()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void frc.robot.subsystems.Swerve.SwerveFalconIO.drive </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>xTranslation</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>yTranslation</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>zRotation</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">boolean&#160;</td>
+          <td class="paramname"><em>fieldRelative</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">xTranslation</td><td>Forward/Backwards </td></tr>
+    <tr><td class="paramname">yTranslation</td><td>Left/Right </td></tr>
+    <tr><td class="paramname">zRotation</td><td>Rotation </td></tr>
+    <tr><td class="paramname">fieldRelative</td><td>is it field oriented </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="interfacefrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_i_o.html">frc.robot.subsystems.Swerve.SwerveIO</a>.</p>
+
+</div>
+</div>
 <a id="a3bd998fa5b7b0b176d4a2f206a3d7dcd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3bd998fa5b7b0b176d4a2f206a3d7dcd">&#9670;&nbsp;</a></span>getGyroYaw()</h2>
 
@@ -264,57 +314,6 @@ default void&#160;</td><td class="memItemRight" valign="bottom"><b>setModuleStat
       </table>
 </div><div class="memdoc">
 <p>Matching the encoder in the Motor to the CANcoder </p>
-
-<p>Implements <a class="el" href="interfacefrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_i_o.html">frc.robot.subsystems.Swerve.SwerveIO</a>.</p>
-
-</div>
-</div>
-<a id="aa066ee9df21061724e20d97fd35b1754"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa066ee9df21061724e20d97fd35b1754">&#9670;&nbsp;</a></span>setModuleStates()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void frc.robot.subsystems.Swerve.SwerveFalconIO.setModuleStates </td>
-          <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>xTranslation</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>yTranslation</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>zRotation</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">boolean&#160;</td>
-          <td class="paramname"><em>fieldRelative</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">xTranslation</td><td>Forward/Backwards </td></tr>
-    <tr><td class="paramname">yTranslation</td><td>Left/Right </td></tr>
-    <tr><td class="paramname">zRotation</td><td>Rotation </td></tr>
-    <tr><td class="paramname">fieldRelative</td><td>is it field oriented </td></tr>
-  </table>
-  </dd>
-</dl>
 
 <p>Implements <a class="el" href="interfacefrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_i_o.html">frc.robot.subsystems.Swerve.SwerveIO</a>.</p>
 
