@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.SwerveTeleopDrive;
 import frc.robot.subsystems.Swerve.SwerveDrivetrain;
 import frc.robot.subsystems.Swerve.SwerveFalconIO;
+import frc.robot.subsystems.Swerve.SwerveNeoIO;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -36,7 +37,7 @@ public class RobotContainer {
   switch (Constants.currentMode){
     // Beta robot hardware implementation
     case THANOS:
-      m_drive = new SwerveDrivetrain(new SwerveFalconIO());
+      m_drive = new SwerveDrivetrain(new SwerveNeoIO());
       break;
     
     case ALPHA:

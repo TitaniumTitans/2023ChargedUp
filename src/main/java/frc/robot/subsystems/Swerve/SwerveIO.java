@@ -37,6 +37,8 @@ public interface SwerveIO {
 
     public default void setModuleStates(SwerveModuleState[] states){}
 
+    public default void setModuleStates(SwerveModuleState[] states){}
+
     public default void periodic(){}
 
     public default void setAbsoluteAngles(){}
@@ -49,7 +51,7 @@ public interface SwerveIO {
         return null;
     }
 
-    public default Rotation2d getGyro(){
+    public default Rotation2d getGyroYaw(){
         return null;
     }
 
