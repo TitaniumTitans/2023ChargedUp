@@ -37,8 +37,6 @@ public interface SwerveIO {
 
     public default void setModuleStates(SwerveModuleState[] states){}
 
-    public default void setModuleStates(SwerveModuleState[] states){}
-
     public default void periodic(){}
 
     public default void setAbsoluteAngles(){}

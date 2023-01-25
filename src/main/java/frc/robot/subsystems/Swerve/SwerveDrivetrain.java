@@ -26,7 +26,6 @@ public class SwerveDrivetrain extends SubsystemBase {
   private SwerveIOInputsAutoLogged inputs;
 
   private Field2d m_field;
-  private final  Field2d m_field;
 
 
   private boolean fieldRelative;
@@ -109,7 +108,7 @@ public class SwerveDrivetrain extends SubsystemBase {
   }
 
   public void resetPose(Pose2d pose){
-    m_odometry.resetPosition(getGyro(), getModulePostitions(), pose);
+    m_odometry.resetPosition(getGyroYaw(), getModulePostitions(), pose);
   }
 
   public void resetPose(){
