@@ -66,4 +66,10 @@ public class AutoUtils {
     defaultEventMap.put("event 2", new PrintCommand("Marker 2"));
     return new FollowPathWithEvents(getDefaultTrajectory(swerve), defaultAutoGen.getMarkers(), defaultEventMap);
     }
+
+    public static Command getAutoRoutine(Path)
+
+    public static Command getAutoEventRoutine(PathPlannerTrajectory traj, HashMap<String, Command> events){
+
+    }
 }
