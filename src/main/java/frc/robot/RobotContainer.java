@@ -75,7 +75,7 @@ public class RobotContainer {
    */
   public void configAutoChooser(){
     autoChooser.addDefaultOption("Default Trajectory", AutoUtils.getDefaultTrajectory(m_drive));
-    autoChooser.addOption("Option 2", new InstantCommand());
+    autoChooser.addOption("Event Map Trajectory", AutoUtils.getPathWithEvents(m_drive));
   }
 
   /**

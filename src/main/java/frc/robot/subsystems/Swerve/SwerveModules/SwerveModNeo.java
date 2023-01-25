@@ -136,7 +136,7 @@ public class SwerveModNeo {
     // drivePID.setD(Constants.kSwerve.DRIVE_KD);
     // drivePID.setFF(Constants.kSwerve.DRIVE_KF);
  
-    driveEncoder.setPositionConversionFactor(ModuleConstants.kDriveRatio / ModuleConstants.kWheelCircumference);
+    driveEncoder.setPositionConversionFactor(ModuleConstants.kWheelCircumference / ModuleConstants.kDriveRatio);
     // driveEncoder.setVelocityConversionFactor(Constants.kSwerve.DRIVE_RPM_TO_METERS_PER_SECOND);
     driveEncoder.setPosition(0);
 

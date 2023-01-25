@@ -69,8 +69,8 @@ public final class Constants {
     }
 
     public static class AutoConstants{
-        public static final double kMaxVelocityMPS = 0.5;
-        public static final double kMaxAccerlerationMPS = 0.5;
+        public static final double kMaxVelocityMPS = 1;
+        public static final double kMaxAccerlerationMPS = 1;
 
         public static final Constraints kThetaConstraints = 
             new Constraints(kMaxVelocityMPS, kMaxAccerlerationMPS);
