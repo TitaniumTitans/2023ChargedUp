@@ -46,7 +46,7 @@ public class AutoUtils {
     //Default getters
     public static Command getDefaultTrajectory(SwerveDrivetrain swerve){
         return new SequentialCommandGroup(
-            new InstantCommand(() -> swerve.setPose(defaultAutoGen.getInitialHolonomicPose())),
+            new InstantCommand(() -> swerve.resetPose(defaultAutoGen.getInitialHolonomicPose())),
 
             new PPSwerveControllerCommand(defaultAutoGen, 
             swerve::getPose, 
@@ -67,9 +67,23 @@ public class AutoUtils {
     return new FollowPathWithEvents(getDefaultTrajectory(swerve), defaultAutoGen.getMarkers(), defaultEventMap);
     }
 
-    public static Command getAutoRoutine(Path)
+    public static Command getAutoRoutine(PathPlannerTrajectory traj, SwerveDrivetrain swerve){
+        return new SequentialCommandGroup(
+            new InstantCommand(() -> swerve.resetPose(defaultAutoGen.getInitialHolonomicPose())),
 
-    public static Command getAutoEventRoutine(PathPlannerTrajectory traj, HashMap<String, Command> events){
+            new PPSwerveControllerCommand(defaultAutoGen, 
+            swerve::getPose, 
+            DriveConstants.kDriveKinematics, 
+            AutoConstants.kXController, 
+            AutoConstants.kYController, 
+            new PIDController(0, 0, 0), 
+            swerve::setModuleStates,
+            true,
+            swerve)
+        );
+    }
 
+    public static Command getAutoEventRoutine(PathPlannerTrajectory traj, HashMap<String, Command> events, SwerveDrivetrain swerve){
+        return new FollowPathWithEvents(getAutoRoutine(traj, swerve), traj.getMarkers(), events);
     }
 }

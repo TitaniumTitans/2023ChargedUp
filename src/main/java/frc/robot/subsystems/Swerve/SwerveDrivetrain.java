@@ -26,7 +26,6 @@ public class SwerveDrivetrain extends SubsystemBase {
   private SwerveIOInputsAutoLogged inputs;
 
   private Field2d m_field;
-  private final  Field2d m_field;
 
 
   private boolean fieldRelative;
@@ -68,28 +67,12 @@ public class SwerveDrivetrain extends SubsystemBase {
     m_io.setModuleStates(states);
   }
 
-  public void setModuleStates(SwerveModuleState[] states){
-    m_io.setModuleStates(states);
-  }
-
   public void setAbsoluteAngles(){
     m_io.setAbsoluteAngles();
   }
 
   public void resetGyro(){
     m_io.resetGyro();
-  }
-
-  public Pose2d getPose(){
-    return m_odometry.getPoseMeters();
-  }
-
-  public void setPose(Pose2d pose){
-    m_odometry.resetPosition(getGyroYaw(), getModulePostitions(), pose);
-  }
-
-  public void resetPose(){
-    setPose(new Pose2d());
   }
 
   @Override
@@ -122,7 +105,7 @@ public class SwerveDrivetrain extends SubsystemBase {
   }
 
   public void resetPose(Pose2d pose){
-    m_odometry.resetPosition(getGyro(), getModulePostitions(), pose);
+    m_odometry.resetPosition(getGyroYaw(), getModulePostitions(), pose);
   }
 
   public void resetPose(){
