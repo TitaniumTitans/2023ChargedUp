@@ -59,6 +59,7 @@ public class SwerveDrivetrain extends SubsystemBase {
   }
 
   public void drive(double xTranslation, double yTranslation, double zRotation){
+
     m_io.drive(xTranslation, yTranslation, zRotation, fieldRelative);
   }
 
@@ -72,10 +73,6 @@ public class SwerveDrivetrain extends SubsystemBase {
 
   public void resetGyro(){
     m_io.resetGyro();
-  }
-
-  public void setFieldTrajectory(Trajectory traj){
-    m_field.getObject("traj").setTrajectory(traj); 
   }
 
   @Override
