@@ -43,6 +43,10 @@ public class SwerveDrivetrain extends SubsystemBase {
     return m_io.getGyroYaw();
   }
 
+  public Rotation2d getGyroRoll(){
+    return m_io.getGyroRoll();
+  }
+
   public SwerveModulePosition[] getModulePostitions(){
     return m_io.getModulePositions();
   }
