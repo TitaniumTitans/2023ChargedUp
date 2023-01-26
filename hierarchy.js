@@ -26,6 +26,9 @@ var hierarchy =
     [ "CommandBase", null, [
       [ "frc.robot.commands.SwerveTeleopDrive", "classfrc_1_1robot_1_1commands_1_1_swerve_teleop_drive.html", null ]
     ] ],
+    [ "Subsystem", null, [
+      [ "frc.robot.subsystems.Vision.CameraSubsystem", "classfrc_1_1robot_1_1subsystems_1_1_vision_1_1_camera_subsystem.html", null ]
+    ] ],
     [ "SubsystemBase", null, [
       [ "frc.robot.subsystems.Swerve.SwerveDrivetrain", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_drivetrain.html", null ]
     ] ]

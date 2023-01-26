@@ -19,6 +19,9 @@ var annotated_dup =
             [ "SwerveFalconIO", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_falcon_i_o.html", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_falcon_i_o" ],
             [ "SwerveIO", "interfacefrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_i_o.html", "interfacefrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_i_o" ],
             [ "SwerveNeoIO", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_neo_i_o.html", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_neo_i_o" ]
+          ] ],
+          [ "Vision", null, [
+            [ "CameraSubsystem", "classfrc_1_1robot_1_1subsystems_1_1_vision_1_1_camera_subsystem.html", "classfrc_1_1robot_1_1subsystems_1_1_vision_1_1_camera_subsystem" ]
           ] ]
         ] ],
         [ "Constants", "classfrc_1_1robot_1_1_constants.html", null ],
