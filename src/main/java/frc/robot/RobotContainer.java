@@ -9,8 +9,10 @@ import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.SwerveTeleopDrive;
+import frc.robot.commands.Autonomous.AutoUtils;
 import frc.robot.subsystems.Swerve.SwerveDrivetrain;
 import frc.robot.subsystems.Swerve.SwerveFalconIO;
+import frc.robot.subsystems.Swerve.SwerveNeoIO;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -36,7 +38,7 @@ public class RobotContainer {
   switch (Constants.currentMode){
     // Beta robot hardware implementation
     case THANOS:
-      m_drive = new SwerveDrivetrain(new SwerveFalconIO());
+      m_drive = new SwerveDrivetrain(new SwerveNeoIO());
       break;
     
     case ALPHA:
@@ -52,6 +54,7 @@ public class RobotContainer {
   }
     // Configure the button bindings
     configureButtonBindings();
+    configAutoChooser();
   }
 
   /**
@@ -71,8 +74,8 @@ public class RobotContainer {
    * Use this method to add autonomous routines to a sendable chooser
    */
   public void configAutoChooser(){
-    autoChooser.addDefaultOption("Option 1", new InstantCommand());
-    autoChooser.addOption("Option 2", new InstantCommand());
+    autoChooser.addDefaultOption("Default Trajectory", AutoUtils.getDefaultTrajectory(m_drive));
+    autoChooser.addOption("Event Map Trajectory", AutoUtils.getPathWithEvents(m_drive));
   }
 
   /**

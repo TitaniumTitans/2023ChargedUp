@@ -25,10 +25,10 @@ public class SwerveFalconIO implements SwerveIO{
 
   /** Creates a new ExampleSubsystem. */
   public SwerveFalconIO() {
-    m_frModule = new SwerveModFalcon(0, DriveConstants.kMod0Offset, DriveConstants.kMod0Cans);
-    m_flModule = new SwerveModFalcon(1, DriveConstants.kMod1Offset, DriveConstants.kMod1Cans);
-    m_brModule = new SwerveModFalcon(2, DriveConstants.kMod2Offset, DriveConstants.kMod2Cans);
-    m_blModule = new SwerveModFalcon(3, DriveConstants.kMod3Offset, DriveConstants.kMod3Cans);
+    m_frModule = new SwerveModFalcon(0, DriveConstants.kModFrOffset, DriveConstants.kModFrCans);
+    m_flModule = new SwerveModFalcon(1, DriveConstants.kModFlOffset, DriveConstants.kModFlCans);
+    m_brModule = new SwerveModFalcon(2, DriveConstants.kModBlOffset, DriveConstants.kModBlCans);
+    m_blModule = new SwerveModFalcon(3, DriveConstants.kModBrOffset, DriveConstants.kModBrCans);
 
     // m_frModule = new SwerveModCANCoder(0, DriveConstants.kModFrOffset, DriveConstants.kMod0Cans);
     // m_flModule = new SwerveModCANCoder(1, DriveConstants.kModFlOffset, DriveConstants.kMod1Cans);
@@ -50,7 +50,7 @@ public class SwerveFalconIO implements SwerveIO{
    * @return Rotation of Gyro
    */
   @Override
-  public Rotation2d getGyro(){
+  public Rotation2d getGyroYaw(){
     return Rotation2d.fromDegrees(m_gyro.getYaw() * -1);
   }
 
@@ -111,7 +111,7 @@ public class SwerveFalconIO implements SwerveIO{
       xTranslation, 
       yTranslation, 
       zRotation, 
-      getGyro()
+      getGyroYaw()
   )
   : new ChassisSpeeds(
       xTranslation, 

@@ -4,8 +4,11 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 import edu.wpi.first.math.util.Units;
 
 /**
@@ -23,7 +26,7 @@ public final class Constants {
         // Physical wheel constants
         public static final double kWheelDiameterMeters = Units.inchesToMeters(4.0);
         public static final double kWheelCircumference = 2 * Math.PI * (kWheelDiameterMeters / 2);
-        public static final double kMaxSpeedMetersPerSecond = Units.feetToMeters(120);
+        public static final double kMaxSpeedMetersPerSecond = Units.feetToMeters(12);
 
         // Gear ratio
         public static final double kTurningRatio = (50.0 / 14.0) * (60.0 / 10.0);
@@ -32,21 +35,22 @@ public final class Constants {
         // PID constants
         public static final double kModuleKp = 0.16;
         public static final double kModuleKd = 3;
+        public static final double kPositionConversionFactor = (Math.PI * 2) / kTurningRatio;
     }
 
     public static final class DriveConstants{
         // Can ID ports
-        public static final int[] kMod0Cans = {3, 4, 5};
-        public static final int[] kMod1Cans = {6, 7, 8};
-        public static final int[] kMod2Cans = {9, 10, 11};
-        public static final int[] kMod3Cans = {12, 13, 14};
+        public static final int[] kModFrCans = {3, 4, 5};
+        public static final int[] kModFlCans = {6, 7, 8};
+        public static final int[] kModBlCans = {9, 10, 11};
+        public static final int[] kModBrCans = {12, 13, 14};
         public static final int kGyroCan = 15;
 
         //Thanos Offsets
-        public static final double kMod0Offset = currentMode == Mode.THANOS ? 160.400 : 357.803;//360 - 160.400;
-        public static final double kMod1Offset = currentMode == Mode.THANOS ? 215.508 : 349.629;//360 - 215.508;
-        public static final double kMod3Offset = currentMode == Mode.THANOS ? 96.943 : 180 + 46.143;//360 - 105.820; 70.488
-        public static final double kMod2Offset = currentMode == Mode.THANOS ? 105.381 : 180 + 70.488;//360 - 97.119; 96.943
+        public static final double kModFrOffset = currentMode == Mode.THANOS ? 198.8: 357.803;//360 - 160.400;
+        public static final double kModFlOffset = currentMode == Mode.THANOS ? 145.9 : 349.629;//360 - 215.508;
+        public static final double kModBrOffset = currentMode == Mode.THANOS ? 263.1 : 180 + 46.143;//360 - 105.820; 70.488
+        public static final double kModBlOffset = currentMode == Mode.THANOS ? 254.1 : 180 + 70.488;//360 - 97.119; 96.943 149.6
         // Competition Offsets
         // TODO competition offsets
 
@@ -62,6 +66,23 @@ public final class Constants {
         new Translation2d(kWheelBase / 2, -kTrackWidth / 2),
         new Translation2d(-kWheelBase / 2, kTrackWidth / 2),
         new Translation2d(-kWheelBase / 2, -kTrackWidth / 2));
+    }
+
+    public static class AutoConstants{
+        public static final double kMaxVelocityMPS = 1;
+        public static final double kMaxAccelerationMPS = 1;
+
+        public static final Constraints kThetaConstraints = 
+            new Constraints(kMaxVelocityMPS, kMaxAccelerationMPS);
+
+        public static final ProfiledPIDController kThetaController = 
+            new ProfiledPIDController(0.0, 0.0, 0.0, kThetaConstraints);
+        
+        public static final PIDController kControllerX =
+            new PIDController(0.00001, 0, 0);
+        public static final PIDController kControllerY =
+            new PIDController(0, 0, 0);
+            
     }
 
     public static final Mode currentMode = Mode.THANOS;

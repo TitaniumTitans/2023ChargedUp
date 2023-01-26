@@ -36,13 +36,13 @@ public class SwerveTeleopDrive extends CommandBase {
   @Override
   public void execute() {
     double x = -m_driverController.getLeftY();
-    double y = m_driverController.getLeftX();
-    double z = m_driverController.getRightX();
+    double y = -m_driverController.getLeftX();
+    double z = -m_driverController.getRightX();
 
     x = Utils.deadBand(x);
     y = Utils.deadBand(y);
     z = Utils.deadBand(z);
-    m_drive.setModuleStates(x, y, z);
+    m_drive.drive(x, y, z);
   }
 
   // Called once the command ends or is interrupted.
