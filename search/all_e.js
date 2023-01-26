@@ -5,6 +5,5 @@ var searchData=
   ['test_60',['test',['../class_my_library_1_1_example.html#a1c0046b0674eb4cad09c5d3e943912b8',1,'MyLibrary::Example']]],
   ['testperiodic_61',['testPeriodic',['../classfrc_1_1robot_1_1_robot.html#abd152f34b9f33d5cdf835aa61331f33e',1,'frc::robot::Robot']]],
   ['tips_20_26_20tricks_62',['Tips &amp; Tricks',['../md_docs_doxygen_awesome_css_docs_tricks.html',1,'']]],
-  ['todo_20list_63',['Todo List',['../todo.html',1,'']]],
-  ['trajectoryfactory_64',['TrajectoryFactory',['../classfrc_1_1robot_1_1autonomous_1_1_trajectory_factory.html',1,'frc::robot::autonomous']]]
+  ['todo_20list_63',['Todo List',['../todo.html',1,'']]]
 ];
