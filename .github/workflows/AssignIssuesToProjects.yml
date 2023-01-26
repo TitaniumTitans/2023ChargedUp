@@ -1,0 +1,19 @@
+name: 'Assign Issues to Projects'
+
+on:
+   issues:
+     types: [opened]
+   pull_request:
+     types: [opened]
+
+jobs:
+  assign_to_project:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add To GitHub projects
+        uses: actions/add-to-project@v0.4.0
+        with:
+            # URL of the project to add issues to
+            project-url: 'https://github.com/orgs/TitaniumTitans/projects/1'
+            # A GitHub personal access token with write access to the project
+            github-token: ${{ secrets.PROJECT_PAT }}
