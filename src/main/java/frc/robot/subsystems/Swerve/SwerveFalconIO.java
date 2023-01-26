@@ -66,10 +66,10 @@ public class SwerveFalconIO implements SwerveIO{
       new SwerveModulePosition(), 
       new SwerveModulePosition()};
 
-    modulePositions[0] = m_flModule.getPosition();
-    modulePositions[1] = m_frModule.getPosition();
-    modulePositions[2] = m_blModule.getPosition();
-    modulePositions[3] = m_brModule.getPosition();
+    modulePositions[0] = m_frModule.getPosition();
+    modulePositions[1] = m_flModule.getPosition();
+    modulePositions[2] = m_brModule.getPosition();
+    modulePositions[3] = m_blModule.getPosition();
 
     return modulePositions;
   }
@@ -104,7 +104,7 @@ public class SwerveFalconIO implements SwerveIO{
    * @param fieldRelative is it field oriented
    */
   @Override
-  public void drive(double xTranslation, double yTranslation, double zRotation, boolean fieldRelative){
+  public void setModuleStates(double xTranslation, double yTranslation, double zRotation, boolean fieldRelative){
     //Converts controller inputs to working chassis speeds, to working swerve module state array
     SwerveModuleState[] swerveModuleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates( 
       fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(
@@ -131,14 +131,6 @@ public class SwerveFalconIO implements SwerveIO{
         counter = 0;
       }
       
-  }
-
-  @Override
-  public void setModuleStates(SwerveModuleState[] states){
-    m_frModule.setDesiredState(states[0]);
-    m_flModule.setDesiredState(states[1]);
-    m_blModule.setDesiredState(states[2]);
-    m_brModule.setDesiredState(states[3]);
   }
 
   @Override

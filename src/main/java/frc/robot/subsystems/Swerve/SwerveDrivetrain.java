@@ -11,9 +11,6 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-
-import edu.wpi.first.math.trajectory.Trajectory;
-
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -24,9 +21,7 @@ public class SwerveDrivetrain extends SubsystemBase {
   private SwerveIO m_io;
   private SwerveDriveOdometry m_odometry;
   private SwerveIOInputsAutoLogged inputs;
-
   private Field2d m_field;
-
 
   private boolean fieldRelative;
   /** Creates a new SwerveDrivetrain. */
@@ -42,8 +37,6 @@ public class SwerveDrivetrain extends SubsystemBase {
     SmartDashboard.putData("Field", m_field);
     
     fieldRelative = false;
-    m_field = new Field2d();
-    SmartDashboard.putData("Field", m_field);
   }
 
   public Rotation2d getGyroYaw(){
@@ -59,12 +52,7 @@ public class SwerveDrivetrain extends SubsystemBase {
   }
 
   public void drive(double xTranslation, double yTranslation, double zRotation){
-
-    m_io.drive(xTranslation, yTranslation, zRotation, fieldRelative);
-  }
-
-  public void setModuleStates(SwerveModuleState[] states){
-    m_io.setModuleStates(states);
+    m_io.setModuleStates(xTranslation, yTranslation, zRotation, fieldRelative);
   }
 
   public void setAbsoluteAngles(){
@@ -81,14 +69,11 @@ public class SwerveDrivetrain extends SubsystemBase {
     m_odometry.update(m_io.getGyroYaw(), m_io.getModulePositions());
 
     m_io.updateInputs(inputs);
-    m_field.setRobotPose(m_odometry.getPoseMeters());
-
     Logger.getInstance().processInputs("Drive", inputs);
     m_field.setRobotPose(m_odometry.getPoseMeters());
 
     SmartDashboard.putBoolean("Field Relative", fieldRelative);
     SmartDashboard.putNumber("Gyro", getGyroYaw().getDegrees());
-
 
   }
 

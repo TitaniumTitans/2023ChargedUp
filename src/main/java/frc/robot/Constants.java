@@ -10,7 +10,6 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.wpilibj2.command.ProfiledPIDCommand;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -83,6 +82,7 @@ public final class Constants {
             new PIDController(0.00001, 0, 0);
         public static final PIDController kControllerY =
             new PIDController(0, 0, 0);
+            
     }
 
     public static final Mode currentMode = Mode.THANOS;

@@ -82,7 +82,7 @@ public class AutoUtils {
             swerve)
         );
     }
-
+    
     public static Command getAutoEventRoutine(PathPlannerTrajectory traj, HashMap<String, Command> events, SwerveDrivetrain swerve){
         return new FollowPathWithEvents(getAutoRoutine(traj, swerve), traj.getMarkers(), events);
     }
