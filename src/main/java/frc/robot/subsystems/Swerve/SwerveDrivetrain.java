@@ -55,6 +55,10 @@ public class SwerveDrivetrain extends SubsystemBase {
     m_io.setModuleStates(xTranslation, yTranslation, zRotation, fieldRelative);
   }
 
+  public void setModuleStates(SwerveModuleState[] states){
+    m_io.setModuleStates(states);
+  }
+
   public void setAbsoluteAngles(){
     m_io.setAbsoluteAngles();
   }
