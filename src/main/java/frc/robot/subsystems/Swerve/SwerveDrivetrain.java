@@ -60,7 +60,12 @@ public class SwerveDrivetrain extends SubsystemBase {
   }
 
   public void drive(double xTranslation, double yTranslation, double zRotation){
+
     m_io.drive(xTranslation, yTranslation, zRotation, fieldRelative);
+  }
+
+  public void setModuleStates(SwerveModuleState[] states){
+    m_io.setModuleStates(states);
   }
 
   public void setModuleStates(SwerveModuleState[] states){
@@ -75,8 +80,16 @@ public class SwerveDrivetrain extends SubsystemBase {
     m_io.resetGyro();
   }
 
-  public void setFieldTrajectory(Trajectory traj){
-    m_field.getObject("traj").setTrajectory(traj); 
+  public Pose2d getPose(){
+    return m_odometry.getPoseMeters();
+  }
+
+  public void setPose(Pose2d pose){
+    m_odometry.resetPosition(getGyroYaw(), getModulePostitions(), pose);
+  }
+
+  public void resetPose(){
+    setPose(new Pose2d());
   }
 
   @Override
