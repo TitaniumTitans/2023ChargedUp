@@ -1,6 +1,7 @@
 var classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_neo_i_o =
 [
     [ "SwerveNeoIO", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_neo_i_o.html#ab39892f368a4517a05f94658261e1cca", null ],
+    [ "getGyroRoll", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_neo_i_o.html#aad4892306a0a84612aef6cdc3176faa4", null ],
     [ "getGyroYaw", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_neo_i_o.html#a1fb5eaae18185428f736aa673addfd7f", null ],
     [ "getModulePositions", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_neo_i_o.html#a6a9b8e4ba7578cee4512590102f48196", null ],
     [ "getModuleStates", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_neo_i_o.html#ab15140d904c211d7c9c8e1001f3c60a1", null ],

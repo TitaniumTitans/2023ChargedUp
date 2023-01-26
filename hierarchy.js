@@ -24,6 +24,7 @@ var hierarchy =
     [ "lib.utils.drivers.TalonEnhanced", "classlib_1_1utils_1_1drivers_1_1_talon_enhanced.html", null ],
     [ "lib.utils.Utils", "classlib_1_1utils_1_1_utils.html", null ],
     [ "CommandBase", null, [
+      [ "frc.robot.commands.AutoBalance", "classfrc_1_1robot_1_1commands_1_1_auto_balance.html", null ],
       [ "frc.robot.commands.SwerveTeleopDrive", "classfrc_1_1robot_1_1commands_1_1_swerve_teleop_drive.html", null ]
     ] ],
     [ "Subsystem", null, [

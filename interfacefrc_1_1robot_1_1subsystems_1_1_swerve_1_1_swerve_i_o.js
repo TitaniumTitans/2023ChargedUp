@@ -1,5 +1,6 @@
 var interfacefrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_i_o =
 [
+    [ "getGyroRoll", "interfacefrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_i_o.html#a413464b7640b1ea33973dfa956137773", null ],
     [ "getGyroYaw", "interfacefrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_i_o.html#ac40dfa5e25944374d57c0c841e200a39", null ],
     [ "getModulePositions", "interfacefrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_i_o.html#ac24ec5961fa5cdf6be6f0c42018309ae", null ],
     [ "getModuleStates", "interfacefrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_i_o.html#a562362cf7ecacbf7390dc78e4ce59502", null ],
