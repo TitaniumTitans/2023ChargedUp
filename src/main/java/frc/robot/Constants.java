@@ -71,17 +71,17 @@ public final class Constants {
 
     public static class AutoConstants{
         public static final double kMaxVelocityMPS = 1;
-        public static final double kMaxAccerlerationMPS = 1;
+        public static final double kMaxAccelerationMPS = 1;
 
         public static final Constraints kThetaConstraints = 
-            new Constraints(kMaxVelocityMPS, kMaxAccerlerationMPS);
+            new Constraints(kMaxVelocityMPS, kMaxAccelerationMPS);
 
         public static final ProfiledPIDController kThetaController = 
             new ProfiledPIDController(0.0, 0.0, 0.0, kThetaConstraints);
         
-        public static final PIDController kXController =
+        public static final PIDController kControllerX =
             new PIDController(0.00001, 0, 0);
-        public static final PIDController kYController =
+        public static final PIDController kControllerY =
             new PIDController(0, 0, 0);
     }
 
