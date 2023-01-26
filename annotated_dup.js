@@ -6,6 +6,9 @@ var annotated_dup =
           [ "TrajectoryFactory", "classfrc_1_1robot_1_1autonomous_1_1_trajectory_factory.html", "classfrc_1_1robot_1_1autonomous_1_1_trajectory_factory" ]
         ] ],
         [ "commands", null, [
+          [ "Autonomous", null, [
+            [ "AutoUtils", "classfrc_1_1robot_1_1commands_1_1_autonomous_1_1_auto_utils.html", null ]
+          ] ],
           [ "SwerveTeleopDrive", "classfrc_1_1robot_1_1commands_1_1_swerve_teleop_drive.html", "classfrc_1_1robot_1_1commands_1_1_swerve_teleop_drive" ]
         ] ],
         [ "subsystems", null, [
