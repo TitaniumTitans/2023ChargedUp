@@ -4,7 +4,7 @@ var annotated_dup =
       [ "robot", null, [
         [ "commands", null, [
           [ "Autonomous", null, [
-            [ "AutoUtils", "classfrc_1_1robot_1_1commands_1_1_autonomous_1_1_auto_utils.html", null ]
+            [ "AutoFactory", "classfrc_1_1robot_1_1commands_1_1_autonomous_1_1_auto_factory.html", "classfrc_1_1robot_1_1commands_1_1_autonomous_1_1_auto_factory" ]
           ] ],
           [ "AutoBalance", "classfrc_1_1robot_1_1commands_1_1_auto_balance.html", "classfrc_1_1robot_1_1commands_1_1_auto_balance" ],
           [ "SwerveTeleopDrive", "classfrc_1_1robot_1_1commands_1_1_swerve_teleop_drive.html", "classfrc_1_1robot_1_1commands_1_1_swerve_teleop_drive" ]
