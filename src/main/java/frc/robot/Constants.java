@@ -90,8 +90,8 @@ public final class Constants {
     }
 
     public static class ArmConstants{
-        public static final int ArmExID = 0;
-        public static final int ArmAngleID = 1;
+        public static final int ArmExID = 16;
+        public static final int ArmAngleID = 17;
     }
 
     public static final Mode currentMode = Mode.THANOS;

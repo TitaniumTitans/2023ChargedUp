@@ -1,5 +1,7 @@
 package frc.robot.subsystems.Arm;
 
+import org.littletonrobotics.junction.Logger;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ArmSubSystem extends SubsystemBase {
@@ -13,12 +15,12 @@ public class ArmSubSystem extends SubsystemBase {
         m_input = new ArmIOInputsAutoLogged();
     }
 
-    public void setAngleSpeed() {
-        m_io.setAngleSpeed(getArmAngle());
+    public void setAngleSpeed(double speed) {
+        m_io.setAngleSpeed(speed);
     }
 
-    public void setArmSpeed() {
-        m_io.setArmSpeed(getArmExtension());
+    public void setArmSpeed(double speed) {
+        m_io.setArmSpeed(speed);
     }
 
     public double getArmExtension() {
@@ -31,6 +33,7 @@ public class ArmSubSystem extends SubsystemBase {
 
     public void periodic() {
         m_io.updateInputs(m_input);
+        Logger.getInstance().processInputs("Arm", m_input);
     }
 
 }
