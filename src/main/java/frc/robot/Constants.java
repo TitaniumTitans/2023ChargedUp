@@ -89,6 +89,11 @@ public final class Constants {
         public static final double kDesiredBalanceAngle = 1;
     }
 
+    public static class ArmConstants{
+        public static final int ArmExID = 0;
+        public static final int ArmAngleID = 1;
+    }
+
     public static final Mode currentMode = Mode.THANOS;
     public static final int driverPort = 0;
 
