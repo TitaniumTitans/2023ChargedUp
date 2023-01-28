@@ -3,7 +3,10 @@ package frc.robot.subsystems.Arm;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANSparkMax.SoftLimitDirection;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+import edu.wpi.first.math.util.Units;
 import frc.robot.Constants.ArmConstants;
 
 public class ArmIONeo implements ArmIO {
@@ -17,6 +20,14 @@ public class ArmIONeo implements ArmIO {
         m_ArmAngle = new CANSparkMax(ArmConstants.ArmAngleID, MotorType.kBrushless);
     
         m_RelativeEncoderArmAngle = m_ArmAngle.getEncoder();
+        m_RelativeEncoderArmAngle.setPositionConversionFactor(ArmConstants.kAngleConversionFactor);
+
+        m_ArmAngle.enableSoftLimit(SoftLimitDirection.kForward, true);
+        m_ArmAngle.enableSoftLimit(SoftLimitDirection.kReverse, true);
+        m_ArmAngle.setSoftLimit(SoftLimitDirection.kForward,10);
+        m_ArmAngle.setSoftLimit(SoftLimitDirection.kReverse, 180);
+        // m_ArmAngle.setSoftLimit(SoftLimitDirection.kForward, (float) Units.degreesToRotations(10));
+        // m_ArmAngle.setSoftLimit(SoftLimitDirection.kReverse, (float) Units.degreesToRotations(273.5));
     }
 
     @Override
@@ -44,7 +55,7 @@ public class ArmIONeo implements ArmIO {
 
     @Override
     public double getArmAngle() {
-        return m_RelativeEncoderArmAngle.getPosition() * 360;
+        return Units.rotationsToDegrees(m_RelativeEncoderArmAngle.getPosition()) * 360;
     }
 
 }
