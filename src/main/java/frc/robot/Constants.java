@@ -94,6 +94,16 @@ public final class Constants {
         public static final int ArmAngleID = 16;
 
         public static final double kAngleConversionFactor = (0.5/3462.87) * 360 * 8192;
+
+        public static final double kPAngle = 0.13;
+        public static final double kIAngle = 0.005;
+        public static final double kDAngle = 0.0075;
+
+        // public static final double kVAngle = 0.0;
+        // public static final double kGAngle = 0.15;
+        
+        public static final double kReverseLimit = 10;
+        public static final double kForwardLimit = 280;
     }
 
     public static final Mode currentMode = Mode.THANOS;

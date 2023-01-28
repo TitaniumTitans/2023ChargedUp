@@ -2,6 +2,7 @@ package frc.robot.subsystems.Arm;
 
 import org.littletonrobotics.junction.Logger;
 
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ArmSubSystem extends SubsystemBase {
@@ -10,6 +11,8 @@ public class ArmSubSystem extends SubsystemBase {
 
     public final double kReverseLimitDegrees = 0;
     public final double kForwardLimitDegrees = 270;
+
+    public double armAngle = 100;
 
     public ArmSubSystem(ArmIO io){
         m_io = io;
@@ -33,9 +36,21 @@ public class ArmSubSystem extends SubsystemBase {
         return m_io.getArmAngle();
     }
 
+    public void updateArmAngle(double degreesToAdd){
+        armAngle += degreesToAdd;
+    }
+
+    public CommandBase updateArmAngleCommandFactory(double angle){
+        return run(() -> {
+            updateArmAngle(angle);
+        });
+    }
+
     public void periodic() {
         m_io.updateInputs(m_input);
         Logger.getInstance().processInputs("Arm", m_input);
+
+        m_io.setArmAngle(armAngle);
     }
 
 }

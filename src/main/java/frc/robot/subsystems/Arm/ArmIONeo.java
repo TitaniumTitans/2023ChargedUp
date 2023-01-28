@@ -4,32 +4,39 @@ import com.revrobotics.CANSparkMax;
 // import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 // import edu.wpi.first.wpilibj.Encoder;
 // import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.ArmConstants;
-import lib.utils.Swerve.CTREModuleState;
+import lib.utils.Utils;
 
 public class ArmIONeo implements ArmIO {
     // private CANSparkMax m_ArmEx;
-    private CANSparkMax m_ArmAngle;
+    private CANSparkMax m_armAngle;
     // private RelativeEncoder m_RelativeEncoderArmEx;
-    private DutyCycleEncoder m_EncoderArmAngle;
-    private double kArmOffset = Units.degreesToRotations(260.9);
+    private DutyCycleEncoder m_encoderArmAngle;
+    private double kArmOffset = 260.9;
 
+    // private SparkMaxPIDController m_sparkPID;
+    private PIDController m_anglePID;
 
     public ArmIONeo() {
         // m_ArmEx = new CANSparkMax(ArmConstants.ArmExID, MotorType.kBrushed);
-        m_ArmAngle = new CANSparkMax(ArmConstants.ArmAngleID, MotorType.kBrushless);
+        m_armAngle = new CANSparkMax(ArmConstants.ArmAngleID, MotorType.kBrushless);
     
-        m_EncoderArmAngle = new DutyCycleEncoder(0);
-        m_EncoderArmAngle.reset();
-        m_EncoderArmAngle.setDistancePerRotation(360);
-        m_EncoderArmAngle.setPositionOffset(0);
-        // m_EncoderArmAngle.setMinRate(10);
-        // m_EncoderArmAngle.setSamplesToAverage(5);
+        m_encoderArmAngle = new DutyCycleEncoder(0);
+        m_encoderArmAngle.reset();
+        m_encoderArmAngle.setDistancePerRotation(360);
+        m_encoderArmAngle.setPositionOffset(0);
+
+        // m_sparkPID = m_armAngle.getPIDController();
+        m_anglePID = new PIDController(ArmConstants.kPAngle, ArmConstants.kIAngle, ArmConstants.kDAngle);
+        m_anglePID.enableContinuousInput(0, 360);
+        // m_anglePID.setTolerance(100);
     }
 
     @Override
@@ -41,7 +48,7 @@ public class ArmIONeo implements ArmIO {
 
     @Override
     public void setAngleSpeed(double speed) {
-        m_ArmAngle.set(speed);
+        m_armAngle.set(speed);
     }
 
     @Override
@@ -56,16 +63,22 @@ public class ArmIONeo implements ArmIO {
     }
 
     @Override
+    public void setArmAngle(double angle){
+        double angleSetpoint = MathUtil.clamp(angle, ArmConstants.kReverseLimit, ArmConstants.kForwardLimit);
+        double pidOutput = MathUtil.clamp(m_anglePID.calculate(getArmAngle(), angleSetpoint), -1, 1);
+
+        if(!m_anglePID.atSetpoint()){
+            m_armAngle.setVoltage(pidOutput);
+        }
+    }
+
+    @Override
     public double getArmAngle() {
-        // System.out.println(m_EncoderArmAngle.getDistance());
-        SmartDashboard.putNumber("Arm Angle", m_EncoderArmAngle.getDistance());
-        SmartDashboard.putBoolean("Encoder Connected", m_EncoderArmAngle.isConnected());
-        SmartDashboard.putNumber("Encoder Absoltue", (m_EncoderArmAngle.getAbsolutePosition() - kArmOffset) * 360);
+        // double angle = 0;
+        SmartDashboard.putBoolean("IsConnected?", m_encoderArmAngle.isConnected());
+        return Utils.normalize((m_encoderArmAngle.getAbsolutePosition() * 360) - kArmOffset);
 
-        double angle = 0;
-        CTREModuleState.placeInAppropriate0To360Scope((m_EncoderArmAngle.getAbsolutePosition() - kArmOffset) * 360, angle);
-
-        return angle;
+        // return angle;
     }
 
 }
