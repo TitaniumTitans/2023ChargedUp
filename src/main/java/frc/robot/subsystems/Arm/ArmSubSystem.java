@@ -8,7 +8,7 @@ public class ArmSubSystem extends SubsystemBase {
     private ArmIO m_io;
     private ArmIOInputsAutoLogged m_input;
 
-    public final double kReverseLimitDegrees = 10;
+    public final double kReverseLimitDegrees = 0;
     public final double kForwardLimitDegrees = 270;
 
     public ArmSubSystem(ArmIO io){
