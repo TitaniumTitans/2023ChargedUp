@@ -14,6 +14,8 @@ public class ArmIONeo implements ArmIO {
     private RelativeEncoder m_RelativeEncoderArmEx;
     private Encoder m_EncoderArmAngle;
 
+
+
     public ArmIONeo() {
         m_ArmEx = new CANSparkMax(ArmConstants.ArmExID, MotorType.kBrushed);
         m_ArmAngle = new CANSparkMax(ArmConstants.ArmAngleID, MotorType.kBrushless);
