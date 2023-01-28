@@ -8,9 +8,13 @@ import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.MoveArmAngle;
 import frc.robot.commands.SwerveTeleopDrive;
 import frc.robot.commands.Autonomous.AutoUtils;
+import frc.robot.commands.Test.ArmToSetpoint;
 import frc.robot.subsystems.Arm.ArmIONeo;
 import frc.robot.subsystems.Arm.ArmSubSystem;
 import frc.robot.subsystems.Swerve.SwerveDrivetrain;
@@ -60,6 +64,7 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
     configAutoChooser();
+    configDashboard();
   }
 
   /**
@@ -74,9 +79,9 @@ public class RobotContainer {
     m_driveController.button(7).onTrue(m_drive.resetGyroBase());
     m_driveController.button(8).onTrue(m_drive.toggleFieldRelative());
 
-    m_driveController.a().whileTrue(m_arm.updateArmAngleCommandFactory(5));
+    m_driveController.a().whileTrue(m_arm.updateArmAngleCommandFactory(1));
     
-    m_driveController.b().whileTrue(m_arm.updateArmAngleCommandFactory(-5));
+    m_driveController.b().whileTrue(m_arm.updateArmAngleCommandFactory(-1));
   }
 
   /**
@@ -85,6 +90,19 @@ public class RobotContainer {
   public void configAutoChooser(){
     autoChooser.addDefaultOption("Default Trajectory", AutoUtils.getDefaultTrajectory(m_drive));
     autoChooser.addOption("Event Map Trajectory", AutoUtils.getPathWithEvents(m_drive));
+  }
+
+  /**
+   * This method sets up Shuffleboard tabs for test commands
+   */
+  public void configDashboard(){
+    ShuffleboardTab testCommands = Shuffleboard.getTab("Commands");
+
+    testCommands.add("Arm to 90", new ArmToSetpoint(m_arm, 90));
+
+    testCommands.add("Arm to 40", new ArmToSetpoint(m_arm, 40));
+    testCommands.add("Arm to 140", new ArmToSetpoint(m_arm, 140));
+
   }
 
   /**

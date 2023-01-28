@@ -102,7 +102,7 @@ public final class Constants {
         // public static final double kVAngle = 0.0;
         // public static final double kGAngle = 0.15;
         
-        public static final double kReverseLimit = 10;
+        public static final double kReverseLimit = 40;
         public static final double kForwardLimit = 280;
     }
 
