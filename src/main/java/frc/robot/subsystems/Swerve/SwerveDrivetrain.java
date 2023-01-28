@@ -114,7 +114,7 @@ public class SwerveDrivetrain extends SubsystemBase {
     SmartDashboard.putNumber("Gyro", getGyroYaw().getDegrees());
 
     // CAMERA:
-    Optional<EstimatedRobotPose> frontEPose = frontPVCam.getPose(m_prevPose);
+    Optional<EstimatedRobotPose> frontEPose = frontPVCam.getPose(m_poseEstimator.getEstimatedPosition());
     SmartDashboard.putBoolean("Cam pose present", frontEPose.isPresent());
     if (frontEPose.isPresent())
     {
