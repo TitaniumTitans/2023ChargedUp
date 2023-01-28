@@ -41,6 +41,11 @@ public class CameraSubsystem implements Subsystem {
         }
     }
 
+    /**
+     * Gets optional estimatedRobotPose from AprilTag data
+     * @param prevEstimatedRobotPose Pose 2d refrence position for the Photon Vision pose estimator to work off of
+     * @return Optional estimatedRobotPose, a Pose3d and a timestamp in seconds
+     */
     public Optional<EstimatedRobotPose> getPose(Pose2d prevEstimatedRobotPose) {
         m_photonPoseEstimator.setReferencePose(prevEstimatedRobotPose);
 

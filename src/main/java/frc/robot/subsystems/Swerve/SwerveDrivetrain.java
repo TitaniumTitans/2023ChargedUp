@@ -10,6 +10,7 @@ import java.util.Optional;
 import org.littletonrobotics.junction.Logger;
 import org.photonvision.EstimatedRobotPose;
 
+import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
@@ -28,6 +29,7 @@ import frc.robot.subsystems.Vision.CameraSubsystem;
 public class SwerveDrivetrain extends SubsystemBase {
   private SwerveIO m_io;
   private SwerveDriveOdometry m_odometry;
+  private SwerveDrivePoseEstimator m_poseEstimator;
   private SwerveIOInputsAutoLogged inputs;
   private Field2d m_field;
 
@@ -38,14 +40,17 @@ public class SwerveDrivetrain extends SubsystemBase {
   private Transform3d FRONT_CAM_POSE = new Transform3d
     (new Translation3d(0.5, 0.0, 0.5), new Rotation3d());
   private Pose2d m_prevPose;
-  private Field2d m_PVField;
 
   /** Creates a new SwerveDrivetrain. */
   public SwerveDrivetrain(SwerveIO io) {
     m_io = io;
-    m_odometry = new SwerveDriveOdometry(DriveConstants.kDriveKinematics, 
-      m_io.getGyroYaw(), 
-      m_io.getModulePositions());
+    // m_odometry = new SwerveDriveOdometry(DriveConstants.kDriveKinematics, 
+    //   m_io.getGyroYaw(), 
+    //   m_io.getModulePositions());
+
+    m_poseEstimator = new SwerveDrivePoseEstimator
+      (DriveConstants.kDriveKinematics, m_io.getGyroYaw(), 
+      m_io.getModulePositions(), new Pose2d());
 
     inputs = new SwerveIOInputsAutoLogged();
 
@@ -57,7 +62,6 @@ public class SwerveDrivetrain extends SubsystemBase {
     // CAMERA CONFIG
     frontPVCam = new CameraSubsystem(FRONT_CAM_NAME, FRONT_CAM_POSE);
     m_prevPose = new Pose2d();
-    m_PVField = new Field2d();
   }
 
   public Rotation2d getGyroYaw(){
@@ -95,25 +99,44 @@ public class SwerveDrivetrain extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    m_odometry.update(m_io.getGyroYaw(), m_io.getModulePositions());
+    updatePoseEstimator();
+    SmartDashboard.putNumber
+      ("Estimated Pose X", m_poseEstimator.getEstimatedPosition().getX());
+    SmartDashboard.putNumber
+      ("Estimated Pose Y", m_poseEstimator.getEstimatedPosition().getY());
+    SmartDashboard.putData(m_field);
 
-    m_io.updateInputs(inputs);
-    Logger.getInstance().processInputs("Drive", inputs);
-    m_field.setRobotPose(m_odometry.getPoseMeters());
+    // m_io.updateInputs(inputs);
+    // Logger.getInstance().processInputs("Drive", inputs);
+    // m_field.setRobotPose(m_odometry.getPoseMeters());
 
     SmartDashboard.putBoolean("Field Relative", fieldRelative);
     SmartDashboard.putNumber("Gyro", getGyroYaw().getDegrees());
 
     // CAMERA:
-    SmartDashboard.putData("PV field", m_PVField);
     Optional<EstimatedRobotPose> frontEPose = frontPVCam.getPose(m_prevPose);
     SmartDashboard.putBoolean("Cam pose present", frontEPose.isPresent());
     if (frontEPose.isPresent())
     {
       EstimatedRobotPose frontPose = frontEPose.get();
-      m_PVField.setRobotPose(frontPose.estimatedPose.toPose2d());
       m_prevPose = frontPose.estimatedPose.toPose2d();
     }
+  }
+
+  public void updatePoseEstimator()
+  {
+    m_poseEstimator.update(m_io.getGyroYaw(), m_io.getModulePositions());
+
+    Optional<EstimatedRobotPose> estimateCamPose = 
+      frontPVCam.getPose(m_prevPose);
+    SmartDashboard.putBoolean("POSE ESTIMATOR isPresent", estimateCamPose.isPresent());
+    if (estimateCamPose.isPresent())
+    {
+      EstimatedRobotPose camPose = estimateCamPose.get();
+      m_poseEstimator.addVisionMeasurement
+        (camPose.estimatedPose.toPose2d(), camPose.timestampSeconds);
+    }
+    m_field.setRobotPose(m_poseEstimator.getEstimatedPosition());
   }
 
   public CommandBase resetGyroBase(){
