@@ -22,10 +22,10 @@ public class ArmIONeo implements ArmIO {
         m_RelativeEncoderArmAngle = m_ArmAngle.getEncoder();
         m_RelativeEncoderArmAngle.setPositionConversionFactor(ArmConstants.kAngleConversionFactor);
 
-        m_ArmAngle.enableSoftLimit(SoftLimitDirection.kForward, true);
-        m_ArmAngle.enableSoftLimit(SoftLimitDirection.kReverse, true);
-        m_ArmAngle.setSoftLimit(SoftLimitDirection.kForward,10);
-        m_ArmAngle.setSoftLimit(SoftLimitDirection.kReverse, 180);
+        // m_ArmAngle.enableSoftLimit(SoftLimitDirection.kForward, true);
+        // m_ArmAngle.enableSoftLimit(SoftLimitDirection.kReverse, true);
+        // m_ArmAngle.setSoftLimit(SoftLimitDirection.kForward,10);
+        // m_ArmAngle.setSoftLimit(SoftLimitDirection.kReverse, 180);
         // m_ArmAngle.setSoftLimit(SoftLimitDirection.kForward, (float) Units.degreesToRotations(10));
         // m_ArmAngle.setSoftLimit(SoftLimitDirection.kReverse, (float) Units.degreesToRotations(273.5));
     }
