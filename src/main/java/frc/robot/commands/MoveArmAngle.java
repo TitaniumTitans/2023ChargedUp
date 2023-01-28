@@ -27,7 +27,15 @@ public class MoveArmAngle extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_arm.setAngleSpeed(speed);
+    if(m_arm.getArmAngle() > m_arm.kForwardLimitDegrees && speed > 0){
+      m_arm.setAngleSpeed(0.0);
+    }
+    else if(m_arm.getArmAngle() < m_arm.kReverseLimitDegrees && speed < 0){
+      m_arm.setAngleSpeed(0.0);
+    }
+    else{
+      m_arm.setAngleSpeed(speed);
+    }
   }
 
   // Called once the command ends or is interrupted.
