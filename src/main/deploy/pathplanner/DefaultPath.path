@@ -2,13 +2,13 @@
   "waypoints": [
     {
       "anchorPoint": {
-        "x": 1.965805181610364,
-        "y": 1.3082084497502335
+        "x": 1.9860844007402305,
+        "y": 0.8731993178272072
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.9658051816103628,
-        "y": 1.3082084497502335
+        "x": 2.1292318298922313,
+        "y": 0.8588845749120075
       },
       "holonomicAngle": 0,
       "isReversal": false,
@@ -24,62 +24,12 @@
     },
     {
       "anchorPoint": {
-        "x": 7.210965564788273,
-        "y": 0.8159403461664072
+        "x": 1.97176965782503,
+        "y": 4.637976704524838
       },
       "prevControl": {
-        "x": 6.7696535395506325,
-        "y": 0.7819932673019718
-      },
-      "nextControl": {
-        "x": 6.7696535395506325,
-        "y": 0.7819932673019718
-      },
-      "holonomicAngle": 0,
-      "isReversal": true,
-      "velOverride": null,
-      "isLocked": false,
-      "isStopPoint": false,
-      "stopEvent": {
-        "names": [],
-        "executionBehavior": "parallel",
-        "waitBehavior": "none",
-        "waitTime": 0
-      }
-    },
-    {
-      "anchorPoint": {
-        "x": 5.292790014151457,
-        "y": 2.2330998947712186
-      },
-      "prevControl": {
-        "x": 5.350048985812257,
-        "y": 2.2330998947712186
-      },
-      "nextControl": {
-        "x": 5.235531042490657,
-        "y": 2.2330998947712186
-      },
-      "holonomicAngle": 0,
-      "isReversal": false,
-      "velOverride": null,
-      "isLocked": false,
-      "isStopPoint": false,
-      "stopEvent": {
-        "names": [],
-        "executionBehavior": "parallel",
-        "waitBehavior": "none",
-        "waitTime": 0
-      }
-    },
-    {
-      "anchorPoint": {
-        "x": 1.814307485757829,
-        "y": 4.666606190355238
-      },
-      "prevControl": {
-        "x": 1.6510943048725972,
-        "y": 4.666606190355238
+        "x": 1.8085564769397984,
+        "y": 4.637976704524838
       },
       "nextControl": null,
       "holonomicAngle": 0,
@@ -103,18 +53,6 @@
       "position": 0.0,
       "names": [
         "event"
-      ]
-    },
-    {
-      "position": 1.0363636363636366,
-      "names": [
-        "Event 1"
-      ]
-    },
-    {
-      "position": 1.9636363636363612,
-      "names": [
-        "event 2"
       ]
     }
   ]

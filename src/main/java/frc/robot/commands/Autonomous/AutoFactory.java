@@ -24,6 +24,7 @@ public class AutoFactory {
     // Default Constants
     private final static PathConstraints defaultConfig = new PathConstraints(
         AutoConstants.kMaxVelocityMPS, AutoConstants.kMaxAccelerationMPS);
+        
     private static final PathPlannerTrajectory defaultAutoGen = PathPlanner.loadPath("DefaultPath", defaultConfig);
     private static final HashMap<String, Command> defaultEventMap = new HashMap<>();
 

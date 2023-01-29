@@ -34,7 +34,7 @@ public class SwerveDrivetrain extends SubsystemBase {
     inputs = new SwerveIOInputsAutoLogged();
 
     m_field = new Field2d();
-    SmartDashboard.putData("Field", m_field);
+    // SmartDashboard.putData("Field", m_field);
     
     fieldRelative = false;
   }
@@ -79,6 +79,7 @@ public class SwerveDrivetrain extends SubsystemBase {
     m_io.updateInputs(inputs);
     Logger.getInstance().processInputs("Drive", inputs);
     m_field.setRobotPose(m_odometry.getPoseMeters());
+    SmartDashboard.putData("Field", m_field);
 
     SmartDashboard.putBoolean("Field Relative", fieldRelative);
     SmartDashboard.putNumber("Gyro", getGyroYaw().getDegrees());
