@@ -64,7 +64,7 @@ public class SwerveModNeo {
     state = SwerveModuleState.optimize(state, getState().angle);
 
     if (true) {
-      double speed = state.speedMetersPerSecond / ModuleConstants.kMaxSpeedMetersPerSecond;
+      double speed = state.speedMetersPerSecond;
     //   drivePID.setReference(speed, CANSparkMax.ControlType.kDutyCycle);
     driveMotor.set(speed);
     } else {
