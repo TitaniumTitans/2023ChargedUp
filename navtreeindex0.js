@@ -35,9 +35,7 @@ var NAVTREEINDEX0 =
 "classfrc_1_1robot_1_1commands_1_1_auto_balance.html#a8c1cb1bc5699e6730606be0b9fcd5750":[10,0,0,0,0,1,0],
 "classfrc_1_1robot_1_1commands_1_1_auto_balance.html#aa2fc4dae04b75e98fac12a4ddeb98ded":[10,0,0,0,0,1,1],
 "classfrc_1_1robot_1_1commands_1_1_auto_balance.html#ae4135d667d11c8d0906a40f91f989404":[10,0,0,0,0,1,3],
-"classfrc_1_1robot_1_1commands_1_1_autonomous_1_1_auto_factory.html":[10,0,0,0,0,0,0],
-"classfrc_1_1robot_1_1commands_1_1_autonomous_1_1_auto_factory.html#a7206077a90f12c24c196572ef28cc23c":[10,0,0,0,0,0,0,0],
-"classfrc_1_1robot_1_1commands_1_1_autonomous_1_1_auto_factory.html#a722bac61ed6b0102bbecfdc5d0e96c61":[10,0,0,0,0,0,0,1],
+"classfrc_1_1robot_1_1commands_1_1_autonomous_1_1_auto_utils.html":[10,0,0,0,0,0,0],
 "classfrc_1_1robot_1_1commands_1_1_swerve_teleop_drive.html":[10,0,0,0,0,2],
 "classfrc_1_1robot_1_1commands_1_1_swerve_teleop_drive.html#a18da46f43caaf57a292fb879df6d32aa":[10,0,0,0,0,2,0],
 "classfrc_1_1robot_1_1commands_1_1_swerve_teleop_drive.html#a2c0a1b486d05398e24c7e6ae5bd8d042":[10,0,0,0,0,2,3],
@@ -236,8 +234,8 @@ var NAVTREEINDEX0 =
 "functions.html":[10,3,0],
 "functions_func.html":[10,3,1],
 "hierarchy.html":[10,2],
-"index.html":[],
 "index.html":[0],
+"index.html":[],
 "interfacefrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_i_o.html":[10,0,0,0,1,0,3],
 "interfacefrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_i_o.html#a31569d0eba41c6887fff295c77180e38":[10,0,0,0,1,0,3,7],
 "interfacefrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_i_o.html#a413464b7640b1ea33973dfa956137773":[10,0,0,0,1,0,3,0],
@@ -249,5 +247,7 @@ var NAVTREEINDEX0 =
 "interfacefrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_i_o.html#ac24ec5961fa5cdf6be6f0c42018309ae":[10,0,0,0,1,0,3,2],
 "interfacefrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_i_o.html#ac40dfa5e25944374d57c0c841e200a39":[10,0,0,0,1,0,3,1],
 "interfacefrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_i_o.html#ae79f26dde4441f4087ed5c34fee9f6ae":[10,0,0,0,1,0,3,5],
-"interfacelib_1_1utils_1_1drivers_1_1_c_t_r_e_util_1_1_config_call.html":[10,0,1,0,0,0,0]
+"interfacelib_1_1utils_1_1drivers_1_1_c_t_r_e_util_1_1_config_call.html":[10,0,1,0,0,0,0],
+"interfacelib_1_1utils_1_1drivers_1_1_c_t_r_e_util_1_1_config_call.html#a7e9e2f2c114b65b68a1be2241d31c19c":[10,0,1,0,0,0,0,0],
+"md__r_e_a_d_m_e.html":[5]
 };

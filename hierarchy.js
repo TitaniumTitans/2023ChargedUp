@@ -1,6 +1,6 @@
 var hierarchy =
 [
-    [ "frc.robot.commands.Autonomous.AutoFactory", "classfrc_1_1robot_1_1commands_1_1_autonomous_1_1_auto_factory.html", null ],
+    [ "frc.robot.commands.Autonomous.AutoUtils", "classfrc_1_1robot_1_1commands_1_1_autonomous_1_1_auto_utils.html", null ],
     [ "lib.utils.drivers.CTREUtil.ConfigCall", "interfacelib_1_1utils_1_1drivers_1_1_c_t_r_e_util_1_1_config_call.html", null ],
     [ "frc.robot.Constants", "classfrc_1_1robot_1_1_constants.html", null ],
     [ "lib.utils.Swerve.CTREModuleState", "classlib_1_1utils_1_1_swerve_1_1_c_t_r_e_module_state.html", null ],
