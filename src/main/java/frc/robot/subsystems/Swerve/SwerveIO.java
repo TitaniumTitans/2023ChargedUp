@@ -53,5 +53,9 @@ public interface SwerveIO {
         return null;
     }
 
+    public default Rotation2d getGyroRoll(){
+        return null;
+    }
+
     public default void resetGyro(){}
 }

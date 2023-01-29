@@ -34,6 +34,7 @@ public class AutoUtils {
     // Default Constants
     private final static PathConstraints defaultConfig = new PathConstraints(
         AutoConstants.kMaxVelocityMPS, AutoConstants.kMaxAccelerationMPS);
+        
 
     private final static PathPlannerTrajectory defaultTrajectory = PathPlanner.generatePath(
         defaultConfig,

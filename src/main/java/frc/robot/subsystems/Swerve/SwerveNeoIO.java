@@ -101,6 +101,11 @@ public class SwerveNeoIO implements SwerveIO{
     }
 
     @Override
+    public Rotation2d getGyroRoll(){
+        return Rotation2d.fromDegrees(m_gyro.getRoll());
+    }
+
+    @Override
     public void setAbsoluteAngles(){}
 
     @Override
