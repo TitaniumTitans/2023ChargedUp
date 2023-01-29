@@ -14,6 +14,17 @@ public class ArmSubSystem extends SubsystemBase {
 
     public double armAngle = 100;
 
+    public static class ArmHeights{
+        //Low scoring
+        public static final double kLowScoringPositionDegrees = 280;
+
+        //Middle scoring
+        public static final double kMiddleScoringPositionDegrees = 220.0;
+
+        //High scoring
+        public static final double kHightScoringPositionDegrees = 160.0;
+    }
+
     public ArmSubSystem(ArmIO io){
         m_io = io;
 
