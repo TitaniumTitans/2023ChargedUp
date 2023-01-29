@@ -69,9 +69,8 @@ public final class Constants {
     }
 
     public static class AutoConstants{
-        //Trajectory following values
-        public static final double kMaxVelocityMPS = 1;
-        public static final double kMaxAccelerationMPS = 1;
+        public static final double kMaxVelocityMPS = 0.6;
+        public static final double kMaxAccelerationMPS = 0.6;
 
         public static final Constraints kThetaConstraints = 
             new Constraints(kMaxVelocityMPS, kMaxAccelerationMPS);
@@ -80,9 +79,9 @@ public final class Constants {
             new ProfiledPIDController(0.0, 0.0, 0.0, kThetaConstraints);
         
         public static final PIDController kControllerX =
-            new PIDController(0.00001, 0, 0);
+            new PIDController(1, 0, 0);
         public static final PIDController kControllerY =
-            new PIDController(0, 0, 0);
+            new PIDController(1, 0, 0);
         
         //Auto balance constants
         public static final double kBalanceP = 0.5;
