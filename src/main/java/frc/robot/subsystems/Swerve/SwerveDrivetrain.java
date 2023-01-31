@@ -19,6 +19,7 @@ import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -38,7 +39,10 @@ public class SwerveDrivetrain extends SubsystemBase {
   private CameraSubsystem frontPVCam;
   private String FRONT_CAM_NAME = "FrontPiCam";
   private Transform3d FRONT_CAM_POSE = new Transform3d
-    (new Translation3d(0.5, 0.0, 0.5), new Rotation3d());
+    (new Translation3d(Units.inchesToMeters(11.4), 
+    Units.inchesToMeters(-3.75), Units.inchesToMeters(15.5)), new Rotation3d(
+      0.0, 0.0, -90
+    ));
   private Pose2d m_prevPose;
 
   /** Creates a new SwerveDrivetrain. */
@@ -148,11 +152,11 @@ public class SwerveDrivetrain extends SubsystemBase {
   }
 
   public Pose2d getPose(){
-    return m_odometry.getPoseMeters();
+    return m_poseEstimator.getEstimatedPosition();
   }
 
   public void resetPose(Pose2d pose){
-    m_odometry.resetPosition(getGyroYaw(), getModulePostitions(), pose);
+    m_poseEstimator.resetPosition(getGyroYaw(), getModulePostitions(), pose);
   }
 
   public void resetPose(){
