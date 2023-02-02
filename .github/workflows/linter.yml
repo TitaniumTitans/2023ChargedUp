@@ -5,7 +5,7 @@ on:
   push:
     branches-ignore: [master, main]
     # Remove the line above to run when pushing to master
-  pull-request:
+  pull_request:
     branches: [master, main]
     
 jobs:
