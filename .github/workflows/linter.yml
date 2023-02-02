@@ -21,7 +21,7 @@ jobs:
 
       - name: Lint Code Base
         # Use the slim linter to speed up build and download time
-        uses: github/super-linter:slim@v4
+        uses: github/super-linter/slim@v4
         env:
           VALIDATE_ALL_CODEBASE: false
           DEFAULT_BRANCH: master
