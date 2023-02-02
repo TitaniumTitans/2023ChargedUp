@@ -101,10 +101,73 @@ Inheritance diagram for frc.robot.subsystems.Vision.CameraSubsystem:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a4f9dfeae94055ddd7a6b60197404b31e"><td class="memItemLeft" align="right" valign="top"><a id="a4f9dfeae94055ddd7a6b60197404b31e"></a>
-Optional&lt; EstimatedRobotPose &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getPose</b> (Pose2d prevEstimatedRobotPose)</td></tr>
+<tr class="memitem:a40e704f56acda25e2afb0ef32ca41c84"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfrc_1_1robot_1_1subsystems_1_1_vision_1_1_camera_subsystem.html#a40e704f56acda25e2afb0ef32ca41c84">CameraSubsystem</a> (String camName, Transform3d camPose)</td></tr>
+<tr class="separator:a40e704f56acda25e2afb0ef32ca41c84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f9dfeae94055ddd7a6b60197404b31e"><td class="memItemLeft" align="right" valign="top">Optional&lt; EstimatedRobotPose &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfrc_1_1robot_1_1subsystems_1_1_vision_1_1_camera_subsystem.html#a4f9dfeae94055ddd7a6b60197404b31e">getPose</a> (Pose2d prevEstimatedRobotPose)</td></tr>
 <tr class="separator:a4f9dfeae94055ddd7a6b60197404b31e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a40e704f56acda25e2afb0ef32ca41c84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40e704f56acda25e2afb0ef32ca41c84">&#9670;&nbsp;</a></span>CameraSubsystem()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">frc.robot.subsystems.Vision.CameraSubsystem.CameraSubsystem </td>
+          <td>(</td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>camName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Transform3d&#160;</td>
+          <td class="paramname"><em>camPose</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Creates a new <a class="el" href="classfrc_1_1robot_1_1subsystems_1_1_vision_1_1_camera_subsystem.html">CameraSubsystem</a> </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">camName</td><td>Name of the camera in the system </td></tr>
+    <tr><td class="paramname">camPose</td><td>Transform3d of the camera's position relative to the robot </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a4f9dfeae94055ddd7a6b60197404b31e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f9dfeae94055ddd7a6b60197404b31e">&#9670;&nbsp;</a></span>getPose()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Optional&lt;EstimatedRobotPose&gt; frc.robot.subsystems.Vision.CameraSubsystem.getPose </td>
+          <td>(</td>
+          <td class="paramtype">Pose2d&#160;</td>
+          <td class="paramname"><em>prevEstimatedRobotPose</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Gets optional estimatedRobotPose from AprilTag data </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">prevEstimatedRobotPose</td><td>Pose 2d refrence position for the Photon Vision pose estimator to work off of </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Optional estimatedRobotPose, a Pose3d and a timestamp in seconds </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/main/java/frc/robot/subsystems/Vision/CameraSubsystem.java</li>
 </ul>
