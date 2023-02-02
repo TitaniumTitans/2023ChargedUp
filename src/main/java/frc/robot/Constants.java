@@ -68,6 +68,20 @@ public final class Constants {
         new Translation2d(-kWheelBase / 2, -kTrackWidth / 2));
     }
 
+    public static class IntakeConstants{
+        public static final int kWristId = 19;
+        public static final int kIntakeId = 20;
+
+        public static final int kLimitSwitchPort = 2;
+        public static final int kWristAnglePort = 3;
+    }
+
+    public static class ArmConstants{
+        public static final int kAngleMasterId = 16;
+        public static final int kAngleFollowerId = 17;
+        public static final int kExtentionId = 18;
+    }
+
     public static class AutoConstants{
         //Trajectory following values
         public static final double kMaxVelocityMPS = 0.5;

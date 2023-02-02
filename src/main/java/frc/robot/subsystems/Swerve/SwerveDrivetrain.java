@@ -108,7 +108,7 @@ public class SwerveDrivetrain extends SubsystemBase {
       ("Estimated Pose X", m_poseEstimator.getEstimatedPosition().getX());
     SmartDashboard.putNumber
       ("Estimated Pose Y", m_poseEstimator.getEstimatedPosition().getY());
-    SmartDashboard.putData(m_field);
+    // SmartDashboard.putData(m_field);
 
     // m_io.updateInputs(inputs);
     // Logger.getInstance().processInputs("Drive", inputs);
