@@ -25,5 +25,5 @@ jobs:
         env:
           VALIDATE_ALL_CODEBASE: false
           DEFAULT_BRANCH: master
-          JAVA_FILE_NAME: workflow/sun_checker.xml
+          JAVA_FILE_NAME: workflow/sun_check.xml
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
