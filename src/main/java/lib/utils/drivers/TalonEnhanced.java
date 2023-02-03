@@ -571,10 +571,7 @@ public class TalonEnhanced {
     }
 
     public double getOutputCurrent() {
-        // TODO check the subtype of the IMotorControllerEnhanced passed into the
-        // TODO constructor, and implement getSupplyCurrent/getStatorCurrent
-        // TODO methods in TalonEnhanced.
-        return m_talon.getOutputCurrent();
+        return m_talon.getMotorOutputVoltage();
     }
 
     public TalonEnhanced configVelocityMeasurementPeriod(SensorVelocityMeasPeriod period) {
