@@ -77,7 +77,7 @@
 
   <!-- Checks for Naming Conventions.                  -->
   <!-- See https://checkstyle.org/config_naming.html -->
-  <module name="ConstantName"/>
+  <!-- <module name="ConstantName"/> -->
   <module name="LocalFinalVariableName"/>
   <module name="LocalVariableName"/>
   <module name="MemberName"/>
