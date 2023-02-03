@@ -12,18 +12,18 @@ import frc.robot.subsystems.Swerve.SwerveDrivetrain;
 public class AutoBalance extends CommandBase {
   private SwerveDrivetrain m_drive;
 
-  private double currentAngle;
-  private double error;
-  private double drivePower;
-  private int counter;
-  private boolean isLevel;
+  private double m_currentAngle;
+  private double m_error;
+  private double m_drivePower;
+  private int m_counter;
+  private boolean m_isLevel;
 
   /** Creates a new AutoBalance. */
   public AutoBalance(SwerveDrivetrain drive) {
     m_drive = drive;
-    currentAngle = 0;
-    counter = 0;
-    isLevel = false;
+    m_currentAngle = 0;
+    m_counter = 0;
+    m_isLevel = false;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_drive);
   }
@@ -35,25 +35,25 @@ public class AutoBalance extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    currentAngle = m_drive.getGyroRoll().getDegrees();
-    error = AutoConstants.DESIRED_BALANCE_ANGLE - currentAngle;
+    m_currentAngle = m_drive.getGyroRoll().getDegrees();
+    m_error = AutoConstants.DESIRED_BALANCE_ANGLE - m_currentAngle;
 
-    drivePower = Math.min(AutoConstants.BALANCE_P * error, 1);
+    m_drivePower = Math.min(AutoConstants.BALANCE_P * m_error, 1);
     // Limit max power
-    if(Math.abs(drivePower) > 0.28){
-      drivePower = Math.copySign(0.28, drivePower);
+    if (Math.abs(m_drivePower) > 0.28) {
+      m_drivePower = Math.copySign(0.28, m_drivePower);
     }
 
-    if(Math.abs(error) < 0.5 && counter == 10){
-      isLevel = true;
+    if (Math.abs(m_error) < 0.5 && m_counter == 10) {
+      m_isLevel = true;
     }
-    if(Math.abs(error) < 0.5 && counter < 10){
-      counter++;
+    if (Math.abs(m_error) < 0.5 && m_counter < 10) {
+      m_counter++;
     }
 
-    m_drive.drive(drivePower, 0.0, 0.0);
-    SmartDashboard.putNumber("Gyro Angle", currentAngle);
-    SmartDashboard.putNumber("Drive Power", drivePower);
+    m_drive.drive(m_drivePower, 0.0, 0.0);
+    SmartDashboard.putNumber("Gyro Angle", m_currentAngle);
+    SmartDashboard.putNumber("Drive Power", m_drivePower);
   }
 
   // Called once the command ends or is interrupted.
@@ -63,6 +63,6 @@ public class AutoBalance extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return isLevel; // If current error is within a threshold of one degree
+    return m_isLevel; // If current error is within a threshold of one degree
   }
 }
