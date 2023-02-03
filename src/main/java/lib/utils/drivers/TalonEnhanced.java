@@ -40,18 +40,14 @@ import lib.utils.drivers.CTREUtil.*;
 public class TalonEnhanced {
     private IMotorControllerEnhanced m_talon;
 
-    // TODO Consider moving thsese constants somewhere else
     final static private int kTimeoutMs = 100;
     final static private int kFastFrameMs = 45;
     final static private int kSlowFrameMs = 255;
 
-    // TODO Set common parameters in constructor, add more
-    // TODO overloaded constructor methods
     public TalonEnhanced(IMotorControllerEnhanced talon) {
         m_talon = talon;
     }
 
-    // TODO Change to handleError and change behavior depending on error type
     public TalonEnhanced autoRetry(ConfigCall talonConfigCall) {
         CTREUtil.autoRetry(() -> talonConfigCall.run());
         return this;
@@ -272,7 +268,6 @@ public class TalonEnhanced {
         return this;
     }
 
-    // TODO Create some PIDF convenience functions
 
     private double m_last_kP = Double.NaN;
 
@@ -390,8 +385,6 @@ public class TalonEnhanced {
         return m_talon.getActiveTrajectoryVelocity();
     }
 
-    // TODO Write motion magic convenience methods.
-
     private double m_lastCruiseVelocity = Double.NaN;
 
     public TalonEnhanced configMotionCruiseVelocity(double cruiseVelocity) {
@@ -457,9 +450,6 @@ public class TalonEnhanced {
         return m_talon.getLastError();
     }
 
-    // TODO Implement automatic fault monitoring/handling. Perhaps divide faults
-    // TODO into "categories" such as limits/soft limits, hardware/api issues, and
-    // TODO non-critical "warning" faults.
     public TalonEnhanced getFaults(Faults toFill) {
         return this.autoRetry(() -> m_talon.getFaults(toFill));
     }
@@ -476,8 +466,7 @@ public class TalonEnhanced {
         return m_talon.getFirmwareVersion();
     }
 
-    // TODO Automatically re-instate config when this happens. Perhaps save a live
-    // TODO "copy" of the config in a varialbe?
+
     public boolean hasResetOccurred() {
         return m_talon.hasResetOccurred();
     }
@@ -537,16 +526,13 @@ public class TalonEnhanced {
     }
 
     public TalonEnhanced setStatusFramePeriod(StatusFrameEnhanced frame, int periodMs) {
-        // TODO Create custom frame enum which better represents common use cases
         return this.autoRetry(() -> m_talon.setStatusFramePeriod(frame, periodMs, kTimeoutMs));
     }
 
     public int getStatusFramePeriod(StatusFrameEnhanced frame) {
-        // TODO Create custom frame enum which better represents common use cases
         return m_talon.getStatusFramePeriod(frame, kTimeoutMs);
     }
 
-    // TODO Refactor these methods using custom frame enum
     public TalonEnhanced setFeedbackIntervals(int intervalMs) {
         return this
                 .autoRetry(() -> m_talon.setStatusFramePeriod(
@@ -571,10 +557,7 @@ public class TalonEnhanced {
     }
 
     public double getOutputCurrent() {
-        // TODO check the subtype of the IMotorControllerEnhanced passed into the
-        // TODO constructor, and implement getSupplyCurrent/getStatorCurrent
-        // TODO methods in TalonEnhanced.
-        return m_talon.getOutputCurrent();
+        return m_talon.getMotorOutputVoltage();
     }
 
     public TalonEnhanced configVelocityMeasurementPeriod(SensorVelocityMeasPeriod period) {
