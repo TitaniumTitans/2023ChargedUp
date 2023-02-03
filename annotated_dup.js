@@ -12,7 +12,6 @@ var annotated_dup =
         [ "subsystems", null, [
           [ "Swerve", null, [
             [ "SwerveModules", null, [
-              [ "SwerveModCANCoder", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_modules_1_1_swerve_mod_c_a_n_coder.html", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_modules_1_1_swerve_mod_c_a_n_coder" ],
               [ "SwerveModFalcon", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_modules_1_1_swerve_mod_falcon.html", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_modules_1_1_swerve_mod_falcon" ],
               [ "SwerveModNeo", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_modules_1_1_swerve_mod_neo.html", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_modules_1_1_swerve_mod_neo" ]
             ] ],

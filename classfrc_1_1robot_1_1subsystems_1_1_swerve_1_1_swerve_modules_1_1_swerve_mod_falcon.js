@@ -8,6 +8,6 @@ var classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_modules_1_1_swerve_mod
     [ "getTargetAngle", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_modules_1_1_swerve_mod_falcon.html#aeddee5ed38236455ff4e701bf9b04253", null ],
     [ "resetToAbsolute", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_modules_1_1_swerve_mod_falcon.html#a6eb98d4db4aa6fd30b9c629a8e290fd4", null ],
     [ "setDesiredState", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_modules_1_1_swerve_mod_falcon.html#af5fe4fd983fff2708c4fac7ceed6a8b7", null ],
-    [ "magnetOffset", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_modules_1_1_swerve_mod_falcon.html#a0b3cb344ade39884ed8e6e35539edb45", null ],
-    [ "moduleNumber", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_modules_1_1_swerve_mod_falcon.html#a3e79dff2976cf259b1ce74e53419e0b0", null ]
+    [ "m_magnetOffset", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_modules_1_1_swerve_mod_falcon.html#a4f2842ffe2f72d0f3699bffd6806ec6b", null ],
+    [ "m_moduleNumber", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_modules_1_1_swerve_mod_falcon.html#a70bc26accf8cbc445b6efb2a022a3155", null ]
 ];
