@@ -23,14 +23,13 @@ public class SwerveModFalcon {
     private CANCoder m_encoder;
 
     // Variables stored in code
-    private double lastAngle;
-    public int moduleNumber;
-    public double magnetOffset;
-    private int count = 0;
+    private double m_lastAngle;
+    public int m_moduleNumber;
+    public double m_magnetOffset;
 
-    public SwerveModFalcon(int moduleNumber, double magnetOffset, int[] canIds){
-        this.magnetOffset = magnetOffset;
-        this.moduleNumber = moduleNumber;
+    public SwerveModFalcon(int moduleNumber, double magnetOffset, int[] canIds) {
+        this.m_magnetOffset = magnetOffset;
+        this.m_moduleNumber = moduleNumber;
 
         m_driveFx = new TalonFX(canIds[0]);
         m_azimuthFx = new TalonFX(canIds[1]);
@@ -66,7 +65,7 @@ public class SwerveModFalcon {
      * Sets the module to match a desired state
      * @param state the desired state of the module
      */
-    public void setDesiredState(SwerveModuleState state){
+    public void setDesiredState(SwerveModuleState state) {
         SwerveModuleState desiredState = CTREModuleState.optimize(state, Rotation2d.fromDegrees(getAzimuthAngle()));
         // double desiredSpeed = desiredState.speedMetersPerSecond;
         double percentOutput = desiredState.speedMetersPerSecond; /// ModuleConstants.kMaxSpeedMetersPerSecond; //This is swerve max speed , figure ths out
@@ -80,7 +79,7 @@ public class SwerveModFalcon {
             m_azimuthFx.set(ControlMode.Position, angle); 
         }
         m_driveFx.set(ControlMode.PercentOutput, percentOutput);
-        lastAngle = angle;
+        m_lastAngle = angle;
     }
 
     /**
@@ -105,7 +104,7 @@ public class SwerveModFalcon {
     /**
      * Resets the encoder in the Azimuth motor to match the absolute value read by the absolute encoder
      */
-    public void resetToAbsolute(){
+    public void resetToAbsolute() {
         double absolutePosition = Utils.degreesToFalcon(m_encoder.getAbsolutePosition(), ModuleConstants.TURNING_RATIO);
         m_azimuthFx.setSelectedSensorPosition(absolutePosition);  
     }
@@ -114,7 +113,7 @@ public class SwerveModFalcon {
      * Gets the current reading of the absolute encoder 
      * @return the rotation of the absolute encoder as a Rotation2d
      */
-    public Rotation2d getCanCoder(){
+    public Rotation2d getCanCoder() {
         return Rotation2d.fromDegrees(m_encoder.getAbsolutePosition());
     }
 
@@ -122,7 +121,7 @@ public class SwerveModFalcon {
      * Gets the reading of the Azimuth motor's encoder
      * @return current reading of the Azimuth motor's rotation
      */
-    public double getAzimuthAngle(){
+    public double getAzimuthAngle() {
         return Utils.falconToDegrees(m_azimuthFx.getSelectedSensorPosition(), ModuleConstants.TURNING_RATIO);
     }
 
@@ -131,6 +130,6 @@ public class SwerveModFalcon {
      * @return the current setpoint angle
      */
     public double getTargetAngle() {
-        return lastAngle;
+        return m_lastAngle;
     }
 }
