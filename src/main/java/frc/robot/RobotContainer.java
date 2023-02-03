@@ -14,7 +14,6 @@ import frc.robot.subsystems.Swerve.SwerveDrivetrain;
 import frc.robot.subsystems.Swerve.SwerveFalconIO;
 import frc.robot.subsystems.Swerve.SwerveNeoIO;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 /**
@@ -31,11 +30,11 @@ public class RobotContainer {
   private final CommandXboxController m_driveController = new CommandXboxController(Constants.DRIVER_PORT);
 
   //Logged chooser for auto
-  private final LoggedDashboardChooser<Command> autoChooser = new LoggedDashboardChooser<>("Auto Modes");
+  private final LoggedDashboardChooser<Command> m_autoChooser = new LoggedDashboardChooser<>("Auto Modes");
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-  switch (Constants.CURRENT_MODE){
+  switch (Constants.CURRENT_MODE) {
     // Beta robot hardware implementation
     case THANOS:
       m_drive = new SwerveDrivetrain(new SwerveNeoIO());
@@ -74,8 +73,8 @@ public class RobotContainer {
    * Use this method to add autonomous routines to a sendable chooser
    */
   public void configAutoChooser(){
-    autoChooser.addDefaultOption("Default Trajectory", AutoUtils.getDefaultTrajectory(m_drive));
-    autoChooser.addOption("Event Map Trajectory", AutoUtils.getPathWithEvents(m_drive));
+    m_autoChooser.addDefaultOption("Default Trajectory", AutoUtils.getDefaultTrajectory(m_drive));
+    m_autoChooser.addOption("Event Map Trajectory", AutoUtils.getPathWithEvents(m_drive));
   }
 
   /**
@@ -85,6 +84,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return autoChooser.get();
+    return m_autoChooser.get();
   }
 }
