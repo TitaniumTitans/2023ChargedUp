@@ -9,7 +9,7 @@ import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.SwerveTeleopDrive;
-import frc.robot.commands.Autonomous.AutoFactory;
+import frc.robot.commands.Autonomous.AutoUtils;
 import frc.robot.subsystems.Swerve.SwerveDrivetrain;
 import frc.robot.subsystems.Swerve.SwerveFalconIO;
 import frc.robot.subsystems.Swerve.SwerveNeoIO;
@@ -27,35 +27,29 @@ public class RobotContainer {
   private SwerveDrivetrain m_drive; 
 
   //Controllers
-  private final CommandXboxController m_driveController = new CommandXboxController(Constants.driverPort);
+  private final CommandXboxController m_driveController = new CommandXboxController(Constants.DRIVER_PORT);
 
   //Logged chooser for auto
-  private final LoggedDashboardChooser<Command> autoChooser = new LoggedDashboardChooser<>("Auto Modes");
-  private final AutoFactory m_AutoFactory;
+  private final LoggedDashboardChooser<Command> m_autoChooser = new LoggedDashboardChooser<>("Auto Modes");
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-  switch (Constants.currentMode){
+  switch (Constants.CURRENT_MODE) {
     // Beta robot hardware implementation
     case THANOS:
       m_drive = new SwerveDrivetrain(new SwerveNeoIO());
-      m_AutoFactory = new AutoFactory(m_drive);
       break;
     
     case ALPHA:
       m_drive = new SwerveDrivetrain(new SwerveFalconIO());
-      m_AutoFactory = new AutoFactory(m_drive);
       break;
 
     case SIM:
-      m_drive = new SwerveDrivetrain(new SwerveNeoIO());
-      m_AutoFactory = new AutoFactory(m_drive);
       break;
 
     // Default case, should be set to a replay mode
     default:
       m_drive = new SwerveDrivetrain(new SwerveFalconIO());
-      m_AutoFactory = new AutoFactory(m_drive);
   }
     // Configure the button bindings
     configureButtonBindings();
@@ -79,8 +73,8 @@ public class RobotContainer {
    * Use this method to add autonomous routines to a sendable chooser
    */
   public void configAutoChooser(){
-    autoChooser.addDefaultOption("Default Trajectory", AutoFactory.getDefaultTrajectory(m_drive));
-    autoChooser.addOption("Event Map Trajectory", AutoFactory.getDefaultPathWithEvents(m_drive));
+    m_autoChooser.addDefaultOption("Default Trajectory", AutoUtils.getDefaultTrajectory(m_drive));
+    m_autoChooser.addOption("Event Map Trajectory", AutoUtils.getPathWithEvents(m_drive));
   }
 
   /**
@@ -90,6 +84,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_AutoFactory.getAuto();
+    return m_autoChooser.get();
   }
 }
