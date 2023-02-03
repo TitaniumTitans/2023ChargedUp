@@ -4,7 +4,6 @@
 
 package frc.robot.subsystems.Swerve;
 
-import java.lang.reflect.Field;
 import java.util.Optional;
 
 import org.littletonrobotics.junction.Logger;
@@ -36,7 +35,7 @@ public class SwerveDrivetrain extends SubsystemBase {
 
   private boolean fieldRelative;
 
-  private CameraSubsystem frontPVCam;
+  private CameraSubsystem m_frontPVCam;
   private String FRONT_CAM_NAME = "FrontPiCam";
   private Transform3d FRONT_CAM_POSE = new Transform3d
     (new Translation3d(Units.inchesToMeters(11.4), 
@@ -64,39 +63,39 @@ public class SwerveDrivetrain extends SubsystemBase {
     fieldRelative = false;
 
     // CAMERA CONFIG
-    frontPVCam = new CameraSubsystem(FRONT_CAM_NAME, FRONT_CAM_POSE);
+    m_frontPVCam = new CameraSubsystem(FRONT_CAM_NAME, FRONT_CAM_POSE);
     m_prevPose = new Pose2d();
   }
 
-  public Rotation2d getGyroYaw(){
+  public Rotation2d getGyroYaw() {
     return m_io.getGyroYaw();
   }
 
-  public Rotation2d getGyroRoll(){
+  public Rotation2d getGyroRoll() {
     return m_io.getGyroRoll();
   }
 
-  public SwerveModulePosition[] getModulePostitions(){
+  public SwerveModulePosition[] getModulePostitions() {
     return m_io.getModulePositions();
   }
 
-  public SwerveModuleState[] getModuleStates(){
+  public SwerveModuleState[] getModuleStates() {
     return m_io.getModuleStates();
   }
 
-  public void drive(double xTranslation, double yTranslation, double zRotation){
+  public void drive(double xTranslation, double yTranslation, double zRotation) {
     m_io.setModuleStates(xTranslation, yTranslation, zRotation, fieldRelative);
   }
 
-  public void setModuleStates(SwerveModuleState[] states){
+  public void setModuleStates(SwerveModuleState[] states) {
     m_io.setModuleStates(states);
   }
 
-  public void setAbsoluteAngles(){
+  public void setAbsoluteAngles() {
     m_io.setAbsoluteAngles();
   }
 
-  public void resetGyro(){
+  public void resetGyro() {
     m_io.resetGyro();
   }
 
@@ -119,7 +118,7 @@ public class SwerveDrivetrain extends SubsystemBase {
     SmartDashboard.putNumber("Gyro", getGyroYaw().getDegrees());
 
     // CAMERA:
-    Optional<EstimatedRobotPose> frontEPose = frontPVCam.getPose(m_poseEstimator.getEstimatedPosition());
+    Optional<EstimatedRobotPose> frontEPose = m_frontPVCam.getPose(m_poseEstimator.getEstimatedPosition());
     SmartDashboard.putBoolean("Cam pose present", frontEPose.isPresent());
     if (frontEPose.isPresent())
     {
@@ -128,12 +127,11 @@ public class SwerveDrivetrain extends SubsystemBase {
     }
   }
 
-  public void updatePoseEstimator()
-  {
+  public void updatePoseEstimator() {
     m_poseEstimator.update(m_io.getGyroYaw(), m_io.getModulePositions());
 
     Optional<EstimatedRobotPose> estimateCamPose = 
-      frontPVCam.getPose(m_prevPose);
+      m_frontPVCam.getPose(m_prevPose);
     SmartDashboard.putBoolean("POSE ESTIMATOR isPresent", estimateCamPose.isPresent());
     if (estimateCamPose.isPresent())
     {
@@ -144,23 +142,23 @@ public class SwerveDrivetrain extends SubsystemBase {
     m_field.setRobotPose(m_poseEstimator.getEstimatedPosition());
   }
 
-  public CommandBase resetGyroBase(){
+  public CommandBase resetGyroBase() {
     return runOnce(() -> {resetGyro();});
   }
 
-  public CommandBase toggleFieldRelative(){
+  public CommandBase toggleFieldRelative() {
     return runOnce(() -> {fieldRelative = !fieldRelative;});
   }
 
-  public Pose2d getPose(){
+  public Pose2d getPose() {
     return m_poseEstimator.getEstimatedPosition();
   }
 
-  public void resetPose(Pose2d pose){
+  public void resetPose(Pose2d pose) {
     m_poseEstimator.resetPosition(getGyroYaw(), getModulePostitions(), pose);
   }
 
-  public void resetPose(){
+  public void resetPose() {
     resetPose(new Pose2d());
   }
 }

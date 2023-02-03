@@ -20,8 +20,8 @@ public class SwerveFalconIO implements SwerveIO{
   private SwerveModFalcon m_blModule; // Back Left Wheel
   private PigeonIMU m_gyro; // Gyro for Balancing and 
 
-  private int counter; //Counter variable for periodically resetting encoders
-  private boolean fieldRelative; //Sees if it is field oriented
+  private int m_counter; //Counter variable for periodically resetting encoders
+  private boolean m_fieldRelative; //Sees if it is field oriented
 
   /** Creates a new ExampleSubsystem. */
   public SwerveFalconIO() {
@@ -36,8 +36,8 @@ public class SwerveFalconIO implements SwerveIO{
     // m_blModule = new SwerveModCANCoder(3, DriveConstants.kModBlOffset, DriveConstants.kMod3Cans);
 
     m_gyro = new PigeonIMU(15);
-    counter = 0;
-    fieldRelative = false;
+    m_counter = 0;
+    m_fieldRelative = false;
   }
 
   
@@ -50,7 +50,7 @@ public class SwerveFalconIO implements SwerveIO{
    * @return Rotation of Gyro
    */
   @Override
-  public Rotation2d getGyroYaw(){
+  public Rotation2d getGyroYaw() {
     return Rotation2d.fromDegrees(m_gyro.getYaw() * -1);
   }
 
@@ -60,7 +60,7 @@ public class SwerveFalconIO implements SwerveIO{
    * @return A SwerveModulePosition
    */
   @Override
-  public SwerveModulePosition[] getModulePositions(){
+  public SwerveModulePosition[] getModulePositions() {
     SwerveModulePosition[] modulePositions = {new SwerveModulePosition(), 
       new SwerveModulePosition(), 
       new SwerveModulePosition(), 
@@ -80,7 +80,7 @@ public class SwerveFalconIO implements SwerveIO{
    * @return A SwerveModuleState array
    */
   @Override
-  public SwerveModuleState[] getModuleStates(){
+  public SwerveModuleState[] getModuleStates() {
     SwerveModuleState[] moduleStates = {new SwerveModuleState(),
       new SwerveModuleState(),
       new SwerveModuleState(),
@@ -104,7 +104,7 @@ public class SwerveFalconIO implements SwerveIO{
    * @param fieldRelative is it field oriented
    */
   @Override
-  public void setModuleStates(double xTranslation, double yTranslation, double zRotation, boolean fieldRelative){
+  public void setModuleStates(double xTranslation, double yTranslation, double zRotation, boolean fieldRelative) {
     //Converts controller inputs to working chassis speeds, to working swerve module state array
     SwerveModuleState[] swerveModuleStates = DriveConstants.DRIVE_KINEMATICS.toSwerveModuleStates( 
       fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(
@@ -125,16 +125,16 @@ public class SwerveFalconIO implements SwerveIO{
       m_brModule.setDesiredState(swerveModuleStates[3]);
 
       //Counter + logic for resetting to absolute
-      counter++;
-      if(counter == 200){
+      m_counter++;
+      if(m_counter == 200){
         setAbsoluteAngles();
-        counter = 0;
+        m_counter = 0;
       }
       
   }
 
   @Override
-  public void updateInputs(SwerveIOInputs inputs){
+  public void updateInputs(SwerveIOInputs inputs) {
     // FR module
     inputs.frAngleDeg = m_frModule.getState().angle.getDegrees();
     inputs.frDriveSpeedMPS = m_frModule.getState().speedMetersPerSecond;
@@ -160,7 +160,7 @@ public class SwerveFalconIO implements SwerveIO{
    * Matching the encoder in the Motor to the CANcoder 
    */
   @Override
-  public void setAbsoluteAngles(){
+  public void setAbsoluteAngles() {
     m_frModule.resetToAbsolute();
     m_flModule.resetToAbsolute();
     m_blModule.resetToAbsolute();
@@ -171,7 +171,7 @@ public class SwerveFalconIO implements SwerveIO{
    * Resets the Rotation of Gyro
    */
   @Override
-  public void resetGyro(){
+  public void resetGyro() {
     m_gyro.setYaw(0);
   }
 
@@ -211,6 +211,6 @@ public class SwerveFalconIO implements SwerveIO{
     SmartDashboard.putNumber("Br Setpoint", m_brModule.getTargetAngle());
     SmartDashboard.putNumber("Bl Setpoint", m_blModule.getTargetAngle());
 
-    SmartDashboard.putBoolean("Field Oriented?", fieldRelative);
+    SmartDashboard.putBoolean("Field Oriented?", m_fieldRelative);
   }
 }

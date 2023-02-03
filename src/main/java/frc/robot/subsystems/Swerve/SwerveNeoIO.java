@@ -1,20 +1,15 @@
 package frc.robot.subsystems.Swerve;
 
-import java.sql.Driver;
-
 import com.ctre.phoenix.sensors.PigeonIMU;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.wpilibj.smartdashboard.Field2d;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.Swerve.SwerveModules.SwerveModNeo;
 
-public class SwerveNeoIO implements SwerveIO{
+public class SwerveNeoIO implements SwerveIO {
     private SwerveModNeo m_frMod;
     private SwerveModNeo m_flMod;
     private SwerveModNeo m_blMod;
@@ -26,7 +21,7 @@ public class SwerveNeoIO implements SwerveIO{
 
     // private Field2d m_field;
 
-    public SwerveNeoIO(){
+    public SwerveNeoIO() {
         m_flMod = new SwerveModNeo(0, DriveConstants.MOD_FL_OFFSET, DriveConstants.MOD_FL_CANS, false);
         m_frMod = new SwerveModNeo(1, DriveConstants.MOD_FR_OFFSET, DriveConstants.MOD_FR_CANS, false);
         m_blMod = new SwerveModNeo(2, DriveConstants.MOD_BL_OFFSET, DriveConstants.MOD_BL_CANS, false);
@@ -42,7 +37,7 @@ public class SwerveNeoIO implements SwerveIO{
 
     // Getters
     @Override
-    public SwerveModulePosition[] getModulePositions(){
+    public SwerveModulePosition[] getModulePositions() {
         SwerveModulePosition[] modPos = new SwerveModulePosition[4];
 
         modPos[0] = m_flMod.getPosition();
@@ -54,7 +49,7 @@ public class SwerveNeoIO implements SwerveIO{
     }
 
     @Override
-    public SwerveModuleState[] getModuleStates(){
+    public SwerveModuleState[] getModuleStates() {
         SwerveModuleState[] states = new SwerveModuleState[4];
 
         states[0] = m_flMod.getState();
@@ -66,12 +61,12 @@ public class SwerveNeoIO implements SwerveIO{
     }
 
     @Override
-    public Rotation2d getGyroYaw(){
+    public Rotation2d getGyroYaw() {
         return Rotation2d.fromDegrees(m_gyro.getYaw());
     }
 
     // Setters
-    public void setModuleStates(double xTranslation, double yTranslation, double zRotation, boolean fieldRelative){
+    public void setModuleStates(double xTranslation, double yTranslation, double zRotation, boolean fieldRelative) {
         SwerveModuleState[] states = DriveConstants.DRIVE_KINEMATICS.toSwerveModuleStates(
             fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(
                 xTranslation,
@@ -88,7 +83,7 @@ public class SwerveNeoIO implements SwerveIO{
     }
 
     @Override
-    public void setModuleStates(SwerveModuleState[] states){
+    public void setModuleStates(SwerveModuleState[] states) {
         m_flMod.setDesiredState(states[0]);
         m_frMod.setDesiredState(states[1]);
         m_blMod.setDesiredState(states[2]);
@@ -96,20 +91,20 @@ public class SwerveNeoIO implements SwerveIO{
     }
 
     @Override
-    public void resetGyro(){
+    public void resetGyro() {
         m_gyro.setYaw(0);
     }
 
     @Override
-    public Rotation2d getGyroRoll(){
+    public Rotation2d getGyroRoll() {
         return Rotation2d.fromDegrees(m_gyro.getRoll());
     }
 
     @Override
-    public void setAbsoluteAngles(){}
+    public void setAbsoluteAngles() {}
 
     @Override
-    public void updateInputs(SwerveIOInputs inputs){
+    public void updateInputs(SwerveIOInputs inputs) {
         inputs.flAngleDeg = m_flMod.getState().angle.getDegrees();
         inputs.flDriveSpeedMPS = m_flMod.getState().speedMetersPerSecond;
 
@@ -127,7 +122,7 @@ public class SwerveNeoIO implements SwerveIO{
     }
 
     @Override
-    public void periodic(){
+    public void periodic() {
         // m_odometry.update(Rotation2d.fromDegrees(m_gyro.getYaw()), getModulePositions());
         // m_field.setRobotPose(m_odometry.getPoseMeters());
         // SmartDashboard.putData("Field", m_field);
