@@ -25,10 +25,10 @@ public class SwerveFalconIO implements SwerveIO{
 
   /** Creates a new ExampleSubsystem. */
   public SwerveFalconIO() {
-    m_frModule = new SwerveModFalcon(0, DriveConstants.kModFrOffset, DriveConstants.kModFrCans);
-    m_flModule = new SwerveModFalcon(1, DriveConstants.kModFlOffset, DriveConstants.kModFlCans);
-    m_brModule = new SwerveModFalcon(2, DriveConstants.kModBlOffset, DriveConstants.kModBlCans);
-    m_blModule = new SwerveModFalcon(3, DriveConstants.kModBrOffset, DriveConstants.kModBrCans);
+    m_frModule = new SwerveModFalcon(0, DriveConstants.MOD_FR_OFFSET, DriveConstants.MOD_FR_CANS);
+    m_flModule = new SwerveModFalcon(1, DriveConstants.MOD_FL_OFFSET, DriveConstants.MOD_FL_CANS);
+    m_brModule = new SwerveModFalcon(2, DriveConstants.MOD_BL_OFFSET, DriveConstants.MOD_BL_CANS);
+    m_blModule = new SwerveModFalcon(3, DriveConstants.MOD_BR_OFFSET, DriveConstants.MOD_BR_CANS);
 
     // m_frModule = new SwerveModCANCoder(0, DriveConstants.kModFrOffset, DriveConstants.kMod0Cans);
     // m_flModule = new SwerveModCANCoder(1, DriveConstants.kModFlOffset, DriveConstants.kMod1Cans);
@@ -106,7 +106,7 @@ public class SwerveFalconIO implements SwerveIO{
   @Override
   public void setModuleStates(double xTranslation, double yTranslation, double zRotation, boolean fieldRelative){
     //Converts controller inputs to working chassis speeds, to working swerve module state array
-    SwerveModuleState[] swerveModuleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates( 
+    SwerveModuleState[] swerveModuleStates = DriveConstants.DRIVE_KINEMATICS.toSwerveModuleStates( 
       fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(
       xTranslation, 
       yTranslation, 

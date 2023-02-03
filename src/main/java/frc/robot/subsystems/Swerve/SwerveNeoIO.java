@@ -27,13 +27,13 @@ public class SwerveNeoIO implements SwerveIO{
     // private Field2d m_field;
 
     public SwerveNeoIO(){
-        m_flMod = new SwerveModNeo(0, DriveConstants.kModFlOffset, DriveConstants.kModFlCans, false);
-        m_frMod = new SwerveModNeo(1, DriveConstants.kModFrOffset, DriveConstants.kModFrCans, false);
-        m_blMod = new SwerveModNeo(2, DriveConstants.kModBlOffset, DriveConstants.kModBlCans, false);
-        m_brMod = new SwerveModNeo(3, DriveConstants.kModBrOffset, DriveConstants.kModBrCans, false);
+        m_flMod = new SwerveModNeo(0, DriveConstants.MOD_FL_OFFSET, DriveConstants.MOD_FL_CANS, false);
+        m_frMod = new SwerveModNeo(1, DriveConstants.MOD_FR_OFFSET, DriveConstants.MOD_FR_CANS, false);
+        m_blMod = new SwerveModNeo(2, DriveConstants.MOD_BL_OFFSET, DriveConstants.MOD_BL_CANS, false);
+        m_brMod = new SwerveModNeo(3, DriveConstants.MOD_BR_OFFSET, DriveConstants.MOD_BR_CANS, false);
         // m_modules = new SwerveModNeo[] {m_flMod, m_frMod, m_blMod, m_brMod};
 
-        m_gyro = new PigeonIMU(DriveConstants.kGyroCan);
+        m_gyro = new PigeonIMU(DriveConstants.GYRO_CAN);
 
         // m_odometry = new SwerveDriveOdometry(DriveConstants.kDriveKinematics, getGyroYaw(), getModulePositions());
         // m_field = new Field2d();
@@ -72,7 +72,7 @@ public class SwerveNeoIO implements SwerveIO{
 
     // Setters
     public void setModuleStates(double xTranslation, double yTranslation, double zRotation, boolean fieldRelative){
-        SwerveModuleState[] states = DriveConstants.kDriveKinematics.toSwerveModuleStates(
+        SwerveModuleState[] states = DriveConstants.DRIVE_KINEMATICS.toSwerveModuleStates(
             fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(
                 xTranslation,
                 yTranslation,

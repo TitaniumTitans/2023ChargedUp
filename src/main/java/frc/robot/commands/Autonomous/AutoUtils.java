@@ -33,7 +33,7 @@ import frc.robot.subsystems.Swerve.SwerveDrivetrain;
 public class AutoUtils {
     // Default Constants
     private final static PathConstraints defaultConfig = new PathConstraints(
-        AutoConstants.kMaxVelocityMPS, AutoConstants.kMaxAccelerationMPS);
+        AutoConstants.MAX_VELOCITY_PERCENT_OUTPUT, AutoConstants.MAX_ACCELERATION_PERCENT_OUTPUT);
         
 
     private final static PathPlannerTrajectory defaultTrajectory = PathPlanner.generatePath(
@@ -51,9 +51,9 @@ public class AutoUtils {
 
             new PPSwerveControllerCommand(defaultAutoGen, 
             swerve::getPose, 
-            DriveConstants.kDriveKinematics, 
-            AutoConstants.kControllerX, 
-            AutoConstants.kControllerY, 
+            DriveConstants.DRIVE_KINEMATICS, 
+            AutoConstants.CONTROLLER_X, 
+            AutoConstants.CONTROLLER_Y, 
             new PIDController(0, 0, 0), 
             swerve::setModuleStates,
             true,
@@ -74,9 +74,9 @@ public class AutoUtils {
 
             new PPSwerveControllerCommand(defaultAutoGen, 
             swerve::getPose, 
-            DriveConstants.kDriveKinematics, 
-            AutoConstants.kControllerX, 
-            AutoConstants.kControllerY, 
+            DriveConstants.DRIVE_KINEMATICS, 
+            AutoConstants.CONTROLLER_X, 
+            AutoConstants.CONTROLLER_Y, 
             new PIDController(0, 0, 0), 
             swerve::setModuleStates,
             true,

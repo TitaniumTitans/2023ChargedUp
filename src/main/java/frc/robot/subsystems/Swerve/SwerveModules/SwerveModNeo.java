@@ -71,7 +71,7 @@ public class SwerveModNeo {
     //   drivePID.setReference(state.speedMetersPerSecond, CANSparkMax.ControlType.kVelocity, 0, driveFeedforward.calculate(state.speedMetersPerSecond));
     }
 
-    double angle = Math.abs(state.speedMetersPerSecond) <= ModuleConstants.kMaxSpeedMetersPerSecond * 0.01
+    double angle = Math.abs(state.speedMetersPerSecond) <= 0.01
       ? lastAngle
       : state.angle.getRadians();
 
@@ -136,7 +136,7 @@ public class SwerveModNeo {
     // drivePID.setD(Constants.kSwerve.DRIVE_KD);
     // drivePID.setFF(Constants.kSwerve.DRIVE_KF);
  
-    driveEncoder.setPositionConversionFactor(ModuleConstants.kWheelCircumference / ModuleConstants.kDriveRatio);
+    driveEncoder.setPositionConversionFactor(ModuleConstants.WHEEL_CIRCUMFERENCE_METERS / ModuleConstants.DRIVE_RATIO);
     // driveEncoder.setVelocityConversionFactor(Constants.kSwerve.DRIVE_RPM_TO_METERS_PER_SECOND);
     driveEncoder.setPosition(0);
 
@@ -146,16 +146,16 @@ public class SwerveModNeo {
     angleMotor.setIdleMode(IdleMode.kBrake);
     angleMotor.setSmartCurrentLimit(40);
 
-    anglePID.setP(ModuleConstants.kModuleKp);
+    anglePID.setP(ModuleConstants.MODULE_KP);
     anglePID.setI(0.0);
-    anglePID.setD(ModuleConstants.kModuleKd);
+    anglePID.setD(ModuleConstants.MODULE_KD);
     anglePID.setFF(0.0);
 
     anglePID.setPositionPIDWrappingEnabled(true);
     anglePID.setPositionPIDWrappingMaxInput(2 * Math.PI);
     anglePID.setPositionPIDWrappingMinInput(0);
 
-    angleEncoder.setPositionConversionFactor(ModuleConstants.kPositionConversionFactor);
+    angleEncoder.setPositionConversionFactor(ModuleConstants.POSITION_CONVERSION_FACTOR);
     // angleEncoder.setVelocityConversionFactor(Constants.kSwerve.ANGLE_RPM_TO_RADIANS_PER_SECOND);
     angleEncoder.setPosition(Units.degreesToRadians(canCoder.getAbsolutePosition() - canCoderOffsetDegrees));    
   }

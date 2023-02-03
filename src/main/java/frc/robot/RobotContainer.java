@@ -28,14 +28,14 @@ public class RobotContainer {
   private SwerveDrivetrain m_drive; 
 
   //Controllers
-  private final CommandXboxController m_driveController = new CommandXboxController(Constants.driverPort);
+  private final CommandXboxController m_driveController = new CommandXboxController(Constants.DRIVER_PORT);
 
   //Logged chooser for auto
   private final LoggedDashboardChooser<Command> autoChooser = new LoggedDashboardChooser<>("Auto Modes");
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-  switch (Constants.currentMode){
+  switch (Constants.CURRENT_MODE){
     // Beta robot hardware implementation
     case THANOS:
       m_drive = new SwerveDrivetrain(new SwerveNeoIO());

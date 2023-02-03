@@ -53,7 +53,7 @@ public class SwerveDrivetrain extends SubsystemBase {
     //   m_io.getModulePositions());
 
     m_poseEstimator = new SwerveDrivePoseEstimator
-      (DriveConstants.kDriveKinematics, m_io.getGyroYaw(), 
+      (DriveConstants.DRIVE_KINEMATICS, m_io.getGyroYaw(), 
       m_io.getModulePositions(), new Pose2d());
 
     inputs = new SwerveIOInputsAutoLogged();

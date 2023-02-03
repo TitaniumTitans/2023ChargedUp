@@ -36,9 +36,9 @@ public class AutoBalance extends CommandBase {
   @Override
   public void execute() {
     currentAngle = m_drive.getGyroRoll().getDegrees();
-    error = AutoConstants.kDesiredBalanceAngle - currentAngle;
+    error = AutoConstants.DESIRED_BALANCE_ANGLE - currentAngle;
 
-    drivePower = Math.min(AutoConstants.kBalanceP * error, 1);
+    drivePower = Math.min(AutoConstants.BALANCE_P * error, 1);
     // Limit max power
     if(Math.abs(drivePower) > 0.28){
       drivePower = Math.copySign(0.28, drivePower);
