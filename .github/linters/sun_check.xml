@@ -100,28 +100,28 @@
 
     <!-- Checks for Size Violations.                    -->
     <!-- See https://checkstyle.org/config_sizes.html -->
-            <module name="MethodLength"/>
-            <module name="ParameterNumber"/>
+    <module name="MethodLength"/>
+    <module name="ParameterNumber"/>
 
-            <!-- Checks for whitespace                               -->
-            <!-- See https://checkstyle.org/config_whitespace.html -->
-            <module name="EmptyForIteratorPad"/>
-            <module name="GenericWhitespace"/>
-            <module name="MethodParamPad"/>
-            <module name="NoWhitespaceAfter"/>
-            <module name="NoWhitespaceBefore"/>
-            <module name="OperatorWrap"/>
-            <module name="ParenPad"/>
-            <module name="TypecastParenPad"/>
-            <module name="WhitespaceAfter"/>
-            <module name="WhitespaceAround"/>
+    <!-- Checks for whitespace                               -->
+    <!-- See https://checkstyle.org/config_whitespace.html -->
+    <module name="EmptyForIteratorPad"/>
+    <module name="GenericWhitespace"/>
+    <module name="MethodParamPad"/>
+    <module name="NoWhitespaceAfter"/>
+    <module name="NoWhitespaceBefore"/>
+    <module name="OperatorWrap"/>
+    <module name="ParenPad"/>
+    <module name="TypecastParenPad"/>
+    <module name="WhitespaceAfter"/>
+    <module name="WhitespaceAround"/>
 
-            <!-- Checks for blocks. You know, those {}'s         -->
-            <!-- See https://checkstyle.org/config_blocks.html -->
-            <module name="AvoidNestedBlocks"/>
-            <module name="EmptyBlock"/>
-            <module name="LeftCurly"/>
-            <module name="NeedBraces"/>
-            <module name="RightCurly"/>
-          <module/>
+    <!-- Checks for blocks. You know, those {}'s         -->
+    <!-- See https://checkstyle.org/config_blocks.html -->
+    <module name="AvoidNestedBlocks"/>
+    <module name="EmptyBlock"/>
+    <module name="LeftCurly"/>
+    <module name="NeedBraces"/>
+    <module name="RightCurly"/>
+  <module/>
 </module>
