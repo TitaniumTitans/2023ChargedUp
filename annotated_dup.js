@@ -31,6 +31,11 @@ var annotated_dup =
           ] ],
           [ "Vision", null, [
             [ "CameraSubsystem", "classfrc_1_1robot_1_1subsystems_1_1_vision_1_1_camera_subsystem.html", "classfrc_1_1robot_1_1subsystems_1_1_vision_1_1_camera_subsystem" ]
+          ] ],
+          [ "Wrist", null, [
+            [ "WristIO", "interfacefrc_1_1robot_1_1subsystems_1_1_wrist_1_1_wrist_i_o.html", "interfacefrc_1_1robot_1_1subsystems_1_1_wrist_1_1_wrist_i_o" ],
+            [ "WristIONeo", "classfrc_1_1robot_1_1subsystems_1_1_wrist_1_1_wrist_i_o_neo.html", "classfrc_1_1robot_1_1subsystems_1_1_wrist_1_1_wrist_i_o_neo" ],
+            [ "WristSubsystem", "classfrc_1_1robot_1_1subsystems_1_1_wrist_1_1_wrist_subsystem.html", "classfrc_1_1robot_1_1subsystems_1_1_wrist_1_1_wrist_subsystem" ]
           ] ]
         ] ],
         [ "Constants", "classfrc_1_1robot_1_1_constants.html", null ],

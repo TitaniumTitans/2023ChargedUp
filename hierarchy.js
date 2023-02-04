@@ -28,6 +28,9 @@ var hierarchy =
     [ "frc.robot.subsystems.Swerve.SwerveModules.SwerveModNeo", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_modules_1_1_swerve_mod_neo.html", null ],
     [ "lib.utils.drivers.TalonEnhanced", "classlib_1_1utils_1_1drivers_1_1_talon_enhanced.html", null ],
     [ "lib.utils.Utils", "classlib_1_1utils_1_1_utils.html", null ],
+    [ "frc.robot.subsystems.Wrist.WristIO", "interfacefrc_1_1robot_1_1subsystems_1_1_wrist_1_1_wrist_i_o.html", [
+      [ "frc.robot.subsystems.Wrist.WristIONeo", "classfrc_1_1robot_1_1subsystems_1_1_wrist_1_1_wrist_i_o_neo.html", null ]
+    ] ],
     [ "CommandBase", null, [
       [ "frc.robot.commands.AutoBalance", "classfrc_1_1robot_1_1commands_1_1_auto_balance.html", null ],
       [ "frc.robot.commands.MoveArmAngle", "classfrc_1_1robot_1_1commands_1_1_move_arm_angle.html", null ],
@@ -39,6 +42,7 @@ var hierarchy =
     ] ],
     [ "SubsystemBase", null, [
       [ "frc.robot.subsystems.Arm.ArmSubSystem", "classfrc_1_1robot_1_1subsystems_1_1_arm_1_1_arm_sub_system.html", null ],
-      [ "frc.robot.subsystems.Swerve.SwerveDrivetrain", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_drivetrain.html", null ]
+      [ "frc.robot.subsystems.Swerve.SwerveDrivetrain", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_drivetrain.html", null ],
+      [ "frc.robot.subsystems.Wrist.WristSubsystem", "classfrc_1_1robot_1_1subsystems_1_1_wrist_1_1_wrist_subsystem.html", null ]
     ] ]
 ];
