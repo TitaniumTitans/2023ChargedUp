@@ -1,5 +1,6 @@
 package frc.robot.subsystems.Wrist;
 
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class WristSubsystem extends SubsystemBase{
@@ -18,6 +19,28 @@ public class WristSubsystem extends SubsystemBase{
         m_io.setWristAngle(angle);
     }
 
+    public void setWristPower(double speed) {
+        m_io.setWristAngle(speed);
+    }
+
+    public CommandBase setWristPowerFactory(double speed) {
+        return run(
+            () -> {
+                setWristPower(speed);
+        });
+    }
+
+    public void setIntakeSpeed(double speed) {
+        m_io.setIntakeSpeed(speed);
+    }
+
+    public CommandBase setIntakeSpeedFactory(double speed) {
+        return run(
+            () -> {
+                setIntakeSpeed(speed);
+        });
+    }
+
 
     //getters
     public double getWristAngle() {
@@ -31,5 +54,9 @@ public class WristSubsystem extends SubsystemBase{
 
     public void periodic() {
         m_io.updateInputs(m_input);
+    }
+
+    public boolean atLimit() {
+        return m_io.atLimit();
     }
 }

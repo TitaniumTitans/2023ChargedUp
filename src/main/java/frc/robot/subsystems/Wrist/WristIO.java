@@ -27,4 +27,8 @@ public interface WristIO {
     public default double getIntakeAmps() {
         return 0.0;
     }
+
+    public default boolean atLimit() {
+        return false;
+    }
 }

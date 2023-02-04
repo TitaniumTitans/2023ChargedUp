@@ -19,6 +19,8 @@ public class WristIONeo implements WristIO{
 
         m_wristEncoder = new DutyCycleEncoder(IntakeConstants.WRIST_ANGLE_PORT);
         m_wristEncoder.setDistancePerRotation(360);
+
+        m_zeroLimit = new DigitalInput(IntakeConstants.LIMIT_SWTICH_PORT);
     }
     
     @Override
@@ -52,6 +54,11 @@ public class WristIONeo implements WristIO{
     @Override
     public double getIntakeAmps() {
         return m_intakeMotor.getOutputCurrent();
+    }
+
+    @Override
+    public boolean atLimit() {
+        return m_zeroLimit.get();
     }
 
 }
