@@ -6,10 +6,19 @@ var annotated_dup =
           [ "Autonomous", null, [
             [ "AutoUtils", "classfrc_1_1robot_1_1commands_1_1_autonomous_1_1_auto_utils.html", null ]
           ] ],
+          [ "Test", null, [
+            [ "ArmToSetpoint", "classfrc_1_1robot_1_1commands_1_1_test_1_1_arm_to_setpoint.html", "classfrc_1_1robot_1_1commands_1_1_test_1_1_arm_to_setpoint" ]
+          ] ],
           [ "AutoBalance", "classfrc_1_1robot_1_1commands_1_1_auto_balance.html", "classfrc_1_1robot_1_1commands_1_1_auto_balance" ],
+          [ "MoveArmAngle", "classfrc_1_1robot_1_1commands_1_1_move_arm_angle.html", "classfrc_1_1robot_1_1commands_1_1_move_arm_angle" ],
           [ "SwerveTeleopDrive", "classfrc_1_1robot_1_1commands_1_1_swerve_teleop_drive.html", "classfrc_1_1robot_1_1commands_1_1_swerve_teleop_drive" ]
         ] ],
         [ "subsystems", null, [
+          [ "Arm", null, [
+            [ "ArmIO", "interfacefrc_1_1robot_1_1subsystems_1_1_arm_1_1_arm_i_o.html", "interfacefrc_1_1robot_1_1subsystems_1_1_arm_1_1_arm_i_o" ],
+            [ "ArmIONeo", "classfrc_1_1robot_1_1subsystems_1_1_arm_1_1_arm_i_o_neo.html", "classfrc_1_1robot_1_1subsystems_1_1_arm_1_1_arm_i_o_neo" ],
+            [ "ArmSubSystem", "classfrc_1_1robot_1_1subsystems_1_1_arm_1_1_arm_sub_system.html", "classfrc_1_1robot_1_1subsystems_1_1_arm_1_1_arm_sub_system" ]
+          ] ],
           [ "Swerve", null, [
             [ "SwerveModules", null, [
               [ "SwerveModFalcon", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_modules_1_1_swerve_mod_falcon.html", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_modules_1_1_swerve_mod_falcon" ],
