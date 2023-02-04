@@ -16,6 +16,7 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
 import frc.robot.Constants.ModuleConstants;
+import lib.utils.Rev.SparkMaxConfigs;
 
 public class SwerveModNeo {
   public final int moduleNumber;
@@ -132,6 +133,7 @@ public class SwerveModNeo {
     m_driveEncoder.setPositionConversionFactor(ModuleConstants.WHEEL_CIRCUMFERENCE_METERS / ModuleConstants.DRIVE_RATIO);
     // driveEncoder.setVelocityConversionFactor(Constants.kSwerve.DRIVE_RPM_TO_METERS_PER_SECOND);
     m_driveEncoder.setPosition(0);
+    SparkMaxConfigs.configCanStatusFrames(m_driveMotor);
 
     // Angle motor configuration.
     m_angleMotor.restoreFactoryDefaults();
@@ -150,6 +152,7 @@ public class SwerveModNeo {
 
     m_angleEncoder.setPositionConversionFactor(ModuleConstants.POSITION_CONVERSION_FACTOR);
     // angleEncoder.setVelocityConversionFactor(Constants.kSwerve.ANGLE_RPM_TO_RADIANS_PER_SECOND);
-    m_angleEncoder.setPosition(Units.degreesToRadians(m_canCoder.getAbsolutePosition() - m_canCoderOffsetDegrees));    
+    m_angleEncoder.setPosition(Units.degreesToRadians(m_canCoder.getAbsolutePosition() - m_canCoderOffsetDegrees));
+    SparkMaxConfigs.configCanStatusFrames(m_angleMotor);    
   }
 }

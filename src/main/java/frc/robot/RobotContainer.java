@@ -40,8 +40,8 @@ public class RobotContainer {
       m_drive = new SwerveDrivetrain(new SwerveNeoIO());
       break;
     
-    case ALPHA:
-      m_drive = new SwerveDrivetrain(new SwerveFalconIO());
+    case HELIOS:
+      m_drive = new SwerveDrivetrain(new SwerveNeoIO());
       break;
 
     case SIM:
