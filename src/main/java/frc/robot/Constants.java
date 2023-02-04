@@ -73,7 +73,9 @@ public final class Constants {
         public static final int INTAKE_ID = 20;
 
         public static final int LIMIT_SWTICH_PORT = 2;
-        public static final int WRIST_ANGLE_PORT = 3;
+        public static final int WRIST_ANGLE_PORT = 21;
+
+        public static final double WRIST_PIVOT_RATIO = 2.6666;
     }
 
     public static class AutoConstants{
