@@ -5,6 +5,7 @@ var classfrc_1_1robot_1_1subsystems_1_1_arm_1_1_arm_sub_system =
     [ "getArmExtension", "classfrc_1_1robot_1_1subsystems_1_1_arm_1_1_arm_sub_system.html#a288c140917db95361c03404653e2be80", null ],
     [ "periodic", "classfrc_1_1robot_1_1subsystems_1_1_arm_1_1_arm_sub_system.html#a261bac7b93252f063cdb69c859ee1745", null ],
     [ "setAngleSpeed", "classfrc_1_1robot_1_1subsystems_1_1_arm_1_1_arm_sub_system.html#a5237e3fb5dfe2b50be4e639a474b06e5", null ],
+    [ "setArmAngleSpeedFactory", "classfrc_1_1robot_1_1subsystems_1_1_arm_1_1_arm_sub_system.html#a07661188e5db720cb0ee56edc2ac7451", null ],
     [ "setArmSpeed", "classfrc_1_1robot_1_1subsystems_1_1_arm_1_1_arm_sub_system.html#a596af16085c414b11ffb6f3d74fc558b", null ],
     [ "updateArmAngle", "classfrc_1_1robot_1_1subsystems_1_1_arm_1_1_arm_sub_system.html#a9bfff711d11db2aaf26e8d04f8d71b0d", null ],
     [ "updateArmAngleCommandFactory", "classfrc_1_1robot_1_1subsystems_1_1_arm_1_1_arm_sub_system.html#a8800a365ac4c3d799e846af4cf21614b", null ],

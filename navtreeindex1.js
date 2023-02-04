@@ -1,5 +1,6 @@
 var NAVTREEINDEX1 =
 {
+"classlib_1_1utils_1_1drivers_1_1_talon_enhanced.html#aafcbbf0fefb9b6f0e9317c98cd8c3c59":[10,0,1,0,0,1,95],
 "classlib_1_1utils_1_1drivers_1_1_talon_enhanced.html#ab27729269a4aa7274f275a4743c2ab35":[10,0,1,0,0,1,49],
 "classlib_1_1utils_1_1drivers_1_1_talon_enhanced.html#aba2112032c035a1f2a2bf2cf37da160f":[10,0,1,0,0,1,50],
 "classlib_1_1utils_1_1drivers_1_1_talon_enhanced.html#aba720f208c25178cea90db4eafa04eb7":[10,0,1,0,0,1,3],
