@@ -15,6 +15,10 @@ public interface WristIO {
     //Setters
     public default void setWristAngle(double angle) {}
 
+    public default void setWristPower(double speed) {}
+
+    public default void setIntakeSpeed(double speed) {}
+
     //Getters
     public default double getWristAngle() {
         return 0.0;

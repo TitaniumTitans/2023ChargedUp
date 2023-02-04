@@ -8,17 +8,17 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import frc.robot.Constants.IntakeConstants;
 
 public class WristIONeo implements WristIO{
-    private CANSparkMax m_wristAngle;
-    private CANSparkMax m_intakePower;
+    private CANSparkMax m_wristMotor;
+    private CANSparkMax m_intakeMotor;
     private DigitalInput m_zeroLimit;
-    private DutyCycleEncoder m_wristAngleEncoder;
+    private DutyCycleEncoder m_wristEncoder;
 
     public WristIONeo() {
-        m_wristAngle = new CANSparkMax(IntakeConstants.WRIST_ID, MotorType.kBrushless);
-        m_intakePower = new CANSparkMax(IntakeConstants.INTAKE_ID, MotorType.kBrushless);
+        m_wristMotor = new CANSparkMax(IntakeConstants.WRIST_ID, MotorType.kBrushless);
+        m_intakeMotor = new CANSparkMax(IntakeConstants.INTAKE_ID, MotorType.kBrushless);
 
-        m_wristAngleEncoder = new DutyCycleEncoder(IntakeConstants.WRIST_ANGLE_PORT);
-        m_wristAngleEncoder.setDistancePerRotation(360);
+        m_wristEncoder = new DutyCycleEncoder(IntakeConstants.WRIST_ANGLE_PORT);
+        m_wristEncoder.setDistancePerRotation(360);
     }
     
     @Override
@@ -32,16 +32,26 @@ public class WristIONeo implements WristIO{
     public void setWristAngle(double angle) {
     }
 
+    @Override
+    public void setWristPower(double speed) {
+        m_wristMotor.set(speed);
+    }
+
+    @Override
+    public void setIntakeSpeed(double speed) {
+        m_intakeMotor.set(speed);
+    }
+
 
     //Getters
     @Override
     public double getWristAngle() {
-        return m_wristAngleEncoder.getDistance();
+        return m_wristEncoder.getDistance();
     }
 
     @Override
     public double getIntakeAmps() {
-        return m_intakePower.getOutputCurrent();
+        return m_intakeMotor.getOutputCurrent();
     }
 
 }
