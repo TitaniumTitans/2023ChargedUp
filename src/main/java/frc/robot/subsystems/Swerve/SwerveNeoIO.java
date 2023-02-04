@@ -121,6 +121,17 @@ public class SwerveNeoIO implements SwerveIO {
         inputs.gyroYawDeg = m_gyro.getYaw();
     }
 
+    public Rotation2d[] getCancoder(){
+        Rotation2d[] array = {
+            m_flMod.getM_canCoder(),
+            m_frMod.getM_canCoder(),
+            m_blMod.getM_canCoder(),
+            m_brMod.getM_canCoder()
+        };
+
+        return array;
+    }
+
     @Override
     public void periodic() {
         // m_odometry.update(Rotation2d.fromDegrees(m_gyro.getYaw()), getModulePositions());

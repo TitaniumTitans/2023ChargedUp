@@ -152,7 +152,7 @@ public class SwerveModNeo {
 
     m_angleEncoder.setPositionConversionFactor(ModuleConstants.POSITION_CONVERSION_FACTOR);
     // angleEncoder.setVelocityConversionFactor(Constants.kSwerve.ANGLE_RPM_TO_RADIANS_PER_SECOND);
-    m_angleEncoder.setPosition(Units.degreesToRadians(m_canCoder.getAbsolutePosition() - m_canCoderOffsetDegrees));
+    m_angleEncoder.setPosition(Units.degreesToRadians(m_canCoder.getAbsolutePosition() + m_canCoderOffsetDegrees));
     SparkMaxConfigs.configCanStatusFrames(m_angleMotor);    
   }
 }

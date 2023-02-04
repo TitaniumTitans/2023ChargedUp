@@ -50,13 +50,15 @@ public class RobotContainer {
   switch (Constants.CURRENT_MODE) {
     // Beta robot hardware implementation
     case THANOS:
-      // m_drive = new SwerveDrivetrain(new SwerveNeoIO());
+      m_drive = new SwerveDrivetrain(new SwerveNeoIO());
       m_wrist = new WristSubsystem(new WristIONeo());
       m_arm = new ArmSubSystem(new ArmIONeo());
       break;
     
     case HELIOS:
       m_drive = new SwerveDrivetrain(new SwerveNeoIO());
+      m_wrist = new WristSubsystem(new WristIONeo());
+      m_arm = new ArmSubSystem(new ArmIONeo());
       break;
 
     case SIM:
@@ -80,6 +82,26 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     m_drive.setDefaultCommand(new SwerveTeleopDrive(m_drive, m_driveController));
+
+    m_driveController.a().whileTrue(m_arm.setArmAngleSpeedFactory(0.15))
+      .whileFalse(m_arm.setArmAngleSpeedFactory(0.0));
+    m_driveController.b().whileTrue(m_arm.setArmAngleSpeedFactory(-0.15))
+      .whileFalse(m_arm.setArmAngleSpeedFactory(0.0));
+
+    m_driveController.x().whileTrue(m_wrist.setWristPowerFactory(0.15))
+      .whileFalse(m_wrist.setWristPowerFactory(0.0));
+    m_driveController.y().whileTrue(m_wrist.setWristPowerFactory(-0.15))
+      .whileFalse(m_wrist.setWristPowerFactory(0.0));
+    
+    m_driveController.rightTrigger().whileTrue(m_wrist.setIntakeSpeedFactory(0.25))
+      .whileFalse(m_wrist.setIntakeSpeedFactory(0.0));
+    m_driveController.leftTrigger().whileTrue(m_wrist.setIntakeSpeedFactory(-0.25))
+      .whileFalse(m_wrist.setIntakeSpeedFactory(0.0));
+
+    m_driveController.rightBumper().whileTrue(m_arm.setArmExtentionFactory(0.1))
+      .whileFalse(m_arm.setArmExtentionFactory(0.0));
+    m_driveController.leftBumper().whileTrue(m_arm.setArmExtentionFactory(-0.1))
+      .whileFalse(m_arm.setArmExtentionFactory(0.0));
   }
 
   /**

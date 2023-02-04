@@ -119,6 +119,13 @@ public class SwerveDrivetrain extends SubsystemBase {
     SmartDashboard.putBoolean("Field Relative", fieldRelative);
     SmartDashboard.putNumber("Gyro", getGyroYaw().getDegrees());
 
+    Rotation2d[] array = m_io.getCancoder();
+
+    SmartDashboard.putNumber("FL Mod CANCoder", array[0].getDegrees());
+    SmartDashboard.putNumber("FR Mod CANCoder", array[1].getDegrees());
+    SmartDashboard.putNumber("BL Mod CANCoder", array[2].getDegrees());
+    SmartDashboard.putNumber("BR Mod CANCoder", array[3].getDegrees());
+
     // CAMERA:
     // Optional<EstimatedRobotPose> frontEPose = m_frontPVCam.getPose(m_poseEstimator.getEstimatedPosition());
     // SmartDashboard.putBoolean("Cam pose present", frontEPose.isPresent());
