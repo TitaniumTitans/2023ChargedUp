@@ -1,8 +1,9 @@
 package frc.robot.subsystems.Wrist;
 
+import com.ctre.phoenix.sensors.CANCoder;
+import com.ctre.phoenix.sensors.SensorInitializationStrategy;
 import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DutyCycleEncoder;
 
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import frc.robot.Constants.IntakeConstants;
@@ -11,14 +12,14 @@ public class WristIONeo implements WristIO{
     private CANSparkMax m_wristMotor;
     private CANSparkMax m_intakeMotor;
     private DigitalInput m_zeroLimit;
-    private DutyCycleEncoder m_wristEncoder;
+    private CANCoder m_wristEncoder;
 
     public WristIONeo() {
         m_wristMotor = new CANSparkMax(IntakeConstants.WRIST_ID, MotorType.kBrushless);
         m_intakeMotor = new CANSparkMax(IntakeConstants.INTAKE_ID, MotorType.kBrushless);
 
-        m_wristEncoder = new DutyCycleEncoder(IntakeConstants.WRIST_ANGLE_PORT);
-        m_wristEncoder.setDistancePerRotation(360);
+        m_wristEncoder = new CANCoder(IntakeConstants.WRIST_ANGLE_PORT);
+        m_wristEncoder.configSensorInitializationStrategy(SensorInitializationStrategy.BootToAbsolutePosition);
 
         m_zeroLimit = new DigitalInput(IntakeConstants.LIMIT_SWTICH_PORT);
     }
@@ -48,7 +49,7 @@ public class WristIONeo implements WristIO{
     //Getters
     @Override
     public double getWristAngle() {
-        return m_wristEncoder.getDistance();
+        return m_wristEncoder.getPosition();
     }
 
     @Override

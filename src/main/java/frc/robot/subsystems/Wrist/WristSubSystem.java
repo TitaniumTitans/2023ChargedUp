@@ -1,7 +1,9 @@
 package frc.robot.subsystems.Wrist;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.IntakeConstants;
 
 public class WristSubsystem extends SubsystemBase{
     private WristIO m_io;
@@ -20,7 +22,7 @@ public class WristSubsystem extends SubsystemBase{
     }
 
     public void setWristPower(double speed) {
-        m_io.setWristAngle(speed);
+        m_io.setWristPower(speed);
     }
 
     public CommandBase setWristPowerFactory(double speed) {
@@ -44,15 +46,17 @@ public class WristSubsystem extends SubsystemBase{
 
     //getters
     public double getWristAngle() {
-        return m_io.getWristAngle();
+        return m_io.getWristAngle() / IntakeConstants.WRIST_PIVOT_RATIO;
     }
 
     public double getIntakeAmps() {
         return m_io.getIntakeAmps();
     }
 
-
+    @Override
     public void periodic() {
+        SmartDashboard.putBoolean("Wrist At Limit", atLimit());
+        SmartDashboard.putNumber("Wrist encoder", getWristAngle());
         m_io.updateInputs(m_input);
     }
 

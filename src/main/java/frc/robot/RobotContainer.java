@@ -26,7 +26,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
  */
 public class RobotContainer {
   //Subsystems
-  private SwerveDrivetrain m_drive; 
+  // private SwerveDrivetrain m_drive; 
   private WristSubsystem m_wrist;
 
   //Controllers
@@ -40,12 +40,12 @@ public class RobotContainer {
   switch (Constants.CURRENT_MODE) {
     // Beta robot hardware implementation
     case THANOS:
-      m_drive = new SwerveDrivetrain(new SwerveNeoIO());
+      // m_drive = new SwerveDrivetrain(new SwerveNeoIO());
       m_wrist = new WristSubsystem(new WristIONeo());
       break;
     
     case ALPHA:
-      m_drive = new SwerveDrivetrain(new SwerveFalconIO());
+      // m_drive = new SwerveDrivetrain(new SwerveFalconIO());
       break;
 
     case SIM:
@@ -53,7 +53,7 @@ public class RobotContainer {
 
     // Default case, should be set to a replay mode
     default:
-      m_drive = new SwerveDrivetrain(new SwerveFalconIO());
+      // m_drive = new SwerveDrivetrain(new SwerveFalconIO());
   }
     // Configure the button bindings
     configureButtonBindings();
@@ -67,23 +67,28 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    m_drive.setDefaultCommand(new SwerveTeleopDrive(m_drive, m_driveController));
+    // m_drive.setDefaultCommand(new SwerveTeleopDrive(m_drive, m_driveController));
 
-    m_driveController.button(7).onTrue(m_drive.resetGyroBase());
-    m_driveController.button(8).onTrue(m_drive.toggleFieldRelative());
+    // m_driveController.button(7).onTrue(m_drive.resetGyroBase());
+    // m_driveController.button(8).onTrue(m_drive.toggleFieldRelative());
 
     m_driveController.a().whileTrue(m_wrist.setIntakeSpeedFactory(0.1))
       .whileFalse(m_wrist.setIntakeSpeedFactory(0));
     m_driveController.b().whileTrue(m_wrist.setIntakeSpeedFactory(-0.1))
       .whileFalse(m_wrist.setIntakeSpeedFactory(0));
+
+    m_driveController.x().whileTrue(m_wrist.setWristPowerFactory(0.15))
+      .whileFalse(m_wrist.setWristPowerFactory(0));
+    m_driveController.y().whileTrue(m_wrist.setWristPowerFactory(-0.15))
+      .whileFalse(m_wrist.setWristPowerFactory(0));
   }
 
   /**
    * Use this method to add autonomous routines to a sendable chooser
    */
   public void configAutoChooser(){
-    m_autoChooser.addDefaultOption("Default Trajectory", AutoUtils.getDefaultTrajectory(m_drive));
-    m_autoChooser.addOption("Event Map Trajectory", AutoUtils.getPathWithEvents(m_drive));
+    // m_autoChooser.addDefaultOption("Default Trajectory", AutoUtils.getDefaultTrajectory(m_drive));
+    // m_autoChooser.addOption("Event Map Trajectory", AutoUtils.getPathWithEvents(m_drive));
   }
 
   /**
