@@ -123,10 +123,10 @@ public class SwerveNeoIO implements SwerveIO {
 
     public Rotation2d[] getCancoder(){
         Rotation2d[] array = {
-            m_flMod.getM_canCoder(),
-            m_frMod.getM_canCoder(),
-            m_blMod.getM_canCoder(),
-            m_brMod.getM_canCoder()
+            m_flMod.getCanCoder(),
+            m_frMod.getCanCoder(),
+            m_blMod.getCanCoder(),
+            m_brMod.getCanCoder()
         };
 
         return array;

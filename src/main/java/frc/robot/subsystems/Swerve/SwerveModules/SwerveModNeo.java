@@ -93,8 +93,8 @@ public class SwerveModNeo {
     return new SwerveModulePosition(distance, rot);
   }
 
-  public Rotation2d getM_canCoder(){
-    return Rotation2d.fromDegrees(m_canCoder.getAbsolutePosition() - m_canCoderOffsetDegrees);
+  public Rotation2d getCanCoder(){
+    return Rotation2d.fromDegrees(m_canCoder.getAbsolutePosition());
   }
 
   public double getTargetAngle(){
@@ -102,14 +102,14 @@ public class SwerveModNeo {
   }
 
   public void resetToAbsolute(){
-    m_angleEncoder.setPosition(Units.degreesToRadians(getM_canCoder().getDegrees() - m_canCoderOffsetDegrees));
+    m_angleEncoder.setPosition(Units.degreesToRadians(getCanCoder().getDegrees() - m_canCoderOffsetDegrees));
   }
 
   private void configureDevices() {
     // CanCoder configuration.
     CANCoderConfiguration canCoderConfiguration = new CANCoderConfiguration();
     canCoderConfiguration.absoluteSensorRange = AbsoluteSensorRange.Unsigned_0_to_360;
-    canCoderConfiguration.sensorDirection = false;
+    canCoderConfiguration.sensorDirection = true;
     canCoderConfiguration.initializationStrategy = SensorInitializationStrategy.BootToAbsolutePosition;
     canCoderConfiguration.sensorTimeBase = SensorTimeBase.PerSecond;
     
@@ -152,7 +152,7 @@ public class SwerveModNeo {
 
     m_angleEncoder.setPositionConversionFactor(ModuleConstants.POSITION_CONVERSION_FACTOR);
     // angleEncoder.setVelocityConversionFactor(Constants.kSwerve.ANGLE_RPM_TO_RADIANS_PER_SECOND);
-    m_angleEncoder.setPosition(Units.degreesToRadians(m_canCoder.getAbsolutePosition() + m_canCoderOffsetDegrees));
+    m_angleEncoder.setPosition(Units.degreesToRadians(m_canCoder.getAbsolutePosition() - m_canCoderOffsetDegrees));
     SparkMaxConfigs.configCanStatusFrames(m_angleMotor);    
   }
 }
