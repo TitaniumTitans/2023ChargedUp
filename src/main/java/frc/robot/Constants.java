@@ -73,14 +73,11 @@ public final class Constants {
         public static final int INTAKE_ID = 20;
 
         public static final int LIMIT_SWTICH_PORT = 2;
-        public static final int WRIST_ANGLE_PORT = 3;
+        public static final int WRIST_ANGLE_PORT = 21;
+        
+        public static final double WRIST_PIVOT_RATIO = 2.6666;
     }
 
-    public static class ArmConstants{
-        public static final int ANGLE_MASTER_ID = 16;
-        public static final int ANGLE_FOLLOWER_ID = 17;
-        public static final int EXTENTION_ID = 18;
-    }
 
     public static class AutoConstants{
         //Trajectory following values
@@ -104,6 +101,25 @@ public final class Constants {
     }
 
     public static final Mode CURRENT_MODE = Mode.HELIOS;
+
+    public static class ArmConstants{
+        public static final int ArmExID = 18;
+        public static final int ArmAngleIDMaster = 16;
+        public static final int ArmAngleIDFollower = 17;
+
+        public static final double kAngleConversionFactor = (0.5/3462.87) * 360 * 8192;
+
+        public static final double kPAngle = 0.13;
+        public static final double kIAngle = 0.005;
+        public static final double kDAngle = 0.0075;
+
+        // public static final double kVAngle = 0.0;
+        // public static final double kGAngle = 0.15;
+        
+        public static final double kReverseLimit = 40;
+        public static final double kForwardLimit = 280;
+    }
+
     public static final int DRIVER_PORT = 0;
 
     public static enum Mode {

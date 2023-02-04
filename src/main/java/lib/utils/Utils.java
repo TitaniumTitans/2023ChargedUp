@@ -80,5 +80,10 @@ public class Utils {
         double ticks = degrees / (360.0 / (gearRatio * 2048));
         return ticks;
     }
+
+    public static double normalize(final double angle) {
+        return (angle >= 0 ? angle : (360 - ((-angle) % 360))) % 360;
+    }
+
 }
 
