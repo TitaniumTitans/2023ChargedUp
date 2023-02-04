@@ -80,7 +80,6 @@ var NAVTREEINDEX0 =
 "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_drivetrain.html#a21c24d3e020c05d2c0b74ec435f3cc87":[10,0,0,0,1,1,1,14],
 "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_drivetrain.html#a2dc0b2229d075e013761995bf1a4c2ab":[10,0,0,0,1,1,1,0],
 "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_drivetrain.html#a358d55fd6dd586eccdfe5273760604b2":[10,0,0,0,1,1,1,6],
-"classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_drivetrain.html#a36c7d842e41e122ea29c9d64027e4879":[10,0,0,0,1,1,1,15],
 "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_drivetrain.html#a469b18b94b764c09cce9ae6f9b5a3933":[10,0,0,0,1,1,1,4],
 "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_drivetrain.html#a53a213f938c8b0b949d1470a0ec3138d":[10,0,0,0,1,1,1,2],
 "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_drivetrain.html#a546e1f7eb9e1af535efa2589bea46680":[10,0,0,0,1,1,1,3],
@@ -249,5 +248,6 @@ var NAVTREEINDEX0 =
 "classlib_1_1utils_1_1drivers_1_1_talon_enhanced.html#aa45716853784d5d68a476335ea450a51":[10,0,1,0,0,1,100],
 "classlib_1_1utils_1_1drivers_1_1_talon_enhanced.html#aa7dd848e40dcdc626aee4a1fef070f67":[10,0,1,0,0,1,98],
 "classlib_1_1utils_1_1drivers_1_1_talon_enhanced.html#aa841809d561de5ac3cdd7b387e650e9b":[10,0,1,0,0,1,26],
-"classlib_1_1utils_1_1drivers_1_1_talon_enhanced.html#aaa6121eacb7fa896c7ec5df5a838a04f":[10,0,1,0,0,1,45]
+"classlib_1_1utils_1_1drivers_1_1_talon_enhanced.html#aaa6121eacb7fa896c7ec5df5a838a04f":[10,0,1,0,0,1,45],
+"classlib_1_1utils_1_1drivers_1_1_talon_enhanced.html#aafcbbf0fefb9b6f0e9317c98cd8c3c59":[10,0,1,0,0,1,95]
 };
