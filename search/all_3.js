@@ -5,7 +5,8 @@ var searchData=
   ['configcall_12',['ConfigCall',['../interfacelib_1_1utils_1_1drivers_1_1_c_t_r_e_util_1_1_config_call.html',1,'lib::utils::drivers::CTREUtil']]],
   ['configdashboard_13',['configDashboard',['../classfrc_1_1robot_1_1_robot_container.html#abdf339c221d34bf636ca8e7619327e39',1,'frc::robot::RobotContainer']]],
   ['constants_14',['Constants',['../classfrc_1_1robot_1_1_constants.html',1,'frc::robot']]],
-  ['ctremodulestate_15',['CTREModuleState',['../classlib_1_1utils_1_1_swerve_1_1_c_t_r_e_module_state.html',1,'lib::utils::Swerve']]],
-  ['ctreutil_16',['CTREUtil',['../classlib_1_1utils_1_1drivers_1_1_c_t_r_e_util.html',1,'lib::utils::drivers']]],
-  ['customization_17',['Customization',['../md_docs_doxygen_awesome_css_docs_customization.html',1,'']]]
+  ['controlmode_15',['ControlMode',['../enumlib_1_1utils_1_1_rev_1_1_spark_max_wrapper_1_1_control_mode.html',1,'lib::utils::Rev::SparkMaxWrapper']]],
+  ['ctremodulestate_16',['CTREModuleState',['../classlib_1_1utils_1_1_swerve_1_1_c_t_r_e_module_state.html',1,'lib::utils::Swerve']]],
+  ['ctreutil_17',['CTREUtil',['../classlib_1_1utils_1_1drivers_1_1_c_t_r_e_util.html',1,'lib::utils::drivers']]],
+  ['customization_18',['Customization',['../md_docs_doxygen_awesome_css_docs_customization.html',1,'']]]
 ];

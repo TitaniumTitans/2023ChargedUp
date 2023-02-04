@@ -6,6 +6,7 @@ var hierarchy =
     [ "frc.robot.commands.Autonomous.AutoUtils", "classfrc_1_1robot_1_1commands_1_1_autonomous_1_1_auto_utils.html", null ],
     [ "lib.utils.drivers.CTREUtil.ConfigCall", "interfacelib_1_1utils_1_1drivers_1_1_c_t_r_e_util_1_1_config_call.html", null ],
     [ "frc.robot.Constants", "classfrc_1_1robot_1_1_constants.html", null ],
+    [ "lib.utils.Rev.SparkMaxWrapper.ControlMode", "enumlib_1_1utils_1_1_rev_1_1_spark_max_wrapper_1_1_control_mode.html", null ],
     [ "lib.utils.Swerve.CTREModuleState", "classlib_1_1utils_1_1_swerve_1_1_c_t_r_e_module_state.html", null ],
     [ "lib.utils.drivers.CTREUtil", "classlib_1_1utils_1_1drivers_1_1_c_t_r_e_util.html", null ],
     [ "MyLibrary::Example", "class_my_library_1_1_example.html", [
@@ -16,6 +17,8 @@ var hierarchy =
     ] ],
     [ "frc.robot.Main", "classfrc_1_1robot_1_1_main.html", null ],
     [ "frc.robot.RobotContainer", "classfrc_1_1robot_1_1_robot_container.html", null ],
+    [ "lib.utils.Rev.SparkMaxConfigs", "classlib_1_1utils_1_1_rev_1_1_spark_max_configs.html", null ],
+    [ "lib.utils.Rev.SparkMaxWrapper", "classlib_1_1utils_1_1_rev_1_1_spark_max_wrapper.html", null ],
     [ "lib.utils.Swerve.SwerveAzimuthFactoy", "classlib_1_1utils_1_1_swerve_1_1_swerve_azimuth_factoy.html", null ],
     [ "frc.robot.subsystems.Swerve.SwerveIO", "interfacefrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_i_o.html", [
       [ "frc.robot.subsystems.Swerve.SwerveFalconIO", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_falcon_i_o.html", null ],

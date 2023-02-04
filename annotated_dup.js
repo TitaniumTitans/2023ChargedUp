@@ -45,6 +45,10 @@ var annotated_dup =
           [ "CTREUtil", "classlib_1_1utils_1_1drivers_1_1_c_t_r_e_util.html", "classlib_1_1utils_1_1drivers_1_1_c_t_r_e_util" ],
           [ "TalonEnhanced", "classlib_1_1utils_1_1drivers_1_1_talon_enhanced.html", "classlib_1_1utils_1_1drivers_1_1_talon_enhanced" ]
         ] ],
+        [ "Rev", null, [
+          [ "SparkMaxConfigs", "classlib_1_1utils_1_1_rev_1_1_spark_max_configs.html", null ],
+          [ "SparkMaxWrapper", "classlib_1_1utils_1_1_rev_1_1_spark_max_wrapper.html", "classlib_1_1utils_1_1_rev_1_1_spark_max_wrapper" ]
+        ] ],
         [ "Swerve", null, [
           [ "CTREModuleState", "classlib_1_1utils_1_1_swerve_1_1_c_t_r_e_module_state.html", null ],
           [ "SwerveAzimuthFactoy", "classlib_1_1utils_1_1_swerve_1_1_swerve_azimuth_factoy.html", null ]
