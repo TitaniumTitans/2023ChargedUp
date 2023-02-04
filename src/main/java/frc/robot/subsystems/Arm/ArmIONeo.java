@@ -1,6 +1,7 @@
 package frc.robot.subsystems.Arm;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 // import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -15,9 +16,10 @@ import frc.robot.Constants.ArmConstants;
 import lib.utils.Utils;
 
 public class ArmIONeo implements ArmIO {
-    // private CANSparkMax m_ArmEx;
-    private CANSparkMax m_armAngle;
-    // private RelativeEncoder m_RelativeEncoderArmEx;
+    private CANSparkMax m_ArmEx;
+    private CANSparkMax m_armAngleMaster;
+    private CANSparkMax m_armAngleFollower;
+    private RelativeEncoder m_RelativeEncoderArmEx;
     private DutyCycleEncoder m_encoderArmAngle;
     private double kArmOffset = 260.9;
 
@@ -25,8 +27,16 @@ public class ArmIONeo implements ArmIO {
     private PIDController m_anglePID;
 
     public ArmIONeo() {
-        // m_ArmEx = new CANSparkMax(ArmConstants.ArmExID, MotorType.kBrushed);
-        m_armAngle = new CANSparkMax(ArmConstants.ArmAngleID, MotorType.kBrushless);
+        m_ArmEx = new CANSparkMax(ArmConstants.ArmExID, MotorType.kBrushless);
+        m_armAngleMaster = new CANSparkMax(ArmConstants.ArmAngleIDMaster, MotorType.kBrushless);
+        m_armAngleFollower = new CANSparkMax(ArmConstants.ArmAngleIDFollower, MotorType.kBrushless);
+
+        m_armAngleMaster.setInverted(false);
+        m_armAngleFollower.setInverted(false);
+
+        m_armAngleFollower.follow(m_armAngleMaster);
+
+        m_RelativeEncoderArmEx = m_ArmEx.getEncoder();
     
         m_encoderArmAngle = new DutyCycleEncoder(0);
         m_encoderArmAngle.reset();
@@ -48,18 +58,17 @@ public class ArmIONeo implements ArmIO {
 
     @Override
     public void setAngleSpeed(double speed) {
-        m_armAngle.set(speed);
+        m_armAngleMaster.set(speed);
     }
 
     @Override
     public void setArmSpeed(double speed) {
-        // m_ArmEx.set(speed);
+        m_ArmEx.set(speed);
     }
 
     @Override
     public double getArmExtension() {
-        // return m_RelativeEncoderArmEx.getPosition() * 360;
-        return 0.0;
+        return m_RelativeEncoderArmEx.getPosition() * 360;
     }
 
     @Override
@@ -71,7 +80,7 @@ public class ArmIONeo implements ArmIO {
         SmartDashboard.putNumber("PID Output", pidOutput);
 
         if(!m_anglePID.atSetpoint()){
-            m_armAngle.setVoltage(pidOutput);
+            // m_armAngle.setVoltage(pidOutput);
         }
     }
 

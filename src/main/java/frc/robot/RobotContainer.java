@@ -22,6 +22,7 @@ import frc.robot.subsystems.Swerve.SwerveFalconIO;
 import frc.robot.subsystems.Swerve.SwerveNeoIO;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 /**
@@ -79,9 +80,31 @@ public class RobotContainer {
     m_driveController.button(7).onTrue(m_drive.resetGyroBase());
     m_driveController.button(8).onTrue(m_drive.toggleFieldRelative());
 
-    m_driveController.a().whileTrue(m_arm.updateArmAngleCommandFactory(1));
+    m_driveController.a().whileTrue(m_arm.setArmAngleSpeedFactory(0.1))
+      .whileFalse(m_arm.setArmAngleSpeedFactory(0.0));
     
-    m_driveController.b().whileTrue(m_arm.updateArmAngleCommandFactory(-1));
+    m_driveController.b().whileTrue(m_arm.setArmAngleSpeedFactory(-0.1))
+      .whileFalse(m_arm.setArmAngleSpeedFactory(0.0));
+
+    m_driveController.x().whileTrue(
+      new RunCommand(() -> {
+        m_arm.setArmSpeed(0.1);
+      })
+    ).whileFalse(
+      new RunCommand(() -> {
+        m_arm.setArmSpeed(0.0);
+      })
+    );
+
+    m_driveController.y().whileTrue(
+      new RunCommand(() -> {
+        m_arm.setArmSpeed(-0.1);
+      })
+    ).whileFalse(
+      new RunCommand(() -> {
+        m_arm.setArmSpeed(0.0);
+      })
+    );
   }
 
   /**

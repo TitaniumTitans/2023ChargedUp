@@ -90,8 +90,9 @@ public final class Constants {
     }
 
     public static class ArmConstants{
-        public static final int ArmExID = 17;
-        public static final int ArmAngleID = 16;
+        public static final int ArmExID = 18;
+        public static final int ArmAngleIDMaster = 16;
+        public static final int ArmAngleIDFollower = 17;
 
         public static final double kAngleConversionFactor = (0.5/3462.87) * 360 * 8192;
 
