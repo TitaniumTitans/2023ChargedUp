@@ -76,12 +76,6 @@ public final class Constants {
         public static final int WRIST_ANGLE_PORT = 3;
     }
 
-    public static class ArmConstants{
-        public static final int ANGLE_MASTER_ID = 16;
-        public static final int ANGLE_FOLLOWER_ID = 17;
-        public static final int EXTENTION_ID = 18;
-    }
-
     public static class AutoConstants{
         //Trajectory following values
         public static final double MAX_VELOCITY_PERCENT_OUTPUT = 0.5;
@@ -120,8 +114,8 @@ public final class Constants {
         public static final double kForwardLimit = 280;
     }
 
-    public static final Mode currentMode = Mode.THANOS;
-    public static final int driverPort = 0;
+    public static final Mode CURRENT_MODE = Mode.THANOS;
+    public static final int DRIVER_PORT = 0;
 
     public static enum Mode {
         /** Running on the test bot */
