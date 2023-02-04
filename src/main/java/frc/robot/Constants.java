@@ -74,9 +74,10 @@ public final class Constants {
 
         public static final int LIMIT_SWTICH_PORT = 2;
         public static final int WRIST_ANGLE_PORT = 21;
-
+        
         public static final double WRIST_PIVOT_RATIO = 2.6666;
     }
+
 
     public static class AutoConstants{
         //Trajectory following values
@@ -100,8 +101,9 @@ public final class Constants {
     }
 
     public static class ArmConstants{
-        public static final int ArmExID = 17;
-        public static final int ArmAngleID = 16;
+        public static final int ArmExID = 18;
+        public static final int ArmAngleIDMaster = 16;
+        public static final int ArmAngleIDFollower = 17;
 
         public static final double kAngleConversionFactor = (0.5/3462.87) * 360 * 8192;
 
