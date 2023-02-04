@@ -74,7 +74,7 @@
   <!--   <property name="fileExtensions" value="java"/> -->
   <!-- </module> -->
 
-
+  <module name="TreeWalker">
     <!-- Checks for Naming Conventions.                  -->
     <!-- See https://checkstyle.org/config_naming.html -->
     <module name="ConstantName"/>
@@ -122,9 +122,5 @@
     <module name="LeftCurly"/>
     <module name="NeedBraces"/>
     <module name="RightCurly"/>
-
-    </module>
-
   </module>
-
 </module>

@@ -6,8 +6,6 @@ import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.sensors.SensorInitializationStrategy;
 
-//TODO Implement David's TalonEnhanced classes
-
 public class SwerveAzimuthFactoy {
     static int kTimeoutMs = 100;
 
