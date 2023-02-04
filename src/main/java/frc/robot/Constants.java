@@ -78,12 +78,6 @@ public final class Constants {
         public static final double WRIST_PIVOT_RATIO = 2.6666;
     }
 
-    public static class ArmConstants{
-        public static final int ANGLE_MASTER_ID = 16;
-        public static final int ANGLE_FOLLOWER_ID = 17;
-        public static final int EXTENTION_ID = 18;
-    }
-
     public static class AutoConstants{
         //Trajectory following values
         public static final double MAX_VELOCITY_PERCENT_OUTPUT = 0.5;
@@ -103,6 +97,23 @@ public final class Constants {
         //Auto balance constants
         public static final double BALANCE_P = 0.5;
         public static final double DESIRED_BALANCE_ANGLE = 1;
+    }
+
+    public static class ArmConstants{
+        public static final int ArmExID = 17;
+        public static final int ArmAngleID = 16;
+
+        public static final double kAngleConversionFactor = (0.5/3462.87) * 360 * 8192;
+
+        public static final double kPAngle = 0.13;
+        public static final double kIAngle = 0.005;
+        public static final double kDAngle = 0.0075;
+
+        // public static final double kVAngle = 0.0;
+        // public static final double kGAngle = 0.15;
+        
+        public static final double kReverseLimit = 40;
+        public static final double kForwardLimit = 280;
     }
 
     public static final Mode CURRENT_MODE = Mode.THANOS;
