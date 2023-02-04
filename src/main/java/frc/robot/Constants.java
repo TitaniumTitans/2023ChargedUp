@@ -24,33 +24,33 @@ public final class Constants {
     /*Constants for physical aspects of the modules, plus PID loops constants*/
     public final static class ModuleConstants{
         // Physical wheel constants
-        public static final double kWheelDiameterMeters = Units.inchesToMeters(4.0);
-        public static final double kWheelCircumference = 2 * Math.PI * (kWheelDiameterMeters / 2);
-        public static final double kMaxSpeedMetersPerSecond = Units.feetToMeters(12);
+        public static final double WHEEL_DIAMETER_METERS = Units.inchesToMeters(4.0);
+        public static final double WHEEL_CIRCUMFERENCE_METERS = 2 * Math.PI * (WHEEL_DIAMETER_METERS / 2);
+        // public static final double kMaxSpeedMetersPerSecond = Units.feetToMeters(12);
 
         // Gear ratio
-        public static final double kTurningRatio = (50.0 / 14.0) * (60.0 / 10.0);
-        public static final double kDriveRatio = (50.0 / 14.0) * (19.0 / 25.0) * (45.0 / 15.0);
+        public static final double TURNING_RATIO = (50.0 / 14.0) * (60.0 / 10.0);
+        public static final double DRIVE_RATIO = (50.0 / 14.0) * (19.0 / 25.0) * (45.0 / 15.0);
 
         // PID constants
-        public static final double kModuleKp = 0.16;
-        public static final double kModuleKd = 3;
-        public static final double kPositionConversionFactor = (Math.PI * 2) / kTurningRatio;
+        public static final double MODULE_KP = 0.16;
+        public static final double MODULE_KD = 3;
+        public static final double POSITION_CONVERSION_FACTOR = (Math.PI * 2) / TURNING_RATIO;
     }
 
     public static final class DriveConstants{
         // Can ID ports
-        public static final int[] kModFrCans = {3, 4, 5};
-        public static final int[] kModFlCans = {6, 7, 8};
-        public static final int[] kModBlCans = {9, 10, 11};
-        public static final int[] kModBrCans = {12, 13, 14};
-        public static final int kGyroCan = 15;
+        public static final int[] MOD_FR_CANS = {3, 4, 5};
+        public static final int[] MOD_FL_CANS = {6, 7, 8};
+        public static final int[] MOD_BL_CANS = {9, 10, 11};
+        public static final int[] MOD_BR_CANS = {12, 13, 14};
+        public static final int GYRO_CAN = 15;
 
         //Thanos Offsets
-        public static final double kModFrOffset = currentMode == Mode.THANOS ? 198.8: 357.803;//360 - 160.400;
-        public static final double kModFlOffset = currentMode == Mode.THANOS ? 145.9 : 349.629;//360 - 215.508;
-        public static final double kModBrOffset = currentMode == Mode.THANOS ? 263.1 : 180 + 46.143;//360 - 105.820; 70.488
-        public static final double kModBlOffset = currentMode == Mode.THANOS ? 254.1 : 180 + 70.488;//360 - 97.119; 96.943 149.6
+        public static final double MOD_FR_OFFSET = CURRENT_MODE == Mode.THANOS ? 198.8: 357.803;//360 - 160.400;
+        public static final double MOD_FL_OFFSET = CURRENT_MODE == Mode.THANOS ? 145.9 : 349.629;//360 - 215.508;
+        public static final double MOD_BR_OFFSET = CURRENT_MODE == Mode.THANOS ? 263.1 : 180 + 46.143;//360 - 105.820; 70.488
+        public static final double MOD_BL_OFFSET = CURRENT_MODE == Mode.THANOS ? 254.1 : 180 + 70.488;//360 - 97.119; 96.943 149.6
         // Competition Offsets
         // TODO competition offsets
 
@@ -59,52 +59,52 @@ public final class Constants {
         public static final double kTrackWidth = Units.inchesToMeters(20.733);
         
         // Distance between front and back wheels on robot
-        public static final double kWheelBase = Units.inchesToMeters(20.733);
+        public static final double WHEEL_BASE = Units.inchesToMeters(20.733);
 
-        public static final SwerveDriveKinematics kDriveKinematics = new SwerveDriveKinematics(
-        new Translation2d(kWheelBase / 2, kTrackWidth / 2),
-        new Translation2d(kWheelBase / 2, -kTrackWidth / 2),
-        new Translation2d(-kWheelBase / 2, kTrackWidth / 2),
-        new Translation2d(-kWheelBase / 2, -kTrackWidth / 2));
+        public static final SwerveDriveKinematics DRIVE_KINEMATICS = new SwerveDriveKinematics(
+        new Translation2d(WHEEL_BASE / 2, kTrackWidth / 2),
+        new Translation2d(WHEEL_BASE / 2, -kTrackWidth / 2),
+        new Translation2d(-WHEEL_BASE / 2, kTrackWidth / 2),
+        new Translation2d(-WHEEL_BASE / 2, -kTrackWidth / 2));
     }
 
     public static class IntakeConstants{
-        public static final int kWristId = 19;
-        public static final int kIntakeId = 20;
+        public static final int WRIST_ID = 19;
+        public static final int INTAKE_ID = 20;
 
-        public static final int kLimitSwitchPort = 2;
-        public static final int kWristAnglePort = 3;
+        public static final int LIMIT_SWTICH_PORT = 2;
+        public static final int WRIST_ANGLE_PORT = 3;
     }
 
     public static class ArmConstants{
-        public static final int kAngleMasterId = 16;
-        public static final int kAngleFollowerId = 17;
-        public static final int kExtentionId = 18;
+        public static final int ANGLE_MASTER_ID = 16;
+        public static final int ANGLE_FOLLOWER_ID = 17;
+        public static final int EXTENTION_ID = 18;
     }
 
     public static class AutoConstants{
         //Trajectory following values
-        public static final double kMaxVelocityMPS = 0.5;
-        public static final double kMaxAccelerationMPS = 0.5;
+        public static final double MAX_VELOCITY_PERCENT_OUTPUT = 0.5;
+        public static final double MAX_ACCELERATION_PERCENT_OUTPUT = 0.5;
 
-        public static final Constraints kThetaConstraints = 
-            new Constraints(kMaxVelocityMPS, kMaxAccelerationMPS);
+        public static final Constraints THETA_CONSTRAINTS = 
+            new Constraints(MAX_VELOCITY_PERCENT_OUTPUT, MAX_ACCELERATION_PERCENT_OUTPUT);
 
-        public static final ProfiledPIDController kThetaController = 
-            new ProfiledPIDController(0.0, 0.0, 0.0, kThetaConstraints);
+        public static final ProfiledPIDController THETA_CONTROLLER = 
+            new ProfiledPIDController(0.0, 0.0, 0.0, THETA_CONSTRAINTS);
         
-        public static final PIDController kControllerX =
+        public static final PIDController CONTROLLER_X =
             new PIDController(0.5, 0, 0);
-        public static final PIDController kControllerY =
+        public static final PIDController CONTROLLER_Y =
             new PIDController(0.5, 0, 0);
         
         //Auto balance constants
-        public static final double kBalanceP = 0.5;
-        public static final double kDesiredBalanceAngle = 1;
+        public static final double BALANCE_P = 0.5;
+        public static final double DESIRED_BALANCE_ANGLE = 1;
     }
 
-    public static final Mode currentMode = Mode.THANOS;
-    public static final int driverPort = 0;
+    public static final Mode CURRENT_MODE = Mode.THANOS;
+    public static final int DRIVER_PORT = 0;
 
     public static enum Mode {
         /** Running on the test bot */

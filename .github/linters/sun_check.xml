@@ -74,7 +74,6 @@
   <!--   <property name="fileExtensions" value="java"/> -->
   <!-- </module> -->
 
-
   <module name="TreeWalker">
     <!-- Checks for Naming Conventions.                  -->
     <!-- See https://checkstyle.org/config_naming.html -->
