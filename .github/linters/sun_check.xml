@@ -123,5 +123,5 @@
     <module name="LeftCurly"/>
     <module name="NeedBraces"/>
     <module name="RightCurly"/>
-  <module/>
+  </module>
 </module>
