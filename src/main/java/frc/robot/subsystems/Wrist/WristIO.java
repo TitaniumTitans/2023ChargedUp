@@ -6,8 +6,8 @@ public interface WristIO {
 
     @AutoLog    
     public static class WristIOInputs {
-        public double wristAngle;
-        public double intakeAmps;
+        public double wristAngle = 0.0;
+        public double intakeAmps = 0.0;
     }
 
     public default void updateInputs(WristIOInputsAutoLogged inputs){}

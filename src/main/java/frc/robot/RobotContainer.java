@@ -13,6 +13,8 @@ import frc.robot.commands.Autonomous.AutoUtils;
 import frc.robot.subsystems.Swerve.SwerveDrivetrain;
 import frc.robot.subsystems.Swerve.SwerveFalconIO;
 import frc.robot.subsystems.Swerve.SwerveNeoIO;
+import frc.robot.subsystems.Wrist.WristIONeo;
+import frc.robot.subsystems.Wrist.WristSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
@@ -25,6 +27,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 public class RobotContainer {
   //Subsystems
   private SwerveDrivetrain m_drive; 
+  private WristSubsystem m_wrist;
 
   //Controllers
   private final CommandXboxController m_driveController = new CommandXboxController(Constants.DRIVER_PORT);
@@ -38,6 +41,7 @@ public class RobotContainer {
     // Beta robot hardware implementation
     case THANOS:
       m_drive = new SwerveDrivetrain(new SwerveNeoIO());
+      m_wrist = new WristSubsystem(new WristIONeo());
       break;
     
     case ALPHA:
@@ -67,6 +71,11 @@ public class RobotContainer {
 
     m_driveController.button(7).onTrue(m_drive.resetGyroBase());
     m_driveController.button(8).onTrue(m_drive.toggleFieldRelative());
+
+    m_driveController.a().whileTrue(m_wrist.setIntakeSpeedFactory(0.1))
+      .whileFalse(m_wrist.setIntakeSpeedFactory(0));
+    m_driveController.b().whileTrue(m_wrist.setIntakeSpeedFactory(-0.1))
+      .whileFalse(m_wrist.setIntakeSpeedFactory(0));
   }
 
   /**
