@@ -1,5 +1,6 @@
 var NAVTREEINDEX1 =
 {
+"classlib_1_1utils_1_1drivers_1_1_talon_enhanced.html#aa841809d561de5ac3cdd7b387e650e9b":[10,0,1,0,0,1,26],
 "classlib_1_1utils_1_1drivers_1_1_talon_enhanced.html#aaa6121eacb7fa896c7ec5df5a838a04f":[10,0,1,0,0,1,45],
 "classlib_1_1utils_1_1drivers_1_1_talon_enhanced.html#aafcbbf0fefb9b6f0e9317c98cd8c3c59":[10,0,1,0,0,1,95],
 "classlib_1_1utils_1_1drivers_1_1_talon_enhanced.html#ab27729269a4aa7274f275a4743c2ab35":[10,0,1,0,0,1,49],
@@ -46,8 +47,8 @@ var NAVTREEINDEX1 =
 "functions.html":[10,3,0],
 "functions_func.html":[10,3,1],
 "hierarchy.html":[10,2],
-"index.html":[0],
 "index.html":[],
+"index.html":[0],
 "interfacefrc_1_1robot_1_1subsystems_1_1_arm_1_1_arm_i_o.html":[10,0,0,0,1,0,0],
 "interfacefrc_1_1robot_1_1subsystems_1_1_arm_1_1_arm_i_o.html#a009d1103f808432350445cc795c3676d":[10,0,0,0,1,0,0,2],
 "interfacefrc_1_1robot_1_1subsystems_1_1_arm_1_1_arm_i_o.html#a15fd778acae06c34cbb76405d3261da0":[10,0,0,0,1,0,0,4],
