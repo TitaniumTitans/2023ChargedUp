@@ -47,8 +47,8 @@ public class ArmSubSystem extends SubsystemBase {
         return m_io.getArmAngle();
     }
 
-    public void updateArmAngle(double degreesToAdd) {
-        armAngle += degreesToAdd;
+    public void setArmAngle(double degreesToAdd) {
+        m_io.setArmAngle(degreesToAdd);
     }
 
     public CommandBase setArmAngleSpeedFactory(double speed) {
@@ -57,9 +57,9 @@ public class ArmSubSystem extends SubsystemBase {
         });
     }
 
-    public CommandBase updateArmAngleCommandFactory(double angle) {
+    public CommandBase setArmAngleCommandFactory(double angle) {
         return run(() -> {
-            updateArmAngle(angle);
+            setArmAngle(angle);
         });
     }
 

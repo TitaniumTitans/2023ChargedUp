@@ -7,7 +7,6 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 // import edu.wpi.first.wpilibj.Encoder;
 // import edu.wpi.first.wpilibj.CounterBase.EncodingType;
@@ -79,9 +78,7 @@ public class ArmIONeo implements ArmIO {
         SmartDashboard.putNumber("Setpoint", angleSetpoint);
         SmartDashboard.putNumber("PID Output", pidOutput);
 
-        if(!m_anglePID.atSetpoint()){
-            // m_armAngle.setVoltage(pidOutput);
-        }
+        m_armAngleMaster.setVoltage(pidOutput);
     }
 
     @Override
