@@ -35,8 +35,8 @@ public class SwerveTeleopDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double x = -m_driverController.getLeftY();
-    double y = -m_driverController.getLeftX();
+    double x = m_driverController.getLeftY();
+    double y = m_driverController.getLeftX();
     double z = -m_driverController.getRightX();
 
     x = Utils.deadBand(x);

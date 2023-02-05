@@ -65,7 +65,7 @@ public class SwerveModNeo {
     double speed = state.speedMetersPerSecond;
     m_driveMotor.set(speed);
 
-    double angle = Math.abs(state.speedMetersPerSecond) <= 0.01
+    double angle = Math.abs(state.speedMetersPerSecond) <= 0.0
       ? m_lastAngle
       : state.angle.getRadians();
 
