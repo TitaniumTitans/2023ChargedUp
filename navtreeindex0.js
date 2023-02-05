@@ -115,7 +115,7 @@ var NAVTREEINDEX0 =
 "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_modules_1_1_swerve_mod_falcon.html#aeddee5ed38236455ff4e701bf9b04253":[10,0,0,0,1,1,0,0,5],
 "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_modules_1_1_swerve_mod_falcon.html#af5fe4fd983fff2708c4fac7ceed6a8b7":[10,0,0,0,1,1,0,0,7],
 "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_modules_1_1_swerve_mod_neo.html":[10,0,0,0,1,1,0,1],
-"classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_modules_1_1_swerve_mod_neo.html#a1f7d5d992d9e635458512b583240b0fb":[10,0,0,0,1,1,0,1,2],
+"classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_modules_1_1_swerve_mod_neo.html#a1f846ac8acc3afa2c2b34bc8e9cec1ba":[10,0,0,0,1,1,0,1,2],
 "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_modules_1_1_swerve_mod_neo.html#a2c5f01fa06552dd6131f08a880616f51":[10,0,0,0,1,1,0,1,6],
 "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_modules_1_1_swerve_mod_neo.html#a3c2771fcb6900364cffb00fcf736caac":[10,0,0,0,1,1,0,1,1],
 "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_modules_1_1_swerve_mod_neo.html#a7ff0f42d563dad715e70e2f49d7af91a":[10,0,0,0,1,1,0,1,7],

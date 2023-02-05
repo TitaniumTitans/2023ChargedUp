@@ -2,7 +2,7 @@ var classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_modules_1_1_swerve_mod
 [
     [ "SwerveModNeo", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_modules_1_1_swerve_mod_neo.html#adbd6015d382f6ab8d30abce78189c7aa", null ],
     [ "getAngle", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_modules_1_1_swerve_mod_neo.html#a3c2771fcb6900364cffb00fcf736caac", null ],
-    [ "getM_canCoder", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_modules_1_1_swerve_mod_neo.html#a1f7d5d992d9e635458512b583240b0fb", null ],
+    [ "getCanCoder", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_modules_1_1_swerve_mod_neo.html#a1f846ac8acc3afa2c2b34bc8e9cec1ba", null ],
     [ "getPosition", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_modules_1_1_swerve_mod_neo.html#afbfd8a0d89fc4d84f073f223de2ef663", null ],
     [ "getState", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_modules_1_1_swerve_mod_neo.html#aacf631fe42471cece92d6661c84fc426", null ],
     [ "getTargetAngle", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_modules_1_1_swerve_mod_neo.html#ab2890c6a365fc50b9e0fc97d32685e3a", null ],
