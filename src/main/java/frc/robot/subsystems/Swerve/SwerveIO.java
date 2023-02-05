@@ -58,4 +58,8 @@ public interface SwerveIO {
     }
 
     public default void resetGyro() {}
+
+    public default Rotation2d[] getCancoder() {
+        return null;
+    }
 }

@@ -15,7 +15,9 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants.ModuleConstants;
+import lib.utils.Rev.SparkMaxConfigs;
 
 public class SwerveModNeo {
   public final int moduleNumber;
@@ -64,7 +66,7 @@ public class SwerveModNeo {
     double speed = state.speedMetersPerSecond;
     m_driveMotor.set(speed);
 
-    double angle = Math.abs(state.speedMetersPerSecond) <= 0.01
+    double angle = Math.abs(state.speedMetersPerSecond) <= 0.0
       ? m_lastAngle
       : state.angle.getRadians();
 
@@ -92,8 +94,8 @@ public class SwerveModNeo {
     return new SwerveModulePosition(distance, rot);
   }
 
-  public Rotation2d getM_canCoder(){
-    return Rotation2d.fromDegrees(m_canCoder.getAbsolutePosition() - m_canCoderOffsetDegrees);
+  public Rotation2d getCanCoder(){
+    return Rotation2d.fromDegrees(m_canCoder.getAbsolutePosition());
   }
 
   public double getTargetAngle(){
@@ -101,7 +103,7 @@ public class SwerveModNeo {
   }
 
   public void resetToAbsolute(){
-    m_angleEncoder.setPosition(Units.degreesToRadians(getM_canCoder().getDegrees() - m_canCoderOffsetDegrees));
+    m_angleEncoder.setPosition(Units.degreesToRadians(getCanCoder().getDegrees() - m_canCoderOffsetDegrees));
   }
 
   private void configureDevices() {
@@ -121,6 +123,7 @@ public class SwerveModNeo {
     m_driveMotor.setInverted(m_invert);
     m_driveMotor.setIdleMode(IdleMode.kBrake);
     m_driveMotor.setOpenLoopRampRate(0.5);
+    // Timer.delay(Units.secondsToMilliseconds(TIMEOUT_MILLISECONDS));
     // driveMotor.setClosedLoopRampRate(Constants.kSwerve.CLOSED_LOOP_RAMP);
     // driveMotor.setSmartCurrentLimit(Constants.kSwerve.DRIVE_CURRENT_LIMIT);
  
@@ -132,6 +135,7 @@ public class SwerveModNeo {
     m_driveEncoder.setPositionConversionFactor(ModuleConstants.WHEEL_CIRCUMFERENCE_METERS / ModuleConstants.DRIVE_RATIO);
     // driveEncoder.setVelocityConversionFactor(Constants.kSwerve.DRIVE_RPM_TO_METERS_PER_SECOND);
     m_driveEncoder.setPosition(0);
+    SparkMaxConfigs.configCanStatusFrames(m_driveMotor);
 
     // Angle motor configuration.
     m_angleMotor.restoreFactoryDefaults();
@@ -148,8 +152,12 @@ public class SwerveModNeo {
     m_anglePID.setPositionPIDWrappingMaxInput(2 * Math.PI);
     m_anglePID.setPositionPIDWrappingMinInput(0);
 
+    Timer.delay(Units.millisecondsToSeconds(TIMEOUT_MILLISECONDS));
+
     m_angleEncoder.setPositionConversionFactor(ModuleConstants.POSITION_CONVERSION_FACTOR);
     // angleEncoder.setVelocityConversionFactor(Constants.kSwerve.ANGLE_RPM_TO_RADIANS_PER_SECOND);
-    m_angleEncoder.setPosition(Units.degreesToRadians(m_canCoder.getAbsolutePosition() - m_canCoderOffsetDegrees));    
+    m_angleEncoder.setPosition(Units.degreesToRadians(m_canCoder.getAbsolutePosition() - m_canCoderOffsetDegrees));
+    SparkMaxConfigs.configCanStatusFrames(m_angleMotor);   
+    // Timer.delay(Units.secondsToMilliseconds(TIMEOUT_MILLISECONDS)); 
   }
 }
