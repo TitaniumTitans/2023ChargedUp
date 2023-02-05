@@ -33,7 +33,7 @@ public final class Constants {
         public static final double DRIVE_RATIO = (50.0 / 14.0) * (19.0 / 25.0) * (45.0 / 15.0);
 
         // PID constants
-        public static final double MODULE_KP = 0.16;
+        public static final double MODULE_KP = 0.26;
         public static final double MODULE_KD = 3;
         public static final double POSITION_CONVERSION_FACTOR = (Math.PI * 2) / TURNING_RATIO;
     }
@@ -47,10 +47,10 @@ public final class Constants {
         public static final int GYRO_CAN = 15;
 
         //Thanos Offsets
-        public static final double MOD_FR_OFFSET = CURRENT_MODE == Mode.THANOS ? 198.8: 357.803;//360 - 160.400;
-        public static final double MOD_FL_OFFSET = CURRENT_MODE == Mode.THANOS ? 145.9 : 349.629;//360 - 215.508;
-        public static final double MOD_BR_OFFSET = CURRENT_MODE == Mode.THANOS ? 263.1 : 180 + 46.143;//360 - 105.820; 70.488
-        public static final double MOD_BL_OFFSET = CURRENT_MODE == Mode.THANOS ? 254.1 : 180 + 70.488;//360 - 97.119; 96.943 149.6
+        public static final double MOD_FR_OFFSET = CURRENT_MODE == Mode.THANOS ? 198.8 : 354.0;//360 - 160.400;
+        public static final double MOD_FL_OFFSET = CURRENT_MODE == Mode.THANOS ? 145.9 : 294.9;//360 - 215.508;
+        public static final double MOD_BR_OFFSET = CURRENT_MODE == Mode.THANOS ? 263.1 : 181.4;//360 - 105.820; 70.488
+        public static final double MOD_BL_OFFSET = CURRENT_MODE == Mode.THANOS ? 254.1 : 18.8;//360 - 97.119; 96.943 149.6
         // Competition Offsets
         // TODO competition offsets
 
@@ -100,6 +100,8 @@ public final class Constants {
         public static final double DESIRED_BALANCE_ANGLE = 1;
     }
 
+    public static final Mode CURRENT_MODE = Mode.HELIOS;
+
     public static class ArmConstants{
         public static final int ArmExID = 18;
         public static final int ArmAngleIDMaster = 16;
@@ -118,7 +120,6 @@ public final class Constants {
         public static final double kForwardLimit = 280;
     }
 
-    public static final Mode CURRENT_MODE = Mode.THANOS;
     public static final int DRIVER_PORT = 0;
 
     public static enum Mode {
@@ -126,7 +127,7 @@ public final class Constants {
         THANOS,
 
         /**Running on the competition bot */
-        ALPHA,
+        HELIOS,
 
         /** Running a physics simulator */
         SIM,

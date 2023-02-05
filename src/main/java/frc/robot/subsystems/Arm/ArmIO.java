@@ -7,8 +7,8 @@ public interface ArmIO {
 
     @AutoLog
     public static class ArmIOInputs {
-        public double ArmAngle;
-        public double ArmExtensionLength;
+        public double ArmAngle = 0.0;
+        public double ArmExtensionLength = 0.0;
     }
 
     public default void updateInputs(ArmIOInputsAutoLogged inputs){}

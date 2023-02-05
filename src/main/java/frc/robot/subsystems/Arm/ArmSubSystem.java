@@ -57,6 +57,12 @@ public class ArmSubSystem extends SubsystemBase {
         });
     }
 
+    public CommandBase setArmExtentionFactory(double speed) {
+        return run(() -> {
+            setArmSpeed(speed);
+        });
+    }
+
     public CommandBase updateArmAngleCommandFactory(double angle) {
         return run(() -> {
             updateArmAngle(angle);
