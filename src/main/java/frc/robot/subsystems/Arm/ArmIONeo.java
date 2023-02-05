@@ -7,7 +7,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 // import edu.wpi.first.wpilibj.Encoder;
 // import edu.wpi.first.wpilibj.CounterBase.EncodingType;
@@ -22,6 +22,7 @@ public class ArmIONeo implements ArmIO {
     private RelativeEncoder m_RelativeEncoderArmEx;
     private DutyCycleEncoder m_encoderArmAngle;
     private double kArmOffset = 260.9;
+    private DigitalInput m_armLimitSwitch;
 
     // private SparkMaxPIDController m_sparkPID;
     private PIDController m_anglePID;
@@ -47,6 +48,8 @@ public class ArmIONeo implements ArmIO {
         m_anglePID = new PIDController(ArmConstants.kPAngle, ArmConstants.kIAngle, ArmConstants.kDAngle);
         m_anglePID.enableContinuousInput(0, 360);
         // m_anglePID.setTolerance(100);
+
+        m_armLimitSwitch = new DigitalInput(ArmConstants.LIMIT_SWTICH_PORT);
     }
 
     @Override
@@ -63,7 +66,12 @@ public class ArmIONeo implements ArmIO {
 
     @Override
     public void setArmSpeed(double speed) {
-        m_ArmEx.set(speed);
+        if(armAtLowerLimit() && speed <= 0){
+            m_ArmEx.set(0);
+        } else 
+        {
+            m_ArmEx.set(speed);
+        }
     }
 
     @Override
@@ -93,4 +101,7 @@ public class ArmIONeo implements ArmIO {
         // return angle;
     }
 
+    public boolean armAtLowerLimit() {
+        return m_armLimitSwitch.get();
+    }
 }

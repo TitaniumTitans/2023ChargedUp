@@ -11,7 +11,7 @@ import frc.robot.Constants.IntakeConstants;
 public class WristIONeo implements WristIO{
     private CANSparkMax m_wristMotor;
     private CANSparkMax m_intakeMotor;
-    private DigitalInput m_zeroLimit;
+    private DigitalInput m_wristZeroLimit;
     private CANCoder m_wristEncoder;
 
     public WristIONeo() {
@@ -21,7 +21,7 @@ public class WristIONeo implements WristIO{
         m_wristEncoder = new CANCoder(IntakeConstants.WRIST_ANGLE_PORT);
         m_wristEncoder.configSensorInitializationStrategy(SensorInitializationStrategy.BootToAbsolutePosition);
 
-        m_zeroLimit = new DigitalInput(IntakeConstants.LIMIT_SWTICH_PORT);
+        m_wristZeroLimit = new DigitalInput(IntakeConstants.LIMIT_SWTICH_PORT);
     }
     
     @Override
@@ -37,7 +37,13 @@ public class WristIONeo implements WristIO{
 
     @Override
     public void setWristPower(double speed) {
-        m_wristMotor.set(speed);
+        if(wristAtLowerLimit() && speed <= 0){
+            m_wristMotor.set(0);
+        } else 
+        {
+            m_wristMotor.set(speed);
+        }
+            
     }
 
     @Override
@@ -57,9 +63,8 @@ public class WristIONeo implements WristIO{
         return m_intakeMotor.getOutputCurrent();
     }
 
-    @Override
-    public boolean atLimit() {
-        return m_zeroLimit.get();
+    public boolean wristAtLowerLimit() {
+        return m_wristZeroLimit.get();
     }
 
 }
