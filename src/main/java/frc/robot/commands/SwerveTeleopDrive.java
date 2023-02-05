@@ -37,7 +37,7 @@ public class SwerveTeleopDrive extends CommandBase {
   public void execute() {
     double x = m_driverController.getLeftY();
     double y = m_driverController.getLeftX();
-    double z = -m_driverController.getRightX();
+    double z = m_driverController.getRightX();
 
     x = Utils.deadBand(x);
     y = Utils.deadBand(y);
