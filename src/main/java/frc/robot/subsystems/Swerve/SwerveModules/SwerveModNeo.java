@@ -21,7 +21,7 @@ import lib.utils.Rev.SparkMaxConfigs;
 
 public class SwerveModNeo {
   public final int moduleNumber;
-  private int TIMEOUT_MILLISECONDS = 200;
+  private int TIMEOUT_MILLISECONDS = 400;
 
   private final CANSparkMax m_driveMotor;
   private final RelativeEncoder m_driveEncoder;
@@ -152,6 +152,7 @@ public class SwerveModNeo {
     m_anglePID.setPositionPIDWrappingMaxInput(2 * Math.PI);
     m_anglePID.setPositionPIDWrappingMinInput(0);
 
+    //TODO test timing delay to garuntee azimuth angled properly
     Timer.delay(Units.millisecondsToSeconds(TIMEOUT_MILLISECONDS));
 
     m_angleEncoder.setPositionConversionFactor(ModuleConstants.POSITION_CONVERSION_FACTOR);
