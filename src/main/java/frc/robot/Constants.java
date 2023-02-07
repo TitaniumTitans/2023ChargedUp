@@ -47,10 +47,10 @@ public final class Constants {
         public static final int GYRO_CAN = 15;
 
         //Thanos Offsets
-        public static final double MOD_FR_OFFSET = CURRENT_MODE == Mode.THANOS ? 198.8 : 354.0;//360 - 160.400;
-        public static final double MOD_FL_OFFSET = CURRENT_MODE == Mode.THANOS ? 145.9 : 294.9;//360 - 215.508;
-        public static final double MOD_BR_OFFSET = CURRENT_MODE == Mode.THANOS ? 263.1 : 181.4;//360 - 105.820; 70.488
-        public static final double MOD_BL_OFFSET = CURRENT_MODE == Mode.THANOS ? 254.1 : 18.8;//360 - 97.119; 96.943 149.6
+        public static final double MOD_FR_OFFSET = CURRENT_MODE == Mode.THANOS ? 198.8 : -64.8;//360 - 160.400;
+        public static final double MOD_FL_OFFSET = CURRENT_MODE == Mode.THANOS ? 145.9 : -5.4;//360 - 215.508;
+        public static final double MOD_BR_OFFSET = CURRENT_MODE == Mode.THANOS ? 263.1 : 18.8;//360 - 105.820; 70.488
+        public static final double MOD_BL_OFFSET = CURRENT_MODE == Mode.THANOS ? 254.1 : -179.0;//360 - 97.119; 96.943 149.6
         // Competition Offsets
         // TODO competition offsets
 
@@ -106,6 +106,7 @@ public final class Constants {
         public static final int ArmExID = 18;
         public static final int ArmAngleIDMaster = 16;
         public static final int ArmAngleIDFollower = 17;
+        public static final int LIMIT_SWTICH_PORT = 3;
 
         public static final double kAngleConversionFactor = (0.5/3462.87) * 360 * 8192;
 

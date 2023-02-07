@@ -2,11 +2,13 @@ package frc.robot.subsystems.Arm;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANSparkMax.IdleMode;
 // import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 // import edu.wpi.first.wpilibj.Encoder;
 // import edu.wpi.first.wpilibj.CounterBase.EncodingType;
@@ -21,6 +23,7 @@ public class ArmIONeo implements ArmIO {
     private RelativeEncoder m_RelativeEncoderArmEx;
     public DutyCycleEncoder m_encoderArmAngle;
     private double kArmOffset = 260.9;
+    private DigitalInput m_armLimitSwitch;
 
     // private SparkMaxPIDController m_sparkPID;
     private PIDController m_anglePID;
@@ -33,9 +36,15 @@ public class ArmIONeo implements ArmIO {
         m_armAngleMaster.setInverted(false);
         m_armAngleFollower.setInverted(false);
 
+        m_armAngleMaster.setIdleMode(IdleMode.kBrake);
+        m_armAngleFollower.setIdleMode(IdleMode.kBrake);
+
         m_armAngleFollower.follow(m_armAngleMaster);
 
         m_RelativeEncoderArmEx = m_ArmEx.getEncoder();
+
+        m_armAngleMaster.setIdleMode(IdleMode.kBrake);
+        m_armAngleFollower.setIdleMode(IdleMode.kBrake);
     
         m_encoderArmAngle = new DutyCycleEncoder(ArmConstants.ENCODER_PORT);
         m_encoderArmAngle.reset();
@@ -46,6 +55,8 @@ public class ArmIONeo implements ArmIO {
         m_anglePID = new PIDController(ArmConstants.kPAngle, ArmConstants.kIAngle, ArmConstants.kDAngle);
         m_anglePID.enableContinuousInput(0, 360);
         // m_anglePID.setTolerance(100);
+
+        m_armLimitSwitch = new DigitalInput(ArmConstants.LIMIT_SWTICH_PORT);
     }
 
     @Override
@@ -62,7 +73,12 @@ public class ArmIONeo implements ArmIO {
 
     @Override
     public void setArmSpeed(double speed) {
-        m_ArmEx.set(speed);
+        if(!armAtLowerLimit() && speed <= 0){
+            m_ArmEx.set(0);
+        } else 
+        {
+            m_ArmEx.set(speed);
+        }
     }
 
     @Override
@@ -95,4 +111,7 @@ public class ArmIONeo implements ArmIO {
         return m_encoderArmAngle.isConnected();
     }
 
+    public boolean armAtLowerLimit() {
+        return !m_armLimitSwitch.get();
+    }
 }

@@ -41,6 +41,8 @@ public interface SwerveIO {
 
     public default void setAbsoluteAngles() {}
 
+    public default void setIndevidualAngle(int module) {}
+
     public default SwerveModuleState[] getModuleStates() {
         return null;
     }

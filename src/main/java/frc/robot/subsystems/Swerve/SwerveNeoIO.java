@@ -101,7 +101,32 @@ public class SwerveNeoIO implements SwerveIO {
     }
 
     @Override
-    public void setAbsoluteAngles() {}
+    public void setAbsoluteAngles() {
+        m_flMod.resetToAbsolute();
+        m_frMod.resetToAbsolute();
+        m_blMod.resetToAbsolute();
+        m_brMod.resetToAbsolute();
+    }
+
+    @Override
+    public void setIndevidualAngle(int module) {
+        switch (module) {
+            case 1:
+                m_flMod.resetToAbsolute();
+                break;
+            case 2:
+                m_frMod.resetToAbsolute();
+                break;
+            case 3:
+                m_blMod.resetToAbsolute();
+                break;
+            case 4: 
+                m_brMod.resetToAbsolute();
+                break;
+            default:
+                setAbsoluteAngles();
+        }
+    }
 
     @Override
     public void updateInputs(SwerveIOInputs inputs) {

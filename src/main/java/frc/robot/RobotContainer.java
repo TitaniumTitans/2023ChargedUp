@@ -83,12 +83,10 @@ public class RobotContainer {
   private void configureButtonBindings() {
     m_drive.setDefaultCommand(new SwerveTeleopDrive(m_drive, m_driveController));
 
-    // m_driveController.a().whileTrue(m_arm.setArmAngleSpeedFactory(0.15))
-    //   .whileFalse(m_arm.setArmAngleSpeedFactory(0.0));
-    // m_driveController.b().whileTrue(m_arm.setArmAngleSpeedFactory(-0.15))
-    //   .whileFalse(m_arm.setArmAngleSpeedFactory(0.0));
-
-    m_arm.setDefaultCommand(new ArmToSetpoint(m_arm, 180));
+    m_driveController.a().whileTrue(m_arm.setArmAngleSpeedFactory(0.75))
+      .whileFalse(m_arm.setArmAngleSpeedFactory(0.0));
+    m_driveController.b().whileTrue(m_arm.setArmAngleSpeedFactory(-0.75))
+      .whileFalse(m_arm.setArmAngleSpeedFactory(0.0));
 
     m_driveController.x().whileTrue(m_wrist.setWristPowerFactory(0.15))
       .whileFalse(m_wrist.setWristPowerFactory(0.0));
