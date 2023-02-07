@@ -42,6 +42,9 @@ public class ArmIONeo implements ArmIO {
         m_armAngleFollower.follow(m_armAngleMaster);
 
         m_RelativeEncoderArmEx = m_ArmEx.getEncoder();
+
+        m_armAngleMaster.setIdleMode(IdleMode.kBrake);
+        m_armAngleFollower.setIdleMode(IdleMode.kBrake);
     
         m_encoderArmAngle = new DutyCycleEncoder(0);
         m_encoderArmAngle.reset();
@@ -70,7 +73,7 @@ public class ArmIONeo implements ArmIO {
 
     @Override
     public void setArmSpeed(double speed) {
-        if(armAtLowerLimit() && speed <= 0){
+        if(!armAtLowerLimit() && speed <= 0){
             m_ArmEx.set(0);
         } else 
         {

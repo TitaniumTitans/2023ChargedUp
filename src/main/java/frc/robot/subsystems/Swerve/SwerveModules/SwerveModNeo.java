@@ -17,11 +17,12 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants.ModuleConstants;
+import lib.utils.Utils;
 import lib.utils.Rev.SparkMaxConfigs;
 
 public class SwerveModNeo {
   public final int moduleNumber;
-  private int TIMEOUT_MILLISECONDS = 200;
+  private int TIMEOUT_MILLISECONDS = 600;
 
   private final CANSparkMax m_driveMotor;
   private final RelativeEncoder m_driveEncoder;
@@ -90,7 +91,7 @@ public class SwerveModNeo {
 
   public SwerveModulePosition getPosition() {
     double distance = m_driveEncoder.getPosition();
-    Rotation2d rot = new Rotation2d(m_angleEncoder.getPosition());
+    Rotation2d rot = new Rotation2d(Utils.normalize(m_angleEncoder.getPosition()));
     return new SwerveModulePosition(distance, rot);
   }
 
@@ -109,7 +110,7 @@ public class SwerveModNeo {
   private void configureDevices() {
     // CanCoder configuration.
     CANCoderConfiguration canCoderConfiguration = new CANCoderConfiguration();
-    canCoderConfiguration.absoluteSensorRange = AbsoluteSensorRange.Unsigned_0_to_360;
+    canCoderConfiguration.absoluteSensorRange = AbsoluteSensorRange.Signed_PlusMinus180;
     canCoderConfiguration.sensorDirection = false;
     canCoderConfiguration.initializationStrategy = SensorInitializationStrategy.BootToAbsolutePosition;
     canCoderConfiguration.sensorTimeBase = SensorTimeBase.PerSecond;
@@ -152,7 +153,8 @@ public class SwerveModNeo {
     m_anglePID.setPositionPIDWrappingMaxInput(2 * Math.PI);
     m_anglePID.setPositionPIDWrappingMinInput(0);
 
-    Timer.delay(Units.millisecondsToSeconds(TIMEOUT_MILLISECONDS));
+    // TODO test timing delay to garuntee azimuth angled properly
+    // Timer.delay(Units.millisecondsToSeconds(TIMEOUT_MILLISECONDS));
 
     m_angleEncoder.setPositionConversionFactor(ModuleConstants.POSITION_CONVERSION_FACTOR);
     // angleEncoder.setVelocityConversionFactor(Constants.kSwerve.ANGLE_RPM_TO_RADIANS_PER_SECOND);
