@@ -66,7 +66,7 @@ public class ArmIONeo implements ArmIO {
 
     @Override
     public void setArmSpeed(double speed) {
-        if(armAtLowerLimit() && speed <= 0){
+        if(!armAtLowerLimit() && speed <= 0){
             m_ArmEx.set(0);
         } else 
         {
