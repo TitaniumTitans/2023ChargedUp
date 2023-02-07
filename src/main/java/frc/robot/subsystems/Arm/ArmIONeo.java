@@ -21,7 +21,7 @@ public class ArmIONeo implements ArmIO {
     private CANSparkMax m_armAngleMaster;
     private CANSparkMax m_armAngleFollower;
     private RelativeEncoder m_RelativeEncoderArmEx;
-    private DutyCycleEncoder m_encoderArmAngle;
+    public DutyCycleEncoder m_encoderArmAngle;
     private double kArmOffset = 260.9;
     private DigitalInput m_armLimitSwitch;
 
@@ -46,7 +46,7 @@ public class ArmIONeo implements ArmIO {
         m_armAngleMaster.setIdleMode(IdleMode.kBrake);
         m_armAngleFollower.setIdleMode(IdleMode.kBrake);
     
-        m_encoderArmAngle = new DutyCycleEncoder(0);
+        m_encoderArmAngle = new DutyCycleEncoder(ArmConstants.ENCODER_PORT);
         m_encoderArmAngle.reset();
         m_encoderArmAngle.setDistancePerRotation(360);
         m_encoderArmAngle.setPositionOffset(0);
@@ -94,9 +94,7 @@ public class ArmIONeo implements ArmIO {
         SmartDashboard.putNumber("Setpoint", angleSetpoint);
         SmartDashboard.putNumber("PID Output", pidOutput);
 
-        if(!m_anglePID.atSetpoint()){
-            // m_armAngle.setVoltage(pidOutput);
-        }
+        m_armAngleMaster.setVoltage(pidOutput);
     }
 
     @Override
@@ -106,6 +104,11 @@ public class ArmIONeo implements ArmIO {
         return Utils.normalize((m_encoderArmAngle.getAbsolutePosition() * 360) - kArmOffset);
 
         // return angle;
+    }
+
+    @Override
+    public boolean encoderConnected() {
+        return m_encoderArmAngle.isConnected();
     }
 
     public boolean armAtLowerLimit() {
