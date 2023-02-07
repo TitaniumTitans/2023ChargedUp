@@ -1,5 +1,6 @@
 var interfacefrc_1_1robot_1_1subsystems_1_1_arm_1_1_arm_i_o =
 [
+    [ "encoderConnected", "interfacefrc_1_1robot_1_1subsystems_1_1_arm_1_1_arm_i_o.html#a410fff4235f3a8b64397685c55cb90b8", null ],
     [ "getArmAngle", "interfacefrc_1_1robot_1_1subsystems_1_1_arm_1_1_arm_i_o.html#ae245fac518283b148090b93d666ad6e3", null ],
     [ "getArmExtension", "interfacefrc_1_1robot_1_1subsystems_1_1_arm_1_1_arm_i_o.html#ace80a8244c7c2d4cd069641b51bec8fd", null ],
     [ "setAngleSpeed", "interfacefrc_1_1robot_1_1subsystems_1_1_arm_1_1_arm_i_o.html#a009d1103f808432350445cc795c3676d", null ],
