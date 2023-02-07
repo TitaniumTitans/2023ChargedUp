@@ -45,7 +45,7 @@ public class SwerveDrivetrain extends SubsystemBase {
   private Pose2d m_prevPose;
 
   private int m_counter = 0;
-  private int m_loopCycles = 500;
+  private int m_loopCycles = 100;
   private double m_allowAbleAngleError = 3.0;
 
   /** Creates a new SwerveDrivetrain. */
@@ -131,7 +131,7 @@ public class SwerveDrivetrain extends SubsystemBase {
     SmartDashboard.putNumber("BR Mod CANCoder", array[3].getDegrees());
 
     // resets the module positions to absolute after so many loops cycles in enable
-    //TODO Remove comment when actually testing
+    // TODO Remove comment when actually testing
     // if (m_counter == m_loopCycles) {
     //   m_io.setAbsoluteAngles();
     //   m_counter++;
