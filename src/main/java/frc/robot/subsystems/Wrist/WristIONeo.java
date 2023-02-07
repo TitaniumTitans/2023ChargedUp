@@ -37,7 +37,7 @@ public class WristIONeo implements WristIO{
 
     @Override
     public void setWristPower(double speed) {
-        if(wristAtLowerLimit() && speed <= 0){
+        // if(wristAtLowerLimit() && speed <= 0){
         //     m_wristMotor.set(0);
         // } else 
         // {

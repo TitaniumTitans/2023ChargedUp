@@ -2,6 +2,7 @@ package frc.robot.subsystems.Arm;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANSparkMax.IdleMode;
 // import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -38,6 +39,9 @@ public class ArmIONeo implements ArmIO {
         m_armAngleFollower.follow(m_armAngleMaster);
 
         m_RelativeEncoderArmEx = m_ArmEx.getEncoder();
+
+        m_armAngleMaster.setIdleMode(IdleMode.kBrake);
+        m_armAngleFollower.setIdleMode(IdleMode.kBrake);
     
         m_encoderArmAngle = new DutyCycleEncoder(0);
         m_encoderArmAngle.reset();
