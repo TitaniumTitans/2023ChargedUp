@@ -68,7 +68,7 @@ public final class Constants {
         new Translation2d(-WHEEL_BASE / 2, -kTrackWidth / 2));
     }
 
-    public static class IntakeConstants{
+    public static class WristConstants{
         public static final int WRIST_ID = 19;
         public static final int INTAKE_ID = 20;
 
@@ -76,6 +76,8 @@ public final class Constants {
         public static final int WRIST_ANGLE_PORT = 21;
         
         public static final double WRIST_PIVOT_RATIO = 2.6666;
+
+        public static final double WRIST_LOWER_LIMIT = 0.0;
     }
 
 
