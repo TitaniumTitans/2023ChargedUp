@@ -1,5 +1,7 @@
 package frc.robot.subsystems.Wrist;
 
+import org.littletonrobotics.junction.Logger;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -58,6 +60,7 @@ public class WristSubsystem extends SubsystemBase{
         SmartDashboard.putBoolean("Wrist At Limit", atLimit());
         SmartDashboard.putNumber("Wrist encoder", getWristAngle());
         m_io.updateInputs(m_input);
+        Logger.getInstance().processInputs("Wristy", m_input);
     }
 
     public boolean atLimit() {
