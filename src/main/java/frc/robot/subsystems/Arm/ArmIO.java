@@ -29,4 +29,8 @@ public interface ArmIO {
     }
 
     public default void setArmAngle(double angle) {}
+
+    public default boolean encoderConnected() {
+        return false;
+    }
 }

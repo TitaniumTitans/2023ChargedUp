@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+// import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.MoveArmAngle;
 import frc.robot.commands.SwerveTeleopDrive;
 import frc.robot.commands.Autonomous.AutoUtils;
@@ -18,13 +18,13 @@ import frc.robot.commands.Test.ArmToSetpoint;
 import frc.robot.subsystems.Arm.ArmIONeo;
 import frc.robot.subsystems.Arm.ArmSubSystem;
 import frc.robot.subsystems.Swerve.SwerveDrivetrain;
-import frc.robot.subsystems.Swerve.SwerveFalconIO;
+// import frc.robot.subsystems.Swerve.SwerveFalconIO;
 import frc.robot.subsystems.Swerve.SwerveNeoIO;
 import frc.robot.subsystems.Wrist.WristIONeo;
 import frc.robot.subsystems.Wrist.WristSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.RunCommand;
+// import edu.wpi.first.wpilibj2.command.InstantCommand;
+// import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 /**
@@ -111,8 +111,8 @@ public class RobotContainer {
    * Use this method to add autonomous routines to a sendable chooser
    */
   public void configAutoChooser(){
-    // m_autoChooser.addDefaultOption("Default Trajectory", AutoUtils.getDefaultTrajectory(m_drive));
-    // m_autoChooser.addOption("Event Map Trajectory", AutoUtils.getPathWithEvents(m_drive));
+    m_autoChooser.addDefaultOption("Default Trajectory", AutoUtils.getDefaultTrajectory(m_drive));
+    m_autoChooser.addOption("Event Map Trajectory", AutoUtils.getPathWithEvents(m_drive));
   }
 
   /**

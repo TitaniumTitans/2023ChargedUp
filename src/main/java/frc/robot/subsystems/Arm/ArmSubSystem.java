@@ -2,6 +2,7 @@ package frc.robot.subsystems.Arm;
 
 import org.littletonrobotics.junction.Logger;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -47,8 +48,8 @@ public class ArmSubSystem extends SubsystemBase {
         return m_io.getArmAngle();
     }
 
-    public void updateArmAngle(double degreesToAdd) {
-        armAngle += degreesToAdd;
+    public void setArmAngle(double degreesToAdd) {
+        m_io.setArmAngle(degreesToAdd);
     }
 
     public CommandBase setArmAngleSpeedFactory(double speed) {
@@ -63,15 +64,17 @@ public class ArmSubSystem extends SubsystemBase {
         });
     }
 
-    public CommandBase updateArmAngleCommandFactory(double angle) {
+    public CommandBase setArmAngleCommandFactory(double angle) {
         return run(() -> {
-            updateArmAngle(angle);
+            setArmAngle(angle);
         });
     }
 
     public void periodic() {
         m_io.updateInputs(m_input);
         Logger.getInstance().processInputs("Arm", m_input);
+        SmartDashboard.putNumber("Arm Encoder", getArmAngle());
+        SmartDashboard.putBoolean("Encoder Connected?", m_io.encoderConnected());
 
         // m_io.setArmAngle(armAngle);
     }
