@@ -17,7 +17,7 @@ var annotated_dup =
           [ "Arm", null, [
             [ "ArmIO", "interfacefrc_1_1robot_1_1subsystems_1_1_arm_1_1_arm_i_o.html", "interfacefrc_1_1robot_1_1subsystems_1_1_arm_1_1_arm_i_o" ],
             [ "ArmIONeo", "classfrc_1_1robot_1_1subsystems_1_1_arm_1_1_arm_i_o_neo.html", "classfrc_1_1robot_1_1subsystems_1_1_arm_1_1_arm_i_o_neo" ],
-            [ "ArmSubSystem", "classfrc_1_1robot_1_1subsystems_1_1_arm_1_1_arm_sub_system.html", "classfrc_1_1robot_1_1subsystems_1_1_arm_1_1_arm_sub_system" ]
+            [ "ArmSubsystem", "classfrc_1_1robot_1_1subsystems_1_1_arm_1_1_arm_subsystem.html", "classfrc_1_1robot_1_1subsystems_1_1_arm_1_1_arm_subsystem" ]
           ] ],
           [ "Swerve", null, [
             [ "SwerveModules", null, [
@@ -35,7 +35,7 @@ var annotated_dup =
           [ "Wrist", null, [
             [ "WristIO", "interfacefrc_1_1robot_1_1subsystems_1_1_wrist_1_1_wrist_i_o.html", "interfacefrc_1_1robot_1_1subsystems_1_1_wrist_1_1_wrist_i_o" ],
             [ "WristIONeo", "classfrc_1_1robot_1_1subsystems_1_1_wrist_1_1_wrist_i_o_neo.html", "classfrc_1_1robot_1_1subsystems_1_1_wrist_1_1_wrist_i_o_neo" ],
-            [ "WristSubSystem", "classfrc_1_1robot_1_1subsystems_1_1_wrist_1_1_wrist_sub_system.html", "classfrc_1_1robot_1_1subsystems_1_1_wrist_1_1_wrist_sub_system" ]
+            [ "WristSubsystem", "classfrc_1_1robot_1_1subsystems_1_1_wrist_1_1_wrist_subsystem.html", "classfrc_1_1robot_1_1subsystems_1_1_wrist_1_1_wrist_subsystem" ]
           ] ]
         ] ],
         [ "Constants", "classfrc_1_1robot_1_1_constants.html", null ],

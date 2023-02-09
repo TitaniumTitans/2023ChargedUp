@@ -41,8 +41,8 @@ var hierarchy =
       [ "frc.robot.subsystems.Vision.CameraSubsystem", "classfrc_1_1robot_1_1subsystems_1_1_vision_1_1_camera_subsystem.html", null ]
     ] ],
     [ "SubsystemBase", null, [
-      [ "frc.robot.subsystems.Arm.ArmSubSystem", "classfrc_1_1robot_1_1subsystems_1_1_arm_1_1_arm_sub_system.html", null ],
+      [ "frc.robot.subsystems.Arm.ArmSubsystem", "classfrc_1_1robot_1_1subsystems_1_1_arm_1_1_arm_subsystem.html", null ],
       [ "frc.robot.subsystems.Swerve.SwerveDrivetrain", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_drivetrain.html", null ],
-      [ "frc.robot.subsystems.Wrist.WristSubSystem", "classfrc_1_1robot_1_1subsystems_1_1_wrist_1_1_wrist_sub_system.html", null ]
+      [ "frc.robot.subsystems.Wrist.WristSubsystem", "classfrc_1_1robot_1_1subsystems_1_1_wrist_1_1_wrist_subsystem.html", null ]
     ] ]
 ];
