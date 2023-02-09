@@ -21,7 +21,7 @@ public class WristIONeo implements WristIO{
         m_wristEncoder = new CANCoder(WristConstants.WRIST_ANGLE_PORT);
         m_wristEncoder.configSensorInitializationStrategy(SensorInitializationStrategy.BootToAbsolutePosition);
 
-        m_wristZeroLimit = new DigitalInput(IntakeConstants.LIMIT_SWTICH_PORT);
+        m_wristZeroLimit = new DigitalInput(WristConstants.LIMIT_SWTICH_PORT);
     }
     
     @Override

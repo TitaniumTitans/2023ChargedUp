@@ -51,13 +51,13 @@ public class RobotContainer {
     // Beta robot hardware implementation
     case THANOS:
       m_drive = new SwerveDrivetrain(new SwerveNeoIO());
-      m_wrist = new WristSubsystem(new WristIONeo());
+      m_wrist = new WristSubSystem(new WristIONeo());
       m_arm = new ArmSubSystem(new ArmIONeo());
       break;
     
     case HELIOS:
       m_drive = new SwerveDrivetrain(new SwerveNeoIO());
-      m_wrist = new WristSubsystem(new WristIONeo());
+      m_wrist = new WristSubSystem(new WristIONeo());
       m_arm = new ArmSubSystem(new ArmIONeo());
       break;
 
