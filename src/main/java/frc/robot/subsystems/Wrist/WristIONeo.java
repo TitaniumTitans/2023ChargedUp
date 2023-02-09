@@ -40,6 +40,11 @@ public class WristIONeo implements WristIO{
     @Override
     public void setWristAngle(double angle) {
         double setpoint = MathUtil.clamp(angle, WristConstants.WRIST_LOWER_LIMIT, WristConstants.WRIST_UPPER_LIMIT);
+        double output = MathUtil.clamp(m_wristPID.calculate(getWristAngle(), setpoint), -0.5, 0.5);
+
+        if (true) {
+            m_wristMotor.set(output);
+        }
     }
 
     @Override
