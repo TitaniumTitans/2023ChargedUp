@@ -33,6 +33,7 @@ public class ArmIONeo implements ArmIO {
         m_armAngleMaster = new CANSparkMax(ArmConstants.ArmAngleIDMaster, MotorType.kBrushless);
         m_armAngleFollower = new CANSparkMax(ArmConstants.ArmAngleIDFollower, MotorType.kBrushless);
 
+        m_ArmEx.setIdleMode(IdleMode.kBrake);
         m_armAngleMaster.setInverted(false);
         m_armAngleFollower.setInverted(false);
 
@@ -73,7 +74,7 @@ public class ArmIONeo implements ArmIO {
 
     @Override
     public void setArmSpeed(double speed) {
-        if(!armAtLowerLimit() && speed <= 0){
+        if(armAtLowerLimit() && speed <= 0){
             m_ArmEx.set(0);
         } else 
         {

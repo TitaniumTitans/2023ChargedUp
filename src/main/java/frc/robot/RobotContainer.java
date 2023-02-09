@@ -95,9 +95,9 @@ public class RobotContainer {
     m_driveController.y().whileTrue(m_wrist.setWristPowerFactory(-0.15))
       .whileFalse(m_wrist.setWristPowerFactory(0.0));
     
-    m_driveController.rightTrigger().whileTrue(m_wrist.setIntakeSpeedFactory(0.5))
+    m_driveController.rightTrigger().whileTrue(m_wrist.setIntakeSpeedFactory(1))
       .whileFalse(m_wrist.setIntakeSpeedFactory(0.0));
-    m_driveController.leftTrigger().whileTrue(m_wrist.setIntakeSpeedFactory(-0.5))
+    m_driveController.leftTrigger().whileTrue(m_wrist.setIntakeSpeedFactory(-1))
       .whileFalse(m_wrist.setIntakeSpeedFactory(0.0));
 
     m_driveController.rightBumper().whileTrue(m_arm.setArmExtentionFactory(0.25))

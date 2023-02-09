@@ -6,7 +6,7 @@ import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj.DigitalInput;
 
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import frc.robot.Constants.IntakeConstants;
+import frc.robot.Constants.WristConstants;
 
 public class WristIONeo implements WristIO{
     private CANSparkMax m_wristMotor;
@@ -15,13 +15,13 @@ public class WristIONeo implements WristIO{
     private CANCoder m_wristEncoder;
 
     public WristIONeo() {
-        m_wristMotor = new CANSparkMax(IntakeConstants.WRIST_ID, MotorType.kBrushless);
-        m_intakeMotor = new CANSparkMax(IntakeConstants.INTAKE_ID, MotorType.kBrushless);
+        m_wristMotor = new CANSparkMax(WristConstants.WRIST_ID, MotorType.kBrushless);
+        m_intakeMotor = new CANSparkMax(WristConstants.INTAKE_ID, MotorType.kBrushless);
 
-        m_wristEncoder = new CANCoder(IntakeConstants.WRIST_ANGLE_PORT);
+        m_wristEncoder = new CANCoder(WristConstants.WRIST_ANGLE_PORT);
         m_wristEncoder.configSensorInitializationStrategy(SensorInitializationStrategy.BootToAbsolutePosition);
 
-        m_wristZeroLimit = new DigitalInput(IntakeConstants.LIMIT_SWTICH_PORT);
+        m_wristZeroLimit = new DigitalInput(WristConstants.LIMIT_SWTICH_PORT);
     }
     
     @Override

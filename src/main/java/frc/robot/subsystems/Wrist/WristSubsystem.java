@@ -5,7 +5,7 @@ import org.littletonrobotics.junction.Logger;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.IntakeConstants;
+import frc.robot.Constants.WristConstants;
 
 public class WristSubsystem extends SubsystemBase{
     private WristIO m_io;
@@ -48,7 +48,7 @@ public class WristSubsystem extends SubsystemBase{
 
     //getters
     public double getWristAngle() {
-        return m_io.getWristAngle() / IntakeConstants.WRIST_PIVOT_RATIO;
+        return m_io.getWristAngle() / WristConstants.WRIST_PIVOT_RATIO;
     }
 
     public double getIntakeAmps() {
