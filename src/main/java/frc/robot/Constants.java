@@ -116,6 +116,10 @@ public final class Constants {
         public static final double kIAngle = 0.005;
         public static final double kDAngle = 0.0075;
 
+        public static final double ARM_EXT_KP = 0;
+        public static final double ARM_EXT_KI = 0;
+        public static final double ARM_EXT_KD = 0;
+
         // public static final double kVAngle = 0.0;
         // public static final double kGAngle = 0.15;
         
@@ -123,6 +127,13 @@ public final class Constants {
         public static final double kForwardLimit = 180;
 
         public static final int ENCODER_PORT = 1;
+
+        public static final double SPROCKET_DIAMETER = 1.99;
+        public static final double EXTENSION_RATIO = (1/25) * (SPROCKET_DIAMETER * Math.PI);
+
+        public static final double EXT_LOWER_LIMIT = 0;
+        public static final double EXT_HIGHER_LIMIT = 5;
+
     }
 
     public static final int DRIVER_PORT = 0;

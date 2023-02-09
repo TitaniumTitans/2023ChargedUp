@@ -17,6 +17,8 @@ public interface ArmIO {
     public default void setAngleSpeed(double speed) {}
 
     public default void setArmSpeed(double speed) {}
+
+    public default void setArmExtension(double speed) {}
  
 
     //Getters
