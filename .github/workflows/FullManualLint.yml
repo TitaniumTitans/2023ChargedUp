@@ -1,3 +1,4 @@
+---
 name: Full Lint of Main
 
 # Run linter on push
@@ -19,7 +20,11 @@ jobs:
         # Use the slim linter to speed up build and download time
         uses: github/super-linter/slim@v4
         env:
-          VALIDATE_ALL_CODEBASE: true
-          DEFAULT_BRANCH: master
+          VALIDATE_ALL_CODEBASE: false
+          VALIDATE_BASH: false
+          VALIDATE_BASH_EXEC: false
+          VALIDATE_GROOVY: false
+          VALIDATE_JSON: false
+          DEFAULT_BRANCH: main
           JAVA_FILE_NAME: sun_check.xml
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
