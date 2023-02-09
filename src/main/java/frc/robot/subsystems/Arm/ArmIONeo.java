@@ -27,6 +27,7 @@ public class ArmIONeo implements ArmIO {
 
     // private SparkMaxPIDController m_sparkPID;
     private PIDController m_anglePID;
+    private PIDController m_extPID;
 
     public ArmIONeo() {
         m_ArmEx = new CANSparkMax(ArmConstants.ArmExID, MotorType.kBrushless);
@@ -57,6 +58,8 @@ public class ArmIONeo implements ArmIO {
         m_anglePID.enableContinuousInput(0, 360);
         // m_anglePID.setTolerance(100);
 
+        m_extPID = new PIDController(ArmConstants.ARM_EXT_KP, ArmConstants.ARM_EXT_KI, ArmConstants.ARM_EXT_KD);
+
         m_armLimitSwitch = new DigitalInput(ArmConstants.LIMIT_SWTICH_PORT);
     }
 
@@ -83,8 +86,18 @@ public class ArmIONeo implements ArmIO {
     }
 
     @Override
+    public void setArmExtension(double extension) { 
+        double setpoint = MathUtil.clamp(extension, ArmConstants.EXT_LOWER_LIMIT, ArmConstants.EXT_HIGHER_LIMIT);
+        double pidOutput = MathUtil.clamp(m_extPID.calculate(getArmExtension(), setpoint), -0.5, 0.5);
+        
+        if(armAtLowerLimit() && pidOutput <= 0) {
+            m_ArmEx.set(pidOutput);
+        }
+    }
+
+    @Override
     public double getArmExtension() {
-        return m_RelativeEncoderArmEx.getPosition() * 360;
+        return m_RelativeEncoderArmEx.getPosition() * ArmConstants.EXTENSION_RATIO;
     }
 
     @Override
