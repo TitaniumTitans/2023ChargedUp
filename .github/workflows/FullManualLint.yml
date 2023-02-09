@@ -20,7 +20,7 @@ jobs:
         # Use the slim linter to speed up build and download time
         uses: github/super-linter/slim@v4
         env:
-          VALIDATE_ALL_CODEBASE: false
+          VALIDATE_ALL_CODEBASE: true
           VALIDATE_BASH: false
           VALIDATE_BASH_EXEC: false
           VALIDATE_GROOVY: false
