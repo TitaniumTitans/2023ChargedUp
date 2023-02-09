@@ -7,12 +7,12 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.WristConstants;
 
-public class WristSubSystem extends SubsystemBase{
+public class WristSubsystem extends SubsystemBase{
     private WristIO m_io;
     private WristIOInputsAutoLogged m_input;
 
 
-    public WristSubSystem(WristIO io){
+    public WristSubsystem(WristIO io){
         m_io = io;
 
         m_input = new WristIOInputsAutoLogged();

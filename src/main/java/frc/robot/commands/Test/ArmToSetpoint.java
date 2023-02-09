@@ -4,18 +4,16 @@
 
 package frc.robot.commands.Test;
 
-import javax.naming.NameAlreadyBoundException;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.ArmConstants;
-import frc.robot.subsystems.Arm.ArmSubSystem;
+import frc.robot.subsystems.Arm.ArmSubsystem;
 
 public class ArmToSetpoint extends CommandBase {
   private double armSetpoint;
-  private ArmSubSystem arm;
+  private ArmSubsystem arm;
 
   /** Creates a new ArmToSetpoint. */
-  public ArmToSetpoint(ArmSubSystem arm, double setpoint) {
+  public ArmToSetpoint(ArmSubsystem arm, double setpoint) {
     this.arm = arm;
     armSetpoint = setpoint;
 
