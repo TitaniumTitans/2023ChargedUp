@@ -10,8 +10,6 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-// import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.MoveArmAngle;
 import frc.robot.commands.SwerveTeleopDrive;
 import frc.robot.commands.Autonomous.AutoUtils;
 import frc.robot.commands.Test.ArmToSetpoint;

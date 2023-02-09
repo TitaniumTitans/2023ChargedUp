@@ -3,6 +3,9 @@ package frc.robot.subsystems.Wrist;
 import com.ctre.phoenix.sensors.CANCoder;
 import com.ctre.phoenix.sensors.SensorInitializationStrategy;
 import com.revrobotics.CANSparkMax;
+
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
 
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -13,15 +16,18 @@ public class WristIONeo implements WristIO{
     private CANSparkMax m_intakeMotor;
     private DigitalInput m_wristZeroLimit;
     private CANCoder m_wristEncoder;
+    private PIDController m_wristPID;
 
     public WristIONeo() {
         m_wristMotor = new CANSparkMax(WristConstants.WRIST_ID, MotorType.kBrushless);
         m_intakeMotor = new CANSparkMax(WristConstants.INTAKE_ID, MotorType.kBrushless);
 
         m_wristEncoder = new CANCoder(WristConstants.WRIST_ANGLE_PORT);
-        m_wristEncoder.configSensorInitializationStrategy(SensorInitializationStrategy.BootToAbsolutePosition);
+        m_wristEncoder.configSensorInitializationStrategy(SensorInitializationStrategy.BootToZero);
 
         m_wristZeroLimit = new DigitalInput(WristConstants.LIMIT_SWTICH_PORT);
+
+        m_wristPID = new PIDController(WristConstants.WRIST_KP, WristConstants.WRIST_KI, WristConstants.WRIST_KD);
     }
     
     @Override
@@ -33,17 +39,11 @@ public class WristIONeo implements WristIO{
     //Setters
     @Override
     public void setWristAngle(double angle) {
+        double setpoint = MathUtil.clamp(angle, WristConstants.WRIST_LOWER_LIMIT, WristConstants.WRIST_UPPER_LIMIT);
     }
 
     @Override
     public void setWristPower(double speed) {
-        // if(wristAtLowerLimit() && speed <= 0){
-        //     m_wristMotor.set(0);
-        // } else 
-        // {
-        //     m_wristMotor.set(speed);
-        // }
-
         m_wristMotor.set(speed);
             
     }
@@ -51,6 +51,13 @@ public class WristIONeo implements WristIO{
     @Override
     public void setIntakeSpeed(double speed) {
         m_intakeMotor.set(speed);
+    }
+
+    @Override
+    public void zeroWristAngle() {
+        if (atLimit()) {
+            m_wristEncoder.setPosition(0);
+        }
     }
 
 
@@ -65,7 +72,8 @@ public class WristIONeo implements WristIO{
         return m_intakeMotor.getOutputCurrent();
     }
 
-    public boolean wristAtLowerLimit() {
+    @Override
+    public boolean atLimit() {
         return m_wristZeroLimit.get();
     }
 
