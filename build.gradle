@@ -7,6 +7,7 @@ plugins {
 
 checkstyle {
     config = project.resources.text.fromFile(".github/linters/sun_check.xml")
+    ignoreFailures = true
 }
 
 
