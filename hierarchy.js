@@ -5,6 +5,7 @@ var hierarchy =
     ] ],
     [ "frc.robot.commands.Autonomous.AutoUtils", "classfrc_1_1robot_1_1commands_1_1_autonomous_1_1_auto_utils.html", null ],
     [ "lib.utils.drivers.CTREUtil.ConfigCall", "interfacelib_1_1utils_1_1drivers_1_1_c_t_r_e_util_1_1_config_call.html", null ],
+    [ "lib.utils.drivers.RevUtil.ConfigCall", "interfacelib_1_1utils_1_1drivers_1_1_rev_util_1_1_config_call.html", null ],
     [ "frc.robot.Constants", "classfrc_1_1robot_1_1_constants.html", null ],
     [ "lib.utils.Rev.SparkMaxWrapper.ControlMode", "enumlib_1_1utils_1_1_rev_1_1_spark_max_wrapper_1_1_control_mode.html", null ],
     [ "lib.utils.Swerve.CTREModuleState", "classlib_1_1utils_1_1_swerve_1_1_c_t_r_e_module_state.html", null ],
@@ -17,16 +18,17 @@ var hierarchy =
     ] ],
     [ "frc.robot.Main", "classfrc_1_1robot_1_1_main.html", null ],
     [ "frc.robot.Constants.Mode", "enumfrc_1_1robot_1_1_constants_1_1_mode.html", null ],
+    [ "lib.utils.drivers.RevUtil", "classlib_1_1utils_1_1drivers_1_1_rev_util.html", null ],
     [ "frc.robot.RobotContainer", "classfrc_1_1robot_1_1_robot_container.html", null ],
     [ "lib.utils.Rev.SparkMaxConfigs", "classlib_1_1utils_1_1_rev_1_1_spark_max_configs.html", null ],
     [ "lib.utils.Rev.SparkMaxWrapper", "classlib_1_1utils_1_1_rev_1_1_spark_max_wrapper.html", null ],
     [ "lib.utils.Swerve.SwerveAzimuthFactoy", "classlib_1_1utils_1_1_swerve_1_1_swerve_azimuth_factoy.html", null ],
-    [ "frc.robot.subsystems.Swerve.SwerveIO", "interfacefrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_i_o.html", [
-      [ "frc.robot.subsystems.Swerve.SwerveFalconIO", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_falcon_i_o.html", null ],
-      [ "frc.robot.subsystems.Swerve.SwerveNeoIO", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_neo_i_o.html", null ]
+    [ "frc.robot.subsystems.swerve.SwerveIO", "interfacefrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_i_o.html", [
+      [ "frc.robot.subsystems.swerve.SwerveFalconIO", "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_falcon_i_o.html", null ],
+      [ "frc.robot.subsystems.swerve.SwerveNeoIO", "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_neo_i_o.html", null ]
     ] ],
-    [ "frc.robot.subsystems.Swerve.SwerveModules.SwerveModFalcon", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_modules_1_1_swerve_mod_falcon.html", null ],
-    [ "frc.robot.subsystems.Swerve.SwerveModules.SwerveModNeo", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_modules_1_1_swerve_mod_neo.html", null ],
+    [ "frc.robot.subsystems.swerve.SwerveModules.SwerveModFalcon", "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_modules_1_1_swerve_mod_falcon.html", null ],
+    [ "frc.robot.subsystems.swerve.SwerveModules.SwerveModNeo", "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_modules_1_1_swerve_mod_neo.html", null ],
     [ "lib.utils.drivers.TalonEnhanced", "classlib_1_1utils_1_1drivers_1_1_talon_enhanced.html", null ],
     [ "lib.utils.Utils", "classlib_1_1utils_1_1_utils.html", null ],
     [ "frc.robot.subsystems.Wrist.WristIO", "interfacefrc_1_1robot_1_1subsystems_1_1_wrist_1_1_wrist_i_o.html", [
@@ -43,7 +45,7 @@ var hierarchy =
     ] ],
     [ "SubsystemBase", null, [
       [ "frc.robot.subsystems.Arm.ArmSubsystem", "classfrc_1_1robot_1_1subsystems_1_1_arm_1_1_arm_subsystem.html", null ],
-      [ "frc.robot.subsystems.Swerve.SwerveDrivetrain", "classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_drivetrain.html", null ],
-      [ "frc.robot.subsystems.Wrist.WristSubsystem", "classfrc_1_1robot_1_1subsystems_1_1_wrist_1_1_wrist_subsystem.html", null ]
+      [ "frc.robot.subsystems.Wrist.WristSubsystem", "classfrc_1_1robot_1_1subsystems_1_1_wrist_1_1_wrist_subsystem.html", null ],
+      [ "frc.robot.subsystems.swerve.SwerveDrivetrain", "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_drivetrain.html", null ]
     ] ]
 ];
