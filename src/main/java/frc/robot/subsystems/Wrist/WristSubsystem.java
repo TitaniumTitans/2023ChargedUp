@@ -28,10 +28,7 @@ public class WristSubsystem extends SubsystemBase{
     }
 
     public CommandBase setWristPowerFactory(double speed) {
-        return run(
-            () -> {
-                setWristPower(speed);
-        });
+        return run(() -> setWristPower(speed));
     }
 
     public void setIntakeSpeed(double speed) {
@@ -39,10 +36,7 @@ public class WristSubsystem extends SubsystemBase{
     }
 
     public CommandBase setIntakeSpeedFactory(double speed) {
-        return run(
-            () -> {
-                setIntakeSpeed(speed);
-        });
+        return run(() -> setIntakeSpeed(speed));
     }
 
 
