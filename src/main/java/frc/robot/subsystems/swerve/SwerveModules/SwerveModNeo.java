@@ -1,4 +1,4 @@
-package frc.robot.subsystems.Swerve.SwerveModules;
+package frc.robot.subsystems.swerve.SwerveModules;
 
 import com.ctre.phoenix.sensors.AbsoluteSensorRange;
 import com.ctre.phoenix.sensors.CANCoder;
@@ -15,10 +15,11 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants.ModuleConstants;
 import lib.utils.Utils;
 import lib.utils.Rev.SparkMaxConfigs;
+import lib.utils.drivers.CTREUtil;
+import lib.utils.drivers.RevUtil;
 
 public class SwerveModNeo {
   public final int moduleNumber;
@@ -107,6 +108,22 @@ public class SwerveModNeo {
     m_angleEncoder.setPosition(Units.degreesToRadians(getCanCoder().getDegrees() - m_canCoderOffsetDegrees));
   }
 
+  /**
+   * Gives best effort to a CTRE API call
+   * @param callback A function that is used to make the configuration goes smoothly
+   */
+  private void autoRetry(CTREUtil.ConfigCall callback) { 
+    CTREUtil.autoRetry(callback);
+  }
+
+  /**
+   * Gives best effort to a Rev API call
+   * @param callback A function that is used to make the configuration goes smoothly
+   */
+  private void autoRetry(RevUtil.ConfigCall callback) {
+    RevUtil.autoRetry(callback);
+  }
+
   private void configureDevices() {
     // CanCoder configuration.
     CANCoderConfiguration canCoderConfiguration = new CANCoderConfiguration();
@@ -115,15 +132,16 @@ public class SwerveModNeo {
     canCoderConfiguration.initializationStrategy = SensorInitializationStrategy.BootToAbsolutePosition;
     canCoderConfiguration.sensorTimeBase = SensorTimeBase.PerSecond;
     
-    m_canCoder.configFactoryDefault();
-    m_canCoder.configAllSettings(canCoderConfiguration, TIMEOUT_MILLISECONDS);
-    m_canCoder.configMagnetOffset(0, TIMEOUT_MILLISECONDS);
+
+    autoRetry(() -> m_canCoder.configFactoryDefault()) ;
+    autoRetry(() -> m_canCoder.configAllSettings(canCoderConfiguration, TIMEOUT_MILLISECONDS));
+    autoRetry(() -> m_canCoder.configMagnetOffset(0, TIMEOUT_MILLISECONDS));
 
     // Drive motor configuration.
-    m_driveMotor.restoreFactoryDefaults();
+    autoRetry(() -> m_driveMotor.restoreFactoryDefaults());
     m_driveMotor.setInverted(m_invert);
-    m_driveMotor.setIdleMode(IdleMode.kBrake);
-    m_driveMotor.setOpenLoopRampRate(0.5);
+    autoRetry(() -> m_driveMotor.setIdleMode(IdleMode.kBrake));
+    autoRetry(() -> m_driveMotor.setOpenLoopRampRate(0.5));
     // Timer.delay(Units.secondsToMilliseconds(TIMEOUT_MILLISECONDS));
     // driveMotor.setClosedLoopRampRate(Constants.kSwerve.CLOSED_LOOP_RAMP);
     // driveMotor.setSmartCurrentLimit(Constants.kSwerve.DRIVE_CURRENT_LIMIT);
@@ -133,32 +151,32 @@ public class SwerveModNeo {
     // drivePID.setD(Constants.kSwerve.DRIVE_KD);
     // drivePID.setFF(Constants.kSwerve.DRIVE_KF);
  
-    m_driveEncoder.setPositionConversionFactor(ModuleConstants.WHEEL_CIRCUMFERENCE_METERS / ModuleConstants.DRIVE_RATIO);
+    autoRetry(() -> m_driveEncoder.setPositionConversionFactor(ModuleConstants.WHEEL_CIRCUMFERENCE_METERS / ModuleConstants.DRIVE_RATIO));
     // driveEncoder.setVelocityConversionFactor(Constants.kSwerve.DRIVE_RPM_TO_METERS_PER_SECOND);
-    m_driveEncoder.setPosition(0);
+    autoRetry(() -> m_driveEncoder.setPosition(0));
     SparkMaxConfigs.configCanStatusFrames(m_driveMotor);
 
     // Angle motor configuration.
-    m_angleMotor.restoreFactoryDefaults();
+    autoRetry(() -> m_angleMotor.restoreFactoryDefaults());
     m_angleMotor.setInverted(true);
-    m_angleMotor.setIdleMode(IdleMode.kBrake);
-    m_angleMotor.setSmartCurrentLimit(40);
+    autoRetry(() -> m_angleMotor.setIdleMode(IdleMode.kBrake));
+    autoRetry(() -> m_angleMotor.setSmartCurrentLimit(40));
 
-    m_anglePID.setP(ModuleConstants.MODULE_KP);
-    m_anglePID.setI(0.0);
-    m_anglePID.setD(ModuleConstants.MODULE_KD);
-    m_anglePID.setFF(0.0);
+    autoRetry(() -> m_anglePID.setP(ModuleConstants.MODULE_KP));
+    autoRetry(() -> m_anglePID.setI(0.0));
+    autoRetry(() -> m_anglePID.setD(ModuleConstants.MODULE_KD));
+    autoRetry(() -> m_anglePID.setFF(0.0));
 
-    m_anglePID.setPositionPIDWrappingEnabled(true);
-    m_anglePID.setPositionPIDWrappingMaxInput(2 * Math.PI);
-    m_anglePID.setPositionPIDWrappingMinInput(0);
+    autoRetry(() -> m_anglePID.setPositionPIDWrappingEnabled(true));
+    autoRetry(() -> m_anglePID.setPositionPIDWrappingMaxInput(2 * Math.PI));
+    autoRetry(() -> m_anglePID.setPositionPIDWrappingMinInput(0));
 
     // TODO test timing delay to garuntee azimuth angled properly
     // Timer.delay(Units.millisecondsToSeconds(TIMEOUT_MILLISECONDS));
 
-    m_angleEncoder.setPositionConversionFactor(ModuleConstants.POSITION_CONVERSION_FACTOR);
+    autoRetry(() -> m_angleEncoder.setPositionConversionFactor(ModuleConstants.POSITION_CONVERSION_FACTOR));
     // angleEncoder.setVelocityConversionFactor(Constants.kSwerve.ANGLE_RPM_TO_RADIANS_PER_SECOND);
-    m_angleEncoder.setPosition(Units.degreesToRadians(m_canCoder.getAbsolutePosition() - m_canCoderOffsetDegrees));
+    autoRetry(() -> m_angleEncoder.setPosition(Units.degreesToRadians(m_canCoder.getAbsolutePosition() - m_canCoderOffsetDegrees)));
     SparkMaxConfigs.configCanStatusFrames(m_angleMotor);   
     // Timer.delay(Units.secondsToMilliseconds(TIMEOUT_MILLISECONDS)); 
   }
