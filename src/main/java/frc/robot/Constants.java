@@ -22,7 +22,7 @@ import edu.wpi.first.math.util.Units;
 public final class Constants {
 
     /*Constants for physical aspects of the modules, plus PID loops constants*/
-    public static final  class ModuleConstants{
+    public static final class ModuleConstants{
         // Physical wheel constants
         public static final double WHEEL_DIAMETER_METERS = Units.inchesToMeters(4.0);
         public static final double WHEEL_CIRCUMFERENCE_METERS = 2 * Math.PI * (WHEEL_DIAMETER_METERS / 2);
@@ -37,7 +37,7 @@ public final class Constants {
         public static final double POSITION_CONVERSION_FACTOR = (Math.PI * 2) / TURNING_RATIO;
     }
 
-    public static final class DriveConstants{
+    public static final class DriveConstants {
         // Can ID ports
         public static final int[] MOD_FR_CANS = {3, 4, 5};
         public static final int[] MOD_FL_CANS = {6, 7, 8};
@@ -67,20 +67,21 @@ public final class Constants {
         new Translation2d(-WHEEL_BASE / 2, -TRACK_WIDTH / 2));
     }
 
-    public static class WristConstants{
+    public static class WristConstants {
         public static final int WRIST_ID = 19;
         public static final int INTAKE_ID = 20;
 
-        public static final int LIMIT_SWTICH_PORT = 2;
+        public static final int LIMIT_SWITCH_PORT = 2;
         public static final int WRIST_ANGLE_PORT = 21;
         
         public static final double WRIST_PIVOT_RATIO = 2.6666;
 
         public static final double WRIST_LOWER_LIMIT = 0.0;
+        public static final int TOF_PORT = 23;
     }
 
 
-    public static class AutoConstants{
+    public static class AutoConstants {
         //Trajectory following values
         public static final double MAX_VELOCITY_PERCENT_OUTPUT = 0.5;
         public static final double MAX_ACCELERATION_PERCENT_OUTPUT = 0.5;
@@ -103,11 +104,11 @@ public final class Constants {
 
     public static final Mode CURRENT_MODE = Mode.HELIOS;
 
-    public static class ArmConstants{
+    public static class ArmConstants {
         public static final int ARM_EXTENSION_ID = 18;
         public static final int ARM_ANGLE_ID_MASTER = 16;
         public static final int ARM_ANGLE_ID_FOLLOWER = 17;
-        public static final int LIMIT_SWTICH_PORT = 3;
+        public static final int LIMIT_SWITCH_PORT = 3;
 
         public static final double K_ANGLE_CONVERSION_FACTOR = (0.5/3462.87) * 360 * 8192;
 
@@ -123,7 +124,7 @@ public final class Constants {
 
     public static final int DRIVER_PORT = 0;
 
-    public static enum Mode {
+    public enum Mode {
         /** Running on the test bot */
         THANOS,
 

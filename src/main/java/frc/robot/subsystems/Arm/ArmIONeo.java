@@ -57,7 +57,7 @@ public class ArmIONeo implements ArmIO {
         m_anglePID.enableContinuousInput(0, 360);
         // m_anglePID.setTolerance(100);
 
-        m_armLimitSwitch = new DigitalInput(ArmConstants.LIMIT_SWTICH_PORT);
+        m_armLimitSwitch = new DigitalInput(ArmConstants.LIMIT_SWITCH_PORT);
     }
 
     @Override
