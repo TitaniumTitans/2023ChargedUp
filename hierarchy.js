@@ -16,6 +16,7 @@ var hierarchy =
       [ "frc.robot.Robot", "classfrc_1_1robot_1_1_robot.html", null ]
     ] ],
     [ "frc.robot.Main", "classfrc_1_1robot_1_1_main.html", null ],
+    [ "frc.robot.Constants.Mode", "enumfrc_1_1robot_1_1_constants_1_1_mode.html", null ],
     [ "frc.robot.RobotContainer", "classfrc_1_1robot_1_1_robot_container.html", null ],
     [ "lib.utils.Rev.SparkMaxConfigs", "classlib_1_1utils_1_1_rev_1_1_spark_max_configs.html", null ],
     [ "lib.utils.Rev.SparkMaxWrapper", "classlib_1_1utils_1_1_rev_1_1_spark_max_wrapper.html", null ],

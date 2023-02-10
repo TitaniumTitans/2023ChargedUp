@@ -38,7 +38,7 @@ var annotated_dup =
             [ "WristSubsystem", "classfrc_1_1robot_1_1subsystems_1_1_wrist_1_1_wrist_subsystem.html", "classfrc_1_1robot_1_1subsystems_1_1_wrist_1_1_wrist_subsystem" ]
           ] ]
         ] ],
-        [ "Constants", "classfrc_1_1robot_1_1_constants.html", null ],
+        [ "Constants", "classfrc_1_1robot_1_1_constants.html", "classfrc_1_1robot_1_1_constants" ],
         [ "Main", "classfrc_1_1robot_1_1_main.html", null ],
         [ "Robot", "classfrc_1_1robot_1_1_robot.html", "classfrc_1_1robot_1_1_robot" ],
         [ "RobotContainer", "classfrc_1_1robot_1_1_robot_container.html", "classfrc_1_1robot_1_1_robot_container" ]

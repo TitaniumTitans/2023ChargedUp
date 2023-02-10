@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['periodic_45',['periodic',['../classfrc_1_1robot_1_1subsystems_1_1_swerve_1_1_swerve_falcon_i_o.html#a20ebc35fd82e0e551eb2d3c9f64448b8',1,'frc::robot::subsystems::Swerve::SwerveFalconIO']]]
+  ['optimize_46',['optimize',['../classlib_1_1utils_1_1_swerve_1_1_c_t_r_e_module_state.html#abc282beadeb2e6d7b144959da8fbbf58',1,'lib::utils::Swerve::CTREModuleState']]]
 ];
