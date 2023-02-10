@@ -111,7 +111,7 @@ public class SwerveModNeo {
 
   /**
    * Gives best effort to a CTRE API call
-   * @param callback A function that is used to make the configurion goes smoothly
+   * @param callback A function that is used to make the configuration goes smoothly
    */
   private void autoRetry(CTREUtil.ConfigCall callback) { 
     CTREUtil.autoRetry(callback);
@@ -119,7 +119,7 @@ public class SwerveModNeo {
 
   /**
    * Gives best effort to a Rev API call
-   * @param callback A function that is used to make the configurion goes smoothly
+   * @param callback A function that is used to make the configuration goes smoothly
    */
   private void autoRetry(RevUtil.ConfigCall callback) {
     RevUtil.autoRetry(callback);
