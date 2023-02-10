@@ -23,7 +23,7 @@ public class WristIONeo implements WristIO{
         m_wristEncoder = new CANCoder(WristConstants.WRIST_ANGLE_PORT);
         m_wristEncoder.configSensorInitializationStrategy(SensorInitializationStrategy.BootToAbsolutePosition);
 
-        m_wristZeroLimit = new DigitalInput(WristConstants.LIMIT_SWTICH_PORT);
+        m_wristZeroLimit = new DigitalInput(WristConstants.LIMIT_SWITCH_PORT);
 
         m_tofSensor = new TimeOfFlight(WristConstants.TOF_PORT);
         m_tofSensor.setRangingMode(RangingMode.Short, 10);
@@ -42,12 +42,6 @@ public class WristIONeo implements WristIO{
 
     @Override
     public void setWristPower(double speed) {
-        // if(wristAtLowerLimit() && speed <= 0){
-        //     m_wristMotor.set(0);
-        // } else 
-        // {
-        //     m_wristMotor.set(speed);
-        // }
 
         m_wristMotor.set(speed);
             

@@ -28,7 +28,7 @@ public class ArmToSetpoint extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(arm.armAngle > ArmConstants.kForwardLimit || arm.armAngle < ArmConstants.kReverseLimit){}
+    if(arm.armAngle > ArmConstants.K_FORWARD_LIMIT || arm.armAngle < ArmConstants.K_REVERSE_LIMIT){}
     else {
       arm.armAngle = armSetpoint;
     }

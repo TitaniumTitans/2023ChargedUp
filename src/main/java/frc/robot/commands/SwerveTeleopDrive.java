@@ -8,7 +8,7 @@ import lib.utils.Utils;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.subsystems.Swerve.SwerveDrivetrain;
+import frc.robot.subsystems.swerve.SwerveDrivetrain;
 
 /** An example command that uses an example subsystem. */
 public class SwerveTeleopDrive extends CommandBase {
