@@ -61,6 +61,9 @@ public class WristSubsystem extends SubsystemBase{
         SmartDashboard.putNumber("Wrist encoder", getWristAngle());
         m_io.updateInputs(m_input);
         Logger.getInstance().processInputs("Wristy", m_input);
+
+        SmartDashboard.putBoolean("Valid Target", m_io.pieceInside());
+        SmartDashboard.putNumber("Sensor Range", m_io.getDetectionRange());
     }
 
     public boolean atLimit() {
