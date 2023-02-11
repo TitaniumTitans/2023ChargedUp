@@ -8,7 +8,8 @@ var annotated_dup =
           ] ],
           [ "Test", null, [
             [ "ArmExtendToSetpoint", "classfrc_1_1robot_1_1commands_1_1_test_1_1_arm_extend_to_setpoint.html", "classfrc_1_1robot_1_1commands_1_1_test_1_1_arm_extend_to_setpoint" ],
-            [ "ArmToSetpoint", "classfrc_1_1robot_1_1commands_1_1_test_1_1_arm_to_setpoint.html", "classfrc_1_1robot_1_1commands_1_1_test_1_1_arm_to_setpoint" ]
+            [ "ArmToSetpoint", "classfrc_1_1robot_1_1commands_1_1_test_1_1_arm_to_setpoint.html", "classfrc_1_1robot_1_1commands_1_1_test_1_1_arm_to_setpoint" ],
+            [ "WristToSetpointCommand", "classfrc_1_1robot_1_1commands_1_1_test_1_1_wrist_to_setpoint_command.html", "classfrc_1_1robot_1_1commands_1_1_test_1_1_wrist_to_setpoint_command" ]
           ] ],
           [ "AutoBalance", "classfrc_1_1robot_1_1commands_1_1_auto_balance.html", "classfrc_1_1robot_1_1commands_1_1_auto_balance" ],
           [ "MoveArmAngle", "classfrc_1_1robot_1_1commands_1_1_move_arm_angle.html", "classfrc_1_1robot_1_1commands_1_1_move_arm_angle" ],
