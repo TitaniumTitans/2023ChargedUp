@@ -27,7 +27,7 @@
       https://checkstyle.org/config.html#Checker
       <property name="basedir" value="${basedir}"/>
   -->
-  <property name="severity" value="error"/>
+  <property name="severity" value="warning"/>
 
   <property name="fileExtensions" value="java, properties, xml"/>
 
@@ -45,7 +45,7 @@
 
   <!-- Checks that a package-info.java file exists for each package.     -->
   <!-- See https://checkstyle.org/config_javadoc.html#JavadocPackage -->
-  <module name="JavadocPackage"/>
+  <!-- <module name="JavadocPackage"/> -->
 
   <!-- Checks whether files end with a new line.                        -->
   <!-- See https://checkstyle.org/config_misc.html#NewlineAtEndOfFile -->
@@ -60,19 +60,12 @@
   <module name="FileLength"/>
   <module name="LineLength">
     <property name="fileExtensions" value="java"/>
+    <property name="max" value="120"/>
   </module>
 
   <!-- Checks for whitespace                               -->
   <!-- See https://checkstyle.org/config_whitespace.html -->
   <module name="FileTabCharacter"/>
-
-
-  <!-- Checks for Headers                                -->
-  <!-- See https://checkstyle.org/config_header.html   -->
-  <!-- <module name="Header"> -->
-  <!--   <property name="headerFile" value="${checkstyle.header.file}"/> -->
-  <!--   <property name="fileExtensions" value="java"/> -->
-  <!-- </module> -->
 
   <module name="TreeWalker">
     <!-- Checks for Naming Conventions.                  -->

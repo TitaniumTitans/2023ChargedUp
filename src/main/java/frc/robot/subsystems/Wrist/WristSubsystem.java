@@ -7,12 +7,12 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.WristConstants;
 
-public class WristSubSystem extends SubsystemBase{
+public class WristSubsystem extends SubsystemBase{
     private WristIO m_io;
     private WristIOInputsAutoLogged m_input;
 
 
-    public WristSubSystem(WristIO io){
+    public WristSubsystem(WristIO io){
         m_io = io;
 
         m_input = new WristIOInputsAutoLogged();
@@ -28,10 +28,7 @@ public class WristSubSystem extends SubsystemBase{
     }
 
     public CommandBase setWristPowerFactory(double speed) {
-        return run(
-            () -> {
-                setWristPower(speed);
-        });
+        return run(() -> setWristPower(speed));
     }
 
     public void setIntakeSpeed(double speed) {
@@ -39,10 +36,7 @@ public class WristSubSystem extends SubsystemBase{
     }
 
     public CommandBase setIntakeSpeedFactory(double speed) {
-        return run(
-            () -> {
-                setIntakeSpeed(speed);
-        });
+        return run(() -> setIntakeSpeed(speed));
     }
 
 
@@ -61,6 +55,9 @@ public class WristSubSystem extends SubsystemBase{
         SmartDashboard.putNumber("Wrist encoder", getWristAngle());
         m_io.updateInputs(m_input);
         Logger.getInstance().processInputs("Wristy", m_input);
+
+        SmartDashboard.putBoolean("Valid Target", m_io.pieceInside());
+        SmartDashboard.putNumber("Sensor Range", m_io.getDetectionRange());
     }
 
     public boolean atLimit() {
