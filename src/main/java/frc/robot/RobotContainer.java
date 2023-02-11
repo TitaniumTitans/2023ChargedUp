@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import frc.robot.commands.Test.WristToSetpointCommand;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
 import edu.wpi.first.wpilibj.GenericHID;
@@ -124,6 +125,9 @@ public class RobotContainer {
     testCommands.add("Arm to 40", new ArmToSetpoint(m_arm, 40));
     testCommands.add("Arm to 140", new ArmToSetpoint(m_arm, 140));
 
+    testCommands.add("Arm to 0", new WristToSetpointCommand(m_wrist, 0));
+    testCommands.add("Arm to 45", new WristToSetpointCommand(m_wrist, 45));
+    testCommands.add("Arm to 90", new WristToSetpointCommand(m_wrist, 90));
   }
 
   /**
