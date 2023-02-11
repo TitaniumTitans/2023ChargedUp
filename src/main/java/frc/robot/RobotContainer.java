@@ -83,8 +83,8 @@ public class RobotContainer {
     m_driveController.button(7).onTrue(m_drive.resetGyroBase());
     m_driveController.start().onTrue(m_drive.toggleFieldRelative());
 
-    m_driveController.a().whileTrue(new ArmExtendToSetpoint(m_arm, 0.0));
-    m_driveController.b().whileTrue(new ArmExtendToSetpoint(m_arm, 3));
+    m_driveController.a().whileTrue(new TestArmFullCommandGroup(3, 180, -20, m_arm, m_wrist));
+    m_driveController.b().whileTrue(new TestArmFullCommandGroup(7, 90, 20, m_arm, m_wrist));
 
     m_driveController.x().whileTrue(m_wrist.setWristPowerFactory(0.15))
       .whileFalse(m_wrist.setWristPowerFactory(0.0));
