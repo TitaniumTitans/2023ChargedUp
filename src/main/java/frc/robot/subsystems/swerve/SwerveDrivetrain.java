@@ -21,11 +21,11 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class SwerveDrivetrain extends SubsystemBase {
-  private SwerveIO m_io;
-  private SwerveDriveOdometry m_odometry;
+  private final SwerveIO m_io;
+
   // private SwerveDrivePoseEstimator m_poseEstimator;
   private SwerveIOInputsAutoLogged inputs;
-  private Field2d m_field;
+  private final Field2d m_field;
 
   private boolean fieldRelative;
 
@@ -36,11 +36,8 @@ public class SwerveDrivetrain extends SubsystemBase {
     Units.inchesToMeters(-3.75), Units.inchesToMeters(15.5)), new Rotation3d(
       0.0, 0.0, -90
     ));
-  private Pose2d m_prevPose;
+//  private Pose2d m_prevPose;
 
-  private int m_counter = 0;
-  private int m_loopCycles = 100;
-  private double m_allowAbleAngleError = 3.0;
 
   /** Creates a new SwerveDrivetrain. */
   public SwerveDrivetrain(SwerveIO io) {
@@ -62,7 +59,7 @@ public class SwerveDrivetrain extends SubsystemBase {
 
     // CAMERA CONFIG
     // m_frontPVCam = new CameraSubsystem(FRONT_CAM_NAME, FRONT_CAM_POSE);
-    m_prevPose = new Pose2d();
+//    m_prevPose = new Pose2d();
   }
 
   public Rotation2d getGyroYaw() {
@@ -123,41 +120,6 @@ public class SwerveDrivetrain extends SubsystemBase {
     SmartDashboard.putNumber("FR Mod CANCoder", array[1].getDegrees());
     SmartDashboard.putNumber("BL Mod CANCoder", array[2].getDegrees());
     SmartDashboard.putNumber("BR Mod CANCoder", array[3].getDegrees());
-
-    // resets the module positions to absolute after so many loops cycles in enable
-    // TODO Remove comment when actually testing
-    // if (m_counter == m_loopCycles) {
-    //   m_io.setAbsoluteAngles();
-    //   m_counter++;
-    // } else {
-    //   m_counter++;
-    // }
-
-    // periodically checks the angle of the CANCoders and compares it to the angles
-    // of the azimuth
-    //TODO remove comment when actually testing
-    // if (m_counter == m_loopCycles) {
-    //   if (Math.abs(array[0].getDegrees() - inputs.flAngleDeg) > m_allowAbleAngleError) {
-    //     m_io.setIndevidualAngle(1);
-    //   }
-
-    //   if (Math.abs(array[1].getDegrees() - inputs.frAngleDeg) > m_allowAbleAngleError) {
-    //     m_io.setIndevidualAngle(2);
-    //   }
-
-    //   if (Math.abs(array[2].getDegrees() - inputs.blAngleDeg) > m_allowAbleAngleError) {
-    //     m_io.setIndevidualAngle(3);
-    //   }
-
-    //   if (Math.abs(array[3].getDegrees() - inputs.brAngleDeg) > m_allowAbleAngleError) {
-    //     m_io.setIndevidualAngle(4);
-    //   }
-
-    //   m_counter = 0;
-    // } else {
-    //   m_counter++;
-    // }
-
 
     // CAMERA:
     // Optional<EstimatedRobotPose> frontEPose = m_frontPVCam.getPose(m_poseEstimator.getEstimatedPosition());
