@@ -54,8 +54,8 @@ public class ArmIONeo implements ArmIO {
         m_encoderArmAngle.setPositionOffset(0);
 
         // m_sparkPID = m_armAngle.getPIDController();
-        m_anglePID = new PIDController(ArmConstants.KP_ANGLE, ArmConstants.KI_ANGLE, ArmConstants.KD_ANGLE);
-        m_anglePID.enableContinuousInput(0, 360);
+        m_anglePID = new PIDController(ArmConstants.KP_ANGLE, ArmConstants.KI_ANGLE, 0.0);
+//        m_anglePID.enableContinuousInput(0, 360);
         // m_anglePID.setTolerance(100);
 
         m_armLimitSwitch = new DigitalInput(ArmConstants.LIMIT_SWITCH_PORT);
@@ -108,22 +108,21 @@ public class ArmIONeo implements ArmIO {
 
     @Override
     public void setArmAngle(double angle){
+        double currentArmAngle = getArmAngle();
         double angleSetpoint = MathUtil.clamp(angle, ArmConstants.K_REVERSE_LIMIT, ArmConstants.K_FORWARD_LIMIT);
-        double pidOutput = MathUtil.clamp(m_anglePID.calculate(getArmAngle(), angleSetpoint), -3, 3);
+        double pidOutput = MathUtil.clamp(m_anglePID.calculate(currentArmAngle, angleSetpoint), -3, 3);
 
-        SmartDashboard.putNumber("Setpoint", angleSetpoint);
-        SmartDashboard.putNumber("PID Output", pidOutput);
+        SmartDashboard.putNumber("Arm Angle Setpoint", angleSetpoint);
+        SmartDashboard.putNumber("Arm Angle PID output", pidOutput);
+        SmartDashboard.putNumber("Current Arm Angle", currentArmAngle);
 
-        m_armAngleMaster.setVoltage(pidOutput);
+        m_armAngleMaster.setVoltage(-pidOutput);
     }
 
     @Override
     public double getArmAngle() {
-        // double angle = 0;
-        SmartDashboard.putBoolean("IsConnected?", m_encoderArmAngle.isConnected());
         return Utils.normalize((m_encoderArmAngle.getAbsolutePosition() * 360) - kArmOffset);
 
-        // return angle;
     }
 
     @Override

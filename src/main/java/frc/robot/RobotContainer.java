@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import frc.robot.commands.Test.TestArmFullCommandGroup;
 import frc.robot.commands.Test.WristToSetpointCommand;
 import frc.robot.commands.Test.ArmExtendToSetpoint;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
@@ -12,20 +13,16 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-// import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.SwerveTeleopDrive;
 import frc.robot.commands.Autonomous.AutoUtils;
 import frc.robot.commands.Test.ArmToSetpoint;
 import frc.robot.subsystems.Arm.ArmIONeo;
 import frc.robot.subsystems.Arm.ArmSubsystem;
 import frc.robot.subsystems.swerve.SwerveDrivetrain;
-// import frc.robot.subsystems.Swerve.SwerveFalconIO;
 import frc.robot.subsystems.swerve.SwerveNeoIO;
 import frc.robot.subsystems.Wrist.WristIONeo;
 import frc.robot.subsystems.Wrist.WristSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
-// import edu.wpi.first.wpilibj2.command.InstantCommand;
-// import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 /**
@@ -67,7 +64,6 @@ public class RobotContainer {
 
     // Default case, should be set to a replay mode
     default:
-      // m_drive = new SwerveDrivetrain(new SwerveFalconIO());
   }
     // Configure the button bindings
     configureButtonBindings();
@@ -95,10 +91,10 @@ public class RobotContainer {
     m_driveController.y().whileTrue(m_wrist.setWristPowerFactory(-0.15))
       .whileFalse(m_wrist.setWristPowerFactory(0.0));
     
-    m_driveController.rightTrigger().whileTrue(m_wrist.setIntakeSpeedFactory(1))
-      .whileFalse(m_wrist.setIntakeSpeedFactory(0.0));
-    m_driveController.leftTrigger().whileTrue(m_wrist.setIntakeSpeedFactory(-1))
-      .whileFalse(m_wrist.setIntakeSpeedFactory(0.0));
+    m_driveController.leftTrigger().whileTrue(m_arm.setArmAngleSpeedFactory(0.5))
+      .whileFalse(m_arm.setArmAngleSpeedFactory(0.0));
+    m_driveController.rightTrigger().whileTrue(m_arm.setArmAngleSpeedFactory(-0.5))
+            .whileFalse(m_arm.setArmAngleSpeedFactory(0.0));
 
     m_driveController.rightBumper().whileTrue(new WristToSetpointCommand(m_wrist, 45.0));
     m_driveController.leftBumper().whileTrue(new WristToSetpointCommand(m_wrist, 0.0));
@@ -129,6 +125,11 @@ public class RobotContainer {
     testCommands.add("Arm extend to 3", new ArmExtendToSetpoint(m_arm, 3));
     testCommands.add("Arm extend to 5", new ArmExtendToSetpoint(m_arm, 5));
     testCommands.add("Arm extend to 7", new ArmExtendToSetpoint(m_arm, 7));
+
+    testCommands.add("Test for full arm",
+            new TestArmFullCommandGroup(3, 180, -20, m_arm, m_wrist));
+    testCommands.add("Test for full arm 2.0",
+            new TestArmFullCommandGroup(7, 90, 20, m_arm, m_wrist));
   }
 
   /**

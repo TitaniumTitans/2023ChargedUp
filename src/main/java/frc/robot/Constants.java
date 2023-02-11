@@ -116,8 +116,6 @@ public final class Constants {
         public static final int ARM_ANGLE_ID_FOLLOWER = 17;
         public static final int LIMIT_SWITCH_PORT = 3;
 
-        public static final double K_ANGLE_CONVERSION_FACTOR = (0.5/3462.87) * 360 * 8192;
-
         public static final double KP_ANGLE = 0.13;
         public static final double KI_ANGLE = 0.005;
         public static final double KD_ANGLE = 0.0075;
@@ -126,8 +124,8 @@ public final class Constants {
         public static final double ARM_EXT_KI = 0;
         public static final double ARM_EXT_KD = 0;
         
-        public static final double K_REVERSE_LIMIT = 180;
-        public static final double K_FORWARD_LIMIT = 180;
+        public static final double K_REVERSE_LIMIT = 80;
+        public static final double K_FORWARD_LIMIT = 300;
 
         public static final int ENCODER_PORT = 1;
 
