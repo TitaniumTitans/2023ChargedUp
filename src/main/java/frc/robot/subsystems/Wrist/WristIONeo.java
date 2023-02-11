@@ -7,7 +7,8 @@ import com.revrobotics.CANSparkMax;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
-
+import com.playingwithfusion.TimeOfFlight;
+import com.playingwithfusion.TimeOfFlight.RangingMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import frc.robot.Constants.WristConstants;
 
@@ -17,6 +18,7 @@ public class WristIONeo implements WristIO{
     private DigitalInput m_wristZeroLimit;
     private CANCoder m_wristEncoder;
     private PIDController m_wristPID;
+    private TimeOfFlight m_tofSensor;
 
     public WristIONeo() {
         m_wristMotor = new CANSparkMax(WristConstants.WRIST_ID, MotorType.kBrushless);
@@ -25,8 +27,10 @@ public class WristIONeo implements WristIO{
         m_wristEncoder = new CANCoder(WristConstants.WRIST_ANGLE_PORT);
         m_wristEncoder.configSensorInitializationStrategy(SensorInitializationStrategy.BootToZero);
 
-        m_wristZeroLimit = new DigitalInput(WristConstants.LIMIT_SWTICH_PORT);
+        m_wristZeroLimit = new DigitalInput(WristConstants.LIMIT_SWITCH_PORT);
 
+        m_tofSensor = new TimeOfFlight(WristConstants.TOF_PORT);
+        m_tofSensor.setRangingMode(RangingMode.Short, 10);
         m_wristPID = new PIDController(WristConstants.WRIST_KP, WristConstants.WRIST_KI, WristConstants.WRIST_KD);
     }
     
@@ -49,6 +53,7 @@ public class WristIONeo implements WristIO{
 
     @Override
     public void setWristPower(double speed) {
+
         m_wristMotor.set(speed);
             
     }
@@ -82,4 +87,13 @@ public class WristIONeo implements WristIO{
         return m_wristZeroLimit.get();
     }
 
+    @Override
+    public boolean pieceInside() {
+        return m_tofSensor.getRange() < 1000;
+    }
+
+    @Override
+    public double getDetectionRange() {
+        return m_tofSensor.getRange();
+    }
 }

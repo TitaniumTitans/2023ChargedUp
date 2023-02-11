@@ -5,13 +5,13 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Arm.ArmSubSystem;
+import frc.robot.subsystems.Arm.ArmSubsystem;
 
 public class MoveArmAngle extends CommandBase {
-  private ArmSubSystem m_arm;
+  private ArmSubsystem m_arm;
   private double speed;
   /** Creates a new MoveArmAngle. */
-  public MoveArmAngle(ArmSubSystem arm, double speed) {
+  public MoveArmAngle(ArmSubsystem arm, double speed) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.speed = speed;
     m_arm = arm;

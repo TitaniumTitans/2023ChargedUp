@@ -33,4 +33,12 @@ public interface WristIO {
     public default boolean atLimit() {
         return false;
     }
+
+    public default boolean pieceInside() {
+        return false;
+    }
+
+    public default double getDetectionRange() {
+        return 0.0;
+    }
 }
