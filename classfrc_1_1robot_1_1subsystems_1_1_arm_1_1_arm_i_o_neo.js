@@ -5,8 +5,10 @@ var classfrc_1_1robot_1_1subsystems_1_1_arm_1_1_arm_i_o_neo =
     [ "encoderConnected", "classfrc_1_1robot_1_1subsystems_1_1_arm_1_1_arm_i_o_neo.html#a8a553af7be1643850de70bab0e07c3a3", null ],
     [ "getArmAngle", "classfrc_1_1robot_1_1subsystems_1_1_arm_1_1_arm_i_o_neo.html#a8876db3e3be937118eec0ad376c7f649", null ],
     [ "getArmExtension", "classfrc_1_1robot_1_1subsystems_1_1_arm_1_1_arm_i_o_neo.html#aa2bdc5f0e3e30bb22eb696e2ac87769a", null ],
+    [ "resetExstentionEncoder", "classfrc_1_1robot_1_1subsystems_1_1_arm_1_1_arm_i_o_neo.html#a1625308b1b6f5c292e816f0921157201", null ],
     [ "setAngleSpeed", "classfrc_1_1robot_1_1subsystems_1_1_arm_1_1_arm_i_o_neo.html#ab8884621b8da17bb97ce4011d54915ec", null ],
     [ "setArmAngle", "classfrc_1_1robot_1_1subsystems_1_1_arm_1_1_arm_i_o_neo.html#aff984245d693e054a75003db4e20b82c", null ],
+    [ "setArmExtension", "classfrc_1_1robot_1_1subsystems_1_1_arm_1_1_arm_i_o_neo.html#ae00511472320208fd059c757be8aad4f", null ],
     [ "setArmSpeed", "classfrc_1_1robot_1_1subsystems_1_1_arm_1_1_arm_i_o_neo.html#afbe3e43cd0852cc5c6c22cc0f8045577", null ],
     [ "updateInputs", "classfrc_1_1robot_1_1subsystems_1_1_arm_1_1_arm_i_o_neo.html#adf4d80d37c31fb3cb277cf952e1217b8", null ],
     [ "m_encoderArmAngle", "classfrc_1_1robot_1_1subsystems_1_1_arm_1_1_arm_i_o_neo.html#a1417190303740d5be57580c6d861b66f", null ]

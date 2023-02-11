@@ -1,13 +1,7 @@
 var searchData=
 [
-  ['getautonomouscommand_135',['getAutonomousCommand',['../classfrc_1_1robot_1_1_robot_container.html#ac61d2476e65873e263f844c1c721a82e',1,'frc::robot::RobotContainer']]],
-  ['getazimuthangle_136',['getAzimuthAngle',['../classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_modules_1_1_swerve_mod_falcon.html#aa26691a511a9fd59220d5fe3dec0a324',1,'frc::robot::subsystems::swerve::SwerveModules::SwerveModFalcon']]],
-  ['getcancoder_137',['getCanCoder',['../classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_modules_1_1_swerve_mod_falcon.html#a0b5954a24ce5d8b51176639f86df15f6',1,'frc::robot::subsystems::swerve::SwerveModules::SwerveModFalcon']]],
-  ['getgyroyaw_138',['getGyroYaw',['../classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_falcon_i_o.html#ad31dde8f3c49fc16514111cb5e29c381',1,'frc::robot::subsystems::swerve::SwerveFalconIO']]],
-  ['getmodulepositions_139',['getModulePositions',['../classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_falcon_i_o.html#a9b2a374512086b5497245ba917701ef4',1,'frc::robot::subsystems::swerve::SwerveFalconIO']]],
-  ['getmodulestates_140',['getModuleStates',['../classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_falcon_i_o.html#a075c2c0e3633cc85edbe492724f73215',1,'frc::robot::subsystems::swerve::SwerveFalconIO']]],
-  ['getpose_141',['getPose',['../classfrc_1_1robot_1_1subsystems_1_1_vision_1_1_camera_subsystem.html#a4f9dfeae94055ddd7a6b60197404b31e',1,'frc::robot::subsystems::Vision::CameraSubsystem']]],
-  ['getposition_142',['getPosition',['../classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_modules_1_1_swerve_mod_falcon.html#a72c792a401cc2b6c5d020ad9f1972474',1,'frc::robot::subsystems::swerve::SwerveModules::SwerveModFalcon']]],
-  ['getstate_143',['getState',['../classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_modules_1_1_swerve_mod_falcon.html#ae7c5737879e455b953577235deb1a27a',1,'frc::robot::subsystems::swerve::SwerveModules::SwerveModFalcon']]],
-  ['gettargetangle_144',['getTargetAngle',['../classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_modules_1_1_swerve_mod_falcon.html#ae1d178e1b0379e0fff38f80814941908',1,'frc::robot::subsystems::swerve::SwerveModules::SwerveModFalcon']]]
+  ['falcontodegrees_139',['falconToDegrees',['../classlib_1_1utils_1_1_utils.html#aea6f6ae543a35f30b758575e5c090198',1,'lib::utils::Utils']]],
+  ['falcontomps_140',['falconToMPS',['../classlib_1_1utils_1_1_utils.html#ab7eafdbffac60ca395d98392461694f5',1,'lib::utils::Utils']]],
+  ['falcontorpm_141',['falconToRPM',['../classlib_1_1utils_1_1_utils.html#a142f152727eb53777c7ad8cbe64be89a',1,'lib::utils::Utils']]],
+  ['function_5ftemplate_5ftest_142',['function_template_test',['../class_my_library_1_1_subclass_example.html#a306486db0c0bcdcaff339ced71393c63',1,'MyLibrary::SubclassExample']]]
 ];

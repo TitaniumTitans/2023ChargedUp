@@ -7,6 +7,7 @@ var annotated_dup =
             [ "AutoUtils", "classfrc_1_1robot_1_1commands_1_1_autonomous_1_1_auto_utils.html", null ]
           ] ],
           [ "Test", null, [
+            [ "ArmExtendToSetpoint", "classfrc_1_1robot_1_1commands_1_1_test_1_1_arm_extend_to_setpoint.html", "classfrc_1_1robot_1_1commands_1_1_test_1_1_arm_extend_to_setpoint" ],
             [ "ArmToSetpoint", "classfrc_1_1robot_1_1commands_1_1_test_1_1_arm_to_setpoint.html", "classfrc_1_1robot_1_1commands_1_1_test_1_1_arm_to_setpoint" ]
           ] ],
           [ "AutoBalance", "classfrc_1_1robot_1_1commands_1_1_auto_balance.html", "classfrc_1_1robot_1_1commands_1_1_auto_balance" ],
