@@ -13,14 +13,14 @@ public interface ArmIO {
         public double ArmExtensionLength = 0.0;
     }
 
-    public default void updateInputs(ArmIOInputsAutoLogged inputs){}
+    public default void updateInputs(ArmIOInputsAutoLogged inputs){ }
     
     //Setters
-    public default void setAngleSpeed(double speed) {}
+    public default void setAngleSpeed(double speed) { }
 
-    public default void setArmSpeed(double speed) {}
+    public default void setArmSpeed(double speed) { }
 
-    public default void setArmExtension(double speed) {}
+    public default void setArmExtension(double speed) { }
  
 
     //Getters
@@ -38,5 +38,5 @@ public interface ArmIO {
         return false;
     }
     
-    public default void resetExstentionEncoder() {}
+    public default void resetExstentionEncoder() { }
 }
