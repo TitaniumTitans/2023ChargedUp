@@ -3,10 +3,14 @@ package frc.robot.subsystems.Wrist;
 import com.ctre.phoenix.sensors.CANCoder;
 import com.ctre.phoenix.sensors.SensorInitializationStrategy;
 import com.revrobotics.CANSparkMax;
+
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
 import com.playingwithfusion.TimeOfFlight;
 import com.playingwithfusion.TimeOfFlight.RangingMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.WristConstants;
 
 public class WristIONeo implements WristIO{
@@ -14,6 +18,7 @@ public class WristIONeo implements WristIO{
     private CANSparkMax m_intakeMotor;
     private DigitalInput m_wristZeroLimit;
     private CANCoder m_wristEncoder;
+    private PIDController m_wristPID;
     private TimeOfFlight m_tofSensor;
 
     public WristIONeo() {
@@ -21,12 +26,13 @@ public class WristIONeo implements WristIO{
         m_intakeMotor = new CANSparkMax(WristConstants.INTAKE_ID, MotorType.kBrushless);
 
         m_wristEncoder = new CANCoder(WristConstants.WRIST_ANGLE_PORT);
-        m_wristEncoder.configSensorInitializationStrategy(SensorInitializationStrategy.BootToAbsolutePosition);
+        m_wristEncoder.configSensorInitializationStrategy(SensorInitializationStrategy.BootToZero);
 
         m_wristZeroLimit = new DigitalInput(WristConstants.LIMIT_SWITCH_PORT);
 
         m_tofSensor = new TimeOfFlight(WristConstants.TOF_PORT);
         m_tofSensor.setRangingMode(RangingMode.Short, 10);
+        m_wristPID = new PIDController(WristConstants.WRIST_KP, WristConstants.WRIST_KI, WristConstants.WRIST_KD);
     }
     
     @Override
@@ -38,6 +44,18 @@ public class WristIONeo implements WristIO{
     //Setters
     @Override
     public void setWristAngle(double angle) {
+
+        double currentWristAngle = getWristAngle();
+        double setpoint = MathUtil.clamp(angle, WristConstants.WRIST_LOWER_LIMIT, WristConstants.WRIST_UPPER_LIMIT);
+        double output = MathUtil.clamp(m_wristPID.calculate(currentWristAngle, setpoint), -0.15, 0.15);
+
+
+        SmartDashboard.putNumber("Actual Wrist Angle", currentWristAngle);
+        SmartDashboard.putNumber("Target Angle", angle);
+        SmartDashboard.putNumber("Clamped Target Angle", setpoint);
+        SmartDashboard.putNumber("PID Output", output);
+
+        m_wristMotor.set(output);
     }
 
     @Override
@@ -52,11 +70,18 @@ public class WristIONeo implements WristIO{
         m_intakeMotor.set(speed);
     }
 
+    @Override
+    public void zeroWristAngle() {
+        if (atLimit()) {
+            m_wristEncoder.setPosition(0);
+        }
+    }
+
 
     //Getters
     @Override
     public double getWristAngle() {
-        return m_wristEncoder.getPosition();
+        return m_wristEncoder.getPosition() / WristConstants.WRIST_PIVOT_RATIO;
     }
 
     @Override
@@ -64,7 +89,8 @@ public class WristIONeo implements WristIO{
         return m_intakeMotor.getOutputCurrent();
     }
 
-    public boolean wristAtLowerLimit() {
+    @Override
+    public boolean atLimit() {
         return m_wristZeroLimit.get();
     }
 
