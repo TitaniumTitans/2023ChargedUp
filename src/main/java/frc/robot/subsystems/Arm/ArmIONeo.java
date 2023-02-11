@@ -20,7 +20,7 @@ public class ArmIONeo implements ArmIO {
     private CANSparkMax m_ArmEx;
     private CANSparkMax m_armAngleMaster;
     private CANSparkMax m_armAngleFollower;
-    private RelativeEncoder m_RelativeEncoderArmEx;
+    private RelativeEncoder m_relativeEncoderArmEx;
     public DutyCycleEncoder m_encoderArmAngle;
     private double kArmOffset = 260.9;
     private DigitalInput m_armLimitSwitch;
@@ -43,7 +43,7 @@ public class ArmIONeo implements ArmIO {
 
         m_armAngleFollower.follow(m_armAngleMaster);
 
-        m_RelativeEncoderArmEx = m_ArmEx.getEncoder();
+        m_relativeEncoderArmEx = m_ArmEx.getEncoder();
 
         m_armAngleMaster.setIdleMode(IdleMode.kBrake);
         m_armAngleFollower.setIdleMode(IdleMode.kBrake);
@@ -96,7 +96,7 @@ public class ArmIONeo implements ArmIO {
 
     @Override
     public double getArmExtension() {
-        return m_RelativeEncoderArmEx.getPosition() * ArmConstants.EXTENSION_RATIO;
+        return m_relativeEncoderArmEx.getPosition();
     }
 
     @Override

@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import frc.robot.commands.Test.ArmExtendToSetpoint;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
 import edu.wpi.first.wpilibj.GenericHID;
@@ -121,10 +122,12 @@ public class RobotContainer {
     ShuffleboardTab testCommands = Shuffleboard.getTab("Commands");
 
     testCommands.add("Arm to 90", new ArmToSetpoint(m_arm, 90));
-
     testCommands.add("Arm to 40", new ArmToSetpoint(m_arm, 40));
     testCommands.add("Arm to 140", new ArmToSetpoint(m_arm, 140));
 
+    testCommands.add("Arm extend to 3", new ArmExtendToSetpoint(m_arm, 3));
+    testCommands.add("Arm extend to 5", new ArmExtendToSetpoint(m_arm, 5));
+    testCommands.add("Arm extend to 7", new ArmExtendToSetpoint(m_arm, 7));
   }
 
   /**

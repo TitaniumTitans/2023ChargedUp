@@ -40,6 +40,7 @@ public class ArmSubsystem extends SubsystemBase {
         m_io.setArmSpeed(speed);
     }
 
+    public  void setArmExtension(double extension) { m_io.setArmExtension(extension);}
     public double getArmExtension() {
         return m_io.getArmExtension();
     }
@@ -73,7 +74,8 @@ public class ArmSubsystem extends SubsystemBase {
     public void periodic() {
         m_io.updateInputs(m_input);
         Logger.getInstance().processInputs("Arm", m_input);
-        SmartDashboard.putNumber("Arm Encoder", getArmAngle());
+        SmartDashboard.putNumber("Arm extension", getArmExtension());
+        SmartDashboard.putNumber("Arm ANGLE Encoder", getArmAngle());
         SmartDashboard.putBoolean("Encoder Connected?", m_io.encoderConnected());
 
         // m_io.setArmAngle(armAngle);
