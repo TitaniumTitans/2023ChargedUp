@@ -5,17 +5,16 @@
 package frc.robot.commands.Test;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.ArmConstants;
 import frc.robot.subsystems.Arm.ArmSubsystem;
 
 public class ArmToSetpoint extends CommandBase {
-  private double armSetpoint;
-  private ArmSubsystem arm;
+  private double setpoint;
+  private ArmSubsystem m_arm;
 
   /** Creates a new ArmToSetpoint. */
   public ArmToSetpoint(ArmSubsystem arm, double setpoint) {
-    this.arm = arm;
-    armSetpoint = setpoint;
+    m_arm = arm;
+    this.setpoint = setpoint;
 
     addRequirements(arm);
   }
@@ -28,19 +27,18 @@ public class ArmToSetpoint extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(arm.armAngle > ArmConstants.K_FORWARD_LIMIT || arm.armAngle < ArmConstants.K_REVERSE_LIMIT){}
-    else {
-      arm.armAngle = armSetpoint;
-    }
+    m_arm.setArmAngle(setpoint);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_arm.setAngleSpeed(0.0);
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }
