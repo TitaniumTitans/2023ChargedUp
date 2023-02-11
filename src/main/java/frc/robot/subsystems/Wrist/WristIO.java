@@ -41,4 +41,8 @@ public interface WristIO {
     public default double getDetectionRange() {
         return 0.0;
     }
+
+    public default boolean wristAtSetpoint () {
+        return false;
+    }
 }
