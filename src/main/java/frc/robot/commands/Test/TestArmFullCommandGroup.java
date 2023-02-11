@@ -2,7 +2,9 @@ package frc.robot.commands.Test;
 
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import frc.robot.Constants.ArmConstants;
+import frc.robot.commands.ArmAngToSetpoint;
+import frc.robot.commands.ArmExtToSetpoint;
+import frc.robot.commands.WristAngToSetpoint;
 import frc.robot.subsystems.Arm.ArmSubsystem;
 import frc.robot.subsystems.Wrist.WristSubsystem;
 

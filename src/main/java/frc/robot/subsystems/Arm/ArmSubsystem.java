@@ -59,7 +59,7 @@ public class ArmSubsystem extends SubsystemBase {
         });
     }
 
-    public CommandBase setArmExtentionFactory(double speed) {
+    public CommandBase setArmExtentionSpeedFactory(double speed) {
         return run(() -> {
             setArmSpeed(speed);
         });

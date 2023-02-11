@@ -83,21 +83,43 @@ public class RobotContainer {
     m_driveController.button(7).onTrue(m_drive.resetGyroBase());
     m_driveController.start().onTrue(m_drive.toggleFieldRelative());
 
-    m_driveController.a().whileTrue(new TestArmFullCommandGroup(3, 180, -20, m_arm, m_wrist));
-    m_driveController.b().whileTrue(new TestArmFullCommandGroup(7, 90, 20, m_arm, m_wrist));
+//    m_driveController.a().whileTrue(new TestArmFullCommandGroup(3, 180, -20, m_arm, m_wrist));
+//    m_driveController.b().whileTrue(new TestArmFullCommandGroup(7, 90, 20, m_arm, m_wrist));
 
+    m_driveController.leftTrigger().whileTrue(m_wrist.setIntakeSpeedFactory(-1.0))
+                    .whileFalse(m_wrist.setIntakeSpeedFactory(0.0));
+    m_driveController.rightTrigger().whileTrue(m_wrist.setIntakeSpeedFactory(1.0))
+            .whileFalse(m_wrist.setIntakeSpeedFactory(0.0));
+//
     m_driveController.x().whileTrue(m_wrist.setWristPowerFactory(0.15))
       .whileFalse(m_wrist.setWristPowerFactory(0.0));
     m_driveController.y().whileTrue(m_wrist.setWristPowerFactory(-0.15))
       .whileFalse(m_wrist.setWristPowerFactory(0.0));
-    
-    m_driveController.leftTrigger().whileTrue(m_arm.setArmAngleSpeedFactory(0.5))
+
+
+    m_driveController.a().whileTrue(m_arm.setArmAngleSpeedFactory(0.5))
       .whileFalse(m_arm.setArmAngleSpeedFactory(0.0));
-    m_driveController.rightTrigger().whileTrue(m_arm.setArmAngleSpeedFactory(-0.5))
+    m_driveController.b().whileTrue(m_arm.setArmAngleSpeedFactory(-0.5))
             .whileFalse(m_arm.setArmAngleSpeedFactory(0.0));
 
-    m_driveController.rightBumper().whileTrue(new WristToSetpointCommand(m_wrist, 45.0));
-    m_driveController.leftBumper().whileTrue(new WristToSetpointCommand(m_wrist, 0.0));
+    m_driveController.povDown().whileTrue(new TestArmFullCommandGroup
+            (4.4, 62.7, -36.1, m_arm, m_wrist));
+    m_driveController.povUp().whileTrue((new TestArmFullCommandGroup
+            (8, 142.0, 0, m_arm, m_wrist)));
+    m_driveController.povRight().whileTrue(new TestArmFullCommandGroup(
+            4.00, 70, 0, m_arm, m_wrist
+    ));
+    m_driveController.povLeft().whileTrue(new TestArmFullCommandGroup(
+            25, 133.5, -3.3, m_arm, m_wrist
+    ));
+
+//    m_driveController.rightBumper().whileTrue(new WristToSetpointCommand(m_wrist, 45.0));
+//    m_driveController.leftBumper().whileTrue(new WristToSetpointCommand(m_wrist, 0.0));
+
+      m_driveController.rightBumper().whileTrue(m_arm.setArmExtentionSpeedFactory(0.5))
+              .whileFalse(m_arm.setArmExtentionSpeedFactory(0.0));
+    m_driveController.leftBumper().whileTrue(m_arm.setArmExtentionSpeedFactory(-0.5))
+            .whileFalse(m_arm.setArmExtentionSpeedFactory(0.0));
   }
 
   /**

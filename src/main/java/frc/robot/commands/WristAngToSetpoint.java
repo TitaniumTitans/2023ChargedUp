@@ -1,19 +1,18 @@
-package frc.robot.commands.Test;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Arm.ArmSubsystem;
+import frc.robot.subsystems.Wrist.WristSubsystem;
 
 
-public class ArmExtToSetpoint extends CommandBase {
-    private final ArmSubsystem m_armSubsystem;
-    private final double setpoint;
+public class WristAngToSetpoint extends CommandBase {
+    private final WristSubsystem m_wristSubsystem;
+    private final double m_SetPoint;
 
-    public ArmExtToSetpoint(ArmSubsystem armSubsystem, double setpoint) {
-        m_armSubsystem = armSubsystem;
-        this.setpoint = setpoint;
-        // each subsystem used by the command must be passed into the
+    public WristAngToSetpoint(WristSubsystem wristSubsystem, double SetPoint) {
+        m_wristSubsystem = wristSubsystem;
+        m_SetPoint = SetPoint;
         // addRequirements() method (which takes a vararg of Subsystem)
-        addRequirements(m_armSubsystem);
+        addRequirements(this.m_wristSubsystem);
     }
 
     /**
@@ -21,7 +20,7 @@ public class ArmExtToSetpoint extends CommandBase {
      */
     @Override
     public void initialize() {
-        //
+
     }
 
     /**
@@ -30,7 +29,7 @@ public class ArmExtToSetpoint extends CommandBase {
      */
     @Override
     public void execute() {
-        m_armSubsystem.setArmExtension(setpoint);
+        m_wristSubsystem.setWristAngle(m_SetPoint);
     }
 
     /**
@@ -49,12 +48,13 @@ public class ArmExtToSetpoint extends CommandBase {
      */
     @Override
     public boolean isFinished() {
-        return m_armSubsystem.armExstentionAtSetpoint();
+        // TODO: Make this return true when this Command no longer needs to run execute()
+        return m_wristSubsystem.wristAtSetpoint();
     }
 
     /**
      * The action to take when the command ends. Called when either the command
-     * finishes normally -- it is called when {@link #isFinished()} returns
+     * finishes normally -- that is it is called when {@link #isFinished()} returns
      * true -- or when  it is interrupted/canceled. This is where you may want to
      * wrap up loose ends, like shutting off a motor that was being used in the command.
      *
@@ -62,6 +62,6 @@ public class ArmExtToSetpoint extends CommandBase {
      */
     @Override
     public void end(boolean interrupted) {
-        m_armSubsystem.setArmSpeed(0);
+        m_wristSubsystem.setWristPower(0);
     }
 }

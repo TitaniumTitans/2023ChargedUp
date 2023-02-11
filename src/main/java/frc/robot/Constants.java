@@ -77,7 +77,7 @@ public final class Constants {
         
         public static final double WRIST_PIVOT_RATIO = 2.6666;
 
-        public static final double WRIST_LOWER_LIMIT = -30;
+        public static final double WRIST_LOWER_LIMIT = -80;
 
         public static final double WRIST_UPPER_LIMIT = 45.0;
         public static final int TOF_PORT = 23;
@@ -116,7 +116,7 @@ public final class Constants {
         public static final int ARM_ANGLE_ID_FOLLOWER = 17;
         public static final int LIMIT_SWITCH_PORT = 3;
 
-        public static final double KP_ANGLE = 0.13;
+        public static final double KP_ANGLE = 0.23;
         public static final double KI_ANGLE = 0.005;
         public static final double KD_ANGLE = 0.0075;
 
@@ -124,7 +124,7 @@ public final class Constants {
         public static final double ARM_EXT_KI = 0;
         public static final double ARM_EXT_KD = 0;
         
-        public static final double K_REVERSE_LIMIT = 80;
+        public static final double K_REVERSE_LIMIT = 45;
         public static final double K_FORWARD_LIMIT = 300;
 
         public static final int ENCODER_PORT = 1;
@@ -132,8 +132,8 @@ public final class Constants {
         public static final double SPROCKET_DIAMETER = 1.99;
         public static final double EXTENSION_RATIO = (1.0/25.0) * (SPROCKET_DIAMETER * Math.PI);
 
-        public static final double EXT_LOWER_LIMIT = 1;
-        public static final double EXT_HIGHER_LIMIT = 5;
+        public static final double EXT_LOWER_LIMIT = 0.5;
+        public static final double EXT_HIGHER_LIMIT = 25;
 
     }
 
