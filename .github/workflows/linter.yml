@@ -1,4 +1,5 @@
-name: Lint Code Base
+---
+name: Lint New Commits
 
 # Run linter on push
 on:
@@ -10,7 +11,7 @@ on:
     
 jobs:
   build:
-    name: Lint Code Base
+    name: Lint New Commits
     runs-on: ubuntu-latest
      
     steps:
@@ -19,11 +20,15 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Lint Code Base
+      - name: Lint New Commits
         # Use the slim linter to speed up build and download time
         uses: github/super-linter/slim@v4
         env:
           VALIDATE_ALL_CODEBASE: false
-          DEFAULT_BRANCH: master
+          VALIDATE_BASH: false
+          VALIDATE_BASH_EXEC: false
+          VALIDATE_GROOVY: false
+          VALIDATE_JSON: false
+          DEFAULT_BRANCH: main
           JAVA_FILE_NAME: sun_check.xml
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 

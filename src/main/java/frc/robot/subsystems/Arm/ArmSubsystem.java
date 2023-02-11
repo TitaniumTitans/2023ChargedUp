@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class ArmSubSystem extends SubsystemBase {
+public class ArmSubsystem extends SubsystemBase {
     private ArmIO m_io;
     private ArmIOInputsAutoLogged m_input;
 
@@ -26,7 +26,7 @@ public class ArmSubSystem extends SubsystemBase {
         public static final double kHightScoringPositionDegrees = 160.0;
     }
 
-    public ArmSubSystem(ArmIO io){
+    public ArmSubsystem(ArmIO io){
         m_io = io;
 
         m_input = new ArmIOInputsAutoLogged();

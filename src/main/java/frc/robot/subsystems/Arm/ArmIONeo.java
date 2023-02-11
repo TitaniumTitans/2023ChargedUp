@@ -30,9 +30,9 @@ public class ArmIONeo implements ArmIO {
     private PIDController m_extPID;
 
     public ArmIONeo() {
-        m_ArmEx = new CANSparkMax(ArmConstants.ArmExID, MotorType.kBrushless);
-        m_armAngleMaster = new CANSparkMax(ArmConstants.ArmAngleIDMaster, MotorType.kBrushless);
-        m_armAngleFollower = new CANSparkMax(ArmConstants.ArmAngleIDFollower, MotorType.kBrushless);
+        m_ArmEx = new CANSparkMax(ArmConstants.ARM_EXTENSION_ID, MotorType.kBrushless);
+        m_armAngleMaster = new CANSparkMax(ArmConstants.ARM_ANGLE_ID_MASTER, MotorType.kBrushless);
+        m_armAngleFollower = new CANSparkMax(ArmConstants.ARM_ANGLE_ID_FOLLOWER, MotorType.kBrushless);
 
         m_ArmEx.setIdleMode(IdleMode.kBrake);
         m_armAngleMaster.setInverted(false);
@@ -54,13 +54,12 @@ public class ArmIONeo implements ArmIO {
         m_encoderArmAngle.setPositionOffset(0);
 
         // m_sparkPID = m_armAngle.getPIDController();
-        m_anglePID = new PIDController(ArmConstants.kPAngle, ArmConstants.kIAngle, ArmConstants.kDAngle);
+        m_anglePID = new PIDController(ArmConstants.KP_ANGLE, ArmConstants.KI_ANGLE, ArmConstants.KD_ANGLE);
         m_anglePID.enableContinuousInput(0, 360);
         // m_anglePID.setTolerance(100);
 
+        m_armLimitSwitch = new DigitalInput(ArmConstants.LIMIT_SWITCH_PORT);
         m_extPID = new PIDController(ArmConstants.ARM_EXT_KP, ArmConstants.ARM_EXT_KI, ArmConstants.ARM_EXT_KD);
-
-        m_armLimitSwitch = new DigitalInput(ArmConstants.LIMIT_SWTICH_PORT);
     }
 
     @Override
@@ -86,10 +85,10 @@ public class ArmIONeo implements ArmIO {
     }
 
     @Override
-    public void setArmExtension(double extension) { 
+    public void setArmExtension(double extension) {
         double setpoint = MathUtil.clamp(extension, ArmConstants.EXT_LOWER_LIMIT, ArmConstants.EXT_HIGHER_LIMIT);
         double pidOutput = MathUtil.clamp(m_extPID.calculate(getArmExtension(), setpoint), -0.5, 0.5);
-        
+
         if(armAtLowerLimit() && pidOutput <= 0) {
             m_ArmEx.set(pidOutput);
         }
@@ -102,7 +101,7 @@ public class ArmIONeo implements ArmIO {
 
     @Override
     public void setArmAngle(double angle){
-        double angleSetpoint = MathUtil.clamp(angle, ArmConstants.kReverseLimit, ArmConstants.kForwardLimit);
+        double angleSetpoint = MathUtil.clamp(angle, ArmConstants.K_REVERSE_LIMIT, ArmConstants.K_FORWARD_LIMIT);
         double pidOutput = MathUtil.clamp(m_anglePID.calculate(getArmAngle(), angleSetpoint), -3, 3);
 
         SmartDashboard.putNumber("Setpoint", angleSetpoint);

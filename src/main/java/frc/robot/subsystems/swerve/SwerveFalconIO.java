@@ -1,4 +1,4 @@
-package frc.robot.subsystems.Swerve;
+package frc.robot.subsystems.swerve;
 
 //Imports
 //import com.ctre.phoenix.sensors.Pigeon2;
@@ -11,7 +11,7 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.Constants.DriveConstants;
-import frc.robot.subsystems.Swerve.SwerveModules.SwerveModFalcon;;
+import frc.robot.subsystems.swerve.SwerveModules.SwerveModFalcon;;
 
 public class SwerveFalconIO implements SwerveIO{
   private SwerveModFalcon m_frModule; // Front Right Wheel

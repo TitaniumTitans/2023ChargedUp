@@ -1,4 +1,4 @@
-package frc.robot.subsystems.Swerve;
+package frc.robot.subsystems.swerve;
 
 import com.ctre.phoenix.sensors.PigeonIMU;
 
@@ -7,32 +7,23 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import frc.robot.Constants.DriveConstants;
-import frc.robot.subsystems.Swerve.SwerveModules.SwerveModNeo;
+import frc.robot.subsystems.swerve.SwerveModules.SwerveModNeo;
 
 public class SwerveNeoIO implements SwerveIO {
     private SwerveModNeo m_frMod;
     private SwerveModNeo m_flMod;
     private SwerveModNeo m_blMod;
     private SwerveModNeo m_brMod;
-    // private SwerveModNeo[] m_modules;
 
     private PigeonIMU m_gyro;
-    // private SwerveDriveOdometry m_odometry;
-
-    // private Field2d m_field;
 
     public SwerveNeoIO() {
         m_flMod = new SwerveModNeo(0, DriveConstants.MOD_FL_OFFSET, DriveConstants.MOD_FL_CANS, false);
         m_frMod = new SwerveModNeo(1, DriveConstants.MOD_FR_OFFSET, DriveConstants.MOD_FR_CANS, false);
         m_blMod = new SwerveModNeo(2, DriveConstants.MOD_BL_OFFSET, DriveConstants.MOD_BL_CANS, false);
         m_brMod = new SwerveModNeo(3, DriveConstants.MOD_BR_OFFSET, DriveConstants.MOD_BR_CANS, false);
-        // m_modules = new SwerveModNeo[] {m_flMod, m_frMod, m_blMod, m_brMod};
 
         m_gyro = new PigeonIMU(DriveConstants.GYRO_CAN);
-
-        // m_odometry = new SwerveDriveOdometry(DriveConstants.kDriveKinematics, getGyroYaw(), getModulePositions());
-        // m_field = new Field2d();
-        // SmartDashboard.putData("Field", m_field);
     }
 
     // Getters
@@ -66,6 +57,7 @@ public class SwerveNeoIO implements SwerveIO {
     }
 
     // Setters
+    @Override
     public void setModuleStates(double xTranslation, double yTranslation, double zRotation, boolean fieldRelative) {
         SwerveModuleState[] states = DriveConstants.DRIVE_KINEMATICS.toSwerveModuleStates(
             fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(
@@ -146,22 +138,14 @@ public class SwerveNeoIO implements SwerveIO {
         inputs.gyroYawDeg = m_gyro.getYaw();
     }
 
-    public Rotation2d[] getCancoder(){
-        Rotation2d[] array = {
-            m_flMod.getCanCoder(),
-            m_frMod.getCanCoder(),
-            m_blMod.getCanCoder(),
-            m_brMod.getCanCoder()
-        };
-
-        return array;
-    }
-
     @Override
-    public void periodic() {
-        // m_odometry.update(Rotation2d.fromDegrees(m_gyro.getYaw()), getModulePositions());
-        // m_field.setRobotPose(m_odometry.getPoseMeters());
-        // SmartDashboard.putData("Field", m_field);
+    public Rotation2d[] getCancoder(){
+        return new Rotation2d[]{
+                m_flMod.getCanCoder(),
+                m_frMod.getCanCoder(),
+                m_blMod.getCanCoder(),
+                m_brMod.getCanCoder()
+        };
     }
     
 }

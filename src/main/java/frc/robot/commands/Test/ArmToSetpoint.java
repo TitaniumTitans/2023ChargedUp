@@ -4,18 +4,16 @@
 
 package frc.robot.commands.Test;
 
-import javax.naming.NameAlreadyBoundException;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.ArmConstants;
-import frc.robot.subsystems.Arm.ArmSubSystem;
+import frc.robot.subsystems.Arm.ArmSubsystem;
 
 public class ArmToSetpoint extends CommandBase {
   private double armSetpoint;
-  private ArmSubSystem arm;
+  private ArmSubsystem arm;
 
   /** Creates a new ArmToSetpoint. */
-  public ArmToSetpoint(ArmSubSystem arm, double setpoint) {
+  public ArmToSetpoint(ArmSubsystem arm, double setpoint) {
     this.arm = arm;
     armSetpoint = setpoint;
 
@@ -30,7 +28,7 @@ public class ArmToSetpoint extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(arm.armAngle > ArmConstants.kForwardLimit || arm.armAngle < ArmConstants.kReverseLimit){}
+    if(arm.armAngle > ArmConstants.K_FORWARD_LIMIT || arm.armAngle < ArmConstants.K_REVERSE_LIMIT){}
     else {
       arm.armAngle = armSetpoint;
     }
