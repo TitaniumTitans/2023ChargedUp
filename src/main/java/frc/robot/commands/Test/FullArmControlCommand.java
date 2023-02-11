@@ -36,7 +36,7 @@ public class FullArmControlCommand extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        m_armSubsystem.setArmExtension(0.0);
+        m_armSubsystem.setArmSpeed(0.0);
         m_armSubsystem.setAngleSpeed(0.0);
     }
 }

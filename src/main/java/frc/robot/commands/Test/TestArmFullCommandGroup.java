@@ -13,7 +13,7 @@ public class TestArmFullCommandGroup extends ParallelCommandGroup {
     public TestArmFullCommandGroup(double armExt, double armAngle, double wristAngle,
                                    ArmSubsystem armSubsystem, WristSubsystem wristSubsystem) {
 
-        super(new ArmAngToSetpoint(armSubsystem, armAngle).andThen(new ArmExtToSetpoint(armSubsystem, armExt)),
+        super(new FullArmControlCommand(armSubsystem, armExt, armAngle),
                 new WristAngToSetpoint(wristSubsystem, wristAngle));
     }
 }
