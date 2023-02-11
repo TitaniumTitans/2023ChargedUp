@@ -26,7 +26,6 @@ import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.BaseTalon;
 import com.ctre.phoenix.sensors.CANCoder;
 import com.ctre.phoenix.sensors.SensorVelocityMeasPeriod;
-import lib.utils.drivers.CTREUtil.*;
 
 /**
  * This is my second attempt to create a wrapper class for CTRE motor
@@ -38,23 +37,23 @@ import lib.utils.drivers.CTREUtil.*;
  * IMotorControllerEnhanced are missing), but it's pretty close.
  */
 public class TalonEnhanced {
-    private IMotorControllerEnhanced m_talon;
+    private final IMotorControllerEnhanced talon;
 
-    final static private int kTimeoutMs = 100;
-    final static private int kFastFrameMs = 45;
-    final static private int kSlowFrameMs = 255;
+    private static final int TIMEOUT_MS = 100;
+    private static final int FAST_FRAME_MS = 45;
+    private static final int SLOW_FRAME_MS = 255;
 
     public TalonEnhanced(IMotorControllerEnhanced talon) {
-        m_talon = talon;
+        this.talon = talon;
     }
 
-    public TalonEnhanced autoRetry(ConfigCall talonConfigCall) {
-        CTREUtil.autoRetry(() -> talonConfigCall.run());
+    public TalonEnhanced autoRetry(CTREUtil.ConfigCall talonConfigCall) {
+        CTREUtil.autoRetry(talonConfigCall);
         return this;
     }
 
-    private double m_lastDemand0 = Double.NaN;
-    private ControlMode m_lastControlMode = null;
+    private double lastDemand0 = Double.NaN;
+    private ControlMode lastControlMode = null;
 
     /**
      * Same idea as 254's "LazyTalonFX" class. The
@@ -62,16 +61,16 @@ public class TalonEnhanced {
      * changed.
      */
     public TalonEnhanced set(ControlMode controlMode, double demand0) {
-        if (controlMode != m_lastControlMode || demand0 != m_lastDemand0) {
-            m_talon.set(controlMode, demand0);
-            m_lastControlMode = controlMode;
-            m_lastDemand0 = demand0;
+        if (controlMode != lastControlMode || demand0 != lastDemand0) {
+            talon.set(controlMode, demand0);
+            lastControlMode = controlMode;
+            lastDemand0 = demand0;
         }
         return this;
     }
 
-    private DemandType m_lastDemandType;
-    private double m_lastDemand1;
+    private DemandType lastDemandType;
+    private double lastDemand1;
 
     /**
      * Same idea as 254's "LazyTalonFX" class. The
@@ -79,501 +78,510 @@ public class TalonEnhanced {
      * changed.
      */
     public TalonEnhanced set(ControlMode controlMode, double demand0, DemandType demandType, double demand1) {
-        if (controlMode != m_lastControlMode ||
-                demand0 != m_lastDemand0 ||
-                demandType != m_lastDemandType ||
-                demand1 != m_lastDemand1) {
-            m_talon.set(controlMode, demand0, demandType, demand1);
-            m_lastControlMode = controlMode;
-            m_lastDemand0 = demand0;
-            m_lastDemandType = demandType;
-            m_lastDemand1 = demand1;
+        if (controlMode != lastControlMode
+                || demand0 != lastDemand0
+                || demandType != lastDemandType
+                || demand1 != lastDemand1) {
+            talon.set(controlMode, demand0, demandType, demand1);
+            lastControlMode = controlMode;
+            lastDemand0 = demand0;
+            lastDemandType = demandType;
+            lastDemand1 = demand1;
         }
         return this;
     }
 
     public TalonEnhanced neutralOutput() {
-        m_talon.neutralOutput();
+        talon.neutralOutput();
         return this;
     }
 
     public TalonEnhanced setNeutralMode(NeutralMode neutralMode) {
-        m_talon.setNeutralMode(neutralMode);
+        talon.setNeutralMode(neutralMode);
         return this;
     }
 
-    public TalonEnhanced setSensorPhase(boolean PhaseSensor) {
-        m_talon.setSensorPhase(PhaseSensor);
+    public TalonEnhanced setSensorPhase(boolean sensorPhase) {
+        talon.setSensorPhase(sensorPhase);
         return this;
     }
 
     public TalonEnhanced setInverted(boolean invert) {
-        m_talon.setInverted(invert);
+        talon.setInverted(invert);
 
         return this;
     }
 
     public TalonEnhanced setInverted(InvertType invertType) {
-        m_talon.setInverted(invertType);
+        talon.setInverted(invertType);
 
         return this;
     }
 
     public boolean getInverted() {
-        return m_talon.getInverted();
+        return talon.getInverted();
     }
 
-    public TalonEnhanced configOpenloopRamp(double secondsFromNeutralToFull) {
-        return this.autoRetry(() -> m_talon.configOpenloopRamp(secondsFromNeutralToFull, kTimeoutMs));
+    public TalonEnhanced configOpenLoopRamp(double secondsFromNeutralToFull) {
+        return this.autoRetry(() -> talon.configOpenloopRamp(secondsFromNeutralToFull, TIMEOUT_MS));
     }
 
-    public TalonEnhanced configClosedloopRamp(double secondsFromNeutralToFull) {
-        return this.autoRetry(() -> m_talon.configClosedloopRamp(secondsFromNeutralToFull, kTimeoutMs));
+    public TalonEnhanced configClosedLoopRamp(double secondsFromNeutralToFull) {
+        return this.autoRetry(() -> talon.configClosedloopRamp(secondsFromNeutralToFull, TIMEOUT_MS));
     }
 
     public TalonEnhanced configPeakOutputForward(double percentOut) {
-        return this.autoRetry(() -> m_talon.configPeakOutputForward(percentOut, kTimeoutMs));
+        return this.autoRetry(() -> talon.configPeakOutputForward(percentOut, TIMEOUT_MS));
     }
 
     public TalonEnhanced configPeakOutputReverse(double percentOut) {
-        return this.autoRetry(() -> m_talon.configPeakOutputReverse(percentOut, kTimeoutMs));
+        return this.autoRetry(() -> talon.configPeakOutputReverse(percentOut, TIMEOUT_MS));
     }
 
     public TalonEnhanced configNominalOutputForward(double percentOut) {
-        return this.autoRetry(() -> m_talon.configNominalOutputForward(percentOut, kTimeoutMs));
+        return this.autoRetry(() -> talon.configNominalOutputForward(percentOut, TIMEOUT_MS));
     }
 
     public TalonEnhanced configNominalOutputReverse(double percentOut) {
-        return this.autoRetry(() -> m_talon.configNominalOutputReverse(percentOut, kTimeoutMs));
+        return this.autoRetry(() -> talon.configNominalOutputReverse(percentOut, TIMEOUT_MS));
     }
 
     public TalonEnhanced configNeutralDeadband(double percentDeadband) {
-        return this.autoRetry(() -> m_talon.configNeutralDeadband(percentDeadband, kTimeoutMs));
+        return this.autoRetry(() -> talon.configNeutralDeadband(percentDeadband, TIMEOUT_MS));
     }
 
     public TalonEnhanced configVoltageCompSaturation(double voltage) {
-        return this.autoRetry(() -> m_talon.configVoltageCompSaturation(voltage, kTimeoutMs));
+        return this.autoRetry(() -> talon.configVoltageCompSaturation(voltage, TIMEOUT_MS));
     }
 
     public TalonEnhanced configVoltageMeasurementFilter(int filterWindowSamples) {
-        return this.autoRetry(() -> m_talon.configVoltageMeasurementFilter(filterWindowSamples, kTimeoutMs));
+        return this.autoRetry(() -> talon.configVoltageMeasurementFilter(filterWindowSamples, TIMEOUT_MS));
     }
 
     public TalonEnhanced enableVoltageCompensation(boolean enable) {
-        m_talon.enableVoltageCompensation(enable);
+        talon.enableVoltageCompensation(enable);
         return this;
     }
 
     public double getBusVoltage() {
-        return m_talon.getBusVoltage();
+        return talon.getBusVoltage();
     }
 
     public double getMotorOutputPercent() {
-        return m_talon.getMotorOutputPercent();
+        return talon.getMotorOutputPercent();
     }
 
     public double getMotorOutputVoltage() {
-        return m_talon.getMotorOutputVoltage();
+        return talon.getMotorOutputVoltage();
     }
 
     public double getTemperature() {
-        return m_talon.getTemperature();
+        return talon.getTemperature();
     }
 
     public TalonEnhanced configSelectedFeedbackSensor(RemoteFeedbackDevice feedbackDevice, int pidIdx) {
-        return this.autoRetry(() -> m_talon.configSelectedFeedbackSensor(feedbackDevice, pidIdx, kTimeoutMs));
+        return this.autoRetry(() -> talon.configSelectedFeedbackSensor(feedbackDevice, pidIdx, TIMEOUT_MS));
     }
 
     public TalonEnhanced configSelectedFeedbackCoefficient(double coefficient, int pidIdx) {
-        return this.autoRetry(() -> m_talon.configSelectedFeedbackCoefficient(coefficient, pidIdx, kTimeoutMs));
+        return this.autoRetry(() -> talon.configSelectedFeedbackCoefficient(coefficient, pidIdx, TIMEOUT_MS));
     }
 
     public TalonEnhanced configRemoteFeedbackFilter(int deviceID, RemoteSensorSource remoteSensorSource,
             int remoteOrdinal) {
         return this.autoRetry(
-                () -> m_talon.configRemoteFeedbackFilter(deviceID, remoteSensorSource, remoteOrdinal, kTimeoutMs));
+                () -> talon.configRemoteFeedbackFilter(deviceID, remoteSensorSource, remoteOrdinal, TIMEOUT_MS));
     }
 
     public TalonEnhanced configRemoteFeedbackFilter(CANCoder canCoderRef, int remoteOrdinal) {
-        return this.autoRetry(() -> m_talon.configRemoteFeedbackFilter(canCoderRef, remoteOrdinal, kTimeoutMs));
+        return this.autoRetry(() -> talon.configRemoteFeedbackFilter(canCoderRef, remoteOrdinal, TIMEOUT_MS));
     }
 
     public TalonEnhanced configRemoteFeedbackFilter(BaseTalon talonRef, int remoteOrdinal) {
-        return this.autoRetry(() -> m_talon.configRemoteFeedbackFilter(talonRef, remoteOrdinal, kTimeoutMs));
+        return this.autoRetry(() -> talon.configRemoteFeedbackFilter(talonRef, remoteOrdinal, TIMEOUT_MS));
     }
 
     public TalonEnhanced configSensorTerm(SensorTerm sensorTerm, FeedbackDevice feedbackDevice) {
-        return this.autoRetry(() -> m_talon.configSensorTerm(sensorTerm, feedbackDevice, kTimeoutMs));
+        return this.autoRetry(() -> talon.configSensorTerm(sensorTerm, feedbackDevice, TIMEOUT_MS));
     }
 
     public double getSelectedSensorPosition(int pidIdx) {
-        return m_talon.getSelectedSensorPosition(pidIdx);
+        return talon.getSelectedSensorPosition(pidIdx);
     }
 
     public double getSelectedSensorVelocity(int pidIdx) {
-        return m_talon.getSelectedSensorVelocity(pidIdx);
+        return talon.getSelectedSensorVelocity(pidIdx);
     }
 
     public TalonEnhanced setSelectedSensorPosition(double sensorPos, int pidIdx) {
-        return this.autoRetry(() -> m_talon.setSelectedSensorPosition(sensorPos, pidIdx, kTimeoutMs));
+        return this.autoRetry(() -> talon.setSelectedSensorPosition(sensorPos, pidIdx, TIMEOUT_MS));
     }
 
     public TalonEnhanced setControlFramePeriod(ControlFrame frame, int periodMs) {
-        return this.autoRetry(() -> m_talon.setControlFramePeriod(frame, periodMs));
+        return this.autoRetry(() -> talon.setControlFramePeriod(frame, periodMs));
     }
 
     public TalonEnhanced setStatusFramePeriod(StatusFrame frame, int periodMs) {
-        return this.autoRetry(() -> m_talon.setStatusFramePeriod(frame, periodMs, kTimeoutMs));
+        return this.autoRetry(() -> talon.setStatusFramePeriod(frame, periodMs, TIMEOUT_MS));
     }
 
     public int getStatusFramePeriod(StatusFrame frame) {
-        return m_talon.getStatusFramePeriod(frame, kTimeoutMs);
+        return talon.getStatusFramePeriod(frame, TIMEOUT_MS);
     }
 
     public TalonEnhanced configForwardLimitSwitchSource(RemoteLimitSwitchSource type,
             LimitSwitchNormal normalOpenOrClose, int deviceID) {
         return this
-                .autoRetry(() -> m_talon.configForwardLimitSwitchSource(type, normalOpenOrClose, deviceID, kTimeoutMs));
+                .autoRetry(() -> talon.configForwardLimitSwitchSource(type, normalOpenOrClose, deviceID, TIMEOUT_MS));
     }
 
     public TalonEnhanced configReverseLimitSwitchSource(RemoteLimitSwitchSource type,
             LimitSwitchNormal normalOpenOrClose, int deviceID) {
         return this
-                .autoRetry(() -> m_talon.configReverseLimitSwitchSource(type, normalOpenOrClose, deviceID, kTimeoutMs));
+                .autoRetry(() -> talon.configReverseLimitSwitchSource(type, normalOpenOrClose, deviceID, TIMEOUT_MS));
     }
 
     public TalonEnhanced overrideLimitSwitchesEnable(boolean enable) {
-        m_talon.overrideLimitSwitchesEnable(enable);
+        talon.overrideLimitSwitchesEnable(enable);
         return this;
     }
 
     public TalonEnhanced configForwardSoftLimitThreshold(double forwardSensorLimit) {
-        return this.autoRetry(() -> m_talon.configForwardSoftLimitThreshold(forwardSensorLimit, kTimeoutMs));
+        return this.autoRetry(() -> talon.configForwardSoftLimitThreshold(forwardSensorLimit, TIMEOUT_MS));
     }
 
     public TalonEnhanced configReverseSoftLimitThreshold(double reverseSensorLimit) {
-        return this.autoRetry(() -> m_talon.configReverseSoftLimitThreshold(reverseSensorLimit, kTimeoutMs));
+        return this.autoRetry(() -> talon.configReverseSoftLimitThreshold(reverseSensorLimit, TIMEOUT_MS));
     }
 
     public TalonEnhanced configForwardSoftLimitEnable(boolean enable) {
-        return this.autoRetry(() -> m_talon.configForwardSoftLimitEnable(enable, kTimeoutMs));
+        return this.autoRetry(() -> talon.configForwardSoftLimitEnable(enable, TIMEOUT_MS));
     }
 
     public TalonEnhanced configReverseSoftLimitEnable(boolean enable) {
-        return this.autoRetry(() -> m_talon.configReverseSoftLimitEnable(enable, kTimeoutMs));
+        return this.autoRetry(() -> talon.configReverseSoftLimitEnable(enable, TIMEOUT_MS));
     }
 
     public TalonEnhanced overrideSoftLimitsEnable(boolean enable) {
-        m_talon.overrideLimitSwitchesEnable(enable);
+        talon.overrideSoftLimitsEnable(enable);
         return this;
     }
 
 
-    private double m_last_kP = Double.NaN;
+    private double last_kP = Double.NaN;
 
     public TalonEnhanced config_kP(int slotIdx, double value) {
-        if (m_last_kP != value) {
-            m_last_kP = value;
-            return this.autoRetry(() -> m_talon.config_kP(slotIdx, value, kTimeoutMs));
-        } else
+        if (last_kP != value) {
+            last_kP = value;
+            return this.autoRetry(() -> talon.config_kP(slotIdx, value, TIMEOUT_MS));
+        } else {
             return this;
+        }
     }
 
-    private double m_last_kI = Double.NaN;
+    private double last_kI = Double.NaN;
 
     public TalonEnhanced config_kI(int slotIdx, double value) {
-        if (m_last_kI != value) {
-            m_last_kI = value;
-            return this.autoRetry(() -> m_talon.config_kI(slotIdx, value, kTimeoutMs));
-        } else
+        if (last_kI != value) {
+            last_kI = value;
+            return this.autoRetry(() -> talon.config_kI(slotIdx, value, TIMEOUT_MS));
+        } else {
             return this;
+        }
     }
 
-    private double m_last_kD = Double.NaN;
+    private double last_kD = Double.NaN;
 
     public TalonEnhanced config_kD(int slotIdx, double value) {
-        if (m_last_kD != value) {
-            m_last_kD = value;
-            return this.autoRetry(() -> m_talon.config_kD(slotIdx, value, kTimeoutMs));
-        } else
+        if (last_kD != value) {
+            last_kD = value;
+            return this.autoRetry(() -> talon.config_kD(slotIdx, value, TIMEOUT_MS));
+        } else {
             return this;
+        }
     }
 
-    private double m_last_kF = Double.NaN;
+    private double last_kF = Double.NaN;
 
     public TalonEnhanced config_kF(int slotIdx, double value) {
-        if (m_last_kF != value) {
-            m_last_kF = value;
-            return this.autoRetry(() -> m_talon.config_kF(slotIdx, value, kTimeoutMs));
-        } else
+        if (last_kF != value) {
+            last_kF = value;
+            return this.autoRetry(() -> talon.config_kF(slotIdx, value, TIMEOUT_MS));
+        } else {
             return this;
+        }
     }
 
-    private double m_lastIzone = Double.NaN;
+    private double lastIZone = Double.NaN;
 
-    public TalonEnhanced config_IntegralZone(int slotIdx, double izone) {
-        if (m_lastIzone != izone) {
-            m_lastIzone = izone;
-            return this.autoRetry(() -> m_talon.config_IntegralZone(slotIdx, izone, kTimeoutMs));
-        } else
+    public TalonEnhanced configIntegralZone(int slotIdx, double iZone) {
+        if (lastIZone != iZone) {
+            lastIZone = iZone;
+            return this.autoRetry(() -> talon.config_IntegralZone(slotIdx, iZone, TIMEOUT_MS));
+        } else {
             return this;
+        }
     }
 
-    private double m_lastAllowableCloseLoopError = Double.NaN;
+    private double lastAllowableCloseLoopError = Double.NaN;
 
-    public TalonEnhanced configAllowableClosedloopError(int slotIdx, double allowableCloseLoopError) {
-        if (m_lastAllowableCloseLoopError != allowableCloseLoopError) {
-            m_lastAllowableCloseLoopError = allowableCloseLoopError;
+    public TalonEnhanced configAllowableClosedLoopError(int slotIdx, double allowableCloseLoopError) {
+        if (lastAllowableCloseLoopError != allowableCloseLoopError) {
+            lastAllowableCloseLoopError = allowableCloseLoopError;
             return this.autoRetry(
-                    () -> m_talon.configAllowableClosedloopError(slotIdx, allowableCloseLoopError, kTimeoutMs));
-        } else
+                    () -> talon.configAllowableClosedloopError(slotIdx, allowableCloseLoopError, TIMEOUT_MS));
+        } else {
             return this;
+        }
     }
 
-    private double m_lastMaxIaccum = Double.NaN;
+    private double lastMaxIAccumulator = Double.NaN;
 
-    public TalonEnhanced configMaxIntegralAccumulator(int slotIdx, double maxIaccum) {
-        if (m_lastMaxIaccum != maxIaccum) {
-            m_lastMaxIaccum = maxIaccum;
-            return this.autoRetry(() -> m_talon.configMaxIntegralAccumulator(slotIdx, maxIaccum, kTimeoutMs));
-        } else
+    public TalonEnhanced configMaxIntegralAccumulator(int slotIdx, double maxIAccumulator) {
+        if (lastMaxIAccumulator != maxIAccumulator) {
+            lastMaxIAccumulator = maxIAccumulator;
+            return this.autoRetry(() -> talon.configMaxIntegralAccumulator(slotIdx, maxIAccumulator, TIMEOUT_MS));
+        } else {
             return this;
+        }
     }
 
     public TalonEnhanced configClosedLoopPeakOutput(int slotIdx, double percentOut) {
-        return this.autoRetry(() -> m_talon.configClosedLoopPeakOutput(slotIdx, percentOut, kTimeoutMs));
+        return this.autoRetry(() -> talon.configClosedLoopPeakOutput(slotIdx, percentOut, TIMEOUT_MS));
     }
 
     public TalonEnhanced configClosedLoopPeriod(int slotIdx, int loopTimeMs) {
-        return this.autoRetry(() -> m_talon.configClosedLoopPeriod(slotIdx, loopTimeMs, kTimeoutMs));
+        return this.autoRetry(() -> talon.configClosedLoopPeriod(slotIdx, loopTimeMs, TIMEOUT_MS));
     }
 
     public TalonEnhanced configAuxPIDPolarity(boolean invert) {
-        return this.autoRetry(() -> m_talon.configAuxPIDPolarity(invert, kTimeoutMs));
+        return this.autoRetry(() -> talon.configAuxPIDPolarity(invert, TIMEOUT_MS));
     }
 
-    public TalonEnhanced setIntegralAccumulator(double iaccum, int pidIdx) {
-        return this.autoRetry(() -> m_talon.setIntegralAccumulator(iaccum, pidIdx, kTimeoutMs));
+    public TalonEnhanced setIntegralAccumulator(double iAccumulator, int pidIdx) {
+        return this.autoRetry(() -> talon.setIntegralAccumulator(iAccumulator, pidIdx, TIMEOUT_MS));
     }
 
     public double getClosedLoopError(int pidIdx) {
-        return m_talon.getClosedLoopError(pidIdx);
+        return talon.getClosedLoopError(pidIdx);
     }
 
     public double getIntegralAccumulator(int pidIdx) {
-        return m_talon.getIntegralAccumulator(pidIdx);
+        return talon.getIntegralAccumulator(pidIdx);
     }
 
     public double getErrorDerivative(int pidIdx) {
-        return m_talon.getErrorDerivative(pidIdx);
+        return talon.getErrorDerivative(pidIdx);
     }
 
     public TalonEnhanced selectProfileSlot(int slotIdx, int pidIdx) {
-        m_talon.selectProfileSlot(slotIdx, pidIdx);
+        talon.selectProfileSlot(slotIdx, pidIdx);
         return this;
     }
 
     public double getClosedLoopTarget(int pidIdx) {
-        return m_talon.getClosedLoopTarget(pidIdx);
+        return talon.getClosedLoopTarget(pidIdx);
     }
 
     public double getActiveTrajectoryPosition() {
-        return m_talon.getActiveTrajectoryPosition();
+        return talon.getActiveTrajectoryPosition();
     }
 
     public double getActiveTrajectoryVelocity() {
-        return m_talon.getActiveTrajectoryVelocity();
+        return talon.getActiveTrajectoryVelocity();
     }
 
-    private double m_lastCruiseVelocity = Double.NaN;
+    private double lastCruiseVelocity = Double.NaN;
 
     public TalonEnhanced configMotionCruiseVelocity(double cruiseVelocity) {
-        if (m_lastCruiseVelocity != cruiseVelocity) {
-            m_lastCruiseVelocity = cruiseVelocity;
-            return this.autoRetry(() -> m_talon.configMotionCruiseVelocity(cruiseVelocity, kTimeoutMs));
-        } else
+        if (lastCruiseVelocity != cruiseVelocity) {
+            lastCruiseVelocity = cruiseVelocity;
+            return this.autoRetry(() -> talon.configMotionCruiseVelocity(cruiseVelocity, TIMEOUT_MS));
+        } else {
             return this;
+        }
     }
 
-    private double m_lastAccel = Double.NaN;
+    private double lastAccel = Double.NaN;
 
     public TalonEnhanced configMotionAcceleration(double accel) {
-        if (m_lastAccel != accel) {
-            m_lastAccel = accel;
-            return this.autoRetry(() -> m_talon.configMotionAcceleration(accel, kTimeoutMs));
-        } else
+        if (lastAccel != accel) {
+            lastAccel = accel;
+            return this.autoRetry(() -> talon.configMotionAcceleration(accel, TIMEOUT_MS));
+        } else {
             return this;
+        }
     }
 
     public TalonEnhanced configMotionSCurveStrength(int curveStrength) {
-        return this.autoRetry(() -> m_talon.configMotionSCurveStrength(curveStrength, kTimeoutMs));
+        return this.autoRetry(() -> talon.configMotionSCurveStrength(curveStrength, TIMEOUT_MS));
     }
 
-    public TalonEnhanced configMotionProfileTrajectoryPeriod(int baseTrajDurationMs) {
-        return this.autoRetry(() -> m_talon.configMotionProfileTrajectoryPeriod(baseTrajDurationMs, kTimeoutMs));
+    public TalonEnhanced configMotionProfileTrajectoryPeriod(int baseTrajectoryDurationMS) {
+        return this.autoRetry(() -> talon.configMotionProfileTrajectoryPeriod(baseTrajectoryDurationMS, TIMEOUT_MS));
     }
 
     public TalonEnhanced clearMotionProfileTrajectories() {
-        return this.autoRetry(() -> m_talon.clearMotionProfileTrajectories());
+        return this.autoRetry(talon::clearMotionProfileTrajectories);
     }
 
     public int getMotionProfileTopLevelBufferCount() {
-        return m_talon.getMotionProfileTopLevelBufferCount();
+        return talon.getMotionProfileTopLevelBufferCount();
     }
 
-    public TalonEnhanced pushMotionProfileTrajectory(TrajectoryPoint trajPt) {
-        return this.autoRetry(() -> m_talon.pushMotionProfileTrajectory(trajPt));
+    public TalonEnhanced pushMotionProfileTrajectory(TrajectoryPoint trajectoryPoint) {
+        return this.autoRetry(() -> talon.pushMotionProfileTrajectory(trajectoryPoint));
     }
 
     public boolean isMotionProfileTopLevelBufferFull() {
-        return m_talon.isMotionProfileTopLevelBufferFull();
+        return talon.isMotionProfileTopLevelBufferFull();
     }
 
     public TalonEnhanced processMotionProfileBuffer() {
-        m_talon.processMotionProfileBuffer();
+        talon.processMotionProfileBuffer();
 
         return this;
     }
 
     public TalonEnhanced getMotionProfileStatus(MotionProfileStatus statusToFill) {
-        return this.autoRetry(() -> m_talon.getMotionProfileStatus(statusToFill));
+        return this.autoRetry(() -> talon.getMotionProfileStatus(statusToFill));
     }
 
-    public TalonEnhanced clearMotionProfileHasUnderrun() {
-        return this.autoRetry(() -> m_talon.clearMotionProfileHasUnderrun(kTimeoutMs));
+    public TalonEnhanced clearMotionProfileHasUnderRun() {
+        return this.autoRetry(() -> talon.clearMotionProfileHasUnderrun(TIMEOUT_MS));
     }
 
     public TalonEnhanced changeMotionControlFramePeriod(int periodMs) {
-        return this.autoRetry(() -> m_talon.changeMotionControlFramePeriod(periodMs));
+        return this.autoRetry(() -> talon.changeMotionControlFramePeriod(periodMs));
     }
 
     public ErrorCode getLastError() {
-        return m_talon.getLastError();
+        return talon.getLastError();
     }
 
     public TalonEnhanced getFaults(Faults toFill) {
-        return this.autoRetry(() -> m_talon.getFaults(toFill));
+        return this.autoRetry(() -> talon.getFaults(toFill));
     }
 
     public TalonEnhanced getStickyFaults(StickyFaults toFill) {
-        return this.autoRetry(() -> m_talon.getStickyFaults(toFill));
+        return this.autoRetry(() -> talon.getStickyFaults(toFill));
     }
 
     public TalonEnhanced clearStickyFaults() {
-        return this.autoRetry(() -> m_talon.clearStickyFaults(kTimeoutMs));
+        return this.autoRetry(() -> talon.clearStickyFaults(TIMEOUT_MS));
     }
 
     public int getFirmwareVersion() {
-        return m_talon.getFirmwareVersion();
+        return talon.getFirmwareVersion();
     }
 
 
     public boolean hasResetOccurred() {
-        return m_talon.hasResetOccurred();
+        return talon.hasResetOccurred();
     }
 
     public TalonEnhanced configSetCustomParam(int newValue, int paramIndex) {
-        return this.autoRetry(() -> m_talon.configSetCustomParam(newValue, paramIndex, kTimeoutMs));
+        return this.autoRetry(() -> talon.configSetCustomParam(newValue, paramIndex, TIMEOUT_MS));
     }
 
     public int configGetCustomParam(int paramIndex) {
-        return m_talon.configGetCustomParam(paramIndex, kTimeoutMs);
+        return talon.configGetCustomParam(paramIndex, TIMEOUT_MS);
     }
 
     public TalonEnhanced configSetParameter(ParamEnum param, double value, int subValue, int ordinal) {
-        return this.autoRetry(() -> m_talon.configSetParameter(param, value, subValue, ordinal, kTimeoutMs));
+        return this.autoRetry(() -> talon.configSetParameter(param, value, subValue, ordinal, TIMEOUT_MS));
     }
 
     public TalonEnhanced configSetParameter(int param, double value, int subValue, int ordinal) {
-        return this.autoRetry(() -> m_talon.configSetParameter(param, value, subValue, ordinal, kTimeoutMs));
+        return this.autoRetry(() -> talon.configSetParameter(param, value, subValue, ordinal, TIMEOUT_MS));
     }
 
     public double configGetParameter(ParamEnum paramEnum, int ordinal) {
-        return m_talon.configGetParameter(paramEnum, ordinal, kTimeoutMs);
+        return talon.configGetParameter(paramEnum, ordinal, TIMEOUT_MS);
     }
 
     public double configGetParameter(int paramEnum, int ordinal) {
-        return m_talon.configGetParameter(paramEnum, ordinal, kTimeoutMs);
+        return talon.configGetParameter(paramEnum, ordinal, TIMEOUT_MS);
     }
 
     public int getBaseID() {
-        return m_talon.getBaseID();
+        return talon.getBaseID();
     }
 
     public int getDeviceID() {
-        return m_talon.getDeviceID();
+        return talon.getDeviceID();
     }
 
     public ControlMode getControlMode() {
-        return m_talon.getControlMode();
+        return talon.getControlMode();
     }
 
     public TalonEnhanced follow(IMotorController masterToFollow) {
-        m_talon.follow(masterToFollow);
+        talon.follow(masterToFollow);
 
         return this;
     }
 
     public TalonEnhanced follow(TalonEnhanced masterToFollow) {
-        return this.follow(masterToFollow.m_talon);
+        return this.follow(masterToFollow.talon);
     }
 
     public TalonEnhanced configSelectedFeedbackSensor(FeedbackDevice feedbackDevice, int pidIdx) {
-        return this.autoRetry(() -> m_talon.configSelectedFeedbackSensor(feedbackDevice, pidIdx, kTimeoutMs));
+        return this.autoRetry(() -> talon.configSelectedFeedbackSensor(feedbackDevice, pidIdx, TIMEOUT_MS));
     }
 
     public TalonEnhanced configSupplyCurrentLimit(SupplyCurrentLimitConfiguration currLimitCfg) {
-        return this.autoRetry(() -> m_talon.configSupplyCurrentLimit(currLimitCfg, kTimeoutMs));
+        return this.autoRetry(() -> talon.configSupplyCurrentLimit(currLimitCfg, TIMEOUT_MS));
     }
 
     public TalonEnhanced setStatusFramePeriod(StatusFrameEnhanced frame, int periodMs) {
-        return this.autoRetry(() -> m_talon.setStatusFramePeriod(frame, periodMs, kTimeoutMs));
+        return this.autoRetry(() -> talon.setStatusFramePeriod(frame, periodMs, TIMEOUT_MS));
     }
 
     public int getStatusFramePeriod(StatusFrameEnhanced frame) {
-        return m_talon.getStatusFramePeriod(frame, kTimeoutMs);
+        return talon.getStatusFramePeriod(frame, TIMEOUT_MS);
     }
 
     public TalonEnhanced setFeedbackIntervals(int intervalMs) {
         return this
-                .autoRetry(() -> m_talon.setStatusFramePeriod(
-                        StatusFrameEnhanced.Status_2_Feedback0, intervalMs, kTimeoutMs))
-                .autoRetry(() -> m_talon.setStatusFramePeriod(
-                        StatusFrameEnhanced.Status_Brushless_Current, intervalMs, kTimeoutMs));
+                .autoRetry(() -> talon.setStatusFramePeriod(
+                        StatusFrameEnhanced.Status_2_Feedback0, intervalMs, TIMEOUT_MS))
+                .autoRetry(() -> talon.setStatusFramePeriod(
+                        StatusFrameEnhanced.Status_Brushless_Current, intervalMs, TIMEOUT_MS));
     }
 
     public TalonEnhanced setControlIntervals(int intervalMs) {
-        return this.autoRetry(() -> m_talon.setControlFramePeriod(ControlFrame.Control_3_General, intervalMs));
+        return this.autoRetry(() -> talon.setControlFramePeriod(ControlFrame.Control_3_General, intervalMs));
     }
 
     public TalonEnhanced setAllStatusIntervals(int intervalMs) {
         for (StatusFrameEnhanced frame : StatusFrameEnhanced.values()) {
-            this.autoRetry(() -> m_talon.setStatusFramePeriod(frame, intervalMs, kTimeoutMs));
+            this.autoRetry(() -> talon.setStatusFramePeriod(frame, intervalMs, TIMEOUT_MS));
         }
         return this;
     }
 
     public TalonEnhanced defaultFrameIntervals() {
-        return this.setAllStatusIntervals(kSlowFrameMs).setControlIntervals(kFastFrameMs);
+        return this.setAllStatusIntervals(SLOW_FRAME_MS).setControlIntervals(FAST_FRAME_MS);
     }
 
     public double getOutputCurrent() {
-        return m_talon.getMotorOutputVoltage();
+        return talon.getMotorOutputVoltage();
     }
 
     public TalonEnhanced configVelocityMeasurementPeriod(SensorVelocityMeasPeriod period) {
-        return this.autoRetry(() -> m_talon.configVelocityMeasurementPeriod(period, kTimeoutMs));
+        return this.autoRetry(() -> talon.configVelocityMeasurementPeriod(period, TIMEOUT_MS));
     }
 
     public TalonEnhanced configVelocityMeasurementWindow(int windowSize) {
-        return this.autoRetry(() -> m_talon.configVelocityMeasurementWindow(windowSize, kTimeoutMs));
+        return this.autoRetry(() -> talon.configVelocityMeasurementWindow(windowSize, TIMEOUT_MS));
     }
 
     public TalonEnhanced configForwardLimitSwitchSource(LimitSwitchSource type, LimitSwitchNormal normalOpenOrClose) {
-        return this.autoRetry(() -> m_talon.configForwardLimitSwitchSource(type, normalOpenOrClose, kTimeoutMs));
+        return this.autoRetry(() -> talon.configForwardLimitSwitchSource(type, normalOpenOrClose, TIMEOUT_MS));
     }
 
     public TalonEnhanced configReverseLimitSwitchSource(LimitSwitchSource type, LimitSwitchNormal normalOpenOrClose) {
-        return this.autoRetry(() -> m_talon.configReverseLimitSwitchSource(type, normalOpenOrClose, kTimeoutMs));
+        return this.autoRetry(() -> talon.configReverseLimitSwitchSource(type, normalOpenOrClose, TIMEOUT_MS));
     }
 }
