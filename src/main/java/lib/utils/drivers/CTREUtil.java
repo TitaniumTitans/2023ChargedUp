@@ -4,7 +4,7 @@ import com.ctre.phoenix.ErrorCode;
 import edu.wpi.first.wpilibj.DriverStation;
 public class CTREUtil {
     public interface ConfigCall {
-        abstract ErrorCode run();
+        ErrorCode run();
     }
 
     private static final int MAX_RETRY_COUNT = 3;
@@ -12,15 +12,6 @@ public class CTREUtil {
 
     public static boolean hasError(ErrorCode err) {
         return err != ErrorCode.OK;
-    }
-
-    public static void reportError(ErrorCode err, boolean warning) {
-        String msg = String.format("Error: %s", err.toString());
-        if (warning) {
-            DriverStation.reportWarning(msg, false);
-        } else {
-            DriverStation.reportError(msg, false);
-        }
     }
 
     public static ErrorCode autoRetry(ConfigCall configCall) {
@@ -33,7 +24,6 @@ public class CTREUtil {
             // If there is an error, wait for a short period and try again.
             // Otherwise, break the loop
             if(hasError(err)) {
-                //DriverStation.reportWarning(String.format("Try #%d failed: %s. Retrying...", i+1, err.toString()), false);
                 try {
                     // Some tools recommended against this, but because we are dealing with hardware, this should be sufficient.
                     Thread.sleep(RETRY_DELAY_MS);
