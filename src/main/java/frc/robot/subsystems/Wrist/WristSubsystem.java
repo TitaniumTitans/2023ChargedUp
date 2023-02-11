@@ -49,6 +49,10 @@ public class WristSubsystem extends SubsystemBase{
         return m_io.getIntakeAmps();
     }
 
+    public boolean wristAtSetpoint() {
+        return m_io.wristAtSetpoint();
+    }
+
     @Override
     public void periodic() {
         SmartDashboard.putBoolean("Wrist At Limit", atLimit());

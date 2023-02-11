@@ -71,6 +71,14 @@ public class ArmSubsystem extends SubsystemBase {
         });
     }
 
+    public boolean armAngleAtSetpoint() {
+        return m_io.armAngleAtSetpoint();
+    }
+
+    public boolean armExstentionAtSetpoint() {
+        return m_io.armExstentionAtSetpoint();
+    }
+
     public void periodic() {
         m_io.updateInputs(m_input);
         Logger.getInstance().processInputs("Arm", m_input);
