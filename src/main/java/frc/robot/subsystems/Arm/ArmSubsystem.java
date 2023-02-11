@@ -79,6 +79,10 @@ public class ArmSubsystem extends SubsystemBase {
         SmartDashboard.putBoolean("Encoder Connected?", m_io.encoderConnected());
 
         // m_io.setArmAngle(armAngle);
+
+        if (m_io.armAtLowerLimit()) {
+            m_io.resetExstentionEncoder();
+        }
     }
 
 }

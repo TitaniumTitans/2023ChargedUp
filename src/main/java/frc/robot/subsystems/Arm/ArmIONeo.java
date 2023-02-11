@@ -89,14 +89,21 @@ public class ArmIONeo implements ArmIO {
         double setpoint = MathUtil.clamp(extension, ArmConstants.EXT_LOWER_LIMIT, ArmConstants.EXT_HIGHER_LIMIT);
         double pidOutput = MathUtil.clamp(m_extPID.calculate(getArmExtension(), setpoint), -0.5, 0.5);
 
-        if(armAtLowerLimit() && pidOutput <= 0) {
+        SmartDashboard.putNumber("Exstention Setpoint", setpoint);
+        SmartDashboard.putNumber("PID Output", pidOutput);
+        SmartDashboard.putBoolean("At Lower Limit", armAtLowerLimit());
+
+        if(armAtLowerLimit() && pidOutput <= 0){
+            m_ArmEx.set(0);
+        } else
+        {
             m_ArmEx.set(pidOutput);
         }
     }
 
     @Override
     public double getArmExtension() {
-        return m_relativeEncoderArmEx.getPosition();
+        return m_relativeEncoderArmEx.getPosition() * ArmConstants.EXTENSION_RATIO;
     }
 
     @Override
@@ -124,7 +131,13 @@ public class ArmIONeo implements ArmIO {
         return m_encoderArmAngle.isConnected();
     }
 
+    @Override
     public boolean armAtLowerLimit() {
         return !m_armLimitSwitch.get();
+    }
+
+    @Override
+    public void resetExstentionEncoder() {
+        m_relativeEncoderArmEx.setPosition(0.0);
     }
 }

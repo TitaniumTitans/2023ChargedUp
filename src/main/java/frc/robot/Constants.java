@@ -117,7 +117,7 @@ public final class Constants {
         public static final double KI_ANGLE = 0.005;
         public static final double KD_ANGLE = 0.0075;
 
-        public static final double ARM_EXT_KP = 0;
+        public static final double ARM_EXT_KP = 0.1;
         public static final double ARM_EXT_KI = 0;
         public static final double ARM_EXT_KD = 0;
         
