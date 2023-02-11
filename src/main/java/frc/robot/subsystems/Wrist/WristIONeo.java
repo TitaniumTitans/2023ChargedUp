@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import com.playingwithfusion.TimeOfFlight;
 import com.playingwithfusion.TimeOfFlight.RangingMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.WristConstants;
 
 public class WristIONeo implements WristIO{
@@ -43,12 +44,18 @@ public class WristIONeo implements WristIO{
     //Setters
     @Override
     public void setWristAngle(double angle) {
-        double setpoint = MathUtil.clamp(angle, WristConstants.WRIST_LOWER_LIMIT, WristConstants.WRIST_UPPER_LIMIT);
-        double output = MathUtil.clamp(m_wristPID.calculate(getWristAngle(), setpoint), -0.5, 0.5);
 
-        if (true) {
-            m_wristMotor.set(output);
-        }
+        double currentWristAngle = getWristAngle();
+        double setpoint = MathUtil.clamp(angle, WristConstants.WRIST_LOWER_LIMIT, WristConstants.WRIST_UPPER_LIMIT);
+        double output = MathUtil.clamp(m_wristPID.calculate(currentWristAngle, setpoint), -0.15, 0.15);
+
+
+        SmartDashboard.putNumber("Actual Wrist Angle", currentWristAngle);
+        SmartDashboard.putNumber("Target Angle", angle);
+        SmartDashboard.putNumber("Clamped Target Angle", setpoint);
+        SmartDashboard.putNumber("PID Output", output);
+
+        m_wristMotor.set(output);
     }
 
     @Override
@@ -74,7 +81,7 @@ public class WristIONeo implements WristIO{
     //Getters
     @Override
     public double getWristAngle() {
-        return m_wristEncoder.getPosition();
+        return m_wristEncoder.getPosition() / WristConstants.WRIST_PIVOT_RATIO;
     }
 
     @Override

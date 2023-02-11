@@ -101,10 +101,8 @@ public class RobotContainer {
     m_driveController.leftTrigger().whileTrue(m_wrist.setIntakeSpeedFactory(-1))
       .whileFalse(m_wrist.setIntakeSpeedFactory(0.0));
 
-    m_driveController.rightBumper().whileTrue(m_arm.setArmExtentionFactory(0.25))
-      .whileFalse(m_arm.setArmExtentionFactory(0.0));
-    m_driveController.leftBumper().whileTrue(m_arm.setArmExtentionFactory(-0.25))
-      .whileFalse(m_arm.setArmExtentionFactory(0.0));
+    m_driveController.rightBumper().whileTrue(new WristToSetpointCommand(m_wrist, 45.0));
+    m_driveController.leftBumper().whileTrue(new WristToSetpointCommand(m_wrist, 0.0));
   }
 
   /**
@@ -126,9 +124,9 @@ public class RobotContainer {
     testCommands.add("Arm to 40", new ArmToSetpoint(m_arm, 40));
     testCommands.add("Arm to 140", new ArmToSetpoint(m_arm, 140));
 
-    testCommands.add("Arm to 0", new WristToSetpointCommand(m_wrist, 0));
-    testCommands.add("Arm to 45", new WristToSetpointCommand(m_wrist, 45));
-    testCommands.add("Arm to 90", new WristToSetpointCommand(m_wrist, 90));
+    testCommands.add("Wrist to 0", new WristToSetpointCommand(m_wrist, 0));
+    testCommands.add("Wrist to 20", new WristToSetpointCommand(m_wrist, 20));
+    testCommands.add("Wrist to -20", new WristToSetpointCommand(m_wrist, -20));
   }
 
   /**
