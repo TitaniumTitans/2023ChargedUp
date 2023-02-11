@@ -37,6 +37,14 @@ public interface ArmIO {
     public default boolean encoderConnected() {
         return false;
     }
+
+    public default boolean armAngleAtSetpoint() {
+        return false;
+    }
+
+    public default boolean armExstentionAtSetpoint() {
+        return false;
+    }
     
     public default void resetExstentionEncoder() {}
 }

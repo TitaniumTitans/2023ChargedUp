@@ -56,10 +56,11 @@ public class ArmIONeo implements ArmIO {
         // m_sparkPID = m_armAngle.getPIDController();
         m_anglePID = new PIDController(ArmConstants.KP_ANGLE, ArmConstants.KI_ANGLE, 0.0);
 //        m_anglePID.enableContinuousInput(0, 360);
-        // m_anglePID.setTolerance(100);
+         m_anglePID.setTolerance(3);
 
         m_armLimitSwitch = new DigitalInput(ArmConstants.LIMIT_SWITCH_PORT);
         m_extPID = new PIDController(ArmConstants.ARM_EXT_KP, ArmConstants.ARM_EXT_KI, ArmConstants.ARM_EXT_KD);
+        m_extPID.setTolerance(0.5);
     }
 
     @Override
@@ -138,5 +139,15 @@ public class ArmIONeo implements ArmIO {
     @Override
     public void resetExstentionEncoder() {
         m_relativeEncoderArmEx.setPosition(0.0);
+    }
+
+    @Override
+    public boolean armAngleAtSetpoint() {
+        return m_anglePID.atSetpoint();
+    }
+
+    @Override
+    public boolean armExstentionAtSetpoint() {
+        return m_extPID.atSetpoint();
     }
 }
