@@ -389,6 +389,7 @@ public class TalonEnhanced {
 
     public TalonEnhanced configMotionCruiseVelocity(double cruiseVelocity) {
         if (m_lastCruiseVelocity != cruiseVelocity) {
+            m_lastCruiseVelocity = cruiseVelocity;
             return this.autoRetry(() -> m_talon.configMotionCruiseVelocity(cruiseVelocity, kTimeoutMs));
         } else
             return this;
