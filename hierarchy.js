@@ -35,12 +35,18 @@ var hierarchy =
       [ "frc.robot.subsystems.Wrist.WristIONeo", "classfrc_1_1robot_1_1subsystems_1_1_wrist_1_1_wrist_i_o_neo.html", null ]
     ] ],
     [ "CommandBase", null, [
+      [ "frc.robot.commands.ArmAngToSetpoint", "classfrc_1_1robot_1_1commands_1_1_arm_ang_to_setpoint.html", null ],
+      [ "frc.robot.commands.ArmExtToSetpoint", "classfrc_1_1robot_1_1commands_1_1_arm_ext_to_setpoint.html", null ],
       [ "frc.robot.commands.AutoBalance", "classfrc_1_1robot_1_1commands_1_1_auto_balance.html", null ],
-      [ "frc.robot.commands.MoveArmAngle", "classfrc_1_1robot_1_1commands_1_1_move_arm_angle.html", null ],
       [ "frc.robot.commands.SwerveTeleopDrive", "classfrc_1_1robot_1_1commands_1_1_swerve_teleop_drive.html", null ],
       [ "frc.robot.commands.Test.ArmExtendToSetpoint", "classfrc_1_1robot_1_1commands_1_1_test_1_1_arm_extend_to_setpoint.html", null ],
       [ "frc.robot.commands.Test.ArmToSetpoint", "classfrc_1_1robot_1_1commands_1_1_test_1_1_arm_to_setpoint.html", null ],
-      [ "frc.robot.commands.Test.WristToSetpointCommand", "classfrc_1_1robot_1_1commands_1_1_test_1_1_wrist_to_setpoint_command.html", null ]
+      [ "frc.robot.commands.Test.FullArmControlCommand", "classfrc_1_1robot_1_1commands_1_1_test_1_1_full_arm_control_command.html", null ],
+      [ "frc.robot.commands.Test.WristToSetpointCommand", "classfrc_1_1robot_1_1commands_1_1_test_1_1_wrist_to_setpoint_command.html", null ],
+      [ "frc.robot.commands.WristAngToSetpoint", "classfrc_1_1robot_1_1commands_1_1_wrist_ang_to_setpoint.html", null ]
+    ] ],
+    [ "ParallelCommandGroup", null, [
+      [ "frc.robot.commands.Test.TestArmFullCommandGroup", "classfrc_1_1robot_1_1commands_1_1_test_1_1_test_arm_full_command_group.html", null ]
     ] ],
     [ "Subsystem", null, [
       [ "frc.robot.subsystems.Vision.CameraSubsystem", "classfrc_1_1robot_1_1subsystems_1_1_vision_1_1_camera_subsystem.html", null ]

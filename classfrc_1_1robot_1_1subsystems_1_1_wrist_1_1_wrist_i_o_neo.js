@@ -10,5 +10,6 @@ var classfrc_1_1robot_1_1subsystems_1_1_wrist_1_1_wrist_i_o_neo =
     [ "setWristAngle", "classfrc_1_1robot_1_1subsystems_1_1_wrist_1_1_wrist_i_o_neo.html#a6b29bdf169077bc48c7dc7c0965c4eb8", null ],
     [ "setWristPower", "classfrc_1_1robot_1_1subsystems_1_1_wrist_1_1_wrist_i_o_neo.html#ae8608dc064a1d5220a3b80bb03395402", null ],
     [ "updateInputs", "classfrc_1_1robot_1_1subsystems_1_1_wrist_1_1_wrist_i_o_neo.html#afd3823584b657db0b5614f25797172a0", null ],
+    [ "wristAtSetpoint", "classfrc_1_1robot_1_1subsystems_1_1_wrist_1_1_wrist_i_o_neo.html#ae33c29b69e2b5770479d9f338f13caa1", null ],
     [ "zeroWristAngle", "classfrc_1_1robot_1_1subsystems_1_1_wrist_1_1_wrist_i_o_neo.html#ad5ba4a5da3203147919ce0fa9c8d7ac9", null ]
 ];
