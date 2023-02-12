@@ -1,18 +1,18 @@
-package frc.robot.commands.Test;
+package frc.robot.commands.test;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Arm.ArmSubsystem;
+import frc.robot.subsystems.arm.ArmSubsystem;
 
 
 public class FullArmControlCommand extends CommandBase {
     private final ArmSubsystem m_armSubsystem;
-    private final double Extension;
-    private final double Angle;
+    private final double extension;
+    private final double angle;
 
-    public FullArmControlCommand(ArmSubsystem armSubsystem, double InputExtension, double InputAngle) {
+    public FullArmControlCommand(ArmSubsystem armSubsystem, double inputExtension, double inputAngle) {
         m_armSubsystem = armSubsystem;
-        this.Extension = InputExtension;
-        this.Angle = InputAngle;
+        this.extension = inputExtension;
+        this.angle = inputAngle;
         // each subsystem used by the command must be passed into the
         // addRequirements() method (which takes a vararg of Subsystem)
         addRequirements(m_armSubsystem);
@@ -25,8 +25,8 @@ public class FullArmControlCommand extends CommandBase {
 
     @Override
     public void execute() {
-        m_armSubsystem.setArmAngle(Angle);
-        m_armSubsystem.setArmExtension(Extension);
+        m_armSubsystem.setArmAngle(angle);
+        m_armSubsystem.setArmExtension(extension);
     }
 
     @Override

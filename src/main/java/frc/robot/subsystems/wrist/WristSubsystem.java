@@ -1,11 +1,10 @@
-package frc.robot.subsystems.Wrist;
+package frc.robot.subsystems.wrist;
 
 import org.littletonrobotics.junction.Logger;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.WristConstants;
 
 public class WristSubsystem extends SubsystemBase{
     private WristIO m_io;

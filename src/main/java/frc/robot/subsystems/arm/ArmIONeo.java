@@ -1,4 +1,4 @@
-package frc.robot.subsystems.Arm;
+package frc.robot.subsystems.arm;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
@@ -76,7 +76,7 @@ public class ArmIONeo implements ArmIO {
     }
 
     @Override
-    public void setArmExtentionSpeed(double speed) {
+    public void setArmExtensionSpeed(double speed) {
         if(armAtLowerLimit() && speed <= 0){
             m_ArmEx.set(0);
         } else 
@@ -96,8 +96,7 @@ public class ArmIONeo implements ArmIO {
 
         if(armAtLowerLimit() && pidOutput <= 0){
             m_ArmEx.set(0);
-        } else
-        {
+        } else {
             m_ArmEx.set(pidOutput);
         }
     }
