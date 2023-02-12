@@ -52,8 +52,8 @@ public class CameraSubsystem implements Subsystem {
         Optional<EstimatedRobotPose> estimate = m_photonPoseEstimator.update();
         if (estimate.isPresent()) {
             EstimatedRobotPose pose = estimate.get();
-            SmartDashboard.putNumber("Estimate X pose", pose.estimatedPose.getX());
-            SmartDashboard.putNumber("Estimate Y pose", pose.estimatedPose.getY());
+            SmartDashboard.putNumber("Vision only X pose", pose.estimatedPose.getX());
+            SmartDashboard.putNumber("vision only Y pose", pose.estimatedPose.getY());
         }
 
         return estimate;
