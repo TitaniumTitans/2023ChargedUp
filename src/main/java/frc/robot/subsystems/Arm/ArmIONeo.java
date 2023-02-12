@@ -72,7 +72,10 @@ public class ArmIONeo implements ArmIO {
 
     @Override
     public void setAngleSpeed(double speed) {
-        m_armAngleMaster.set(speed);
+        if ((getArmAngle() == ArmConstants.K_REVERSE_LIMIT && speed <= 0)
+            || (getArmAngle() ==ArmConstants.K_FORWARD_LIMIT && speed >= 0)) {
+            m_armAngleMaster.set(speed);
+        }
     }
 
     @Override
