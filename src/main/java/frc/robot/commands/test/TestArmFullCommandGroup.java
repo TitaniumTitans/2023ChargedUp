@@ -1,12 +1,10 @@
-package frc.robot.commands.Test;
+package frc.robot.commands.test;
 
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import frc.robot.commands.ArmAngToSetpoint;
-import frc.robot.commands.ArmExtToSetpoint;
 import frc.robot.commands.WristAngToSetpoint;
-import frc.robot.subsystems.Arm.ArmSubsystem;
-import frc.robot.subsystems.Wrist.WristSubsystem;
+import frc.robot.subsystems.arm.ArmSubsystem;
+import frc.robot.subsystems.wrist.WristSubsystem;
 
 public class TestArmFullCommandGroup extends ParallelCommandGroup {
 

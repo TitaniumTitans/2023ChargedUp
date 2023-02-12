@@ -1,7 +1,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Arm.ArmSubsystem;
+import frc.robot.subsystems.arm.ArmSubsystem;
 
 
 public class ArmExtToSetpoint extends CommandBase {
@@ -49,7 +49,7 @@ public class ArmExtToSetpoint extends CommandBase {
      */
     @Override
     public boolean isFinished() {
-        return m_armSubsystem.armExstentionAtSetpoint();
+        return m_armSubsystem.armExstensionAtSetpoint();
     }
 
     /**

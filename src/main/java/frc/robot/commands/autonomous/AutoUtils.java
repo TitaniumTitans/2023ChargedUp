@@ -1,6 +1,8 @@
-package frc.robot.commands.Autonomous;
+package frc.robot.commands.autonomous;
 
 import java.util.HashMap;
+import java.util.Map;
+
 import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
@@ -18,8 +20,13 @@ import frc.robot.subsystems.swerve.SwerveDrivetrain;
 
 
 public class AutoUtils {
+
+    private AutoUtils() {
+        throw new IllegalStateException("Utility Class");
+    }
+
     // Default Constants
-    private final static PathConstraints m_defaultConfig = new PathConstraints(
+    private static final PathConstraints m_defaultConfig = new PathConstraints(
         AutoConstants.MAX_VELOCITY_PERCENT_OUTPUT, AutoConstants.MAX_ACCELERATION_PERCENT_OUTPUT);
         
 
@@ -66,7 +73,7 @@ public class AutoUtils {
         );
     }
     
-    public static Command getAutoEventRoutine(PathPlannerTrajectory traj, HashMap<String, Command> events, SwerveDrivetrain swerve) {
+    public static Command getAutoEventRoutine(PathPlannerTrajectory traj, Map<String, Command> events, SwerveDrivetrain swerve) {
         return new FollowPathWithEvents(getAutoRoutine(traj, swerve), traj.getMarkers(), events);
     }
 }
