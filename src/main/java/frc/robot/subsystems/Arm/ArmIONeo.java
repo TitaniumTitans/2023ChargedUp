@@ -111,7 +111,7 @@ public class ArmIONeo implements ArmIO {
     public void setArmAngle(double angle){
         double currentArmAngle = getArmAngle();
         double angleSetpoint = MathUtil.clamp(angle, ArmConstants.K_REVERSE_LIMIT, ArmConstants.K_FORWARD_LIMIT);
-        double pidOutput = MathUtil.clamp(m_anglePID.calculate(currentArmAngle, angleSetpoint), -3, 3);
+        double pidOutput = MathUtil.clamp(m_anglePID.calculate(currentArmAngle, angleSetpoint), -6, 6);
 
         SmartDashboard.putNumber("Arm Angle Setpoint", angleSetpoint);
         SmartDashboard.putNumber("Arm Angle PID output", pidOutput);

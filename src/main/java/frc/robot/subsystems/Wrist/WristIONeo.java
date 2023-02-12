@@ -49,7 +49,7 @@ public class WristIONeo implements WristIO{
 
         double currentWristAngle = getWristAngle();
         double setpoint = MathUtil.clamp(angle, WristConstants.WRIST_LOWER_LIMIT, WristConstants.WRIST_UPPER_LIMIT);
-        double output = MathUtil.clamp(m_wristPID.calculate(currentWristAngle, setpoint), -0.15, 0.15);
+        double output = MathUtil.clamp(m_wristPID.calculate(currentWristAngle, setpoint), -0.25, 0.25);
 
 
         SmartDashboard.putNumber("Actual Wrist Angle", currentWristAngle);
@@ -63,8 +63,13 @@ public class WristIONeo implements WristIO{
     @Override
     public void setWristPower(double speed) {
 
-        m_wristMotor.set(speed);
-            
+        if (atLimit() && speed <= 0){
+            m_wristMotor.set(0.0);
+        } else if (getWristAngle() >= WristConstants.WRIST_UPPER_LIMIT && speed >= 0) {
+            m_wristMotor.set(0.0);
+        } else {
+            m_wristMotor.set(speed);
+        }
     }
 
     @Override

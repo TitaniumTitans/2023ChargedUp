@@ -31,10 +31,10 @@ public class SwerveNeoIO implements SwerveIO {
     public SwerveModulePosition[] getModulePositions() {
         SwerveModulePosition[] modPos = new SwerveModulePosition[4];
 
-        modPos[0] = m_flMod.getPosition();
-        modPos[1] = m_frMod.getPosition();
-        modPos[2] = m_blMod.getPosition();
-        modPos[3] = m_brMod.getPosition();
+        modPos[1] = m_flMod.getPosition();
+        modPos[0] = m_frMod.getPosition();
+        modPos[3] = m_blMod.getPosition();
+        modPos[2] = m_brMod.getPosition();
 
     return modPos;
     }
@@ -53,7 +53,7 @@ public class SwerveNeoIO implements SwerveIO {
 
     @Override
     public Rotation2d getGyroYaw() {
-        return Rotation2d.fromDegrees(m_gyro.getYaw());
+        return Rotation2d.fromDegrees((m_gyro.getYaw() * -1));
     }
 
 
