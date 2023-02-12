@@ -17,17 +17,16 @@ import frc.robot.Constants.ArmConstants;
 import lib.utils.Utils;
 
 public class ArmIONeo implements ArmIO {
-    private CANSparkMax m_ArmEx;
-    private CANSparkMax m_armAngleMaster;
-    private CANSparkMax m_armAngleFollower;
-    private RelativeEncoder m_relativeEncoderArmEx;
-    public DutyCycleEncoder m_encoderArmAngle;
-    private double kArmOffset = 260.9;
-    private DigitalInput m_armLimitSwitch;
+    private final CANSparkMax m_ArmEx;
+    private final CANSparkMax m_armAngleMaster;
+    private final CANSparkMax m_armAngleFollower;
+    private final RelativeEncoder m_relativeEncoderArmEx;
+    private final DutyCycleEncoder m_encoderArmAngle;
+    private final double ARM_OFFSET = 260.9;
+    private final DigitalInput m_armLimitSwitch;
 
-    // private SparkMaxPIDController m_sparkPID;
-    private PIDController m_anglePID;
-    private PIDController m_extPID;
+    private final PIDController m_anglePID;
+    private final PIDController m_extPID;
 
     public ArmIONeo() {
         m_ArmEx = new CANSparkMax(ArmConstants.ARM_EXTENSION_ID, MotorType.kBrushless);
@@ -53,9 +52,7 @@ public class ArmIONeo implements ArmIO {
         m_encoderArmAngle.setDistancePerRotation(360);
         m_encoderArmAngle.setPositionOffset(0);
 
-        // m_sparkPID = m_armAngle.getPIDController();
         m_anglePID = new PIDController(ArmConstants.KP_ANGLE, ArmConstants.KI_ANGLE, 0.0);
-//        m_anglePID.enableContinuousInput(0, 360);
          m_anglePID.setTolerance(3);
 
         m_armLimitSwitch = new DigitalInput(ArmConstants.LIMIT_SWITCH_PORT);
@@ -125,7 +122,7 @@ public class ArmIONeo implements ArmIO {
 
     @Override
     public double getArmAngle() {
-        return Utils.normalize((m_encoderArmAngle.getAbsolutePosition() * 360) - kArmOffset);
+        return Utils.normalize((m_encoderArmAngle.getAbsolutePosition() * 360) - ARM_OFFSET);
 
     }
 
