@@ -22,7 +22,6 @@ public class ArmIONeo implements ArmIO {
     private final CANSparkMax m_armAngleFollower;
     private final RelativeEncoder m_relativeEncoderArmEx;
     private final DutyCycleEncoder m_encoderArmAngle;
-    private final double ARM_OFFSET = 260.9;
     private final DigitalInput m_armLimitSwitch;
 
     private final PIDController m_anglePID;
@@ -121,7 +120,8 @@ public class ArmIONeo implements ArmIO {
 
     @Override
     public double getArmAngle() {
-        return Utils.normalize((m_encoderArmAngle.getAbsolutePosition() * 360) - ARM_OFFSET);
+        double armOffset = 260.9;
+        return Utils.normalize((m_encoderArmAngle.getAbsolutePosition() * 360) - armOffset);
 
     }
 
