@@ -6,11 +6,11 @@ import frc.robot.subsystems.wrist.WristSubsystem;
 
 public class WristToSetpointCommand extends CommandBase {
     private final WristSubsystem m_wristSubsystem;
-    private final double m_SetPoint;
+    private final double m_setpoint;
 
-    public WristToSetpointCommand(WristSubsystem wristSubsystem, double setPoint) {
+    public WristToSetpointCommand(WristSubsystem wristSubsystem, double setpoint) {
         m_wristSubsystem = wristSubsystem;
-        m_SetPoint = setPoint;
+        m_setpoint = setpoint;
         // addRequirements() method (which takes a vararg of Subsystem)
         addRequirements(this.m_wristSubsystem);
     }
@@ -29,7 +29,7 @@ public class WristToSetpointCommand extends CommandBase {
      */
     @Override
     public void execute() {
-        m_wristSubsystem.setWristAngle(m_SetPoint);
+        m_wristSubsystem.setWristAngle(m_setpoint);
     }
 
     /**

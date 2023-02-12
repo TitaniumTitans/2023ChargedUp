@@ -24,7 +24,7 @@ public class ArmSubsystem extends SubsystemBase {
     }
 
     public void setArmSpeed(double speed) {
-        m_io.setArmExtentionSpeed(speed);
+        m_io.setArmExtensionSpeed(speed);
     }
 
     public  void setArmExtension(double extension) { m_io.setArmExtension(extension);}
