@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.Test.WristToSetpointCommand;
 import frc.robot.commands.Test.ArmExtendToSetpoint;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
@@ -121,6 +123,8 @@ public class RobotContainer {
     testCommands.add("Arm to 90", new ArmToSetpoint(m_arm, 90));
     testCommands.add("Arm to 40", new ArmToSetpoint(m_arm, 40));
     testCommands.add("Arm to 140", new ArmToSetpoint(m_arm, 140));
+
+    testCommands.add("Reset Pose", new InstantCommand(() -> m_drive.resetPose()));
 
     testCommands.add("Wrist to 0", new WristToSetpointCommand(m_wrist, 0));
     testCommands.add("Wrist to 20", new WristToSetpointCommand(m_wrist, 20));

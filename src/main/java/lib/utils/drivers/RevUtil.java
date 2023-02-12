@@ -11,7 +11,7 @@ public class RevUtil {
     }
 
     private static final int MAX_RETRY_COUNT = 3;
-    private static final int RETRY_DELAY_MS = 100;
+    private static final int RETRY_DELAY_MS = 10;
 
     public static boolean hasError(REVLibError err) {
         return err != REVLibError.kOk;
