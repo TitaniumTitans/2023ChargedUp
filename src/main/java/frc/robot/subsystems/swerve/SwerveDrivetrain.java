@@ -164,10 +164,10 @@ public class SwerveDrivetrain extends SubsystemBase {
      int i = 0;
 
      for (var pos : dummyPosition) {
-       SmartDashboard.putNumber("Mod Pos Rot" + i, pos.angle.getDegrees());
-       SmartDashboard.putNumber("Mod Pos Speed" + i, pos.distanceMeters);
-       SmartDashboard.putNumber("Mod Pos Sin" + i, pos.angle.getSin());
-       SmartDashboard.putNumber("Mod Pos Cos" + i, pos.angle.getCos());
+//       SmartDashboard.putNumber("Mod Pos Rot" + i, pos.angle.getDegrees());
+//       SmartDashboard.putNumber("Mod Pos Speed" + i, pos.distanceMeters);
+//       SmartDashboard.putNumber("Mod Pos Sin" + i, pos.angle.getSin());
+//       SmartDashboard.putNumber("Mod Pos Cos" + i, pos.angle.getCos());
 //       pos.angle = new Rotation2d();
        i++;
      }
