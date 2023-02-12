@@ -5,7 +5,7 @@
 package frc.robot.commands.Test;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Arm.ArmSubsystem;
+import frc.robot.subsystems.arm.ArmSubsystem;
 
 public class ArmToSetpoint extends CommandBase {
   private double setpoint;

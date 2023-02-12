@@ -1,4 +1,4 @@
-package frc.robot.subsystems.Arm;
+package frc.robot.subsystems.arm;
 
 import org.littletonrobotics.junction.Logger;
 
@@ -7,24 +7,11 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ArmSubsystem extends SubsystemBase {
-    private ArmIO m_io;
-    private ArmIOInputsAutoLogged m_input;
+    private final ArmIO m_io;
+    private final ArmIOInputsAutoLogged m_input;
 
-    public final double kReverseLimitDegrees = 0;
-    public final double kForwardLimitDegrees = 270;
-
-    public double armAngle = 100;
-
-    public static class ArmHeights{
-        //Low scoring
-        public static final double kLowScoringPositionDegrees = 280;
-
-        //Middle scoring
-        public static final double kMiddleScoringPositionDegrees = 220.0;
-
-        //High scoring
-        public static final double kHightScoringPositionDegrees = 160.0;
-    }
+    public static final double REVERSE_LIMIT_DEGREES = 0;
+    public static final double FORWARD_LIMIT_DEGREES = 270;
 
     public ArmSubsystem(ArmIO io){
         m_io = io;
@@ -54,39 +41,32 @@ public class ArmSubsystem extends SubsystemBase {
     }
 
     public CommandBase setArmAngleSpeedFactory(double speed) {
-        return run(() -> {
-            setAngleSpeed(speed);
-        });
+        return run(() -> setAngleSpeed(speed));
     }
 
-    public CommandBase setArmExtentionSpeedFactory(double speed) {
-        return run(() -> {
-            setArmSpeed(speed);
-        });
+    public CommandBase setArmExtensionSpeedFactory(double speed) {
+        return run(() -> setArmSpeed(speed));
     }
 
     public CommandBase setArmAngleCommandFactory(double angle) {
-        return run(() -> {
-            setArmAngle(angle);
-        });
+        return run(() -> setArmAngle(angle));
     }
 
     public boolean armAngleAtSetpoint() {
         return m_io.armAngleAtSetpoint();
     }
 
-    public boolean armExstentionAtSetpoint() {
+    public boolean armExstensionAtSetpoint() {
         return m_io.armExstentionAtSetpoint();
     }
 
+    @Override
     public void periodic() {
         m_io.updateInputs(m_input);
         Logger.getInstance().processInputs("Arm", m_input);
         SmartDashboard.putNumber("Arm extension", getArmExtension());
         SmartDashboard.putNumber("Arm ANGLE Encoder", getArmAngle());
         SmartDashboard.putBoolean("Encoder Connected?", m_io.encoderConnected());
-
-        // m_io.setArmAngle(armAngle);
 
         if (m_io.armAtLowerLimit()) {
             m_io.resetExstentionEncoder();

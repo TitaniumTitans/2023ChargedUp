@@ -18,8 +18,8 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import frc.robot.commands.SwerveTeleopDrive;
 import frc.robot.commands.Autonomous.AutoUtils;
 import frc.robot.commands.Test.ArmToSetpoint;
-import frc.robot.subsystems.Arm.ArmIONeo;
-import frc.robot.subsystems.Arm.ArmSubsystem;
+import frc.robot.subsystems.arm.ArmIONeo;
+import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.swerve.SwerveDrivetrain;
 import frc.robot.subsystems.swerve.SwerveNeoIO;
 import frc.robot.subsystems.Wrist.WristIONeo;
@@ -118,10 +118,10 @@ public class RobotContainer {
 //    m_driveController.rightBumper().whileTrue(new WristToSetpointCommand(m_wrist, 45.0));
 //    m_driveController.leftBumper().whileTrue(new WristToSetpointCommand(m_wrist, 0.0));
 
-      m_driveController.rightBumper().whileTrue(m_arm.setArmExtentionSpeedFactory(0.5))
-              .whileFalse(m_arm.setArmExtentionSpeedFactory(0.0));
-    m_driveController.leftBumper().whileTrue(m_arm.setArmExtentionSpeedFactory(-0.5))
-            .whileFalse(m_arm.setArmExtentionSpeedFactory(0.0));
+      m_driveController.rightBumper().whileTrue(m_arm.setArmExtensionSpeedFactory(0.5))
+              .whileFalse(m_arm.setArmExtensionSpeedFactory(0.0));
+    m_driveController.leftBumper().whileTrue(m_arm.setArmExtensionSpeedFactory(-0.5))
+            .whileFalse(m_arm.setArmExtensionSpeedFactory(0.0));
   }
 
   /**
