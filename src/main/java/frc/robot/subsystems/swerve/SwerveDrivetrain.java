@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import org.photonvision.EstimatedRobotPose;
+import frc.robot.Constants.DriveConstants;
 
 import java.util.Optional;
 
@@ -32,6 +33,7 @@ public class SwerveDrivetrain extends SubsystemBase {
   private SwerveDrivePoseEstimator m_poseEstimator;
   private SwerveIOInputsAutoLogged inputs;
   private Field2d m_field;
+  private Field2d m_testField;
 
   private boolean fieldRelative;
 
@@ -44,16 +46,14 @@ public class SwerveDrivetrain extends SubsystemBase {
     ));
   private Pose2d m_prevPose;
 
-  private int m_counter = 0;
-  private int m_loopCycles = 100;
-  private double m_allowAbleAngleError = 3.0;
+//  private SwerveDriveOdometry m_odometry;
 
   /** Creates a new SwerveDrivetrain. */
   public SwerveDrivetrain(SwerveIO io) {
     m_io = io;
-    // m_odometry = new SwerveDriveOdometry(DriveConstants.kDriveKinematics, 
-    //   m_io.getGyroYaw(), 
-    //   m_io.getModulePositions());
+     m_odometry = new SwerveDriveOdometry(DriveConstants.DRIVE_KINEMATICS,
+       m_io.getGyroYaw(),
+       m_io.getModulePositions());
 
      m_poseEstimator = new SwerveDrivePoseEstimator
        (Constants.DriveConstants.DRIVE_KINEMATICS, m_io.getGyroYaw(),
@@ -63,6 +63,8 @@ public class SwerveDrivetrain extends SubsystemBase {
 
     m_field = new Field2d();
     // SmartDashboard.putData("Field", m_field);
+
+    m_testField = new Field2d();
     
     fieldRelative = false;
 
@@ -105,65 +107,19 @@ public class SwerveDrivetrain extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
-    // updatePoseEstimator();
-    // SmartDashboard.putNumber
-    //   ("Estimated Pose X", m_poseEstimator.getEstimatedPosition().getX());
-    // SmartDashboard.putNumber
-    //   ("Estimated Pose Y", m_poseEstimator.getEstimatedPosition().getY());
-    // // SmartDashboard.putData(m_field);
+//     This method will be called once per scheduler run
+//     SmartDashboard.putNumber
+//       ("Estimated Pose X", m_poseEstimator.getEstimatedPosition().getX());
+//     SmartDashboard.putNumber
+//       ("Estimated Pose Y", m_poseEstimator.getEstimatedPosition().getY());
 
-    // m_poseEstimator.update(getGyroRoll(), getModulePostitions());
+    m_io.updateInputs(inputs);
+    Logger.getInstance().processInputs("Drive", inputs);
+     m_field.setRobotPose(m_poseEstimator.getEstimatedPosition());
+    SmartDashboard.putData("Field", m_field);
 //
-//    m_io.updateInputs(inputs);
-//    Logger.getInstance().processInputs("Drive", inputs);
-//    // m_field.setRobotPose(m_poseEstimator.getEstimatedPosition());
-//    SmartDashboard.putData("Field", m_field);
-//
-//    SmartDashboard.putBoolean("Field Relative", fieldRelative);
-//    SmartDashboard.putNumber("Gyro", getGyroYaw().getDegrees());
-//
-//    Rotation2d[] array = m_io.getCancoder();
-//
-//    SmartDashboard.putNumber("FL Mod CANCoder", array[0].getDegrees());
-//    SmartDashboard.putNumber("FR Mod CANCoder", array[1].getDegrees());
-//    SmartDashboard.putNumber("BL Mod CANCoder", array[2].getDegrees());
-//    SmartDashboard.putNumber("BR Mod CANCoder", array[3].getDegrees());
-
-    // resets the module positions to absolute after so many loops cycles in enable
-    // TODO Remove comment when actually testing
-    // if (m_counter == m_loopCycles) {
-    //   m_io.setAbsoluteAngles();
-    //   m_counter++;
-    // } else {
-    //   m_counter++;
-    // }
-
-    // periodically checks the angle of the CANCoders and compares it to the angles
-    // of the azimuth
-    //TODO remove comment when actually testing
-    // if (m_counter == m_loopCycles) {
-    //   if (Math.abs(array[0].getDegrees() - inputs.flAngleDeg) > m_allowAbleAngleError) {
-    //     m_io.setIndevidualAngle(1);
-    //   }
-
-    //   if (Math.abs(array[1].getDegrees() - inputs.frAngleDeg) > m_allowAbleAngleError) {
-    //     m_io.setIndevidualAngle(2);
-    //   }
-
-    //   if (Math.abs(array[2].getDegrees() - inputs.blAngleDeg) > m_allowAbleAngleError) {
-    //     m_io.setIndevidualAngle(3);
-    //   }
-
-    //   if (Math.abs(array[3].getDegrees() - inputs.brAngleDeg) > m_allowAbleAngleError) {
-    //     m_io.setIndevidualAngle(4);
-    //   }
-
-    //   m_counter = 0;
-    // } else {
-    //   m_counter++;
-    // }
-
+    SmartDashboard.putBoolean("Field Relative", fieldRelative);
+    SmartDashboard.putNumber("Gyro", getGyroYaw().getDegrees());
 
 //     CAMERA:
      Optional<EstimatedRobotPose> frontEPose =
@@ -179,7 +135,20 @@ public class SwerveDrivetrain extends SubsystemBase {
     SmartDashboard.putNumber("Pose estimator pose x", m_poseEstimator.getEstimatedPosition().getX());
     SmartDashboard.putNumber("Pose estimator pose y", m_poseEstimator.getEstimatedPosition().getY());
 
-    SmartDashboard.putData("PE field", m_field);
+//    SmartDashboard.putData("PE field", m_field);
+
+    double[] modAngles = m_io.getAngles();
+    SmartDashboard.putNumberArray("Module Positions", modAngles);
+
+    m_odometry.update(m_io.getGyroYaw(), m_io.getModulePositions());
+    m_testField.setRobotPose(m_odometry.getPoseMeters());
+    SmartDashboard.putData("test field", m_testField);
+
+    Rotation2d[] cancoderAngles = m_io.getCancoderAngles();
+
+    for (int i = 0; i < 4; i++) {
+      SmartDashboard.putNumber("Module " + i, cancoderAngles[i].getDegrees());
+    }
   }
 
    public void updatePoseEstimator() {
@@ -188,13 +157,13 @@ public class SwerveDrivetrain extends SubsystemBase {
      Optional<EstimatedRobotPose> estimateCamPose =
        m_frontPVCam.getPose(m_prevPose);
      SmartDashboard.putBoolean("POSE ESTIMATOR isPresent", estimateCamPose.isPresent());
-     if (estimateCamPose.isPresent())
-     {
-       EstimatedRobotPose camPose = estimateCamPose.get();
-       m_poseEstimator.addVisionMeasurement
-         (camPose.estimatedPose.toPose2d(), camPose.timestampSeconds);
-     }
-     m_field.setRobotPose(m_poseEstimator.getEstimatedPosition());
+//     if (estimateCamPose.isPresent())
+//     {
+//       EstimatedRobotPose camPose = estimateCamPose.get();
+//       m_poseEstimator.addVisionMeasurement
+//         (camPose.estimatedPose.toPose2d(), camPose.timestampSeconds);
+//     }
+//     m_field.setRobotPose(m_poseEstimator.getEstimatedPosition());
    }
 
   public CommandBase resetGyroBase() {

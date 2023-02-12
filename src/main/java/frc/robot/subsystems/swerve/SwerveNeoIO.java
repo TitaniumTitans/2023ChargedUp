@@ -56,6 +56,7 @@ public class SwerveNeoIO implements SwerveIO {
         return Rotation2d.fromDegrees(m_gyro.getYaw());
     }
 
+
     // Setters
     @Override
     public void setModuleStates(double xTranslation, double yTranslation, double zRotation, boolean fieldRelative) {
@@ -139,12 +140,22 @@ public class SwerveNeoIO implements SwerveIO {
     }
 
     @Override
-    public Rotation2d[] getCancoder(){
-        return new Rotation2d[]{
+    public double[] getAngles(){
+        return new double[]{
+                m_flMod.getAngle(),
+                m_frMod.getAngle(),
+                m_blMod.getAngle(),
+                m_brMod.getAngle()
+        };
+    }
+
+    @Override
+    public Rotation2d[] getCancoderAngles() {
+        return new Rotation2d[] {
                 m_flMod.getCanCoder(),
                 m_frMod.getCanCoder(),
                 m_blMod.getCanCoder(),
-                m_brMod.getCanCoder()
+                m_brMod.getCanCoder(),
         };
     }
     

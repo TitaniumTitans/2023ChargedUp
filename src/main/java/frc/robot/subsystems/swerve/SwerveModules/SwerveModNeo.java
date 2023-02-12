@@ -86,8 +86,8 @@ public class SwerveModNeo {
 //     return canCoder.getAbsolutePosition();
 //   }
 
-  public Rotation2d getAngle() {
-    return new Rotation2d(m_angleEncoder.getPosition());
+  public double getAngle() {
+    return m_angleEncoder.getPosition();
   }
 
   public SwerveModulePosition getPosition() {
@@ -128,7 +128,7 @@ public class SwerveModNeo {
     // CanCoder configuration.
     CANCoderConfiguration canCoderConfiguration = new CANCoderConfiguration();
     canCoderConfiguration.absoluteSensorRange = AbsoluteSensorRange.Signed_PlusMinus180;
-    canCoderConfiguration.sensorDirection = false;
+    canCoderConfiguration.sensorDirection = true;
     canCoderConfiguration.initializationStrategy = SensorInitializationStrategy.BootToAbsolutePosition;
     canCoderConfiguration.sensorTimeBase = SensorTimeBase.PerSecond;
     
@@ -158,7 +158,7 @@ public class SwerveModNeo {
 
     // Angle motor configuration.
     autoRetry(() -> m_angleMotor.restoreFactoryDefaults());
-    m_angleMotor.setInverted(true);
+    m_angleMotor.setInverted(false);
     autoRetry(() -> m_angleMotor.setIdleMode(IdleMode.kBrake));
     autoRetry(() -> m_angleMotor.setSmartCurrentLimit(40));
 
