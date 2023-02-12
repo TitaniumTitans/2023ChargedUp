@@ -92,7 +92,7 @@ public class SwerveModNeo {
 
   public SwerveModulePosition getPosition() {
     double distance = m_driveEncoder.getPosition();
-    Rotation2d rot = new Rotation2d(Utils.normalize(m_angleEncoder.getPosition()));
+    Rotation2d rot = new Rotation2d(m_angleEncoder.getPosition());
     return new SwerveModulePosition(distance, rot);
   }
 
@@ -105,7 +105,7 @@ public class SwerveModNeo {
   }
 
   public void resetToAbsolute(){
-    m_angleEncoder.setPosition(Units.degreesToRadians(getCanCoder().getDegrees() - m_canCoderOffsetDegrees));
+    autoRetry(() -> m_angleEncoder.setPosition(Units.degreesToRadians(getCanCoder().getDegrees() - m_canCoderOffsetDegrees)));
   }
 
   /**

@@ -5,6 +5,7 @@
 package frc.robot.subsystems.swerve;
 
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.Constants;
 import frc.robot.subsystems.Vision.CameraSubsystem;
 import org.littletonrobotics.junction.Logger;
@@ -46,6 +47,8 @@ public class SwerveDrivetrain extends SubsystemBase {
     ));
   private Pose2d m_prevPose;
 
+  int count = 0;
+
 //  private SwerveDriveOdometry m_odometry;
 
   /** Creates a new SwerveDrivetrain. */
@@ -71,6 +74,8 @@ public class SwerveDrivetrain extends SubsystemBase {
     // CAMERA CONFIG
      m_frontPVCam = new CameraSubsystem(FRONT_CAM_NAME, FRONT_CAM_POSE);
     m_prevPose = new Pose2d();
+
+    m_io.setAbsoluteAngles();
   }
 
   public Rotation2d getGyroYaw() {
@@ -115,6 +120,7 @@ public class SwerveDrivetrain extends SubsystemBase {
 
     m_io.updateInputs(inputs);
     Logger.getInstance().processInputs("Drive", inputs);
+    updatePoseEstimator();
      m_field.setRobotPose(m_poseEstimator.getEstimatedPosition());
     SmartDashboard.putData("Field", m_field);
 //
@@ -131,7 +137,6 @@ public class SwerveDrivetrain extends SubsystemBase {
        m_prevPose = frontPose.estimatedPose.toPose2d();
      }
 
-    updatePoseEstimator();
     SmartDashboard.putNumber("Pose estimator pose x", m_poseEstimator.getEstimatedPosition().getX());
     SmartDashboard.putNumber("Pose estimator pose y", m_poseEstimator.getEstimatedPosition().getY());
 
@@ -149,10 +154,25 @@ public class SwerveDrivetrain extends SubsystemBase {
     for (int i = 0; i < 4; i++) {
       SmartDashboard.putNumber("Module " + i, cancoderAngles[i].getDegrees());
     }
+
+
   }
 
    public void updatePoseEstimator() {
-     m_poseEstimator.update(m_io.getGyroYaw(), m_io.getModulePositions());
+     var dummyPosition =  m_io.getModulePositions();
+
+     int i = 0;
+
+     for (var pos : dummyPosition) {
+       SmartDashboard.putNumber("Mod Pos Rot" + i, pos.angle.getDegrees());
+       SmartDashboard.putNumber("Mod Pos Speed" + i, pos.distanceMeters);
+       SmartDashboard.putNumber("Mod Pos Sin" + i, pos.angle.getSin());
+       SmartDashboard.putNumber("Mod Pos Cos" + i, pos.angle.getCos());
+//       pos.angle = new Rotation2d();
+       i++;
+     }
+
+     m_poseEstimator.update(m_io.getGyroYaw(), dummyPosition);
 
      Optional<EstimatedRobotPose> estimateCamPose =
        m_frontPVCam.getPose(m_prevPose);
