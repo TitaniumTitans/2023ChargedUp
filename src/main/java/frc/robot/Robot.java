@@ -59,20 +59,15 @@ public class Robot extends LoggedRobot {
      switch (Constants.CURRENT_MODE) {
       // Running on a real robot, log to a USB stick
       case THANOS:
-        logger.addDataReceiver(new WPILOGWriter("/media/sda1/"));
-        logger.addDataReceiver(new NT4Publisher());
-        break;
-
-        case HELIOS:
-        logger.addDataReceiver(new WPILOGWriter("/media/sda1/"));
-        logger.addDataReceiver(new NT4Publisher());
-        break;
-        
-      // Running a physics simulator, log to local folder
       case SIM:
-        logger.addDataReceiver(new WPILOGWriter(""));
-        logger.addDataReceiver(new NT4Publisher());
-        break;
+      case HELIOS:
+      logger.addDataReceiver(new WPILOGWriter("Var/Log/"));
+      logger.addDataReceiver(new NT4Publisher());
+      break;
+
+      // Running a physics simulator, log to local folder
+
+
 
       // Replaying a log, set up replay source
       case REPLAY:
