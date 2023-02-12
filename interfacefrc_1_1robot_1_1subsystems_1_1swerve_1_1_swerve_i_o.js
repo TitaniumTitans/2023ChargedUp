@@ -1,6 +1,7 @@
 var interfacefrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_i_o =
 [
-    [ "getCancoder", "interfacefrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_i_o.html#a23f6a22d67979d364d4b3d8788642bbb", null ],
+    [ "getAngles", "interfacefrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_i_o.html#a68426358dc473922669e72abb6d48372", null ],
+    [ "getCancoderAngles", "interfacefrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_i_o.html#a3e2e990a81151dcca2848813ca1b7fa0", null ],
     [ "getGyroRoll", "interfacefrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_i_o.html#a54fdac64d018b1fcca6fbfa9f4ab5b4b", null ],
     [ "getGyroYaw", "interfacefrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_i_o.html#ae648c5ad39389359a9df74f1392e8a96", null ],
     [ "getModulePositions", "interfacefrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_i_o.html#a713ef05edbd0dbbfc9f8db34b92656de", null ],

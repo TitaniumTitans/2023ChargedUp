@@ -1,7 +1,7 @@
 var classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_modules_1_1_swerve_mod_neo =
 [
     [ "SwerveModNeo", "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_modules_1_1_swerve_mod_neo.html#a6e232a751105455cb20a87d4b062ca54", null ],
-    [ "getAngle", "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_modules_1_1_swerve_mod_neo.html#a5cb01a96628146e9acb6f0d0e3a7b1aa", null ],
+    [ "getAngle", "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_modules_1_1_swerve_mod_neo.html#a4c64560ab251811894ebf2f7f0273291", null ],
     [ "getCanCoder", "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_modules_1_1_swerve_mod_neo.html#a3e9bd6ad65d251ce59265fa91e408315", null ],
     [ "getPosition", "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_modules_1_1_swerve_mod_neo.html#a83906bbaa2e15c1317de06bf988e3c50", null ],
     [ "getState", "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_modules_1_1_swerve_mod_neo.html#a834927145d7a15f96012d2e483d04b32", null ],

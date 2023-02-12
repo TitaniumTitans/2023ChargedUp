@@ -14,5 +14,6 @@ var classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_drivetrain =
     [ "resetPose", "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_drivetrain.html#a55964e08a3fe47fa9e505cc9f552db69", null ],
     [ "setAbsoluteAngles", "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_drivetrain.html#a5aa5981a383fb4cae1f8d34e1cee90f8", null ],
     [ "setModuleStates", "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_drivetrain.html#a5d09481a4c744832079ad327fedf8c5d", null ],
-    [ "toggleFieldRelative", "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_drivetrain.html#af8d2b2f9eec87bd38d56bfa32b02fca7", null ]
+    [ "toggleFieldRelative", "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_drivetrain.html#af8d2b2f9eec87bd38d56bfa32b02fca7", null ],
+    [ "updatePoseEstimator", "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_drivetrain.html#a3c480436deb2f8df78a6076f71cbc9f5", null ]
 ];
