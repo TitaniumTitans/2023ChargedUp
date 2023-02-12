@@ -90,27 +90,25 @@ public class RobotContainer {
     m_driveController.rightTrigger().whileTrue(m_wrist.setIntakeSpeedFactory(1.0))
             .whileFalse(m_wrist.setIntakeSpeedFactory(0.0));
 //
-    m_driveController.x().whileTrue(m_wrist.setWristPowerFactory(0.15))
+    m_driveController.a().whileTrue(m_wrist.setWristPowerFactory(0.25))
       .whileFalse(m_wrist.setWristPowerFactory(0.0));
-    m_driveController.y().whileTrue(m_wrist.setWristPowerFactory(-0.15))
+    m_driveController.b().whileTrue(m_wrist.setWristPowerFactory(-0.25))
       .whileFalse(m_wrist.setWristPowerFactory(0.0));
 
 
-    m_driveController.a().whileTrue(m_arm.setArmAngleSpeedFactory(0.5))
+    m_driveController.x().whileTrue(m_arm.setArmAngleSpeedFactory(0.5))
       .whileFalse(m_arm.setArmAngleSpeedFactory(0.0));
-    m_driveController.b().whileTrue(m_arm.setArmAngleSpeedFactory(-0.5))
+    m_driveController.y().whileTrue(m_arm.setArmAngleSpeedFactory(-0.5))
             .whileFalse(m_arm.setArmAngleSpeedFactory(0.0));
 
     m_driveController.povDown().whileTrue(new TestArmFullCommandGroup
-            (4.4, 62.7, -36.1, m_arm, m_wrist));
-    m_driveController.povUp().whileTrue((new TestArmFullCommandGroup
-            (8, 142.0, 0, m_arm, m_wrist)));
+            (4.4, 62.7, -36.1 + 80.0, m_arm, m_wrist));
+    m_driveController.povUp().whileTrue(new TestArmFullCommandGroup
+            (8, 142.0, 80, m_arm, m_wrist));
     m_driveController.povRight().whileTrue(new TestArmFullCommandGroup(
-            4.00, 70, 0, m_arm, m_wrist
-    ));
+            4.00, 70, 80, m_arm, m_wrist));
     m_driveController.povLeft().whileTrue(new TestArmFullCommandGroup(
-            25, 133.5, -3.3, m_arm, m_wrist
-    ));
+            25, 133.5, -3.3 + 80, m_arm, m_wrist));
 
       m_driveController.rightBumper().whileTrue(m_arm.setArmExtensionSpeedFactory(0.5))
               .whileFalse(m_arm.setArmExtensionSpeedFactory(0.0));

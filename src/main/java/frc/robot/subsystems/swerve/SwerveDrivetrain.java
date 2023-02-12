@@ -5,15 +5,12 @@
 package frc.robot.subsystems.swerve;
 
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
+import edu.wpi.first.math.geometry.*;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.Constants;
 import frc.robot.subsystems.vision.CameraSubsystem;
 import org.littletonrobotics.junction.Logger;
 
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Rotation3d;
-import edu.wpi.first.math.geometry.Transform3d;
-import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
@@ -106,7 +103,7 @@ public class SwerveDrivetrain extends SubsystemBase {
     m_io.updateInputs(inputs);
     Logger.getInstance().processInputs("Drive", inputs);
     updatePoseEstimator();
-    m_field.setRobotPose(m_poseEstimator.getEstimatedPosition());
+    m_field.setRobotPose(getPose());
     SmartDashboard.putData("Field", m_field);
 
     SmartDashboard.putBoolean("Field Relative", fieldRelative);
@@ -147,8 +144,11 @@ public class SwerveDrivetrain extends SubsystemBase {
   }
 
   public Pose2d getPose() {
-    //TODO: Return the actual pose
-    return new Pose2d();
+     Pose2d pose = m_poseEstimator.getEstimatedPosition();
+     double posex = pose.getTranslation().getX();
+     double posey = pose.getTranslation().getY();
+
+     return new Pose2d(new Translation2d(posex * -1, posey), new Rotation2d());
   }
 
   public void resetPose(Pose2d pose) {

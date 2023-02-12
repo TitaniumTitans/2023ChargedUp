@@ -76,9 +76,10 @@ public final class Constants {
         
         public static final double WRIST_PIVOT_RATIO = 2.6666;
 
-        public static final double WRIST_LOWER_LIMIT = -80;
+        // Plus 80 degrees
+        public static final double WRIST_LOWER_LIMIT = 0;
 
-        public static final double WRIST_UPPER_LIMIT = 45.0;
+        public static final double WRIST_UPPER_LIMIT = 125.0;
         public static final int TOF_PORT = 23;
         public static final double WRIST_KP = 0.05;
         public static final double WRIST_KI = 0.0;
