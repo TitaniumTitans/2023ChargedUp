@@ -38,11 +38,9 @@ var hierarchy =
       [ "frc.robot.commands.ArmAngToSetpoint", "classfrc_1_1robot_1_1commands_1_1_arm_ang_to_setpoint.html", null ],
       [ "frc.robot.commands.ArmExtToSetpoint", "classfrc_1_1robot_1_1commands_1_1_arm_ext_to_setpoint.html", null ],
       [ "frc.robot.commands.AutoBalance", "classfrc_1_1robot_1_1commands_1_1_auto_balance.html", null ],
+      [ "frc.robot.commands.FullArmControlCommand", "classfrc_1_1robot_1_1commands_1_1_full_arm_control_command.html", null ],
       [ "frc.robot.commands.SwerveTeleopDrive", "classfrc_1_1robot_1_1commands_1_1_swerve_teleop_drive.html", null ],
       [ "frc.robot.commands.WristAngToSetpoint", "classfrc_1_1robot_1_1commands_1_1_wrist_ang_to_setpoint.html", null ],
-      [ "frc.robot.commands.test.ArmExtendToSetpoint", "classfrc_1_1robot_1_1commands_1_1test_1_1_arm_extend_to_setpoint.html", null ],
-      [ "frc.robot.commands.test.ArmToSetpoint", "classfrc_1_1robot_1_1commands_1_1test_1_1_arm_to_setpoint.html", null ],
-      [ "frc.robot.commands.test.FullArmControlCommand", "classfrc_1_1robot_1_1commands_1_1test_1_1_full_arm_control_command.html", null ],
       [ "frc.robot.commands.test.WristToSetpointCommand", "classfrc_1_1robot_1_1commands_1_1test_1_1_wrist_to_setpoint_command.html", null ]
     ] ],
     [ "ParallelCommandGroup", null, [

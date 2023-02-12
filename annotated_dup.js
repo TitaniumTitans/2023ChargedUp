@@ -7,15 +7,13 @@ var annotated_dup =
             [ "AutoUtils", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_auto_utils.html", null ]
           ] ],
           [ "test", null, [
-            [ "ArmExtendToSetpoint", "classfrc_1_1robot_1_1commands_1_1test_1_1_arm_extend_to_setpoint.html", "classfrc_1_1robot_1_1commands_1_1test_1_1_arm_extend_to_setpoint" ],
-            [ "ArmToSetpoint", "classfrc_1_1robot_1_1commands_1_1test_1_1_arm_to_setpoint.html", "classfrc_1_1robot_1_1commands_1_1test_1_1_arm_to_setpoint" ],
-            [ "FullArmControlCommand", "classfrc_1_1robot_1_1commands_1_1test_1_1_full_arm_control_command.html", "classfrc_1_1robot_1_1commands_1_1test_1_1_full_arm_control_command" ],
             [ "TestArmFullCommandGroup", "classfrc_1_1robot_1_1commands_1_1test_1_1_test_arm_full_command_group.html", "classfrc_1_1robot_1_1commands_1_1test_1_1_test_arm_full_command_group" ],
             [ "WristToSetpointCommand", "classfrc_1_1robot_1_1commands_1_1test_1_1_wrist_to_setpoint_command.html", "classfrc_1_1robot_1_1commands_1_1test_1_1_wrist_to_setpoint_command" ]
           ] ],
           [ "ArmAngToSetpoint", "classfrc_1_1robot_1_1commands_1_1_arm_ang_to_setpoint.html", "classfrc_1_1robot_1_1commands_1_1_arm_ang_to_setpoint" ],
           [ "ArmExtToSetpoint", "classfrc_1_1robot_1_1commands_1_1_arm_ext_to_setpoint.html", "classfrc_1_1robot_1_1commands_1_1_arm_ext_to_setpoint" ],
           [ "AutoBalance", "classfrc_1_1robot_1_1commands_1_1_auto_balance.html", "classfrc_1_1robot_1_1commands_1_1_auto_balance" ],
+          [ "FullArmControlCommand", "classfrc_1_1robot_1_1commands_1_1_full_arm_control_command.html", "classfrc_1_1robot_1_1commands_1_1_full_arm_control_command" ],
           [ "SwerveTeleopDrive", "classfrc_1_1robot_1_1commands_1_1_swerve_teleop_drive.html", "classfrc_1_1robot_1_1commands_1_1_swerve_teleop_drive" ],
           [ "WristAngToSetpoint", "classfrc_1_1robot_1_1commands_1_1_wrist_ang_to_setpoint.html", "classfrc_1_1robot_1_1commands_1_1_wrist_ang_to_setpoint" ]
         ] ],
