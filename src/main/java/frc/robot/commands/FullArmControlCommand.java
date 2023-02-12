@@ -1,4 +1,4 @@
-package frc.robot.commands.test;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.arm.ArmSubsystem;
@@ -16,11 +16,6 @@ public class FullArmControlCommand extends CommandBase {
         // each subsystem used by the command must be passed into the
         // addRequirements() method (which takes a vararg of Subsystem)
         addRequirements(m_armSubsystem);
-    }
-
-    @Override
-    public void initialize() {
-
     }
 
     @Override
