@@ -1,19 +1,18 @@
-package frc.robot.commands.Test;
+package frc.robot.commands.test;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.arm.ArmSubsystem;
+import frc.robot.subsystems.wrist.WristSubsystem;
 
 
-public class ArmExtendToSetpoint extends CommandBase {
-    private final ArmSubsystem m_armSubsystem;
-    private final double setpoint;
+public class WristToSetpointCommand extends CommandBase {
+    private final WristSubsystem m_wristSubsystem;
+    private final double m_SetPoint;
 
-    public ArmExtendToSetpoint(ArmSubsystem armSubsystem, double setpoint) {
-        m_armSubsystem = armSubsystem;
-        this.setpoint = setpoint;
-        // each subsystem used by the command must be passed into the
+    public WristToSetpointCommand(WristSubsystem wristSubsystem, double setPoint) {
+        m_wristSubsystem = wristSubsystem;
+        m_SetPoint = setPoint;
         // addRequirements() method (which takes a vararg of Subsystem)
-        addRequirements(m_armSubsystem);
+        addRequirements(this.m_wristSubsystem);
     }
 
     /**
@@ -21,7 +20,7 @@ public class ArmExtendToSetpoint extends CommandBase {
      */
     @Override
     public void initialize() {
-        //
+
     }
 
     /**
@@ -30,7 +29,7 @@ public class ArmExtendToSetpoint extends CommandBase {
      */
     @Override
     public void execute() {
-        m_armSubsystem.setArmExtension(setpoint);
+        m_wristSubsystem.setWristAngle(m_SetPoint);
     }
 
     /**
@@ -49,12 +48,13 @@ public class ArmExtendToSetpoint extends CommandBase {
      */
     @Override
     public boolean isFinished() {
+        // TODO: Make this return true when this Command no longer needs to run execute()
         return false;
     }
 
     /**
      * The action to take when the command ends. Called when either the command
-     * finishes normally -- it is called when {@link #isFinished()} returns
+     * finishes normally -- that is it is called when {@link #isFinished()} returns
      * true -- or when  it is interrupted/canceled. This is where you may want to
      * wrap up loose ends, like shutting off a motor that was being used in the command.
      *
@@ -62,6 +62,6 @@ public class ArmExtendToSetpoint extends CommandBase {
      */
     @Override
     public void end(boolean interrupted) {
-        m_armSubsystem.setArmSpeed(0);
+        m_wristSubsystem.setWristPower(0);
     }
 }

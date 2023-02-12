@@ -1,7 +1,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Wrist.WristSubsystem;
+import frc.robot.subsystems.wrist.WristSubsystem;
 
 
 public class WristAngToSetpoint extends CommandBase {
