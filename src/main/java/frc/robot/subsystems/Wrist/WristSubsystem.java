@@ -42,7 +42,7 @@ public class WristSubsystem extends SubsystemBase{
 
     //getters
     public double getWristAngle() {
-        return m_io.getWristAngle() / WristConstants.WRIST_PIVOT_RATIO;
+        return m_io.getWristAngle();
     }
 
     public double getIntakeAmps() {
@@ -58,6 +58,10 @@ public class WristSubsystem extends SubsystemBase{
 
         SmartDashboard.putBoolean("Valid Target", m_io.pieceInside());
         SmartDashboard.putNumber("Sensor Range", m_io.getDetectionRange());
+
+        if (atLimit()) {
+            m_io.zeroWristAngle();
+        }
     }
 
     public boolean atLimit() {

@@ -20,13 +20,14 @@ public class ArmIONeo implements ArmIO {
     private CANSparkMax m_ArmEx;
     private CANSparkMax m_armAngleMaster;
     private CANSparkMax m_armAngleFollower;
-    private RelativeEncoder m_RelativeEncoderArmEx;
+    private RelativeEncoder m_relativeEncoderArmEx;
     public DutyCycleEncoder m_encoderArmAngle;
     private double kArmOffset = 260.9;
     private DigitalInput m_armLimitSwitch;
 
     // private SparkMaxPIDController m_sparkPID;
     private PIDController m_anglePID;
+    private PIDController m_extPID;
 
     public ArmIONeo() {
         m_ArmEx = new CANSparkMax(ArmConstants.ARM_EXTENSION_ID, MotorType.kBrushless);
@@ -42,7 +43,7 @@ public class ArmIONeo implements ArmIO {
 
         m_armAngleFollower.follow(m_armAngleMaster);
 
-        m_RelativeEncoderArmEx = m_ArmEx.getEncoder();
+        m_relativeEncoderArmEx = m_ArmEx.getEncoder();
 
         m_armAngleMaster.setIdleMode(IdleMode.kBrake);
         m_armAngleFollower.setIdleMode(IdleMode.kBrake);
@@ -58,6 +59,7 @@ public class ArmIONeo implements ArmIO {
         // m_anglePID.setTolerance(100);
 
         m_armLimitSwitch = new DigitalInput(ArmConstants.LIMIT_SWITCH_PORT);
+        m_extPID = new PIDController(ArmConstants.ARM_EXT_KP, ArmConstants.ARM_EXT_KI, ArmConstants.ARM_EXT_KD);
     }
 
     @Override
@@ -83,8 +85,25 @@ public class ArmIONeo implements ArmIO {
     }
 
     @Override
+    public void setArmExtension(double extension) {
+        double setpoint = MathUtil.clamp(extension, ArmConstants.EXT_LOWER_LIMIT, ArmConstants.EXT_HIGHER_LIMIT);
+        double pidOutput = MathUtil.clamp(m_extPID.calculate(getArmExtension(), setpoint), -0.5, 0.5);
+
+        SmartDashboard.putNumber("Exstention Setpoint", setpoint);
+        SmartDashboard.putNumber("PID Output", pidOutput);
+        SmartDashboard.putBoolean("At Lower Limit", armAtLowerLimit());
+
+        if(armAtLowerLimit() && pidOutput <= 0){
+            m_ArmEx.set(0);
+        } else
+        {
+            m_ArmEx.set(pidOutput);
+        }
+    }
+
+    @Override
     public double getArmExtension() {
-        return m_RelativeEncoderArmEx.getPosition() * 360;
+        return m_relativeEncoderArmEx.getPosition() * ArmConstants.EXTENSION_RATIO;
     }
 
     @Override
@@ -112,7 +131,13 @@ public class ArmIONeo implements ArmIO {
         return m_encoderArmAngle.isConnected();
     }
 
+    @Override
     public boolean armAtLowerLimit() {
         return !m_armLimitSwitch.get();
+    }
+
+    @Override
+    public void resetExstentionEncoder() {
+        m_relativeEncoderArmEx.setPosition(0.0);
     }
 }

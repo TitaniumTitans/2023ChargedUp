@@ -5,6 +5,8 @@ import org.littletonrobotics.junction.AutoLog;
 
 public interface ArmIO {
 
+    boolean armAtLowerLimit();
+
     @AutoLog
     public static class ArmIOInputs {
         public double ArmAngle = 0.0;
@@ -17,6 +19,8 @@ public interface ArmIO {
     public default void setAngleSpeed(double speed) {}
 
     public default void setArmSpeed(double speed) {}
+
+    public default void setArmExtension(double speed) {}
  
 
     //Getters
@@ -33,4 +37,6 @@ public interface ArmIO {
     public default boolean encoderConnected() {
         return false;
     }
+    
+    public default void resetExstentionEncoder() {}
 }
