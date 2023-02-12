@@ -37,7 +37,7 @@ public class ArmSubsystem extends SubsystemBase {
     }
 
     public void setArmSpeed(double speed) {
-        m_io.setArmSpeed(speed);
+        m_io.setArmExtentionSpeed(speed);
     }
 
     public  void setArmExtension(double extension) { m_io.setArmExtension(extension);}
@@ -59,7 +59,7 @@ public class ArmSubsystem extends SubsystemBase {
         });
     }
 
-    public CommandBase setArmExtentionFactory(double speed) {
+    public CommandBase setArmExtentionSpeedFactory(double speed) {
         return run(() -> {
             setArmSpeed(speed);
         });
@@ -69,6 +69,14 @@ public class ArmSubsystem extends SubsystemBase {
         return run(() -> {
             setArmAngle(angle);
         });
+    }
+
+    public boolean armAngleAtSetpoint() {
+        return m_io.armAngleAtSetpoint();
+    }
+
+    public boolean armExstentionAtSetpoint() {
+        return m_io.armExstentionAtSetpoint();
     }
 
     public void periodic() {

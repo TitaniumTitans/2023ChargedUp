@@ -32,7 +32,9 @@ public class WristIONeo implements WristIO{
 
         m_tofSensor = new TimeOfFlight(WristConstants.TOF_PORT);
         m_tofSensor.setRangingMode(RangingMode.Short, 10);
+
         m_wristPID = new PIDController(WristConstants.WRIST_KP, WristConstants.WRIST_KI, WristConstants.WRIST_KD);
+        m_wristPID.setTolerance(2);
     }
     
     @Override
@@ -102,5 +104,10 @@ public class WristIONeo implements WristIO{
     @Override
     public double getDetectionRange() {
         return m_tofSensor.getRange();
+    }
+
+    @Override
+    public boolean wristAtSetpoint() {
+        return m_wristPID.atSetpoint();
     }
 }

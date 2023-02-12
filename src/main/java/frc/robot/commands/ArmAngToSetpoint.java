@@ -7,35 +7,27 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Arm.ArmSubsystem;
 
-public class MoveArmAngle extends CommandBase {
+public class ArmAngToSetpoint extends CommandBase {
+  private double setpoint;
   private ArmSubsystem m_arm;
-  private double speed;
-  /** Creates a new MoveArmAngle. */
-  public MoveArmAngle(ArmSubsystem arm, double speed) {
-    // Use addRequirements() here to declare subsystem dependencies.
-    this.speed = speed;
+
+  /** Creates a new ArmToSetpoint. */
+  public ArmAngToSetpoint(ArmSubsystem arm, double setpoint) {
     m_arm = arm;
+    this.setpoint = setpoint;
+
     addRequirements(arm);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_arm.setAngleSpeed(0.0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(m_arm.getArmAngle() > m_arm.kForwardLimitDegrees && speed > 0){
-      m_arm.setAngleSpeed(0.0);
-    }
-    else if(m_arm.getArmAngle() < m_arm.kReverseLimitDegrees && speed < 0){
-      m_arm.setAngleSpeed(0.0);
-    }
-    else{
-      m_arm.setAngleSpeed(speed);
-    }
+    m_arm.setArmAngle(setpoint);
   }
 
   // Called once the command ends or is interrupted.
@@ -47,6 +39,6 @@ public class MoveArmAngle extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return m_arm.armAngleAtSetpoint();
   }
 }
