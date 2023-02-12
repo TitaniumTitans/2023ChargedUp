@@ -5,6 +5,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import lib.utils.drivers.RevUtil;
 
 public class SparkMaxWrapper {
 
@@ -27,6 +28,7 @@ public class SparkMaxWrapper {
         SparkMaxConfigs.configCanStatusFrames(m_motor);
     }
 
+    // Motor methods
     // TODO finish implementing the rest of the control modes
     public void set(ControlMode mode, double speed) {
         switch (mode) {
@@ -44,22 +46,44 @@ public class SparkMaxWrapper {
         }
     }
 
-    public void setPIDGains(double kP, double kI, double kD) {
-        m_controller.setP(kP);
-        m_controller.setI(kI);
-        m_controller.setD(kD);
+    public void follow(SparkMaxWrapper master) {
+        m_motor.follow(master.getMotor());
     }
 
+    public void follow(CANSparkMax master) {
+        m_motor.follow(master);
+    }
+
+    public void setInvert(boolean invert) {
+        m_motor.setInverted(invert);
+    }
+
+    public boolean getInvert() {
+        return m_motor.getInverted();
+    }
+
+    public void setIdleMode(CANSparkMax.IdleMode idleMode) {
+        m_motor.setIdleMode(idleMode);
+    }
+
+    // PID methods
+    public void setPIDGains(double kP, double kI, double kD) {
+        RevUtil.autoRetry(() -> m_controller.setP(kP));
+        RevUtil.autoRetry(() -> m_controller.setI(kI));
+        RevUtil.autoRetry(() -> m_controller.setD(kD));
+    }
+
+    // Encoder methods
     public void resetEncoder() {
-        m_relativeEncoder.setPosition(0);
+        RevUtil.autoRetry(() -> m_relativeEncoder.setPosition(0));
     }
 
     public void setPostionConversion(double conversionFactor) {
-        m_relativeEncoder.setPositionConversionFactor(conversionFactor);
+        RevUtil.autoRetry(() ->m_relativeEncoder.setPositionConversionFactor(conversionFactor));
     }
 
     public void setVelocityConversion(double conversionFactor) {
-        m_relativeEncoder.setVelocityConversionFactor(conversionFactor);
+        RevUtil.autoRetry(() -> m_relativeEncoder.setVelocityConversionFactor(conversionFactor));
     }
 
     public double getPosition() {
@@ -69,6 +93,8 @@ public class SparkMaxWrapper {
     public double getVelocity() {
         return m_relativeEncoder.getVelocity();
     }
+
+
 
     //TODO remove these next few methods, these are just for
     //TODO any extra methods that I haven't gotten to yet

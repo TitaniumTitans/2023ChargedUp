@@ -18,7 +18,7 @@ public interface ArmIO {
     //Setters
     public default void setAngleSpeed(double speed) { }
 
-    public default void setArmSpeed(double speed) { }
+    public default void setArmExtensionSpeed(double speed) {}
 
     public default void setArmExtension(double speed) { }
  
@@ -37,6 +37,14 @@ public interface ArmIO {
     public default boolean encoderConnected() {
         return false;
     }
-    
+
+    public default boolean armAngleAtSetpoint() {
+        return false;
+    }
+
+    public default boolean armExstentionAtSetpoint() {
+        return false;
+    }
+
     public default void resetExstentionEncoder() { }
 }
