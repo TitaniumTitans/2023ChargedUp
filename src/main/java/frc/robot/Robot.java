@@ -61,7 +61,7 @@ public class Robot extends LoggedRobot {
       case THANOS:
       case SIM:
       case HELIOS:
-      logger.addDataReceiver(new WPILOGWriter("Var/Log/"));
+      logger.addDataReceiver(new WPILOGWriter("/var/log/robot.log"));
       logger.addDataReceiver(new NT4Publisher());
       break;
 
