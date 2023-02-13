@@ -10,9 +10,6 @@ public class ArmSubsystem extends SubsystemBase {
     private final ArmIO m_io;
     private final ArmIOInputsAutoLogged m_input;
 
-    public static final double REVERSE_LIMIT_DEGREES = 0;
-    public static final double FORWARD_LIMIT_DEGREES = 270;
-
     public ArmSubsystem(ArmIO io){
         m_io = io;
 
@@ -56,7 +53,7 @@ public class ArmSubsystem extends SubsystemBase {
         return m_io.armAngleAtSetpoint();
     }
 
-    public boolean armExstensionAtSetpoint() {
+    public boolean armExtensionAtSetpoint() {
         return m_io.armExstentionAtSetpoint();
     }
 

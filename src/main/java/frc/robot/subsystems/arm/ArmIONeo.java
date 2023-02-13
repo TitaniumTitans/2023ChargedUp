@@ -3,21 +3,18 @@ package frc.robot.subsystems.arm;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
-// import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
-// import edu.wpi.first.wpilibj.Encoder;
-// import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.ArmConstants;
 import lib.utils.Utils;
 
 public class ArmIONeo implements ArmIO {
-    private final CANSparkMax m_ArmEx;
+    private final CANSparkMax m_armEx;
     private final CANSparkMax m_armAngleMaster;
     private final CANSparkMax m_armAngleFollower;
     private final RelativeEncoder m_relativeEncoderArmEx;
@@ -28,11 +25,11 @@ public class ArmIONeo implements ArmIO {
     private final PIDController m_extPID;
 
     public ArmIONeo() {
-        m_ArmEx = new CANSparkMax(ArmConstants.ARM_EXTENSION_ID, MotorType.kBrushless);
+        m_armEx = new CANSparkMax(ArmConstants.ARM_EXTENSION_ID, MotorType.kBrushless);
         m_armAngleMaster = new CANSparkMax(ArmConstants.ARM_ANGLE_ID_MASTER, MotorType.kBrushless);
         m_armAngleFollower = new CANSparkMax(ArmConstants.ARM_ANGLE_ID_FOLLOWER, MotorType.kBrushless);
 
-        m_ArmEx.setIdleMode(IdleMode.kBrake);
+        m_armEx.setIdleMode(IdleMode.kBrake);
         m_armAngleMaster.setInverted(false);
         m_armAngleFollower.setInverted(false);
 
@@ -41,7 +38,7 @@ public class ArmIONeo implements ArmIO {
 
         m_armAngleFollower.follow(m_armAngleMaster);
 
-        m_relativeEncoderArmEx = m_ArmEx.getEncoder();
+        m_relativeEncoderArmEx = m_armEx.getEncoder();
 
         m_armAngleMaster.setIdleMode(IdleMode.kBrake);
         m_armAngleFollower.setIdleMode(IdleMode.kBrake);
@@ -77,10 +74,10 @@ public class ArmIONeo implements ArmIO {
     @Override
     public void setArmExtensionSpeed(double speed) {
         if(armAtLowerLimit() && speed <= 0){
-            m_ArmEx.set(0);
+            m_armEx.set(0);
         } else 
         {
-            m_ArmEx.set(speed);
+            m_armEx.set(speed);
         }
     }
 
@@ -94,9 +91,9 @@ public class ArmIONeo implements ArmIO {
         SmartDashboard.putBoolean("At Lower Limit", armAtLowerLimit());
 
         if(armAtLowerLimit() && pidOutput <= 0){
-            m_ArmEx.set(0);
+            m_armEx.set(0);
         } else {
-            m_ArmEx.set(pidOutput);
+            m_armEx.set(pidOutput);
         }
     }
 
@@ -106,7 +103,7 @@ public class ArmIONeo implements ArmIO {
     }
 
     @Override
-    public void setArmAngle(double angle){
+    public void setArmAngle(double angle) {
         double currentArmAngle = getArmAngle();
         double angleSetpoint = MathUtil.clamp(angle, ArmConstants.K_REVERSE_LIMIT, ArmConstants.K_FORWARD_LIMIT);
         double pidOutput = MathUtil.clamp(m_anglePID.calculate(currentArmAngle, angleSetpoint), -6, 6);

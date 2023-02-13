@@ -49,7 +49,7 @@ public class ArmExtToSetpoint extends CommandBase {
      */
     @Override
     public boolean isFinished() {
-        return m_armSubsystem.armExstensionAtSetpoint();
+        return m_armSubsystem.armExtensionAtSetpoint();
     }
 
     /**
