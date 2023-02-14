@@ -49,7 +49,8 @@ public class RobotContainer {
   public RobotContainer() {
   switch (Constants.CURRENT_MODE) {
     // Beta robot hardware implementation
-    case THANOS, HELIOS:
+    case THANOS:
+    case HELIOS:
       m_drive = new SwerveDrivetrain(new SwerveNeoIO());
       m_wrist = new WristSubsystem(new WristIONeo());
       m_arm = new ArmSubsystem(new ArmIONeo());
@@ -104,7 +105,7 @@ public class RobotContainer {
     m_driveController.povLeft().whileTrue(new TestArmFullCommandGroup(
             25, 133.5, -3.3 + 80, m_arm, m_wrist));
 
-      m_driveController.rightBumper().whileTrue(m_arm.setArmExtensionSpeedFactory(0.5))
+    m_driveController.rightBumper().whileTrue(m_arm.setArmExtensionSpeedFactory(0.5))
               .whileFalse(m_arm.setArmExtensionSpeedFactory(0.0));
     m_driveController.leftBumper().whileTrue(m_arm.setArmExtensionSpeedFactory(-0.5))
             .whileFalse(m_arm.setArmExtensionSpeedFactory(0.0));
