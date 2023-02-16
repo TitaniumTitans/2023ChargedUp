@@ -3,8 +3,12 @@ package lib.utils.piecewise
 import java.lang.RuntimeException
 import java.util.*
 
+/**
+ * @param piecewiseRange The entire range of the piecewise
+ * @param intervalList An unsorted list of PiecewiseIntervals which will cover the entire range `piecewiseRange`
+ */
 class RangedPiecewise<T>(
-    private val range: Range,
+    private val piecewiseRange: Range,
     private var intervalList: List<PiecewiseInterval<T>> = Collections.emptyList()
 ) {
 
@@ -14,8 +18,8 @@ class RangedPiecewise<T>(
     }
 
     private fun verifyRange(): Boolean {
-        var currentPosition = range.left
-        var currentPositionInclusive = range.leftInclusive
+        var currentPosition = piecewiseRange.left
+        var currentPositionInclusive = piecewiseRange.leftInclusive
         for (interval in intervalList) {
             if (currentPositionInclusive == interval.range.leftInclusive && currentPosition == interval.range.left) {
                 currentPosition = interval.range.right

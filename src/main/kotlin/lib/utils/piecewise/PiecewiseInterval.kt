@@ -3,6 +3,12 @@ package lib.utils.piecewise
 import java.lang.RuntimeException
 import java.util.function.Function
 
+/**
+ *
+ * @param range The range from which this interval will produce an output for
+ * @param function Must be valid from `range.left` to `range.right` inclusive
+ *
+ */
 class PiecewiseInterval<T>(val range: Range, private val function: Function<Double, T>) {
 
     init {
@@ -18,6 +24,9 @@ class PiecewiseInterval<T>(val range: Range, private val function: Function<Doub
         }
     }
 
+    /**
+     * Check if a value is within the range of the piecewise
+     */
     fun isInRange(input: Double): Boolean {
         return isInLeftRange(input) && isInRightRange(input)
     }
@@ -39,6 +48,7 @@ class PiecewiseInterval<T>(val range: Range, private val function: Function<Doub
                 Example string: "Input 10 is not in range (1, 5]"
                 Example string: "Input 10 is not in range [1, 5]"
              */
+            //TODO: Decide what to do here.
             throw RuntimeException("Input $input is not in range ${if (range.leftInclusive) '[' else '('}$range.left, $range.right${if (range.rightInclusive) ']' else ')'}")
         }
     }
