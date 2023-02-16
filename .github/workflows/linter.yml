@@ -29,6 +29,7 @@ jobs:
           VALIDATE_BASH_EXEC: false
           VALIDATE_GROOVY: false
           VALIDATE_JSON: false
+          VALIDATE_KOTLIN_ANDROID: false
           DEFAULT_BRANCH: main
           JAVA_FILE_NAME: sun_check.xml
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
