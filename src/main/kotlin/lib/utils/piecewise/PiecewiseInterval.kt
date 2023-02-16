@@ -48,7 +48,7 @@ class PiecewiseInterval<T>(val range: Range, private val function: Function<Doub
                 Example string: "Input 10 is not in range (1, 5]"
                 Example string: "Input 10 is not in range [1, 5]"
              */
-            //TODO: Decide what to do here.
+            // TODO: Decide what to do here.
             throw RuntimeException("Input $input is not in range ${if (range.leftInclusive) '[' else '('}$range.left, $range.right${if (range.rightInclusive) ']' else ')'}")
         }
     }
