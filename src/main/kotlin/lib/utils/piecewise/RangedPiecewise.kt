@@ -1,15 +1,15 @@
 package lib.utils.piecewise
 
 import java.lang.RuntimeException
+import java.util.*
 
-class RangedPiecewise<T>(private val range: Range, private var intervalList: List<PiecewiseInterval<T>> = ArrayList()) {
-
-    private var hasBeenVerified = false
+class RangedPiecewise<T>(private val range: Range, private var intervalList: List<PiecewiseInterval<T>> = Collections.emptyList()) {
 
     init {
         intervalList = intervalList.sortedBy {it.range.left}
+        check(verifyRange()) {"Provided list is not valid"}
     }
-    fun verifyRange() : Boolean {
+    private fun verifyRange() : Boolean {
         var currentPosition = range.left
         var currentPositionInclusive = range.leftInclusive
         for (interval in intervalList) {
@@ -17,19 +17,14 @@ class RangedPiecewise<T>(private val range: Range, private var intervalList: Lis
                 currentPosition = interval.range.right
                 currentPositionInclusive = !interval.range.rightInclusive
             } else {
-                hasBeenVerified = false
                 return false
             }
         }
-        hasBeenVerified = true
         return true
     }
 
     fun calculate(input: Double): T {
         // Check the cached value first, then verify if needed
-        if(!hasBeenVerified && !verifyRange()) {
-                throw RuntimeException("Range is not valid")
-        }
         return intervalList.find { interval -> interval.isInRange(input) }?.calculate(input) ?: throw RuntimeException("An interval should have been found. Please report this issue.")
     }
 
