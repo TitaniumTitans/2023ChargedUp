@@ -22,7 +22,6 @@ class RangedPiecewiseTests {
             PiecewiseInterval(Range(10.0, true, 15.0, false)) { input -> input + 5 }
         )
 
-
     @Test
     fun testGoodRange() {
         val goodPiecewise = RangedPiecewise(testingRange, goodRange)
@@ -42,7 +41,7 @@ class RangedPiecewiseTests {
         listOf(
             PiecewiseInterval(Range(0.0, true, 5.0, false)) { input -> input * 2 },
             PiecewiseInterval(Range(5.0, false, 10.0, false)) { _ -> 0.0 },
-            PiecewiseInterval(Range(10.0, true, 15.0, false)) { input -> input + 5 },
+            PiecewiseInterval(Range(10.0, true, 15.0, false)) { input -> input + 5 }
         )
 
     @Test
