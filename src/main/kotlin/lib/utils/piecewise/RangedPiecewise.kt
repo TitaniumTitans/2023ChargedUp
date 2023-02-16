@@ -1,11 +1,10 @@
 package lib.utils.piecewise
 
 import java.lang.RuntimeException
-import kotlin.collections.ArrayList
 
 class RangedPiecewise<T>(private val range: Range, private var intervalList: List<PiecewiseInterval<T>> = ArrayList()) {
 
-    var hasBeenVerified = false
+    private var hasBeenVerified = false
 
     init {
         intervalList = intervalList.sortedBy {it.range.left}
