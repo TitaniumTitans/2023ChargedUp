@@ -3,7 +3,7 @@ package lib.utils.piecewise
 import java.lang.RuntimeException
 import java.util.function.Function
 
-class PiecewiseInterval(val range: Range, private val function: Function<Double, Double>) {
+class PiecewiseInterval<T>(val range: Range, private val function: Function<Double, T>) {
 
     init {
         // 1. Check to make sure left is smaller than right.
@@ -29,8 +29,8 @@ class PiecewiseInterval(val range: Range, private val function: Function<Double,
     fun isInRightRange(input: Double): Boolean {
         return (range.rightInclusive && range.right == input) || (range.right > input)
     }
-    fun calculate(input: Double): Double {
-        if(isInLeftRange(input) && isInRightRange(input)) {
+    fun calculate(input: Double): T {
+        if(isInRange(input)) {
             return function.apply(input)
         } else {
             /*  Example string: "Input 10 is not in range (1, 5)"
@@ -41,4 +41,7 @@ class PiecewiseInterval(val range: Range, private val function: Function<Double,
             throw RuntimeException("Input $input is not in range ${if(range.leftInclusive) '[' else '('}$range.left, $range.right${if(range.rightInclusive) ']' else ')' }")
         }
     }
+
+
+
 }

@@ -3,7 +3,7 @@ package lib.utils.piecewise
 import java.lang.RuntimeException
 import kotlin.collections.ArrayList
 
-class RangedPiecewise(private val range: Range, private var intervalList: List<PiecewiseInterval> = ArrayList()) {
+class RangedPiecewise<T>(private val range: Range, private var intervalList: List<PiecewiseInterval<T>> = ArrayList()) {
 
     var hasBeenVerified = false
 
@@ -26,7 +26,7 @@ class RangedPiecewise(private val range: Range, private var intervalList: List<P
         return true
     }
 
-    fun calculate(input: Double): Double {
+    fun calculate(input: Double): T {
         // Check the cached value first, then verify if needed
         if(!hasBeenVerified && !verifyRange()) {
                 throw RuntimeException("Range is not valid")
