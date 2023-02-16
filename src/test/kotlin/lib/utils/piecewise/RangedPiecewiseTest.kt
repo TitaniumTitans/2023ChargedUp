@@ -8,18 +8,18 @@ import kotlin.test.junit5.JUnit5Asserter.assertEquals
 class RangedPiecewiseTests {
     private val testingRange = Range(0.0, true, 15.0, false)
     private val goodRange =
-                listOf(
-                    PiecewiseInterval(Range(0.0, true, 5.0, false)) { input -> input * 2 },
-                    PiecewiseInterval(Range(5.0, true, 10.0, false)) { _ -> 42.0 },
-                    PiecewiseInterval(Range(10.0, true, 15.0, false)) { input -> input + 5 },
-                )
+        listOf(
+            PiecewiseInterval(Range(0.0, true, 5.0, false)) { input -> input * 2 },
+            PiecewiseInterval(Range(5.0, true, 10.0, false)) { _ -> 42.0 },
+            PiecewiseInterval(Range(10.0, true, 15.0, false)) { input -> input + 5 }
+        )
 
     private val goodRangeWithSinglePoint =
         listOf(
             PiecewiseInterval(Range(0.0, true, 5.0, false)) { input -> input * 2 },
             PiecewiseInterval(Range(5.0, true, 5.0, true)) { _ -> 21.0 },
             PiecewiseInterval(Range(5.0, false, 10.0, false)) { _ -> 42.0 },
-            PiecewiseInterval(Range(10.0, true, 15.0, false)) { input -> input + 5 },
+            PiecewiseInterval(Range(10.0, true, 15.0, false)) { input -> input + 5 }
         )
 
 
@@ -50,5 +50,4 @@ class RangedPiecewiseTests {
     fun testBadRange() {
         assertThrows<IllegalStateException> { RangedPiecewise(testingRange, badRangeExcludingMiddlePoint) }
     }
-
 }

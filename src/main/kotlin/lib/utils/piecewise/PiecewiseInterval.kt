@@ -13,7 +13,7 @@ class PiecewiseInterval<T>(val range: Range, private val function: Function<Doub
         val right = range.right
         val leftInclusive = range.leftInclusive
         val rightInclusive = range.rightInclusive
-        if(/* 1 */(left > right) ||/* 2 */((left == right) && !(leftInclusive && rightInclusive))) {
+        if (/* 1 */(left > right) || /* 2 */((left == right) && !(leftInclusive && rightInclusive))) {
             throw RuntimeException("Invalid Interval")
         }
     }
@@ -29,8 +29,9 @@ class PiecewiseInterval<T>(val range: Range, private val function: Function<Doub
     fun isInRightRange(input: Double): Boolean {
         return (range.rightInclusive && range.right == input) || (range.right > input)
     }
+
     fun calculate(input: Double): T {
-        if(isInRange(input)) {
+        if (isInRange(input)) {
             return function.apply(input)
         } else {
             /*  Example string: "Input 10 is not in range (1, 5)"
@@ -41,7 +42,4 @@ class PiecewiseInterval<T>(val range: Range, private val function: Function<Doub
             throw RuntimeException("Input $input is not in range ${if (range.leftInclusive) '[' else '('}$range.left, $range.right${if (range.rightInclusive) ']' else ')'}")
         }
     }
-
-
-
 }
