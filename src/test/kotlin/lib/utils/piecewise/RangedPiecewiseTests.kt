@@ -1,8 +1,8 @@
 package lib.utils.piecewise
 
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import java.lang.IllegalStateException
-import kotlin.test.*
 import kotlin.test.junit5.JUnit5Asserter.assertEquals
 
 class RangedPiecewiseTests {
@@ -29,7 +29,6 @@ class RangedPiecewiseTests {
         assertEquals("Check for inclusive extreme", goodPiecewise.calculate(0.0), 0.0)
         assertEquals("Check for inclusive and exclusive overlap", goodPiecewise.calculate(5.0), 42.0)
         assertEquals("Check for middle of interval", goodPiecewise.calculate(12.0), 12.0 + 5)
-
     }
 
     @Test

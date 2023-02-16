@@ -32,5 +32,4 @@ class RangedPiecewise<T>(
         return intervalList.find { interval -> interval.isInRange(input) }?.calculate(input)
             ?: throw RuntimeException("An interval should have been found. Please report this issue.")
     }
-
 }
