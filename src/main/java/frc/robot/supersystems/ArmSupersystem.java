@@ -1,10 +1,10 @@
 package frc.robot.supersystems;
 
-import frc.robot.subsystems.arm.ArmSubsystem;
+import frc.robot.subsystems.arm.ArmAngleSubsystem;
+import frc.robot.subsystems.arm.ArmExtSubsystem;
 import frc.robot.subsystems.wrist.WristSubsystem;
 import lib.utils.piecewise.PiecewiseInterval;
 import lib.utils.piecewise.Range;
-import lib.utils.piecewise.RangedPiecewise;
 
 import java.util.List;
 
@@ -21,15 +21,17 @@ public class ArmSupersystem {
             new PiecewiseInterval<>(floorCollisionZone, ignored -> 0.0)
     );
     //private static final RangedPiecewise PIECEWISE = new RangedPiecewise(fullArmRange, );
-    private final ArmSubsystem angleArmSubsystem;
+    private final ArmAngleSubsystem angleArmSubsystem;
+    private final ArmExtSubsystem extArmSubsystem;
     private final WristSubsystem wristSubsystem;
 
 
     //todo add ability for extension on arm with different subsystem
     //private final [INSERT EX SUBSYSTEM] extensionArmSubsystem;
 
-    public ArmSupersystem(ArmSubsystem armSubsystem, WristSubsystem wristSubsystem) {
+    public ArmSupersystem(ArmAngleSubsystem armSubsystem, ArmExtSubsystem extArmSubsystem, WristSubsystem wristSubsystem) {
         this.angleArmSubsystem = armSubsystem;
+        this.extArmSubsystem = extArmSubsystem;
         this.wristSubsystem = wristSubsystem;
 
 
