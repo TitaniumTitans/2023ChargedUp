@@ -14,7 +14,7 @@ class SparkMaxFactory {
      * @param frame5Rate the periodic frame of status 5 in milliseconds
      * @param frame6Rate the periodic frame of status 6 in milliseconds
      * @param idleMode the idle mode of the motor
-     * @param inverted the invertion of the motor
+     * @param inverted the inversion of the motor
      * @param currentLimit the max current draw allowed for the motor controller
      */
     data class SparkMaxConfig(
@@ -29,7 +29,7 @@ class SparkMaxFactory {
             val inverted: Boolean,
             val currentLimit: Int)
 
-    val defaultConfig: SparkMaxConfig = SparkMaxConfig(
+    private val defaultConfig: SparkMaxConfig = SparkMaxConfig(
             200,
             200,
             200,
@@ -47,7 +47,7 @@ class SparkMaxFactory {
      * @return A configured spark max motor controller
      */
     fun createSparkMax(id: Int, config: SparkMaxConfig): CANSparkMax {
-        var spark: CANSparkMax = CANSparkMax(id, CANSparkMaxLowLevel.MotorType.kBrushless)
+        val spark = CANSparkMax(id, CANSparkMaxLowLevel.MotorType.kBrushless)
         spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus0, config.frame0Rate)
         spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus1, config.frame1Rate)
         spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus2, config.frame2Rate)
@@ -56,8 +56,8 @@ class SparkMaxFactory {
         spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus5, config.frame5Rate)
         spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus6, config.frame6Rate)
 
-        spark.setIdleMode(config.idleMode)
-        spark.setInverted(config.inverted)
+        spark.idleMode = config.idleMode
+        spark.inverted = config.inverted
         spark.setSmartCurrentLimit(config.currentLimit)
 
         return spark
