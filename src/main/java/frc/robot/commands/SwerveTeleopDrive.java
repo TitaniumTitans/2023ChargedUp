@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 /** An example command that uses an example subsystem. */
 public class SwerveTeleopDrive extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final SwerveDrivetrainEww m_drive;
+  private final SwerveDrivetrain m_drive;
   private final CommandXboxController m_driverController;
 
   /**
@@ -42,7 +42,7 @@ public class SwerveTeleopDrive extends CommandBase {
     x = Utils.deadBand(x);
     y = Utils.deadBand(y);
     z = Utils.deadBand(z);
-    m_drive.drive(x, y, z);
+    m_drive.setModuleStates(x, y, z);
   }
 
   // Called once the command ends or is interrupted.
