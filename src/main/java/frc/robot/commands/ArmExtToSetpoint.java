@@ -1,19 +1,20 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.arm.ArmSubsystem;
+import frc.robot.subsystems.arm.ArmAngleSubsystem;
+import frc.robot.subsystems.arm.ArmExtSubsystem;
 
 
 public class ArmExtToSetpoint extends CommandBase {
-    private final ArmSubsystem m_armSubsystem;
+    private final ArmExtSubsystem m_armExtSubsystem;
     private final double setpoint;
 
-    public ArmExtToSetpoint(ArmSubsystem armSubsystem, double setpoint) {
-        m_armSubsystem = armSubsystem;
+    public ArmExtToSetpoint(ArmExtSubsystem armAngleSubsystem, double setpoint) {
+        m_armExtSubsystem = armAngleSubsystem;
         this.setpoint = setpoint;
         // each subsystem used by the command must be passed into the
         // addRequirements() method (which takes a vararg of Subsystem)
-        addRequirements(m_armSubsystem);
+        addRequirements(m_armExtSubsystem);
     }
 
     /**
@@ -30,7 +31,7 @@ public class ArmExtToSetpoint extends CommandBase {
      */
     @Override
     public void execute() {
-        m_armSubsystem.setArmExtension(setpoint);
+        m_armExtSubsystem.setArmExtension(setpoint);
     }
 
     /**
@@ -49,7 +50,7 @@ public class ArmExtToSetpoint extends CommandBase {
      */
     @Override
     public boolean isFinished() {
-        return m_armSubsystem.armExstensionAtSetpoint();
+        return m_armExtSubsystem.armExstensionAtSetpoint();
     }
 
     /**
@@ -62,6 +63,6 @@ public class ArmExtToSetpoint extends CommandBase {
      */
     @Override
     public void end(boolean interrupted) {
-        m_armSubsystem.setArmSpeed(0);
+        m_armExtSubsystem.setArmSpeed(0);
     }
 }

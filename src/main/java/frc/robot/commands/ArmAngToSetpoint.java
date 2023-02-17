@@ -5,14 +5,14 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.arm.ArmSubsystem;
+import frc.robot.subsystems.arm.ArmAngleSubsystem;
 
 public class ArmAngToSetpoint extends CommandBase {
   private double setpoint;
-  private ArmSubsystem m_arm;
+  private ArmAngleSubsystem m_arm;
 
   /** Creates a new ArmToSetpoint. */
-  public ArmAngToSetpoint(ArmSubsystem arm, double setpoint) {
+  public ArmAngToSetpoint(ArmAngleSubsystem arm, double setpoint) {
     m_arm = arm;
     this.setpoint = setpoint;
 

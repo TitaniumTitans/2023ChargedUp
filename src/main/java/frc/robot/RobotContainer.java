@@ -10,6 +10,7 @@ import frc.robot.commands.test.TestArmFullCommandGroup;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.test.WristToSetpointCommand;
+import frc.robot.subsystems.arm.ArmExtSubsystem;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
 import edu.wpi.first.wpilibj.GenericHID;
@@ -18,8 +19,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import frc.robot.commands.SwerveTeleopDrive;
 import frc.robot.commands.autonomous.AutoUtils;
-import frc.robot.subsystems.arm.ArmIONeo;
-import frc.robot.subsystems.arm.ArmSubsystem;
+import frc.robot.subsystems.arm.ArmAngleSubsystem;
 import frc.robot.subsystems.swerve.SwerveDrivetrain;
 import frc.robot.subsystems.wrist.WristSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -35,7 +35,8 @@ public class RobotContainer {
   //Subsystems
   private WristSubsystem m_wrist;
   private SwerveDrivetrain m_drive;
-  private ArmSubsystem m_arm;
+  private ArmAngleSubsystem m_arm;
+  private ArmExtSubsystem m_ext;
 
   //Controllers
   private final CommandXboxController m_driveController = new CommandXboxController(Constants.DRIVER_PORT);
@@ -51,7 +52,8 @@ public class RobotContainer {
     case HELIOS:
       m_drive = new SwerveDrivetrain();
       m_wrist = new WristSubsystem();
-      m_arm = new ArmSubsystem(new ArmIONeo());
+      m_arm = new ArmAngleSubsystem();
+      m_ext = new ArmExtSubsystem();
       break;
 
     case SIM:
@@ -89,24 +91,24 @@ public class RobotContainer {
       .whileFalse(m_wrist.setWristPowerFactory(0.0));
 
 
-    m_driveController.x().whileTrue(m_arm.setArmAngleSpeedFactory(0.5))
-      .whileFalse(m_arm.setArmAngleSpeedFactory(0.0));
-    m_driveController.y().whileTrue(m_arm.setArmAngleSpeedFactory(-0.5))
-            .whileFalse(m_arm.setArmAngleSpeedFactory(0.0));
+    m_driveController.x().whileTrue(m_arm.setAngleSpeedFactory(0.5))
+      .whileFalse(m_arm.setAngleSpeedFactory(0.0));
+    m_driveController.y().whileTrue(m_arm.setAngleSpeedFactory(-0.5))
+            .whileFalse(m_arm.setAngleSpeedFactory(0.0));
 
     m_driveController.povDown().whileTrue(new TestArmFullCommandGroup
-            (4.4, 62.7, -36.1 + 80.0, m_arm, m_wrist));
+            (4.4, 62.7, -36.1 + 80.0, m_arm, m_wrist, m_ext));
     m_driveController.povUp().whileTrue(new TestArmFullCommandGroup
-            (8, 142.0, 80, m_arm, m_wrist));
+            (8, 142.0, 80, m_arm, m_wrist, m_ext));
     m_driveController.povRight().whileTrue(new TestArmFullCommandGroup(
-            4.00, 70, 80, m_arm, m_wrist));
+            4.00, 70, 80, m_arm, m_wrist, m_ext));
     m_driveController.povLeft().whileTrue(new TestArmFullCommandGroup(
-            25, 133.5, -3.3 + 80, m_arm, m_wrist));
+            25, 133.5, -3.3 + 80, m_arm, m_wrist, m_ext));
 
-      m_driveController.rightBumper().whileTrue(m_arm.setArmExtensionSpeedFactory(0.5))
-              .whileFalse(m_arm.setArmExtensionSpeedFactory(0.0));
-    m_driveController.leftBumper().whileTrue(m_arm.setArmExtensionSpeedFactory(-0.5))
-            .whileFalse(m_arm.setArmExtensionSpeedFactory(0.0));
+      m_driveController.rightBumper().whileTrue(m_ext.setArmSpeedFactory(0.5))
+              .whileFalse(m_ext.setArmSpeedFactory(0.0));
+    m_driveController.leftBumper().whileTrue(m_ext.setArmSpeedFactory(-0.5))
+            .whileFalse(m_ext.setArmSpeedFactory(0.0));
   }
 
   /**
@@ -133,14 +135,14 @@ public class RobotContainer {
     testCommands.add("Wrist to 20", new WristToSetpointCommand(m_wrist, 20));
     testCommands.add("Wrist to -20", new WristToSetpointCommand(m_wrist, -20));
 
-    testCommands.add("Arm extend to 3", new ArmExtToSetpoint(m_arm, 3));
-    testCommands.add("Arm extend to 5", new ArmExtToSetpoint(m_arm, 5));
-    testCommands.add("Arm extend to 7", new ArmExtToSetpoint(m_arm, 7));
+    testCommands.add("Arm extend to 3", new ArmExtToSetpoint(m_ext, 3));
+    testCommands.add("Arm extend to 5", new ArmExtToSetpoint(m_ext, 5));
+    testCommands.add("Arm extend to 7", new ArmExtToSetpoint(m_ext, 7));
 
     testCommands.add("Test for full arm",
-            new TestArmFullCommandGroup(3, 180, -20, m_arm, m_wrist));
+            new TestArmFullCommandGroup(3.0, 180.0, -20.0, m_arm, m_wrist, m_ext));
     testCommands.add("Test for full arm 2.0",
-            new TestArmFullCommandGroup(7, 90, 20, m_arm, m_wrist));
+            new TestArmFullCommandGroup(7.0, 90.0, 20.0, m_arm, m_wrist, m_ext));
   }
 
   /**
