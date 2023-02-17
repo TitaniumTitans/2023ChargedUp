@@ -4,16 +4,16 @@
 
 package frc.robot.commands;
 
+import frc.robot.subsystems.swerve.SwerveDrivetrain;
 import lib.utils.Utils;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.subsystems.swerve.SwerveDrivetrain;
 
 /** An example command that uses an example subsystem. */
 public class SwerveTeleopDrive extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final SwerveDrivetrain m_drive;
+  private final SwerveDrivetrainEww m_drive;
   private final CommandXboxController m_driverController;
 
   /**

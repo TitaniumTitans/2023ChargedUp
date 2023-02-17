@@ -21,7 +21,6 @@ import frc.robot.commands.autonomous.AutoUtils;
 import frc.robot.subsystems.arm.ArmIONeo;
 import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.swerve.SwerveDrivetrain;
-import frc.robot.subsystems.swerve.SwerveNeoIO;
 import frc.robot.subsystems.wrist.WristIONeo;
 import frc.robot.subsystems.wrist.WristSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -36,7 +35,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 public class RobotContainer {
   //Subsystems
   private WristSubsystem m_wrist;
-  private SwerveDrivetrain m_drive; 
+  private SwerveDrivetrain m_drive;
   private ArmSubsystem m_arm;
 
   //Controllers
@@ -51,7 +50,7 @@ public class RobotContainer {
     // Beta robot hardware implementation
     case THANOS:
     case HELIOS:
-      m_drive = new SwerveDrivetrain(new SwerveNeoIO());
+      m_drive = new SwerveDrivetrain();
       m_wrist = new WristSubsystem(new WristIONeo());
       m_arm = new ArmSubsystem(new ArmIONeo());
       break;
@@ -129,7 +128,7 @@ public class RobotContainer {
     testCommands.add("Arm to 40", new ArmAngToSetpoint(m_arm, 40));
     testCommands.add("Arm to 140", new ArmAngToSetpoint(m_arm, 140));
 
-    testCommands.add("Reset Pose", new InstantCommand(() -> m_drive.resetPose()));
+    testCommands.add("Reset Pose", new InstantCommand(() -> m_drive.resetPoseBase()));
 
     testCommands.add("Wrist to 0", new WristToSetpointCommand(m_wrist, 0));
     testCommands.add("Wrist to 20", new WristToSetpointCommand(m_wrist, 20));
