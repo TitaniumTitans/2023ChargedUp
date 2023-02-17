@@ -4,8 +4,7 @@
 
 package frc.robot;
 
-import frc.robot.commands.ArmAngToSetpoint;
-import frc.robot.commands.ArmExtToSetpoint;
+import frc.robot.commands.*;
 import frc.robot.commands.test.TestArmFullCommandGroup;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -16,7 +15,6 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-import frc.robot.commands.SwerveTeleopDrive;
 import frc.robot.commands.autonomous.AutoUtils;
 import frc.robot.subsystems.arm.ArmIONeo;
 import frc.robot.subsystems.arm.ArmSubsystem;
@@ -77,6 +75,9 @@ public class RobotContainer {
   private void configureButtonBindings() {
     m_drive.setDefaultCommand(new SwerveTeleopDrive(m_drive, m_driveController));
 
+    m_arm.setDefaultCommand(m_arm.setArmAngleSpeedFactory(0.0).andThen(m_arm.setArmExtensionSpeedFactory(0.0)));
+    m_wrist.setDefaultCommand(m_wrist.setWristPowerFactory(0.0));
+
     m_driveController.button(7).onTrue(m_drive.resetGyroBase());
     m_driveController.start().onTrue(m_drive.toggleFieldRelative());
 
@@ -96,9 +97,9 @@ public class RobotContainer {
     m_driveController.y().whileTrue(m_arm.setArmAngleSpeedFactory(-0.5))
             .whileFalse(m_arm.setArmAngleSpeedFactory(0.0));
 
-    m_driveController.povDown().whileTrue(new TestArmFullCommandGroup
+    m_driveController.povDown().onTrue(new TestArmFullCommandGroup
             (4.4, 62.7, -36.1 + 80.0, m_arm, m_wrist));
-    m_driveController.povUp().whileTrue(new TestArmFullCommandGroup
+    m_driveController.povUp().onTrue(new TestArmFullCommandGroup
             (8, 142.0, 80, m_arm, m_wrist));
     m_driveController.povRight().whileTrue(new TestArmFullCommandGroup(
             4.00, 70, 80, m_arm, m_wrist));

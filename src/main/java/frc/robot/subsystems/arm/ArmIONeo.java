@@ -68,7 +68,9 @@ public class ArmIONeo implements ArmIO {
 
     @Override
     public void setAngleSpeed(double speed) {
-        if ((getArmAngle() <= ArmConstants.K_REVERSE_LIMIT && speed <= 0)
+        if (speed == 0) {
+            m_armAngleMaster.set(0.0);
+        } else if ((getArmAngle() <= ArmConstants.K_REVERSE_LIMIT && speed <= 0)
             || (getArmAngle() >= ArmConstants.K_FORWARD_LIMIT && speed >= 0)) {
             m_armAngleMaster.set(speed);
         }
@@ -76,7 +78,7 @@ public class ArmIONeo implements ArmIO {
 
     @Override
     public void setArmExtensionSpeed(double speed) {
-        if(armAtLowerLimit() && speed <= 0){
+        if(armAtLowerLimit() && speed <= 0 || speed == 0){
             m_ArmEx.set(0);
         } else 
         {
@@ -93,11 +95,7 @@ public class ArmIONeo implements ArmIO {
         SmartDashboard.putNumber("PID Output", pidOutput);
         SmartDashboard.putBoolean("At Lower Limit", armAtLowerLimit());
 
-        if(armAtLowerLimit() && pidOutput <= 0){
-            m_ArmEx.set(0);
-        } else {
-            m_ArmEx.set(pidOutput);
-        }
+        setArmExtensionSpeed(pidOutput);
     }
 
     @Override
