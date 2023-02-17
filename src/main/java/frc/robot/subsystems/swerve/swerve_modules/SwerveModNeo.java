@@ -1,4 +1,4 @@
-package frc.robot.subsystems.swerve.SwerveModules;
+package frc.robot.subsystems.swerve.swerve_modules;
 
 import com.ctre.phoenix.sensors.AbsoluteSensorRange;
 import com.ctre.phoenix.sensors.CANCoder;
@@ -16,14 +16,13 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
 import frc.robot.Constants.ModuleConstants;
-import lib.utils.Utils;
 import lib.utils.Rev.SparkMaxConfigs;
 import lib.utils.drivers.CTREUtil;
 import lib.utils.drivers.RevUtil;
 
 public class SwerveModNeo {
   public final int moduleNumber;
-  private int TIMEOUT_MILLISECONDS = 600;
+  private static final int TIMEOUT_MILLISECONDS = 600;
 
   private final CANSparkMax m_driveMotor;
   private final RelativeEncoder m_driveEncoder;
@@ -112,7 +111,7 @@ public class SwerveModNeo {
    * Gives best effort to a CTRE API call
    * @param callback A function that is used to make the configuration goes smoothly
    */
-  private void autoRetry(CTREUtil.ConfigCall callback) { 
+  private void autoRetry(CTREUtil.ConfigCall callback) {
     CTREUtil.autoRetry(callback);
   }
 
@@ -170,9 +169,6 @@ public class SwerveModNeo {
     autoRetry(() -> m_anglePID.setPositionPIDWrappingEnabled(true));
     autoRetry(() -> m_anglePID.setPositionPIDWrappingMaxInput(2 * Math.PI));
     autoRetry(() -> m_anglePID.setPositionPIDWrappingMinInput(0));
-
-    // TODO test timing delay to garuntee azimuth angled properly
-    // Timer.delay(Units.millisecondsToSeconds(TIMEOUT_MILLISECONDS));
 
     autoRetry(() -> m_angleEncoder.setPositionConversionFactor(ModuleConstants.POSITION_CONVERSION_FACTOR));
     // angleEncoder.setVelocityConversionFactor(Constants.kSwerve.ANGLE_RPM_TO_RADIANS_PER_SECOND);

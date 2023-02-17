@@ -14,24 +14,24 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
-import frc.robot.subsystems.swerve.SwerveModules.SwerveModNeo;
+import frc.robot.subsystems.swerve.swerve_modules.SwerveModNeo;
 import org.littletonrobotics.junction.AutoLog;
 import org.littletonrobotics.junction.Logger;
 
 public class SwerveDrivetrain extends SubsystemBase {
-    private SwerveModNeo m_frMod;
-    private SwerveModNeo m_flMod;
-    private SwerveModNeo m_blMod;
-    private SwerveModNeo m_brMod;
+    private final SwerveModNeo m_frMod;
+    private final SwerveModNeo m_flMod;
+    private final SwerveModNeo m_blMod;
+    private final SwerveModNeo m_brMod;
 
-    private PigeonIMU m_gyro;
+    private final PigeonIMU m_gyro;
 
     private final SwerveIOInputsAutoLogged m_inputs;
 
     private boolean fieldOriented = false;
 
     private final Field2d m_field;
-    private SwerveDrivePoseEstimator m_poseEstimator;
+    private final SwerveDrivePoseEstimator m_poseEstimator;
 
     @AutoLog
     public static class SwerveIOInputs {
@@ -207,10 +207,10 @@ public class SwerveDrivetrain extends SubsystemBase {
     }
 
     public Command toggleFieldRelative() {
-        return runOnce(() -> {fieldOriented = !fieldOriented;});
+        return runOnce(() -> fieldOriented = !fieldOriented);
     }
 
     public CommandBase resetPoseBase() {
-        return runOnce(() -> {resetPose(new Pose2d());});
+        return runOnce(() -> resetPose(new Pose2d()));
     }
 }
