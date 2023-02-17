@@ -21,7 +21,6 @@ import frc.robot.commands.autonomous.AutoUtils;
 import frc.robot.subsystems.arm.ArmIONeo;
 import frc.robot.subsystems.arm.ArmSubsystem;
 import frc.robot.subsystems.swerve.SwerveDrivetrain;
-import frc.robot.subsystems.wrist.WristIONeo;
 import frc.robot.subsystems.wrist.WristSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -51,7 +50,7 @@ public class RobotContainer {
     case THANOS:
     case HELIOS:
       m_drive = new SwerveDrivetrain();
-      m_wrist = new WristSubsystem(new WristIONeo());
+      m_wrist = new WristSubsystem();
       m_arm = new ArmSubsystem(new ArmIONeo());
       break;
 
