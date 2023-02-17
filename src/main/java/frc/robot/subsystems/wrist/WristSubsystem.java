@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import com.playingwithfusion.TimeOfFlight;
 import com.playingwithfusion.TimeOfFlight.RangingMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.WristConstants;
@@ -18,13 +17,13 @@ import org.littletonrobotics.junction.AutoLog;
 import org.littletonrobotics.junction.Logger;
 
 public class WristSubsystem extends SubsystemBase {
-    private CANSparkMax m_wristMotor;
-    private CANSparkMax m_intakeMotor;
-    private DigitalInput m_wristZeroLimit;
-    private CANCoder m_wristEncoder;
-    private PIDController m_wristPID;
-    private TimeOfFlight m_tofSensor;
-    private WristIOInputsAutoLogged m_input;
+    private final CANSparkMax m_wristMotor;
+    private final CANSparkMax m_intakeMotor;
+    private final DigitalInput m_wristZeroLimit;
+    private final CANCoder m_wristEncoder;
+    private final PIDController m_wristPID;
+    private final TimeOfFlight m_tofSensor;
+    private final WristIOInputsAutoLogged m_input;
 
     @AutoLog
     public static class WristIOInputs {
@@ -33,6 +32,9 @@ public class WristSubsystem extends SubsystemBase {
     }
 
     public WristSubsystem() {
+
+        m_input = new WristIOInputsAutoLogged();
+
         m_wristMotor = new CANSparkMax(WristConstants.WRIST_ID, MotorType.kBrushless);
         m_intakeMotor = new CANSparkMax(WristConstants.INTAKE_ID, MotorType.kBrushless);
 
@@ -91,7 +93,7 @@ public class WristSubsystem extends SubsystemBase {
     }
 
     public Command setWristPowerFactory(double speed) {
-        return runOnce(() -> {setWristPower(speed);});
+        return runOnce(() -> setWristPower(speed));
     }
 
     public void setIntakeSpeed(double speed) {
@@ -99,7 +101,7 @@ public class WristSubsystem extends SubsystemBase {
     }
 
     public Command setIntakeSpeedFactory(double speed) {
-        return runOnce(() -> {setIntakeSpeed(speed);});
+        return runOnce(() -> setIntakeSpeed(speed));
     }
 
     public void zeroWristAngle() {

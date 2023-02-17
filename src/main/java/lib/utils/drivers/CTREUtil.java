@@ -40,7 +40,7 @@ public class CTREUtil {
         // If err is still an error, then the loop reached MAX_RETRY_COUNT and could not set the config
         if (hasError(err)) {
             // Display the error to the driver with stack trace to see WHAT failed to configure.
-            DriverStation.reportError("Failed to configure after " + MAX_RETRY_COUNT + "counts.",  true);
+            DriverStation.reportError("Failed to configure after " + MAX_RETRY_COUNT + "counts. (" + configCall.hashCode() + ")",  true);
         }
         return err;
     }
