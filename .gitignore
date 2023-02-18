@@ -162,6 +162,6 @@ bin/
 simgui*
 .roborioteamnumbersetter/roborioteamnumbersetter-window.json
 /.glass/
-networktables.json
+networktables*
 /.idea/
 /tags
