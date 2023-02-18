@@ -33,28 +33,6 @@ class SparkMaxFactory {
             val currentLimit: Int = 30)
 
 
-
-    /**
-     * Returns a Spark Max motor controller set to the config handed to it
-     * @return A configured spark max motor controller
-     */
-    fun createSparkMax(id: Int, config: SparkMaxConfig): CANSparkMax {
-        val spark = CANSparkMax(id, CANSparkMaxLowLevel.MotorType.kBrushless)
-        RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus0, config.frame0Rate)}
-        RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus1, config.frame1Rate)}
-        RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus2, config.frame2Rate)}
-        RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus3, config.frame3Rate)}
-        RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus4, config.frame4Rate)}
-        RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus5, config.frame5Rate)}
-        RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus6, config.frame6Rate)}
-
-        RevUtil.autoRetry {spark.setIdleMode(config.idleMode)}
-        spark.inverted = config.inverted
-        RevUtil.autoRetry {spark.setSmartCurrentLimit(config.currentLimit)}
-
-        return spark
-    }
-
     /**
      * Creates a Spark Max to these settings:
      *  frame rate 0, 3-6: 65535 milliseconds
@@ -66,10 +44,31 @@ class SparkMaxFactory {
      * @return a spark max configured to the default settings
      */
     fun createDefaultSpark(id: Int): CANSparkMax {
-        return createSparkMax(id, SparkMaxConfig())
+        return Companion.createSparkMax(id, SparkMaxConfig())
     }
 
     companion object {
        const val MAX_CAN_FRAME_PERIOD = 65535;
+
+        /**
+         * Returns a Spark Max motor controller set to the config handed to it
+         * @return A configured spark max motor controller
+         */
+        fun createSparkMax(id: Int, config: SparkMaxConfig): CANSparkMax {
+            val spark = CANSparkMax(id, CANSparkMaxLowLevel.MotorType.kBrushless)
+            RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus0, config.frame0Rate)}
+            RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus1, config.frame1Rate)}
+            RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus2, config.frame2Rate)}
+            RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus3, config.frame3Rate)}
+            RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus4, config.frame4Rate)}
+            RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus5, config.frame5Rate)}
+            RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus6, config.frame6Rate)}
+
+            RevUtil.autoRetry {spark.setIdleMode(config.idleMode)}
+            spark.inverted = config.inverted
+            RevUtil.autoRetry {spark.setSmartCurrentLimit(config.currentLimit)}
+
+            return spark
+        }
     }
 }
