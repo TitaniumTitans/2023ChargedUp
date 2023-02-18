@@ -147,7 +147,7 @@ public class WristSubsystem extends SubsystemBase {
     public void setWristAngle(double targetAngleRaw) {
         double currentWristAngle = getWristAngle();
 
-        double targetAngleClamped = MathUtil.clamp(targetAngleRaw, Constants.LimitConstants.WRIST_SCORE_LOWER, Constants.LimitConstants.WRIST_SCORE_UPPER);
+        double targetAngleClamped = MathUtil.clamp(targetAngleRaw, Constants.LimitConstants.WRIST_SCORE_LOWER.getValue(), Constants.LimitConstants.WRIST_SCORE_UPPER.getValue());
         double targetAnglePID = MathUtil.clamp(m_wristPID.calculate(currentWristAngle, targetAngleClamped), -0.25, 0.25);
 
         // Dashboard variables
@@ -162,7 +162,7 @@ public class WristSubsystem extends SubsystemBase {
 
         if (atLowerLimit() && speed <= 0){
             m_wristMotor.set(0.0);
-        } else if (getWristAngle() >= Constants.LimitConstants.WRIST_SCORE_UPPER && speed >= 0) {
+        } else if (getWristAngle() >= Constants.LimitConstants.WRIST_SCORE_UPPER.getValue() && speed >= 0) {
             m_wristMotor.set(0.0);
         } else {
             m_wristMotor.set(speed);
@@ -193,11 +193,11 @@ public class WristSubsystem extends SubsystemBase {
     }
 
     public boolean wristAtUpperLimit() {
-        return (getWristAngle() >= Constants.LimitConstants.WRIST_SCORE_UPPER);
+        return (getWristAngle() >= Constants.LimitConstants.WRIST_SCORE_UPPER.getValue());
     }
 
     public boolean debugWristLowerThanLimit() {
-        return (getWristAngle() <= Constants.LimitConstants.WRIST_SCORE_LOWER);
+        return (getWristAngle() <= Constants.LimitConstants.WRIST_SCORE_LOWER.getValue());
     }
 
 

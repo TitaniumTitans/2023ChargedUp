@@ -13,21 +13,21 @@ import lib.utils.piecewise.RangedPiecewise;
 import java.util.List;
 
 public class ArmSupersystem {
-    private static final Range fullArmRange = new Range(LimitConstants.STOW_ZONE, true, LimitConstants.MAX_MOVEMENT, false);
-    private static final Range stowRange = new Range(LimitConstants.STOW_ZONE, true, LimitConstants.SCORE_ZONE, false);
-    private static final Range fullRangeZone = new Range(LimitConstants.SCORE_ZONE, true, LimitConstants.GROUND_ZONE, false);
-    private static final Range floorCollisionZone = new Range(LimitConstants.GROUND_ZONE, true, LimitConstants.MAX_MOVEMENT, false);
+    private static final Range fullArmRange = new Range(LimitConstants.STOW_ZONE.getValue(), true, LimitConstants.MAX_MOVEMENT.getValue(), false);
+    private static final Range stowRange = new Range(LimitConstants.STOW_ZONE.getValue(), true, LimitConstants.SCORE_ZONE.getValue(), false);
+    private static final Range fullRangeZone = new Range(LimitConstants.SCORE_ZONE.getValue(), true, LimitConstants.GROUND_ZONE.getValue(), false);
+    private static final Range floorCollisionZone = new Range(LimitConstants.GROUND_ZONE.getValue(), true, LimitConstants.MAX_MOVEMENT.getValue(), false);
 
     private static final List<PiecewiseInterval<ArmLimits>> armRegion = List.of(
-            new PiecewiseInterval<>(stowRange, ignored -> new ArmLimits(LimitConstants.WRIST_STOW, LimitConstants.WRIST_STOW,
-                                                                        LimitConstants.ARM_EXT_STOW, LimitConstants.ARM_EXT_STOW,
-                                                                        LimitConstants.ARM_ANGLE_LOWER, LimitConstants.ARM_ANGLE_UPPER)),
-            new PiecewiseInterval<>(fullRangeZone, ignored -> new ArmLimits(LimitConstants.WRIST_SCORE_LOWER, LimitConstants.WRIST_SCORE_UPPER,
-                                                                            LimitConstants.ARM_EXT_SCORE_LOWER,LimitConstants.ARM_EXT_SCORE_UPPER,
-                                                                            LimitConstants.ARM_ANGLE_LOWER, LimitConstants.ARM_ANGLE_UPPER)),
-            new PiecewiseInterval<>(floorCollisionZone, ignored -> new ArmLimits(LimitConstants.WRIST_STOW, LimitConstants.WRIST_STOW,
-                                                                                LimitConstants.ARM_EXT_STOW, LimitConstants.ARM_EXT_STOW,
-                                                                                LimitConstants.ARM_ANGLE_LOWER, LimitConstants.ARM_ANGLE_UPPER))
+            new PiecewiseInterval<>(stowRange, ignored -> new ArmLimits(LimitConstants.WRIST_STOW.getValue(), LimitConstants.WRIST_STOW.getValue(),
+                                                                        LimitConstants.ARM_EXT_STOW.getValue(), LimitConstants.ARM_EXT_STOW.getValue(),
+                                                                        LimitConstants.ARM_ANGLE_LOWER.getValue(), LimitConstants.ARM_ANGLE_UPPER.getValue())),
+            new PiecewiseInterval<>(fullRangeZone, ignored -> new ArmLimits(LimitConstants.WRIST_SCORE_LOWER.getValue(), LimitConstants.WRIST_SCORE_UPPER.getValue(),
+                                                                            LimitConstants.ARM_EXT_SCORE_LOWER.getValue(),LimitConstants.ARM_EXT_SCORE_UPPER.getValue(),
+                                                                            LimitConstants.ARM_ANGLE_LOWER.getValue(), LimitConstants.ARM_ANGLE_UPPER.getValue())),
+            new PiecewiseInterval<>(floorCollisionZone, ignored -> new ArmLimits(LimitConstants.WRIST_STOW.getValue(), LimitConstants.WRIST_STOW.getValue(),
+                                                                                LimitConstants.ARM_EXT_STOW.getValue(), LimitConstants.ARM_EXT_STOW.getValue(),
+                                                                                LimitConstants.ARM_ANGLE_LOWER.getValue(), LimitConstants.ARM_ANGLE_UPPER.getValue()))
     );
     private static final RangedPiecewise<ArmLimits> limitPiecewise = new RangedPiecewise<>(fullArmRange, armRegion);
     private final ArmAngleSubsystem angleArmSubsystem;
@@ -50,6 +50,10 @@ public class ArmSupersystem {
         angleArmSubsystem.setAngleSpeed(0.0);
     }
 
+    /**
+     * Set the arm supersystem to a desired pose as stored in a
+     * @param pose An ArmPose object storing the desired pose
+     */
     public void setToPose(ArmPose pose) {
         ArmLimits armLimits = limitPiecewise.calculate(angleArmSubsystem.getArmAngle());
         double wristSetpoint = pose.wristSetpoint;

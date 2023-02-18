@@ -92,8 +92,8 @@ public class ArmAngleSubsystem extends SubsystemBase {
     }
 
     public void setAngleSpeed(double speed) {
-        if ((getArmAngle() <= LimitConstants.ARM_ANGLE_LOWER && speed <= 0)
-            || (getArmAngle() >= LimitConstants.ARM_ANGLE_UPPER && speed >= 0)) {
+        if ((getArmAngle() <= LimitConstants.ARM_ANGLE_LOWER.getValue() && speed <= 0)
+            || (getArmAngle() >= LimitConstants.ARM_ANGLE_UPPER.getValue() && speed >= 0)) {
             m_armAngleMaster.set(speed);
         }
     }
@@ -107,7 +107,7 @@ public class ArmAngleSubsystem extends SubsystemBase {
         double currentArmAngle = getArmAngle();
 
         // Clamp target
-        double targetAngleClamped = MathUtil.clamp(targetAngleRaw, LimitConstants.ARM_ANGLE_LOWER, LimitConstants.ARM_ANGLE_UPPER);
+        double targetAngleClamped = MathUtil.clamp(targetAngleRaw, LimitConstants.ARM_ANGLE_LOWER.getValue(), LimitConstants.ARM_ANGLE_UPPER.getValue());
         double targetAnglePID = MathUtil.clamp(m_anglePID.calculate(currentArmAngle, targetAngleClamped), -6, 6);
 
         // Update dashboard variables
@@ -132,9 +132,9 @@ public class ArmAngleSubsystem extends SubsystemBase {
     }
 
     public boolean armAtUpperLimit(){
-        return (getArmAngle() >= LimitConstants.ARM_ANGLE_UPPER);
+        return (getArmAngle() >= LimitConstants.ARM_ANGLE_UPPER.getValue());
     }
     public boolean armAtLowerLimit(){
-        return (getArmAngle() <= LimitConstants.ARM_ANGLE_LOWER);
+        return (getArmAngle() <= LimitConstants.ARM_ANGLE_LOWER.getValue());
     }
 }
