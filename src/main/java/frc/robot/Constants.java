@@ -121,9 +121,9 @@ public final class Constants {
         public static final double KI_ANGLE = 0.005;
         public static final double KD_ANGLE = 0.0075;
 
-        public static final double ARM_EXT_KP = 0.1;
-        public static final double ARM_EXT_KI = 0;
-        public static final double ARM_EXT_KD = 0;
+        public static final GosDoubleProperty ARM_EXT_KP = new GosDoubleProperty(false, "Arm extension kP", 0.1);
+        public static final GosDoubleProperty ARM_EXT_KI = new GosDoubleProperty(false, "Arm extension kI", 0);
+        public static final GosDoubleProperty ARM_EXT_KD = new GosDoubleProperty(false, "Arm extension kD", 0);
 
         public static final double ARM_OFFSET = 0;
         public static final double K_REVERSE_LIMIT = 45;
@@ -137,6 +137,7 @@ public final class Constants {
         public static final double EXT_LOWER_LIMIT = 0.5;
         public static final double EXT_HIGHER_LIMIT = 25;
 
+        public static final double EXT_PID_TOLERANCE = 0.5;
     }
 
     public static class LimitConstants {
