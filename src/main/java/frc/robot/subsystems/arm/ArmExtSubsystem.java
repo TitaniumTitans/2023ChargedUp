@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import lib.factories.SparkMaxFactory;
 
 public class ArmExtSubsystem extends SubsystemBase {
     private final CANSparkMax m_ArmEx;
@@ -19,8 +20,9 @@ public class ArmExtSubsystem extends SubsystemBase {
     private final DigitalInput m_armLimitSwitch;
 
     public ArmExtSubsystem() {
-        m_ArmEx = new CANSparkMax(Constants.ArmConstants.ARM_EXTENSION_ID, CANSparkMaxLowLevel.MotorType.kBrushless);
-        m_ArmEx.setIdleMode(CANSparkMax.IdleMode.kBrake);
+        SparkMaxFactory.SparkMaxConfig config = new SparkMaxFactory.SparkMaxConfig();
+
+        m_ArmEx = SparkMaxFactory.Companion.createSparkMax(Constants.ArmConstants.ARM_EXTENSION_ID, config);
 
         m_relativeEncoderArmEx = m_ArmEx.getEncoder();
 
@@ -40,14 +42,14 @@ public class ArmExtSubsystem extends SubsystemBase {
     }
 
     public Command setArmSpeedFactory(double speed) {
-        return runOnce(() -> {setArmSpeed(speed);});
+        return runOnce(() -> setArmSpeed(speed));
     }
 
     public void setArmExtension(double extension) {
         double setpoint = MathUtil.clamp(extension, Constants.ArmConstants.EXT_LOWER_LIMIT, Constants.ArmConstants.EXT_HIGHER_LIMIT);
         double pidOutput = MathUtil.clamp(m_extPID.calculate(getArmExtension(), setpoint), -0.5, 0.5);
 
-        SmartDashboard.putNumber("Exstention Setpoint", setpoint);
+        SmartDashboard.putNumber("Extension Setpoint", setpoint);
         SmartDashboard.putNumber("PID Output", pidOutput);
         SmartDashboard.putBoolean("At Lower Limit", armAtLowerLimit());
 

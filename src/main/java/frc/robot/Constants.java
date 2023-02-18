@@ -123,7 +123,8 @@ public final class Constants {
         public static final double ARM_EXT_KP = 0.1;
         public static final double ARM_EXT_KI = 0;
         public static final double ARM_EXT_KD = 0;
-        
+
+        public static final double ARM_OFFSET = 0;
         public static final double K_REVERSE_LIMIT = 45;
         public static final double K_FORWARD_LIMIT = 300;
 
