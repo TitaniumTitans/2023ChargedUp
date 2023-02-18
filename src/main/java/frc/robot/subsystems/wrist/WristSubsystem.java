@@ -6,6 +6,7 @@ import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DigitalInput;
 import com.playingwithfusion.TimeOfFlight;
 import com.playingwithfusion.TimeOfFlight.RangingMode;
@@ -30,7 +31,21 @@ public class WristSubsystem extends SubsystemBase {
     private double prevSetpointRaw;
     private double prevSetpointClamped;
     private double prevSetpointPID;
+
+    //Shuffleboard data
     private ShuffleboardTab wristAngleTab;
+    private GenericEntry wristAtSetpointEntry;
+    private GenericEntry wristMotorInvertedEntry;
+    private GenericEntry pieceInsideEntry;
+    private GenericEntry wristAtUpperLimit;
+    private GenericEntry wristAtLowerLimitEntry;
+    private GenericEntry wristEncoderLowerThanLimitEntry;
+    private GenericEntry wristAngleRawEntry;
+    private GenericEntry wristAngleConvertedEntry;
+    private GenericEntry wristTargetEntry;
+    private GenericEntry wristSetpointClampedEntry;
+    private GenericEntry wristPIDOutputEntry;
+    private GenericEntry wristTOFSensorDistanceEntry;
 
     @AutoLog
     public static class WristIOInputs {
@@ -59,6 +74,54 @@ public class WristSubsystem extends SubsystemBase {
         m_wristPID.setTolerance(2);
 
         wristAngleTab = Shuffleboard.getTab("WristSubsystem");
+
+        addShuffleboardData();
+    }
+
+    private void addShuffleboardData() {
+        // Booleans
+        // Misc.
+        wristAtSetpointEntry = wristAngleTab.add("At setpoint", wristAtSetpoint()).getEntry();
+        wristMotorInvertedEntry = wristAngleTab.add("Motor inverted", m_wristMotor.getInverted()).getEntry();
+        pieceInsideEntry = wristAngleTab.add("Piece inside", pieceInside()).getEntry();
+        // Limits
+        wristAtUpperLimit = wristAngleTab.add("At upper limit", wristAtUpperLimit()).getEntry();
+        wristAtLowerLimitEntry = wristAngleTab.add("Limit switch triggered", atLowerLimit()).getEntry();
+        wristEncoderLowerThanLimitEntry = wristAngleTab.add("Wrist encoder lower than limit", debugWristLowerThanLimit()).getEntry();
+
+        // Doubles
+        // Angles
+        wristAngleRawEntry = wristAngleTab.add("Angle raw", m_wristEncoder.getPosition()).getEntry();
+        wristAngleConvertedEntry = wristAngleTab.add("Angle converted", getWristAngle()).getEntry();
+        // Targets
+        wristTargetEntry = wristAngleTab.add("Target", prevSetpointRaw).getEntry();
+        wristSetpointClampedEntry = wristAngleTab.add("Clamped setpoint", prevSetpointClamped).getEntry();
+        wristPIDOutputEntry = wristAngleTab.add("PID setpoint output", prevSetpointPID).getEntry();
+        // Misc.
+        wristTOFSensorDistanceEntry = wristAngleTab.add("TOF detection range", getDetectionRange()).getEntry();
+    }
+
+    private void updateShuffleboardData() {
+        // Booleans
+        // Misc.
+        wristAtSetpointEntry.setBoolean(wristAtSetpoint());
+        wristMotorInvertedEntry.setBoolean(m_wristMotor.getInverted());
+        pieceInsideEntry.setBoolean(pieceInside());
+        // Limits
+        wristAtUpperLimit.setBoolean(wristAtUpperLimit());
+        wristAtLowerLimitEntry.setBoolean(atLowerLimit());
+        wristEncoderLowerThanLimitEntry.setBoolean(debugWristLowerThanLimit());
+
+        // Doubles
+        // Angles
+        wristAngleRawEntry.setDouble(m_wristEncoder.getPosition());
+        wristAngleConvertedEntry.setDouble(getWristAngle());
+        // Targets
+        wristTargetEntry.setDouble(prevSetpointRaw);
+        wristSetpointClampedEntry.setDouble(prevSetpointClamped);
+        wristPIDOutputEntry.setDouble(prevSetpointPID);
+        // Misc.
+        wristTOFSensorDistanceEntry.setDouble(getDetectionRange());
     }
 
     @Override
@@ -66,26 +129,7 @@ public class WristSubsystem extends SubsystemBase {
         updateInputs(m_input);
         Logger.getInstance().processInputs("Wrist", m_input);
 
-        // Booleans
-        // Misc.
-        wristAngleTab.add("At setpoint", wristAtSetpoint());
-        wristAngleTab.add("Motor inverted", m_wristMotor.getInverted());
-        wristAngleTab.add("Piece inside", pieceInside());
-        // Limits
-        wristAngleTab.add("At upper limit", wristAtUpperLimit());
-        wristAngleTab.add("Limit switch triggered", atLowerLimit());
-        wristAngleTab.add("Wrist encoder lower than limit", debugWristLowerThanLimit());
-
-        // Doubles
-        // Angles
-        wristAngleTab.add("Angle raw", m_wristEncoder.getPosition());
-        wristAngleTab.add("Angle converted", getWristAngle());
-        // Targets
-        wristAngleTab.add("Target", prevSetpointRaw);
-        wristAngleTab.add("Clamped setpoint", prevSetpointClamped);
-        wristAngleTab.add("PID setpoint output", prevSetpointPID);
-        // Misc.
-        wristAngleTab.add("TOF detection range", getDetectionRange());
+        updateShuffleboardData();
 
         if (atLowerLimit()) {
             zeroWristAngle();
