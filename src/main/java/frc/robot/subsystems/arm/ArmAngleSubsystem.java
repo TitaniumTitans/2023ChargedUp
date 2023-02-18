@@ -46,6 +46,8 @@ public class ArmAngleSubsystem extends SubsystemBase {
     private GenericEntry armAngleTargetEntry;
     private GenericEntry armAngleSetpointClampedEntry;
     private GenericEntry armAnglePIDOutputEntry;
+    private GenericEntry armAngleMasterOutputEntry;
+    private GenericEntry armAngleFollowerOutputEntry;
 
     @AutoLog
     public static class ArmAngleIOInputs {
@@ -97,6 +99,9 @@ public class ArmAngleSubsystem extends SubsystemBase {
         armAngleTargetEntry = armAngleTab.add("Target", prevSetpointRaw).getEntry();
         armAngleSetpointClampedEntry = armAngleTab.add("Clamped setpoint", prevSetpointClamped).getEntry();
         armAnglePIDOutputEntry = armAngleTab.add("PID setpoint output", prevSetpointPID).getEntry();
+        // Misc.
+        armAngleMasterOutputEntry = armAngleTab.add("Master output", m_armAngleMaster.getAppliedOutput()).getEntry();
+        armAngleFollowerOutputEntry = armAngleTab.add("Follower output", m_armAngleFollower.getAppliedOutput()).getEntry();
     }
 
     private void updateShuffleboardData() {
@@ -120,6 +125,9 @@ public class ArmAngleSubsystem extends SubsystemBase {
         armAngleTargetEntry.setDouble(prevSetpointRaw);
         armAngleSetpointClampedEntry.setDouble(prevSetpointClamped);
         armAnglePIDOutputEntry.setDouble(prevSetpointPID);
+        // Misc.
+        armAngleMasterOutputEntry.setDouble(m_armAngleMaster.getAppliedOutput());
+        armAngleFollowerOutputEntry.setDouble(m_armAngleFollower.getAppliedOutput());
     }
 
     @Override
