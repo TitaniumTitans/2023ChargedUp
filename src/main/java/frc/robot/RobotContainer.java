@@ -5,10 +5,13 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
+import edu.wpi.first.wpilibj2.command.ProfiledPIDCommand;
 import frc.robot.commands.SupersystemToPoseCommand;
 import frc.robot.subsystems.arm.ArmExtSubsystem;
 import frc.robot.supersystems.ArmPose;
 import frc.robot.supersystems.ArmSupersystem;
+import lib.controllers.FootPedal;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
 import edu.wpi.first.wpilibj.GenericHID;
@@ -36,6 +39,7 @@ public class RobotContainer {
   private ArmAngleSubsystem m_arm;
   private ArmExtSubsystem m_ext;
   private ArmSupersystem m_super;
+  private FootPedal m_foot;
 
   //Controllers
   private final CommandXboxController m_driveController = new CommandXboxController(Constants.DRIVER_PORT);
@@ -54,6 +58,7 @@ public class RobotContainer {
       m_arm = new ArmAngleSubsystem();
       m_ext = new ArmExtSubsystem();
       m_super = new ArmSupersystem(m_arm, m_ext, m_wrist);
+      m_foot = new FootPedal(1);
       break;
 
     case SIM:
@@ -100,6 +105,10 @@ public class RobotContainer {
               .whileFalse(m_ext.setArmSpeedFactory(0.0));
     m_driveController.leftBumper().whileTrue(m_ext.setArmSpeedFactory(-0.5))
             .whileFalse(m_ext.setArmSpeedFactory(0.0));
+
+    m_foot.leftPedal().onTrue(new PrintCommand("Left Pedal Pressed!"));
+    m_foot.middlePedal().onTrue(new PrintCommand("Middle Pedal Pressed"));
+    m_foot.rightPedal().onTrue(new PrintCommand("Right Pedal Pressed"));
   }
 
   /**
