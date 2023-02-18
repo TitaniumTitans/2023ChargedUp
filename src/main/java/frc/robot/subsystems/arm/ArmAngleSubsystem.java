@@ -105,7 +105,6 @@ public class ArmAngleSubsystem extends SubsystemBase {
         // Get angle
         double currentArmAngle = getArmAngle();
 
-        m_armAngleMaster.setVoltage(-pidOutput);
         // Clamp target
         double targetAngleClamped = MathUtil.clamp(targetAngleRaw, ArmConstants.K_REVERSE_LIMIT, ArmConstants.K_FORWARD_LIMIT);
         double targetAnglePID = MathUtil.clamp(m_anglePID.calculate(currentArmAngle, targetAngleClamped), -6, 6);
