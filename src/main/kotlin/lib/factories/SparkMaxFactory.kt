@@ -2,8 +2,11 @@ package lib.factories
 
 import com.revrobotics.CANSparkMax
 import com.revrobotics.CANSparkMaxLowLevel
+import lib.utils.drivers.RevUtil
 
 class SparkMaxFactory {
+
+
     /**
      * A data class storing the configuration values of a spark max motor controller
      * @param frame0Rate the periodic frame of status 0 in milliseconds
@@ -18,29 +21,18 @@ class SparkMaxFactory {
      * @param currentLimit the max current draw allowed for the motor controller
      */
     data class SparkMaxConfig(
-            val frame0Rate: Int,
-            val frame1Rate: Int,
-            val frame2Rate: Int,
-            val frame3Rate: Int,
-            val frame4Rate: Int,
-            val frame5Rate: Int,
-            val frame6Rate: Int,
-            val idleMode: CANSparkMax.IdleMode,
-            val inverted: Boolean,
-            val currentLimit: Int)
+            val frame0Rate: Int = MAX_CAN_FRAME_PERIOD,
+            val frame1Rate: Int = 200,
+            val frame2Rate: Int = 20,
+            val frame3Rate: Int = MAX_CAN_FRAME_PERIOD,
+            val frame4Rate: Int = MAX_CAN_FRAME_PERIOD,
+            val frame5Rate: Int = MAX_CAN_FRAME_PERIOD,
+            val frame6Rate: Int = MAX_CAN_FRAME_PERIOD,
+            val idleMode: CANSparkMax.IdleMode = CANSparkMax.IdleMode.kBrake,
+            val inverted: Boolean = false,
+            val currentLimit: Int = 30)
 
-    private val defaultConfig: SparkMaxConfig = SparkMaxConfig(
-            200,
-            200,
-            200,
-            200,
-            200,
-            200,
-            200,
-            CANSparkMax.IdleMode.kBrake,
-            false,
-            20
-    )
+
 
     /**
      * Returns a Spark Max motor controller set to the config handed to it
@@ -48,30 +40,36 @@ class SparkMaxFactory {
      */
     fun createSparkMax(id: Int, config: SparkMaxConfig): CANSparkMax {
         val spark = CANSparkMax(id, CANSparkMaxLowLevel.MotorType.kBrushless)
-        spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus0, config.frame0Rate)
-        spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus1, config.frame1Rate)
-        spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus2, config.frame2Rate)
-        spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus3, config.frame3Rate)
-        spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus4, config.frame4Rate)
-        spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus5, config.frame5Rate)
-        spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus6, config.frame6Rate)
+        RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus0, config.frame0Rate)}
+        RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus1, config.frame1Rate)}
+        RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus2, config.frame2Rate)}
+        RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus3, config.frame3Rate)}
+        RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus4, config.frame4Rate)}
+        RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus5, config.frame5Rate)}
+        RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus6, config.frame6Rate)}
 
-        spark.idleMode = config.idleMode
+        RevUtil.autoRetry {spark.setIdleMode(config.idleMode)}
         spark.inverted = config.inverted
-        spark.setSmartCurrentLimit(config.currentLimit)
+        RevUtil.autoRetry {spark.setSmartCurrentLimit(config.currentLimit)}
 
         return spark
     }
 
     /**
      * Creates a Spark Max to these settings:
-     *  frame rate 0-6: 200 milliseconds
+     *  frame rate 0, 3-6: 65535 milliseconds
+     *  frame rate 1: 200 milliseconds
+     *  frame rate 2: 20 milliseconds
      *  idle mode: brake
      *  inverted: false
-     *  current limit: 20 amps
+     *  current limit: 30 amps
      * @return a spark max configured to the default settings
      */
     fun createDefaultSpark(id: Int): CANSparkMax {
-        return createSparkMax(id, defaultConfig)
+        return createSparkMax(id, SparkMaxConfig())
+    }
+
+    companion object {
+       const val MAX_CAN_FRAME_PERIOD = 65535;
     }
 }
