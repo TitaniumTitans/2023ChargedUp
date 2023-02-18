@@ -9,10 +9,10 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
 import com.playingwithfusion.TimeOfFlight;
 import com.playingwithfusion.TimeOfFlight.RangingMode;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.WristConstants;
+import lib.factories.SparkMaxFactory;
 import org.littletonrobotics.junction.AutoLog;
 import org.littletonrobotics.junction.Logger;
 
@@ -35,8 +35,10 @@ public class WristSubsystem extends SubsystemBase {
 
         m_input = new WristIOInputsAutoLogged();
 
-        m_wristMotor = new CANSparkMax(WristConstants.WRIST_ID, MotorType.kBrushless);
-        m_intakeMotor = new CANSparkMax(WristConstants.INTAKE_ID, MotorType.kBrushless);
+        SparkMaxFactory.SparkMaxConfig config = new SparkMaxFactory.SparkMaxConfig();
+
+        m_wristMotor  = SparkMaxFactory.Companion.createSparkMax(WristConstants.WRIST_ID, config);
+        m_intakeMotor  = SparkMaxFactory.Companion.createSparkMax(WristConstants.INTAKE_ID, config);
 
         m_wristEncoder = new CANCoder(WristConstants.WRIST_ANGLE_PORT);
         m_wristEncoder.configSensorInitializationStrategy(SensorInitializationStrategy.BootToZero);
@@ -71,12 +73,6 @@ public class WristSubsystem extends SubsystemBase {
         double currentWristAngle = getWristAngle();
         double setpoint = MathUtil.clamp(angle, WristConstants.WRIST_LOWER_LIMIT, WristConstants.WRIST_UPPER_LIMIT);
         double output = MathUtil.clamp(m_wristPID.calculate(currentWristAngle, setpoint), -0.25, 0.25);
-
-
-//        SmartDashboard.putNumber("Actual Wrist Angle", currentWristAngle);
-//        SmartDashboard.putNumber("Target Angle", angle);
-//        SmartDashboard.putNumber("Clamped Target Angle", setpoint);
-//        SmartDashboard.putNumber("PID Output", output);
 
         m_wristMotor.set(output);
     }

@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import lib.factories.SparkMaxFactory;
 
 public class ArmExtSubsystem extends SubsystemBase {
     private final CANSparkMax m_ArmEx;
@@ -25,8 +26,9 @@ public class ArmExtSubsystem extends SubsystemBase {
     private ShuffleboardTab armExtTab;
 
     public ArmExtSubsystem() {
-        m_ArmEx = new CANSparkMax(Constants.ArmConstants.ARM_EXTENSION_ID, CANSparkMaxLowLevel.MotorType.kBrushless);
-        m_ArmEx.setIdleMode(CANSparkMax.IdleMode.kBrake);
+        SparkMaxFactory.SparkMaxConfig config = new SparkMaxFactory.SparkMaxConfig();
+
+        m_ArmEx = SparkMaxFactory.Companion.createSparkMax(Constants.ArmConstants.ARM_EXTENSION_ID, config);
 
         m_relativeEncoderArmEx = m_ArmEx.getEncoder();
 
@@ -48,7 +50,7 @@ public class ArmExtSubsystem extends SubsystemBase {
     }
 
     public Command setArmSpeedFactory(double speed) {
-        return runOnce(() -> {setArmSpeed(speed);});
+        return runOnce(() -> setArmSpeed(speed));
     }
 
     public void setArmExtension(double targetExtRaw) {

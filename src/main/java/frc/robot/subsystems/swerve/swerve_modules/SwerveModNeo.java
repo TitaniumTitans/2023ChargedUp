@@ -15,7 +15,9 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
+import frc.robot.Constants;
 import frc.robot.Constants.ModuleConstants;
+import lib.factories.SparkMaxFactory;
 import lib.utils.Rev.SparkMaxConfigs;
 import lib.utils.drivers.CTREUtil;
 import lib.utils.drivers.RevUtil;
@@ -42,13 +44,14 @@ public class SwerveModNeo {
   public SwerveModNeo(int moduleNumber, double offsets, int[] canIds, boolean driveInvert) {
     this.moduleNumber = moduleNumber;
     this.m_invert = driveInvert;
-    
-    m_driveMotor = new CANSparkMax(canIds[0], MotorType.kBrushless);
+    SparkMaxFactory.SparkMaxConfig config = new SparkMaxFactory.SparkMaxConfig();
+
+    m_driveMotor = SparkMaxFactory.Companion.createSparkMax(canIds[0], config);
     m_driveEncoder = m_driveMotor.getEncoder();
     // drivePID = driveMotor.getPIDController();
     // driveFeedforward = new SimpleMotorFeedforward(Constants.kSwerve.DRIVE_KS, Constants.kSwerve.DRIVE_KV, Constants.kSwerve.DRIVE_KA);
 
-    m_angleMotor = new CANSparkMax(canIds[1], MotorType.kBrushless);
+    m_angleMotor = SparkMaxFactory.Companion.createSparkMax(canIds[1], config);
     m_angleEncoder = m_angleMotor.getEncoder();
     m_anglePID = m_angleMotor.getPIDController();
 
