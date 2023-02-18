@@ -148,7 +148,7 @@ public final class Constants {
 
         // Arm Angle limits for Piecewise Function
         public static final double ARM_ANGLE_LOWER = 45;
-        public static final double ARM_ANGLE_UPPER = 270;
+        public static final double ARM_ANGLE_UPPER = 300;
 
         // Wrist limits for Piecewise Function
         public static final double WRIST_STOW = 0;
@@ -158,8 +158,8 @@ public final class Constants {
         //Arm angle zones for piecewise intervals
         public static final double STOW_ZONE = 45;
         public static final double SCORE_ZONE = 200;
-        public static final double GROUND_ZONE = 300;
-        public static final double MAX_MOVEMENT = 310;
+        public static final double GROUND_ZONE = 280;
+        public static final double MAX_MOVEMENT = 300;
     }
 
     public static final int DRIVER_PORT = 0;
