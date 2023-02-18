@@ -2,7 +2,6 @@ package frc.robot.subsystems.arm;
 
 
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel;
 import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
@@ -77,11 +76,11 @@ public class ArmExtSubsystem extends SubsystemBase {
     }
 
     public boolean armAtUpperLimit() {
-        return (m_relativeEncoderArmEx.getPosition() >= Constants.ArmConstants.EXT_HIGHER_LIMIT);
+        return (getArmExtension() >= Constants.ArmConstants.EXT_HIGHER_LIMIT);
     }
 
     public boolean debugEncoderAtLowerLimit() {
-        return (m_relativeEncoderArmEx.getPosition() <= Constants.ArmConstants.EXT_LOWER_LIMIT);
+        return (getArmExtension() <= Constants.ArmConstants.EXT_LOWER_LIMIT);
     }
 
     public void resetExtensionEncoder() {
@@ -105,7 +104,7 @@ public class ArmExtSubsystem extends SubsystemBase {
 
         // Doubles
         // Angles
-        armExtTab.add("Encoder raw",m_relativeEncoderArmEx);
+        armExtTab.add("Encoder raw", m_relativeEncoderArmEx.getPosition());
         armExtTab.add("Extension converted", getArmExtension());
         // Targets
         armExtTab.add("Target", prevSetpointRaw);
