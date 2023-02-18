@@ -20,7 +20,7 @@ class SparkMaxFactory {
      * @param currentLimit the max current draw allowed for the motor controller
      */
     data class SparkMaxConfig(
-            var frame0Rate: Int = MAX_CAN_FRAME_PERIOD,
+            var frame0Rate: Int = 100,
             var frame1Rate: Int = 200,
             var frame2Rate: Int = 20,
             var frame3Rate: Int = MAX_CAN_FRAME_PERIOD,
