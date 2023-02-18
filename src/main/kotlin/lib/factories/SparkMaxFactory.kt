@@ -21,16 +21,16 @@ class SparkMaxFactory {
      * @param currentLimit the max current draw allowed for the motor controller
      */
     data class SparkMaxConfig(
-            val frame0Rate: Int = MAX_CAN_FRAME_PERIOD,
-            val frame1Rate: Int = 200,
-            val frame2Rate: Int = 20,
-            val frame3Rate: Int = MAX_CAN_FRAME_PERIOD,
-            val frame4Rate: Int = MAX_CAN_FRAME_PERIOD,
-            val frame5Rate: Int = MAX_CAN_FRAME_PERIOD,
-            val frame6Rate: Int = MAX_CAN_FRAME_PERIOD,
-            val idleMode: CANSparkMax.IdleMode = CANSparkMax.IdleMode.kBrake,
-            val inverted: Boolean = false,
-            val currentLimit: Int = 30)
+            var frame0Rate: Int = MAX_CAN_FRAME_PERIOD,
+            var frame1Rate: Int = 200,
+            var frame2Rate: Int = 20,
+            var frame3Rate: Int = MAX_CAN_FRAME_PERIOD,
+            var frame4Rate: Int = MAX_CAN_FRAME_PERIOD,
+            var frame5Rate: Int = MAX_CAN_FRAME_PERIOD,
+            var frame6Rate: Int = MAX_CAN_FRAME_PERIOD,
+            var idleMode: CANSparkMax.IdleMode = CANSparkMax.IdleMode.kBrake,
+            var inverted: Boolean = false,
+            var currentLimit: Int = 30)
 
 
     /**
