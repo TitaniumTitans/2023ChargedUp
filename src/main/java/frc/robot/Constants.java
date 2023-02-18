@@ -138,6 +138,30 @@ public final class Constants {
 
     }
 
+    public static class LimitConstants {
+        private LimitConstants() {}
+
+        // Arm Extension limits for Piecewise Function
+        public static final double ARM_EXT_STOW = 0;
+        public static final double ARM_EXT_SCORE_LOWER = 0;
+        public static final double ARM_EXT_SCORE_UPPER = 10;
+
+        // Arm Angle limits for Piecewise Function
+        public static final double ARM_ANGLE_LOWER = 45;
+        public static final double ARM_ANGLE_UPPER = 270;
+
+        // Wrist limits for Piecewise Function
+        public static final double WRIST_STOW = 0;
+        public static final double WRIST_SCORE_LOWER = 0;
+        public static final double WRIST_SCORE_UPPER = 200;
+
+        //Arm angle zones for piecewise intervals
+        public static final double STOW_ZONE = 45;
+        public static final double SCORE_ZONE = 200;
+        public static final double GROUND_ZONE = 300;
+        public static final double MAX_MOVEMENT = 310;
+    }
+
     public static final int DRIVER_PORT = 0;
 
     public enum Mode {
