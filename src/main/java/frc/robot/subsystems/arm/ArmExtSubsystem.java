@@ -14,18 +14,22 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import lib.factories.SparkMaxFactory;
+import org.littletonrobotics.junction.AutoLog;
+import org.littletonrobotics.junction.Logger;
 
 public class ArmExtSubsystem extends SubsystemBase {
     private final CANSparkMax m_armExt;
     private final RelativeEncoder m_relativeEncoderArmEx;
     private final SparkMaxPIDController m_extPID;
     private final DigitalInput m_armLimitSwitch;
+
+    private final ArmExtIOInputsAutoLogged m_inputs = new ArmExtIOInputsAutoLogged();
     // Logging variables
     private double prevSetpointRaw;
     private double prevSetpointClamped;
 
     //Shuffleboard data
-    private ShuffleboardTab armExtTab;
+    private final ShuffleboardTab armExtTab;
     private GenericEntry armExtAtSetpointEntry;
     private GenericEntry armExtMotorInvertedEntry;
     private GenericEntry armExtAtUpperLimitEntry;
@@ -36,6 +40,11 @@ public class ArmExtSubsystem extends SubsystemBase {
     private GenericEntry armExtTargetEntry;
     private GenericEntry armExtSetpointClampedEntry;
     private GenericEntry armExtMotorOutputEntry;
+
+    @AutoLog
+    public static class ArmExtIOInputs {
+        public double armExtension = 0.0;
+    }
 
     public ArmExtSubsystem() {
         SparkMaxFactory.SparkMaxConfig config = new SparkMaxFactory.SparkMaxConfig();
@@ -150,11 +159,17 @@ public class ArmExtSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
+        updateInputs(m_inputs);
+        Logger.getInstance().processInputs("Arm Extension", m_inputs);
         if(armAtLowerLimit())
         {
             resetExtensionEncoder();
         }
         updateShuffleboardData();
+    }
+
+    public void updateInputs(ArmExtIOInputsAutoLogged inputs) {
+        inputs.armExtension = getArmExtension();
     }
 }
 
