@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.LimitConstants;
 import frc.robot.Constants.ArmConstants;
 import lib.factories.SparkMaxFactory;
 import lib.utils.Utils;
@@ -134,8 +135,8 @@ public class ArmAngleSubsystem extends SubsystemBase {
     }
 
     public void setAngleSpeed(double speed) {
-        if ((getArmAngle() <= ArmConstants.K_REVERSE_LIMIT && speed <= 0)
-            || (getArmAngle() >= ArmConstants.K_FORWARD_LIMIT && speed >= 0)) {
+        if ((getArmAngle() <= LimitConstants.ARM_ANGLE_LOWER.getValue() && speed <= 0)
+            || (getArmAngle() >= LimitConstants.ARM_ANGLE_UPPER.getValue() && speed >= 0)) {
             m_armAngleMaster.set(speed);
         }
     }
@@ -149,7 +150,7 @@ public class ArmAngleSubsystem extends SubsystemBase {
         double currentArmAngle = getArmAngle();
 
         // Clamp target
-        double targetAngleClamped = MathUtil.clamp(targetAngleRaw, ArmConstants.K_REVERSE_LIMIT, ArmConstants.K_FORWARD_LIMIT);
+        double targetAngleClamped = MathUtil.clamp(targetAngleRaw, LimitConstants.ARM_ANGLE_LOWER.getValue(), LimitConstants.ARM_ANGLE_UPPER.getValue());
         double targetAnglePID = MathUtil.clamp(m_anglePID.calculate(currentArmAngle, targetAngleClamped), -6, 6);
 
         // Update dashboard variables
@@ -162,7 +163,7 @@ public class ArmAngleSubsystem extends SubsystemBase {
     }
 
     public double getArmAngle() {
-        return Utils.normalize((m_encoderArmAngle.getAbsolutePosition() * 360) - ArmConstants.ARM_OFFSET);
+        return 360 - (Utils.normalize((m_encoderArmAngle.getAbsolutePosition() * 360) - ArmConstants.ARM_OFFSET));
     }
 
     public boolean encoderConnected() {
@@ -174,9 +175,9 @@ public class ArmAngleSubsystem extends SubsystemBase {
     }
 
     public boolean armAngleAtUpperLimit(){
-        return (getArmAngle() >= ArmConstants.K_FORWARD_LIMIT);
+        return (getArmAngle() >= LimitConstants.ARM_ANGLE_UPPER.getValue());
     }
     public boolean armAngleAtLowerLimit(){
-        return (getArmAngle() <= ArmConstants.K_REVERSE_LIMIT);
+        return (getArmAngle() <= LimitConstants.ARM_ANGLE_LOWER.getValue());
     }
 }

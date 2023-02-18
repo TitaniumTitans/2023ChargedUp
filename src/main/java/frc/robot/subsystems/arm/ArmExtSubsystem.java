@@ -94,10 +94,9 @@ public class ArmExtSubsystem extends SubsystemBase {
     }
 
     public void setArmSpeed(double speed) {
-        if(armAtLowerLimit() && speed <= 0){
+        if(armAtLowerLimit() && speed <= 0 || armAtUpperLimit() && speed >= 0){
             m_armExt.set(0);
-        } else
-        {
+        } else {
             m_armExt.set(speed);
         }
     }
@@ -107,7 +106,7 @@ public class ArmExtSubsystem extends SubsystemBase {
     }
 
     public void setArmExtension(double targetExtRaw) {
-        double targetExtClamped = MathUtil.clamp(targetExtRaw, Constants.ArmConstants.EXT_LOWER_LIMIT, Constants.ArmConstants.EXT_HIGHER_LIMIT);
+        double targetExtClamped = MathUtil.clamp(targetExtRaw, Constants.LimitConstants.ARM_EXT_SCORE_LOWER.getValue(), Constants.LimitConstants.ARM_EXT_SCORE_UPPER.getValue());
         double targetExtPID = MathUtil.clamp(m_extPID.calculate(getArmExtension(), targetExtClamped), -0.5, 0.5);
 
         prevSetpointRaw = targetExtRaw;
@@ -130,11 +129,11 @@ public class ArmExtSubsystem extends SubsystemBase {
     }
 
     public boolean armAtUpperLimit() {
-        return (getArmExtension() >= Constants.ArmConstants.EXT_HIGHER_LIMIT);
+        return (getArmExtension() >= Constants.LimitConstants.ARM_EXT_SCORE_UPPER.getValue());
     }
 
     public boolean debugEncoderAtLowerLimit() {
-        return (getArmExtension() <= Constants.ArmConstants.EXT_LOWER_LIMIT);
+        return (getArmExtension() <= Constants.LimitConstants.ARM_EXT_SCORE_LOWER.getValue());
     }
 
     public void resetExtensionEncoder() {

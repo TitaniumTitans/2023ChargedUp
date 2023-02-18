@@ -5,8 +5,10 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.commands.SupersystemToPoseCommand;
 import frc.robot.subsystems.arm.ArmExtSubsystem;
 import frc.robot.supersystems.ArmPose;
+import frc.robot.supersystems.ArmSupersystem;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
 import edu.wpi.first.wpilibj.GenericHID;
@@ -33,6 +35,7 @@ public class RobotContainer {
   private SwerveDrivetrain m_drive;
   private ArmAngleSubsystem m_arm;
   private ArmExtSubsystem m_ext;
+  private ArmSupersystem m_super;
 
   //Controllers
   private final CommandXboxController m_driveController = new CommandXboxController(Constants.DRIVER_PORT);
@@ -50,6 +53,7 @@ public class RobotContainer {
       m_wrist = new WristSubsystem();
       m_arm = new ArmAngleSubsystem();
       m_ext = new ArmExtSubsystem();
+      m_super = new ArmSupersystem(m_arm, m_ext, m_wrist);
       break;
 
     case SIM:
@@ -80,7 +84,7 @@ public class RobotContainer {
                     .whileFalse(m_wrist.setIntakeSpeedFactory(0.0));
     m_driveController.rightTrigger().whileTrue(m_wrist.setIntakeSpeedFactory(1.0))
             .whileFalse(m_wrist.setIntakeSpeedFactory(0.0));
-//
+
     m_driveController.a().whileTrue(m_wrist.setWristPowerFactory(0.25))
       .whileFalse(m_wrist.setWristPowerFactory(0.0));
     m_driveController.b().whileTrue(m_wrist.setWristPowerFactory(-0.25))
@@ -112,9 +116,9 @@ public class RobotContainer {
   public void configDashboard(){
     ShuffleboardTab testCommands = Shuffleboard.getTab("Commands");
 
-    testCommands.add("Test Stow Zone", new ArmPose(1, 10, 90));
-    testCommands.add("Go To Stow", new ArmPose(0.0, 0.0, 30.0));
-    testCommands.add("Go To Scoring Zone", new ArmPose(5, 90, 200));
+    testCommands.add("Test Stow Zone", new SupersystemToPoseCommand(m_super, new ArmPose(1, 10, 90)));
+    testCommands.add("Go To Stow", new SupersystemToPoseCommand(m_super, new ArmPose(0.0, 0.0, 30.0)));
+    testCommands.add("Go To Scoring Zone", new SupersystemToPoseCommand(m_super, new ArmPose(5, 90, 200)));
 
     testCommands.add("Reset Pose", new InstantCommand(() -> m_drive.resetPoseBase()));
   }
