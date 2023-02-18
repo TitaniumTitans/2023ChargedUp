@@ -47,7 +47,7 @@ public class ArmExtSubsystem extends SubsystemBase {
         double setpoint = MathUtil.clamp(extension, Constants.ArmConstants.EXT_LOWER_LIMIT, Constants.ArmConstants.EXT_HIGHER_LIMIT);
         double pidOutput = MathUtil.clamp(m_extPID.calculate(getArmExtension(), setpoint), -0.5, 0.5);
 
-        SmartDashboard.putNumber("Exstention Setpoint", setpoint);
+        SmartDashboard.putNumber("Extension Setpoint", setpoint);
         SmartDashboard.putNumber("PID Output", pidOutput);
         SmartDashboard.putBoolean("At Lower Limit", armAtLowerLimit());
 
