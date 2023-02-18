@@ -5,6 +5,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
@@ -14,7 +15,7 @@ import frc.robot.Constants;
 import lib.factories.SparkMaxFactory;
 
 public class ArmExtSubsystem extends SubsystemBase {
-    private final CANSparkMax m_ArmEx;
+    private final CANSparkMax m_armExt;
     private final RelativeEncoder m_relativeEncoderArmEx;
     private final PIDController m_extPID;
     private final DigitalInput m_armLimitSwitch;
@@ -22,14 +23,26 @@ public class ArmExtSubsystem extends SubsystemBase {
     private double prevSetpointRaw;
     private double prevSetpointClamped;
     private double prevSetpointPID;
+
+    //Shuffleboard data
     private ShuffleboardTab armExtTab;
+    private GenericEntry armExtAtSetpointEntry;
+    private GenericEntry armExtMotorInvertedEntry;
+    private GenericEntry armExtAtUpperLimitEntry;
+    private GenericEntry armExtAtLowerLimitEntry;
+    private GenericEntry armExtEncoderLowerThanLimitEntry;
+    private GenericEntry armExtRawEntry;
+    private GenericEntry armExtConvertedEntry;
+    private GenericEntry armExtTargetEntry;
+    private GenericEntry armExtSetpointClampedEntry;
+    private GenericEntry armExtPIDOutputEntry;
 
     public ArmExtSubsystem() {
         SparkMaxFactory.SparkMaxConfig config = new SparkMaxFactory.SparkMaxConfig();
 
-        m_ArmEx = SparkMaxFactory.Companion.createSparkMax(Constants.ArmConstants.ARM_EXTENSION_ID, config);
+        m_armExt = SparkMaxFactory.Companion.createSparkMax(Constants.ArmConstants.ARM_EXTENSION_ID, config);
 
-        m_relativeEncoderArmEx = m_ArmEx.getEncoder();
+        m_relativeEncoderArmEx = m_armExt.getEncoder();
         m_relativeEncoderArmEx.setPositionConversionFactor(Constants.ArmConstants.EXTENSION_RATIO);
 
         m_extPID = new PIDController(Constants.ArmConstants.ARM_EXT_KP, Constants.ArmConstants.ARM_EXT_KI, Constants.ArmConstants.ARM_EXT_KD);
@@ -38,14 +51,54 @@ public class ArmExtSubsystem extends SubsystemBase {
         m_armLimitSwitch = new DigitalInput(Constants.ArmConstants.LIMIT_SWITCH_PORT);
 
         armExtTab = Shuffleboard.getTab("ArmExtSubsystem");
+        addShuffleboardData();
+    }
+    private void addShuffleboardData() {
+        // Booleans
+        // Misc.
+        armExtAtSetpointEntry = armExtTab.add("At setpoint", armExtensionAtSetpoint()).getEntry();
+        armExtMotorInvertedEntry = armExtTab.add("Motor inverted", m_armExt.getInverted()).getEntry();
+        // Limits
+        armExtAtUpperLimitEntry = armExtTab.add("At upper limit", armAtUpperLimit()).getEntry();
+        armExtAtLowerLimitEntry = armExtTab.add("Limit switch triggered", armAtLowerLimit()).getEntry();
+        armExtEncoderLowerThanLimitEntry = armExtTab.add("Wrist encoder lower than limit", debugEncoderAtLowerLimit()).getEntry();
+
+        // Doubles
+        // Angles
+        armExtRawEntry = armExtTab.add("Angle raw", m_relativeEncoderArmEx.getPosition()).getEntry();
+        armExtConvertedEntry = armExtTab.add("Angle converted", getArmExtension()).getEntry();
+        // Targets
+        armExtTargetEntry = armExtTab.add("Target", prevSetpointRaw).getEntry();
+        armExtSetpointClampedEntry = armExtTab.add("Clamped setpoint", prevSetpointClamped).getEntry();
+        armExtPIDOutputEntry = armExtTab.add("PID setpoint output", prevSetpointPID).getEntry();
+    }
+
+    private void updateShuffleboardData() {
+        // Booleans
+        // Misc.
+        armExtAtSetpointEntry.setBoolean(armExtensionAtSetpoint());
+        armExtMotorInvertedEntry.setBoolean(m_armExt.getInverted());
+        // Limits
+        armExtAtUpperLimitEntry.setBoolean(armAtUpperLimit());
+        armExtAtLowerLimitEntry.setBoolean(armAtLowerLimit());
+        armExtEncoderLowerThanLimitEntry.setBoolean(debugEncoderAtLowerLimit());
+
+        // Doubles
+        // Angles
+        armExtRawEntry.setDouble(m_relativeEncoderArmEx.getPosition());
+        armExtConvertedEntry.setDouble(getArmExtension());
+        // Targets
+        armExtTargetEntry.setDouble(prevSetpointRaw);
+        armExtSetpointClampedEntry.setDouble(prevSetpointClamped);
+        armExtPIDOutputEntry.setDouble(prevSetpointPID);
     }
 
     public void setArmSpeed(double speed) {
         if(armAtLowerLimit() && speed <= 0){
-            m_ArmEx.set(0);
+            m_armExt.set(0);
         } else
         {
-            m_ArmEx.set(speed);
+            m_armExt.set(speed);
         }
     }
 
@@ -62,9 +115,9 @@ public class ArmExtSubsystem extends SubsystemBase {
         prevSetpointPID = targetExtPID;
 
         if(armAtLowerLimit() && targetExtPID <= 0){
-            m_ArmEx.set(0);
+            m_armExt.set(0);
         } else {
-            m_ArmEx.set(targetExtPID);
+            m_armExt.set(targetExtPID);
         }
     }
 
@@ -94,23 +147,7 @@ public class ArmExtSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        // Booleans
-        // Misc.
-        armExtTab.add("Extension At setpoint", armExtensionAtSetpoint());
-        armExtTab.add("Motor inverted", m_ArmEx.getInverted());
-        // Limits
-        armExtTab.add("Limit switch triggered", armAtLowerLimit());
-        armExtTab.add("At upper limit", armAtUpperLimit());
-        armExtTab.add("At encoder lower than limit", debugEncoderAtLowerLimit());
-
-        // Doubles
-        // Angles
-        armExtTab.add("Encoder raw", m_relativeEncoderArmEx.getPosition());
-        armExtTab.add("Extension converted", getArmExtension());
-        // Targets
-        armExtTab.add("Target", prevSetpointRaw);
-        armExtTab.add("Clamped setpoint", prevSetpointClamped);
-        armExtTab.add("PID setpoint output", prevSetpointPID);
+        updateShuffleboardData();
     }
 }
 

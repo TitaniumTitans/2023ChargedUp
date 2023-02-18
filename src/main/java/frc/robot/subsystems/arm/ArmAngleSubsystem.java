@@ -5,6 +5,7 @@ import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
@@ -29,7 +30,21 @@ public class ArmAngleSubsystem extends SubsystemBase {
     private double prevSetpointRaw;
     private double prevSetpointClamped;
     private double prevSetpointPID;
+
+    //Shuffleboard data
     private ShuffleboardTab armAngleTab;
+    private GenericEntry armAngleAtSetpointEntry;
+    private GenericEntry armAngleEncoderConnectedEntry;
+    private GenericEntry armAngleMotorMasterInvertedEntry;
+    private GenericEntry armAngleMotorFollowerInvertedEntry;
+    private GenericEntry armAngleAtUpperLimitEntry;
+    private GenericEntry armAngleAtLowerLimitEntry;
+    private GenericEntry armAngleEncoderRawEntry;
+    private GenericEntry armAngleRawEntry;
+    private GenericEntry armAngleConvertedEntry;
+    private GenericEntry armAngleTargetEntry;
+    private GenericEntry armAngleSetpointClampedEntry;
+    private GenericEntry armAnglePIDOutputEntry;
 
     @AutoLog
     public static class ArmAngleIOInputs {
@@ -57,6 +72,53 @@ public class ArmAngleSubsystem extends SubsystemBase {
         m_inputs = new ArmAngleIOInputsAutoLogged();
 
         armAngleTab = Shuffleboard.getTab("ArmAngleSubsystem");
+        addShuffleboardData();
+    }
+
+    private void addShuffleboardData() {
+        // Booleans
+        // Misc.
+        armAngleAtSetpointEntry = armAngleTab.add("At setpoint", armAngleAtSetpoint()).getEntry();
+        armAngleEncoderConnectedEntry = armAngleTab.add("Encoder connected", encoderConnected()).getEntry();
+        // Motor inversions
+        armAngleMotorMasterInvertedEntry = armAngleTab.add("Master inverted", m_armAngleMaster.getInverted()).getEntry();
+        armAngleMotorFollowerInvertedEntry = armAngleTab.add("Follower inverted", m_armAngleFollower.getInverted()).getEntry();
+        // Limits
+        armAngleAtUpperLimitEntry = armAngleTab.add("At upper limit", armAngleAtUpperLimit()).getEntry();
+        armAngleAtLowerLimitEntry = armAngleTab.add("Limit switch triggered", armAngleAtLowerLimit()).getEntry();
+
+        // Doubles
+        // Angles
+        armAngleEncoderRawEntry = armAngleTab.add("Angle raw", m_encoderArmAngle.getAbsolutePosition()).getEntry();
+        armAngleRawEntry = armAngleTab.add("Angle raw", m_encoderArmAngle.getAbsolutePosition() * 360).getEntry();
+        armAngleConvertedEntry = armAngleTab.add("Angle converted", getArmAngle()).getEntry();
+        // Targets
+        armAngleTargetEntry = armAngleTab.add("Target", prevSetpointRaw).getEntry();
+        armAngleSetpointClampedEntry = armAngleTab.add("Clamped setpoint", prevSetpointClamped).getEntry();
+        armAnglePIDOutputEntry = armAngleTab.add("PID setpoint output", prevSetpointPID).getEntry();
+    }
+
+    private void updateShuffleboardData() {
+        // Booleans
+        // Misc.
+        armAngleAtSetpointEntry.setBoolean(armAngleAtSetpoint());
+        armAngleEncoderConnectedEntry.setBoolean(encoderConnected());
+        // Motor inversions
+        armAngleMotorMasterInvertedEntry.setBoolean(m_armAngleMaster.getInverted());
+        armAngleMotorFollowerInvertedEntry.setBoolean(m_armAngleFollower.getInverted());
+        // Limits
+        armAngleAtUpperLimitEntry.setBoolean(armAngleAtUpperLimit());
+        armAngleAtLowerLimitEntry.setBoolean(armAngleAtLowerLimit());
+
+        // Doubles
+        // Angles
+        armAngleEncoderRawEntry.setDouble(m_encoderArmAngle.getAbsolutePosition());
+        armAngleRawEntry.setDouble(m_encoderArmAngle.getAbsolutePosition() * 360);
+        armAngleConvertedEntry.setDouble(getArmAngle());
+        // Targets
+        armAngleTargetEntry.setDouble(prevSetpointRaw);
+        armAngleSetpointClampedEntry.setDouble(prevSetpointClamped);
+        armAnglePIDOutputEntry.setDouble(prevSetpointPID);
     }
 
     @Override
@@ -64,26 +126,7 @@ public class ArmAngleSubsystem extends SubsystemBase {
         updateInputs(m_inputs);
         Logger.getInstance().processInputs("Arm Angle", m_inputs);
 
-        // Booleans
-        // Misc.
-        armAngleTab.add("Arm Angle At setpoint", armAngleAtSetpoint());
-        armAngleTab.add("Encoder connected", encoderConnected());
-        // Limits
-        armAngleTab.add("At upper limit", armAtUpperLimit());
-        armAngleTab.add("At lower limit", armAtLowerLimit());
-        // Motor inversions
-        armAngleTab.add("Master inverted", m_armAngleMaster.getInverted());
-        armAngleTab.add("Follower Inverted", m_armAngleFollower.getInverted());
-
-        // Doubles
-        // Angles
-//        armAngleTab.add("Encoder raw", m_encoderArmAngle);
-        armAngleTab.add("Angle raw", m_encoderArmAngle.getAbsolutePosition() * 360);
-        armAngleTab.add("Angle converted", getArmAngle());
-        // Targets
-        armAngleTab.add("Target", prevSetpointRaw);
-        armAngleTab.add("Clamped setpoint", prevSetpointClamped);
-        armAngleTab.add("PID setpoint output", prevSetpointPID);
+        updateShuffleboardData();
     }
 
     public void updateInputs(ArmAngleIOInputsAutoLogged inputs){
@@ -130,10 +173,10 @@ public class ArmAngleSubsystem extends SubsystemBase {
         return m_anglePID.atSetpoint();
     }
 
-    public boolean armAtUpperLimit(){
+    public boolean armAngleAtUpperLimit(){
         return (getArmAngle() >= ArmConstants.K_FORWARD_LIMIT);
     }
-    public boolean armAtLowerLimit(){
+    public boolean armAngleAtLowerLimit(){
         return (getArmAngle() <= ArmConstants.K_REVERSE_LIMIT);
     }
 }
