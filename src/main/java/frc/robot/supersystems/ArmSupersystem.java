@@ -1,6 +1,8 @@
 package frc.robot.supersystems;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.arm.ArmAngleSubsystem;
 import frc.robot.subsystems.arm.ArmExtSubsystem;
 import frc.robot.subsystems.wrist.WristSubsystem;
@@ -15,6 +17,8 @@ public class ArmSupersystem {
     private static final Range stowRange = new Range(30, true, 200, false);
     private static final Range fullRangeZone = new Range(200, true, 280, false);
     private static final Range floorCollisionZone = new Range(280, true, 300, false);
+
+    //TODO before testing implement actual limits in each zone
     private static final List<PiecewiseInterval<ArmLimits>> armRegion = List.of(
             new PiecewiseInterval<>(stowRange, ignored -> new ArmLimits(0.0, 0.0,
                                                                         0.0, 0.0,
@@ -35,6 +39,16 @@ public class ArmSupersystem {
         this.angleArmSubsystem = armSubsystem;
         this.extArmSubsystem = extArmSubsystem;
         this.wristSubsystem = wristSubsystem;
+    }
+
+    public void addRequirements(CommandBase command) {
+        command.addRequirements(wristSubsystem, angleArmSubsystem, extArmSubsystem);
+    }
+
+    public void stopSpeed() {
+        wristSubsystem.setWristPower(0.0);
+        extArmSubsystem.setArmSpeed(0.0);
+        angleArmSubsystem.setAngleSpeed(0.0);
     }
 
     public void setToPose(ArmPose pose) {

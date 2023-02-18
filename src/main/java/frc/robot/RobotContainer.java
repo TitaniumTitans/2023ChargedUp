@@ -4,13 +4,14 @@
 
 package frc.robot;
 
-import frc.robot.commands.ArmAngToSetpoint;
-import frc.robot.commands.ArmExtToSetpoint;
+import frc.robot.commands.nosupersystem.ArmAngToSetpoint;
+import frc.robot.commands.nosupersystem.ArmExtToSetpoint;
 import frc.robot.commands.test.TestArmFullCommandGroup;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.test.WristToSetpointCommand;
 import frc.robot.subsystems.arm.ArmExtSubsystem;
+import frc.robot.supersystems.ArmPose;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
 import edu.wpi.first.wpilibj.GenericHID;
@@ -125,24 +126,28 @@ public class RobotContainer {
   public void configDashboard(){
     ShuffleboardTab testCommands = Shuffleboard.getTab("Commands");
 
-    testCommands.add("Arm to 90", new ArmAngToSetpoint(m_arm, 90));
-    testCommands.add("Arm to 40", new ArmAngToSetpoint(m_arm, 40));
-    testCommands.add("Arm to 140", new ArmAngToSetpoint(m_arm, 140));
+    testCommands.add("Test Stow Zone", new ArmPose(1, 10, 90));
+    testCommands.add("Go To Stow", new ArmPose(0.0, 0.0, 30.0));
+    testCommands.add("Go To Scoring Zone", new ArmPose(5, 90, 200));
 
     testCommands.add("Reset Pose", new InstantCommand(() -> m_drive.resetPoseBase()));
 
-    testCommands.add("Wrist to 0", new WristToSetpointCommand(m_wrist, 0));
-    testCommands.add("Wrist to 20", new WristToSetpointCommand(m_wrist, 20));
-    testCommands.add("Wrist to -20", new WristToSetpointCommand(m_wrist, -20));
-
-    testCommands.add("Arm extend to 3", new ArmExtToSetpoint(m_ext, 3));
-    testCommands.add("Arm extend to 5", new ArmExtToSetpoint(m_ext, 5));
-    testCommands.add("Arm extend to 7", new ArmExtToSetpoint(m_ext, 7));
-
-    testCommands.add("Test for full arm",
-            new TestArmFullCommandGroup(3.0, 180.0, -20.0, m_arm, m_wrist, m_ext));
-    testCommands.add("Test for full arm 2.0",
-            new TestArmFullCommandGroup(7.0, 90.0, 20.0, m_arm, m_wrist, m_ext));
+//    testCommands.add("Arm to 90", new ArmAngToSetpoint(m_arm, 90));
+//    testCommands.add("Arm to 40", new ArmAngToSetpoint(m_arm, 40));
+//    testCommands.add("Arm to 140", new ArmAngToSetpoint(m_arm, 140));
+//
+//    testCommands.add("Wrist to 0", new WristToSetpointCommand(m_wrist, 0));
+//    testCommands.add("Wrist to 20", new WristToSetpointCommand(m_wrist, 20));
+//    testCommands.add("Wrist to -20", new WristToSetpointCommand(m_wrist, -20));
+//
+//    testCommands.add("Arm extend to 3", new ArmExtToSetpoint(m_ext, 3));
+//    testCommands.add("Arm extend to 5", new ArmExtToSetpoint(m_ext, 5));
+//    testCommands.add("Arm extend to 7", new ArmExtToSetpoint(m_ext, 7));
+//
+//    testCommands.add("Test for full arm",
+//            new TestArmFullCommandGroup(3.0, 180.0, -20.0, m_arm, m_wrist, m_ext));
+//    testCommands.add("Test for full arm 2.0",
+//            new TestArmFullCommandGroup(7.0, 90.0, 20.0, m_arm, m_wrist, m_ext));
   }
 
   /**
