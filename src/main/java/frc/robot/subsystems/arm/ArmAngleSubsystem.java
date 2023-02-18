@@ -90,7 +90,7 @@ public class ArmAngleSubsystem extends SubsystemBase {
 
         // Doubles
         // Angles
-        armAngleEncoderRawEntry = armAngleTab.add("Angle raw", m_encoderArmAngle.getAbsolutePosition()).getEntry();
+        armAngleEncoderRawEntry = armAngleTab.add("Encoder raw", m_encoderArmAngle.getAbsolutePosition()).getEntry();
         armAngleRawEntry = armAngleTab.add("Angle raw", m_encoderArmAngle.getAbsolutePosition() * 360).getEntry();
         armAngleConvertedEntry = armAngleTab.add("Angle converted", getArmAngle()).getEntry();
         // Targets
