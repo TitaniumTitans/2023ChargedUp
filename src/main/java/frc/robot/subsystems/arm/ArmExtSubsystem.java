@@ -3,6 +3,7 @@ package frc.robot.subsystems.arm;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxPIDController;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.networktables.GenericEntry;
@@ -17,12 +18,11 @@ import lib.factories.SparkMaxFactory;
 public class ArmExtSubsystem extends SubsystemBase {
     private final CANSparkMax m_armExt;
     private final RelativeEncoder m_relativeEncoderArmEx;
-    private final PIDController m_extPID;
+    private final SparkMaxPIDController m_extPID;
     private final DigitalInput m_armLimitSwitch;
     // Logging variables
     private double prevSetpointRaw;
     private double prevSetpointClamped;
-    private double prevSetpointPID;
 
     //Shuffleboard data
     private ShuffleboardTab armExtTab;
@@ -35,7 +35,7 @@ public class ArmExtSubsystem extends SubsystemBase {
     private GenericEntry armExtConvertedEntry;
     private GenericEntry armExtTargetEntry;
     private GenericEntry armExtSetpointClampedEntry;
-    private GenericEntry armExtPIDOutputEntry;
+    private GenericEntry armExtMotorOutputEntry;
 
     public ArmExtSubsystem() {
         SparkMaxFactory.SparkMaxConfig config = new SparkMaxFactory.SparkMaxConfig();
@@ -45,8 +45,11 @@ public class ArmExtSubsystem extends SubsystemBase {
         m_relativeEncoderArmEx = m_armExt.getEncoder();
         m_relativeEncoderArmEx.setPositionConversionFactor(Constants.ArmConstants.EXTENSION_RATIO);
 
-        m_extPID = new PIDController(Constants.ArmConstants.ARM_EXT_KP, Constants.ArmConstants.ARM_EXT_KI, Constants.ArmConstants.ARM_EXT_KD);
-        m_extPID.setTolerance(0.5);
+        m_extPID = m_armExt.getPIDController();
+        m_extPID.setP(Constants.ArmConstants.ARM_EXT_KP.getValue());
+        m_extPID.setI(Constants.ArmConstants.ARM_EXT_KI.getValue());
+        m_extPID.setD(Constants.ArmConstants.ARM_EXT_KD.getValue());
+
 
         m_armLimitSwitch = new DigitalInput(Constants.ArmConstants.LIMIT_SWITCH_PORT);
 
@@ -70,7 +73,8 @@ public class ArmExtSubsystem extends SubsystemBase {
         // Targets
         armExtTargetEntry = armExtTab.add("Target", prevSetpointRaw).getEntry();
         armExtSetpointClampedEntry = armExtTab.add("Clamped setpoint", prevSetpointClamped).getEntry();
-        armExtPIDOutputEntry = armExtTab.add("PID setpoint output", prevSetpointPID).getEntry();
+        // Misc.
+        armExtMotorOutputEntry = armExtTab.add("Motor output", m_armExt.getAppliedOutput()).getEntry();
     }
 
     private void updateShuffleboardData() {
@@ -90,7 +94,8 @@ public class ArmExtSubsystem extends SubsystemBase {
         // Targets
         armExtTargetEntry.setDouble(prevSetpointRaw);
         armExtSetpointClampedEntry.setDouble(prevSetpointClamped);
-        armExtPIDOutputEntry.setDouble(prevSetpointPID);
+        // Misc.
+        armExtMotorOutputEntry.setDouble(m_armExt.getAppliedOutput());
     }
 
     public void setArmSpeed(double speed) {
@@ -107,16 +112,14 @@ public class ArmExtSubsystem extends SubsystemBase {
 
     public void setArmExtension(double targetExtRaw) {
         double targetExtClamped = MathUtil.clamp(targetExtRaw, Constants.LimitConstants.ARM_EXT_SCORE_LOWER.getValue(), Constants.LimitConstants.ARM_EXT_SCORE_UPPER.getValue());
-        double targetExtPID = MathUtil.clamp(m_extPID.calculate(getArmExtension(), targetExtClamped), -0.5, 0.5);
 
         prevSetpointRaw = targetExtRaw;
         prevSetpointClamped = targetExtClamped;
-        prevSetpointPID = targetExtPID;
 
-        if(armAtLowerLimit() && targetExtPID <= 0){
+        if(armAtLowerLimit() && targetExtClamped <= 0) {
             m_armExt.set(0);
         } else {
-            m_armExt.set(targetExtPID);
+            m_extPID.setReference(targetExtClamped, CANSparkMax.ControlType.kPosition);
         }
     }
 
@@ -137,15 +140,20 @@ public class ArmExtSubsystem extends SubsystemBase {
     }
 
     public void resetExtensionEncoder() {
-        m_relativeEncoderArmEx.setPosition(0.0);
+        m_relativeEncoderArmEx.setPosition(-1.0);
     }
 
     public boolean armExtensionAtSetpoint() {
-        return m_extPID.atSetpoint();
+        return ((getArmExtension() >= prevSetpointClamped + Constants.ArmConstants.EXT_PID_TOLERANCE)
+                || (getArmExtension() <= prevSetpointClamped - Constants.ArmConstants.EXT_PID_TOLERANCE));
     }
 
     @Override
     public void periodic() {
+        if(armAtLowerLimit())
+        {
+            resetExtensionEncoder();
+        }
         updateShuffleboardData();
     }
 }
