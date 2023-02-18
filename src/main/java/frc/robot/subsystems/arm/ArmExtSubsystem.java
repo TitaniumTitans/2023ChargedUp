@@ -30,6 +30,7 @@ public class ArmExtSubsystem extends SubsystemBase {
         m_ArmEx = SparkMaxFactory.Companion.createSparkMax(Constants.ArmConstants.ARM_EXTENSION_ID, config);
 
         m_relativeEncoderArmEx = m_ArmEx.getEncoder();
+        m_relativeEncoderArmEx.setPositionConversionFactor(Constants.ArmConstants.EXTENSION_RATIO);
 
         m_extPID = new PIDController(Constants.ArmConstants.ARM_EXT_KP, Constants.ArmConstants.ARM_EXT_KI, Constants.ArmConstants.ARM_EXT_KD);
         m_extPID.setTolerance(0.5);
@@ -95,7 +96,7 @@ public class ArmExtSubsystem extends SubsystemBase {
     public void periodic() {
         // Booleans
         // Misc.
-        armExtTab.add("At setpoint", armExtensionAtSetpoint());
+        armExtTab.add("Extension At setpoint", armExtensionAtSetpoint());
         armExtTab.add("Motor inverted", m_ArmEx.getInverted());
         // Limits
         armExtTab.add("Limit switch triggered", armAtLowerLimit());

@@ -66,7 +66,7 @@ public class ArmAngleSubsystem extends SubsystemBase {
 
         // Booleans
         // Misc.
-        armAngleTab.add("At setpoint", armAngleAtSetpoint());
+        armAngleTab.add("Arm Angle At setpoint", armAngleAtSetpoint());
         armAngleTab.add("Encoder connected", encoderConnected());
         // Limits
         armAngleTab.add("At upper limit", armAtUpperLimit());
@@ -77,7 +77,7 @@ public class ArmAngleSubsystem extends SubsystemBase {
 
         // Doubles
         // Angles
-        armAngleTab.add("Encoder raw", m_encoderArmAngle);
+//        armAngleTab.add("Encoder raw", m_encoderArmAngle);
         armAngleTab.add("Angle raw", m_encoderArmAngle.getAbsolutePosition() * 360);
         armAngleTab.add("Angle converted", getArmAngle());
         // Targets
