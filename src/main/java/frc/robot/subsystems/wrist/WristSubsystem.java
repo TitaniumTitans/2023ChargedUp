@@ -9,6 +9,8 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
 import com.playingwithfusion.TimeOfFlight;
 import com.playingwithfusion.TimeOfFlight.RangingMode;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.WristConstants;
@@ -24,6 +26,11 @@ public class WristSubsystem extends SubsystemBase {
     private final PIDController m_wristPID;
     private final TimeOfFlight m_tofSensor;
     private final WristIOInputsAutoLogged m_input;
+    // Logging variables
+    private double prevSetpointRaw;
+    private double prevSetpointClamped;
+    private double prevSetpointPID;
+    private ShuffleboardTab wristAngleTab;
 
     @AutoLog
     public static class WristIOInputs {
@@ -50,6 +57,8 @@ public class WristSubsystem extends SubsystemBase {
 
         m_wristPID = new PIDController(WristConstants.WRIST_KP, WristConstants.WRIST_KI, WristConstants.WRIST_KD);
         m_wristPID.setTolerance(2);
+
+        wristAngleTab = Shuffleboard.getTab("WristSubsystem");
     }
 
     @Override
@@ -57,7 +66,28 @@ public class WristSubsystem extends SubsystemBase {
         updateInputs(m_input);
         Logger.getInstance().processInputs("Wrist", m_input);
 
-        if (atLimit()) {
+        // Booleans
+        // Misc.
+        wristAngleTab.add("At setpoint", wristAtSetpoint());
+        wristAngleTab.add("Motor inverted", m_wristMotor.getInverted());
+        wristAngleTab.add("Piece inside", pieceInside());
+        // Limits
+        wristAngleTab.add("At upper limit", wristAtUpperLimit());
+        wristAngleTab.add("Limit switch triggered", atLowerLimit());
+        wristAngleTab.add("Wrist encoder lower than limit", debugWristLowerThanLimit());
+
+        // Doubles
+        // Angles
+        wristAngleTab.add("Angle raw", m_wristEncoder.getPosition());
+        wristAngleTab.add("Angle converted", getWristAngle());
+        // Targets
+        wristAngleTab.add("Target", prevSetpointRaw);
+        wristAngleTab.add("Clamped setpoint", prevSetpointClamped);
+        wristAngleTab.add("PID setpoint output", prevSetpointPID);
+        // Misc.
+        wristAngleTab.add("TOF detection range", getDetectionRange());
+
+        if (atLowerLimit()) {
             zeroWristAngle();
         }
     }
@@ -68,18 +98,23 @@ public class WristSubsystem extends SubsystemBase {
     }
     
     //Setters
-    public void setWristAngle(double angle) {
-
+    public void setWristAngle(double targetAngleRaw) {
         double currentWristAngle = getWristAngle();
-        double setpoint = MathUtil.clamp(angle, WristConstants.WRIST_LOWER_LIMIT, WristConstants.WRIST_UPPER_LIMIT);
-        double output = MathUtil.clamp(m_wristPID.calculate(currentWristAngle, setpoint), -0.25, 0.25);
 
-        m_wristMotor.set(output);
+        double targetAngleClamped = MathUtil.clamp(targetAngleRaw, WristConstants.WRIST_LOWER_LIMIT, WristConstants.WRIST_UPPER_LIMIT);
+        double targetAnglePID = MathUtil.clamp(m_wristPID.calculate(currentWristAngle, targetAngleClamped), -0.25, 0.25);
+
+        // Dashboard variables
+        prevSetpointRaw = targetAngleRaw;
+        prevSetpointClamped = targetAngleClamped;
+        prevSetpointPID = targetAnglePID;
+
+        m_wristMotor.set(targetAnglePID);
     }
 
     public void setWristPower(double speed) {
 
-        if (atLimit() && speed <= 0){
+        if (atLowerLimit() && speed <= 0){
             m_wristMotor.set(0.0);
         } else if (getWristAngle() >= WristConstants.WRIST_UPPER_LIMIT && speed >= 0) {
             m_wristMotor.set(0.0);
@@ -101,7 +136,7 @@ public class WristSubsystem extends SubsystemBase {
     }
 
     public void zeroWristAngle() {
-        if (atLimit()) {
+        if (atLowerLimit()) {
             m_wristEncoder.setPosition(0);
         }
     }
@@ -111,11 +146,20 @@ public class WristSubsystem extends SubsystemBase {
         return m_wristEncoder.getPosition() / WristConstants.WRIST_PIVOT_RATIO;
     }
 
+    public boolean wristAtUpperLimit() {
+        return (getWristAngle() >= WristConstants.WRIST_UPPER_LIMIT);
+    }
+
+    public boolean debugWristLowerThanLimit() {
+        return (getWristAngle() <= WristConstants.WRIST_LOWER_LIMIT);
+    }
+
+
     public double getIntakeAmps() {
         return m_intakeMotor.getOutputCurrent();
     }
 
-    public boolean atLimit() {
+    public boolean atLowerLimit() {
         return m_wristZeroLimit.get();
     }
 
