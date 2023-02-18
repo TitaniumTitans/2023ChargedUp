@@ -165,3 +165,4 @@ simgui*
 networktables*
 /.idea/
 /tags
+.vscode
