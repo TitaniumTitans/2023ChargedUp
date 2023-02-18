@@ -180,4 +180,14 @@ public class ArmAngleSubsystem extends SubsystemBase {
     public boolean armAngleAtLowerLimit(){
         return (getArmAngle() <= LimitConstants.ARM_ANGLE_LOWER.getValue());
     }
+
+    public void toggleBrakeMode() {
+        if(m_armAngleMaster.getIdleMode() == CANSparkMax.IdleMode.kBrake) {
+            m_armAngleMaster.setIdleMode(CANSparkMax.IdleMode.kCoast);
+            m_armAngleFollower.setIdleMode(CANSparkMax.IdleMode.kCoast);
+        } else {
+            m_armAngleMaster.setIdleMode(CANSparkMax.IdleMode.kBrake);
+            m_armAngleFollower.setIdleMode(CANSparkMax.IdleMode.kBrake);
+        }
+    }
 }

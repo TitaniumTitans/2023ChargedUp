@@ -116,6 +116,8 @@ public class RobotContainer {
   public void configDashboard(){
     ShuffleboardTab testCommands = Shuffleboard.getTab("Commands");
 
+    testCommands.add("Toggle Angle Brake Mode", new InstantCommand(() -> m_arm.toggleBrakeMode()));
+
     testCommands.add("Test Stow Zone", new SupersystemToPoseCommand(m_super, new ArmPose(1, 10, 90)));
     testCommands.add("Go To Stow", new SupersystemToPoseCommand(m_super, new ArmPose(0.0, 0.0, 30.0)));
     testCommands.add("Go To Scoring Zone", new SupersystemToPoseCommand(m_super, new ArmPose(5, 90, 200)));
