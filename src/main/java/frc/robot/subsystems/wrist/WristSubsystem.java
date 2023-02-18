@@ -134,7 +134,7 @@ public class WristSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         updateInputs(m_input);
-        Logger.getInstance().processInputs("Wrist", m_input);
+        Logger.getInstance().processInputs("Arm Wrist", m_input);
 
         updateShuffleboardData();
 

@@ -114,7 +114,7 @@ public class RobotContainer {
   /**
    * Use this method to add autonomous routines to a sendable chooser
    */
-  public void configAutoChooser(){
+  public void configAutoChooser() {
     m_autoChooser.addDefaultOption("Default Trajectory", AutoUtils.getDefaultTrajectory(m_drive));
     m_autoChooser.addOption("Event Map Trajectory", AutoUtils.getPathWithEvents(m_drive));
   }
@@ -122,16 +122,17 @@ public class RobotContainer {
   /**
    * This method sets up Shuffleboard tabs for test commands
    */
-  public void configDashboard(){
+  public void configDashboard() {
     ShuffleboardTab testCommands = Shuffleboard.getTab("Commands");
 
-    testCommands.add("Toggle Angle Brake Mode", new InstantCommand(() -> m_arm.toggleBrakeMode()));
+    testCommands.add("Toggle Angle Brake Mode", new InstantCommand(() -> m_arm.toggleBrakeMode())).withSize(2, 1);
 
-    testCommands.add("Test Stow Zone", new SupersystemToPoseCommand(m_super, new ArmPose(1, 10, 90)));
-    testCommands.add("Go To Stow", new SupersystemToPoseCommand(m_super, new ArmPose(0.0, 0.0, 30.0)));
-    testCommands.add("Go To Scoring Zone", new SupersystemToPoseCommand(m_super, new ArmPose(5, 90, 200)));
+    testCommands.add("Test Stow Zone", new SupersystemToPoseCommand(m_super, new ArmPose(1, 10, 90))).withSize(2, 1);
+    testCommands.add("Go To Stow", new SupersystemToPoseCommand(m_super, new ArmPose(0.0, 0.0, 30.0))).withSize(2, 1);
+    testCommands.add("Go To Scoring Zone", new SupersystemToPoseCommand(m_super, new ArmPose(5, 90, 200))).withSize(2, 1);
+    testCommands.add("Test pose", new ArmPose(5, 90, 200)).withSize(2, 2);
 
-    testCommands.add("Reset Pose", new InstantCommand(() -> m_drive.resetPoseBase()));
+    testCommands.add("Reset Pose", new InstantCommand(() -> m_drive.resetPoseBase())).withSize(2, 1);
   }
 
   /**
