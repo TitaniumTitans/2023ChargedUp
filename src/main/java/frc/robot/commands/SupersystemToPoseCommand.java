@@ -18,7 +18,6 @@ public class SupersystemToPoseCommand extends CommandBase {
         m_pose = pose;
 
         m_supersystem.addRequirements(this);
-        this.withInterruptBehavior(InterruptionBehavior.kCancelSelf);
     }
 
     @Override
