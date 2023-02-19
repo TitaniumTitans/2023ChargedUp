@@ -63,6 +63,8 @@ public class WristSubsystem extends SubsystemBase {
         SparkMaxFactory.SparkMaxConfig config = new SparkMaxFactory.SparkMaxConfig();
 
         m_wristMotor  = SparkMaxFactory.Companion.createSparkMax(WristConstants.WRIST_ID, config);
+        // Current limit based off testing 2/28/2023 17:55
+        config.setCurrentLimit(10);
         m_intakeMotor  = SparkMaxFactory.Companion.createSparkMax(WristConstants.INTAKE_ID, config);
 
         m_wristEncoder = new CANCoder(WristConstants.WRIST_ANGLE_PORT);
