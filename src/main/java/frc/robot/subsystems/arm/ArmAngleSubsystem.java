@@ -48,10 +48,12 @@ public class ArmAngleSubsystem extends SubsystemBase {
     private GenericEntry armAnglePIDOutputEntry;
     private GenericEntry armAngleMasterOutputEntry;
     private GenericEntry armAngleFollowerOutputEntry;
+    private GenericEntry currentCommandOutputEntry;
 
     @AutoLog
     public static class ArmAngleIOInputs {
         public double armAngle = 0.0;
+        public double armAnglePower = 0.0;
     }
 
     public ArmAngleSubsystem() {
@@ -83,9 +85,6 @@ public class ArmAngleSubsystem extends SubsystemBase {
         // Misc.
         armAngleAtSetpointEntry = armAngleTab.add("At setpoint", armAngleAtSetpoint()).getEntry();
 //        armAngleEncoderConnectedEntry = armAngleTab.add("Encoder connected", encoderConnected()).getEntry();
-        // Motor inversions
-//        armAngleMotorMasterInvertedEntry = armAngleTab.add("Master inverted", m_armAngleMaster.getInverted()).getEntry();
-//        armAngleMotorFollowerInvertedEntry = armAngleTab.add("Follower inverted", m_armAngleFollower.getInverted()).getEntry();
         // Limits
         armAngleAtUpperLimitEntry = armAngleTab.add("At upper limit", armAngleAtUpperLimit()).getEntry();
         armAngleAtLowerLimitEntry = armAngleTab.add("At lower limit", armAngleAtLowerLimit()).getEntry();
@@ -100,8 +99,8 @@ public class ArmAngleSubsystem extends SubsystemBase {
         armAngleSetpointClampedEntry = armAngleTab.add("Clamped setpoint", prevSetpointClamped).getEntry();
         armAnglePIDOutputEntry = armAngleTab.add("PID setpoint output", prevSetpointPID).getEntry();
         // Misc.
-        armAngleMasterOutputEntry = armAngleTab.add("Master output", m_armAngleMaster.getAppliedOutput()).getEntry();
-        armAngleFollowerOutputEntry = armAngleTab.add("Follower output", m_armAngleFollower.getAppliedOutput()).getEntry();
+        armAngleMasterOutputEntry = armAngleTab.add("Arm Angle Applied Output", 0).getEntry();
+        currentCommandOutputEntry = armAngleTab.add("Current Command", "No Command").getEntry();
     }
 
     private void updateShuffleboardData() {
@@ -126,8 +125,11 @@ public class ArmAngleSubsystem extends SubsystemBase {
         armAngleSetpointClampedEntry.setDouble(prevSetpointClamped);
         armAnglePIDOutputEntry.setDouble(prevSetpointPID);
         // Misc.
+        Command currentCommand = getCurrentCommand();
+        if(currentCommand != null) {
+            currentCommandOutputEntry.setString(currentCommand.getName());
+        }
         armAngleMasterOutputEntry.setDouble(m_armAngleMaster.getAppliedOutput());
-        armAngleFollowerOutputEntry.setDouble(m_armAngleFollower.getAppliedOutput());
     }
 
     @Override
@@ -140,11 +142,12 @@ public class ArmAngleSubsystem extends SubsystemBase {
 
     public void updateInputs(ArmAngleIOInputsAutoLogged inputs){
         inputs.armAngle = getArmAngle();
+        inputs.armAnglePower = m_armAngleMaster.getAppliedOutput();
     }
 
     public void setAngleSpeed(double speed) {
         if ((getArmAngle() >= LimitConstants.ARM_ANGLE_LOWER.getValue() && speed >= 0)
-            || (getArmAngle() <= LimitConstants.ARM_ANGLE_UPPER.getValue() && speed <= 0)) {
+            && (getArmAngle() <= LimitConstants.ARM_ANGLE_UPPER.getValue() && speed <= 0)) {
             m_armAngleMaster.set(speed);
         } else {
             m_armAngleMaster.set(0);
@@ -152,7 +155,10 @@ public class ArmAngleSubsystem extends SubsystemBase {
     }
 
     public Command setAngleSpeedFactory(double speed) {
-        return runOnce(() -> setAngleSpeed(speed));
+        if(speed == 0) {
+            return runOnce(() -> setAngleSpeed(0));
+        }
+        return run(() -> setAngleSpeed(speed));
     }
 
     public void setArmAngle(double targetAngleRaw){

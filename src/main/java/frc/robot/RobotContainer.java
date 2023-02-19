@@ -4,9 +4,9 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
-import edu.wpi.first.wpilibj2.command.ProfiledPIDCommand;
 import frc.robot.commands.SupersystemToPoseCommand;
 import frc.robot.commands.ToggleArmBrakeModeCommand;
 import frc.robot.subsystems.arm.ArmExtSubsystem;
@@ -50,24 +50,26 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-  switch (Constants.CURRENT_MODE) {
-    // Beta robot hardware implementation
-    case THANOS:
-    case HELIOS:
-      m_drive = new SwerveDrivetrain();
-      m_wrist = new WristSubsystem();
-      m_arm = new ArmAngleSubsystem();
-      m_ext = new ArmExtSubsystem();
-      m_super = new ArmSupersystem(m_arm, m_ext, m_wrist);
-      m_foot = new FootPedal(1);
-      break;
+    switch (Constants.CURRENT_MODE) {
+      // Beta robot hardware implementation
+      case THANOS:
+      case HELIOS:
+        m_drive = new SwerveDrivetrain();
+        m_wrist = new WristSubsystem();
+        m_arm = new ArmAngleSubsystem();
+        m_ext = new ArmExtSubsystem();
+        m_super = new ArmSupersystem(m_arm, m_ext, m_wrist);
+        m_foot = new FootPedal(1);
+        break;
 
-    case SIM:
-      break;
+      case SIM:
+        break;
 
-    // Default case, should be set to a replay mode
-    default:
-  }
+      // Default case, should be set to a replay mode
+      default:
+    }
+    LiveWindow.disableAllTelemetry();
+
     // Configure the button bindings
     configureButtonBindings();
     configAutoChooser();
