@@ -82,17 +82,17 @@ public class ArmAngleSubsystem extends SubsystemBase {
         // Booleans
         // Misc.
         armAngleAtSetpointEntry = armAngleTab.add("At setpoint", armAngleAtSetpoint()).getEntry();
-        armAngleEncoderConnectedEntry = armAngleTab.add("Encoder connected", encoderConnected()).getEntry();
+//        armAngleEncoderConnectedEntry = armAngleTab.add("Encoder connected", encoderConnected()).getEntry();
         // Motor inversions
-        armAngleMotorMasterInvertedEntry = armAngleTab.add("Master inverted", m_armAngleMaster.getInverted()).getEntry();
-        armAngleMotorFollowerInvertedEntry = armAngleTab.add("Follower inverted", m_armAngleFollower.getInverted()).getEntry();
+//        armAngleMotorMasterInvertedEntry = armAngleTab.add("Master inverted", m_armAngleMaster.getInverted()).getEntry();
+//        armAngleMotorFollowerInvertedEntry = armAngleTab.add("Follower inverted", m_armAngleFollower.getInverted()).getEntry();
         // Limits
         armAngleAtUpperLimitEntry = armAngleTab.add("At upper limit", armAngleAtUpperLimit()).getEntry();
-        armAngleAtLowerLimitEntry = armAngleTab.add("Limit switch triggered", armAngleAtLowerLimit()).getEntry();
+        armAngleAtLowerLimitEntry = armAngleTab.add("At lower limit", armAngleAtLowerLimit()).getEntry();
 
         // Doubles
         // Angles
-        armAngleEncoderRawEntry = armAngleTab.add("Encoder raw", m_encoderArmAngle.getAbsolutePosition()).getEntry();
+//        armAngleEncoderRawEntry = armAngleTab.add("Encoder raw", m_encoderArmAngle.getAbsolutePosition()).getEntry();
         armAngleRawEntry = armAngleTab.add("Angle raw", m_encoderArmAngle.getAbsolutePosition() * 360).getEntry();
         armAngleConvertedEntry = armAngleTab.add("Angle converted", getArmAngle()).getEntry();
         // Targets
@@ -108,18 +108,18 @@ public class ArmAngleSubsystem extends SubsystemBase {
         // Booleans
         // Misc.
         armAngleAtSetpointEntry.setBoolean(armAngleAtSetpoint());
-        armAngleEncoderConnectedEntry.setBoolean(encoderConnected());
+//        armAngleEncoderConnectedEntry.setBoolean(encoderConnected());
         // Motor inversions
-        armAngleMotorMasterInvertedEntry.setBoolean(m_armAngleMaster.getInverted());
-        armAngleMotorFollowerInvertedEntry.setBoolean(m_armAngleFollower.getInverted());
+//        armAngleMotorMasterInvertedEntry.setBoolean(m_armAngleMaster.getInverted());
+//        armAngleMotorFollowerInvertedEntry.setBoolean(m_armAngleFollower.getInverted());
         // Limits
         armAngleAtUpperLimitEntry.setBoolean(armAngleAtUpperLimit());
         armAngleAtLowerLimitEntry.setBoolean(armAngleAtLowerLimit());
 
         // Doubles
         // Angles
-        armAngleEncoderRawEntry.setDouble(m_encoderArmAngle.getAbsolutePosition());
-        armAngleRawEntry.setDouble(m_encoderArmAngle.getAbsolutePosition() * 360);
+//        armAngleEncoderRawEntry.setDouble(m_encoderArmAngle.getAbsolutePosition());
+//        armAngleRawEntry.setDouble(m_encoderArmAngle.getAbsolutePosition() * 360);
         armAngleConvertedEntry.setDouble(getArmAngle());
         // Targets
         armAngleTargetEntry.setDouble(prevSetpointRaw);
