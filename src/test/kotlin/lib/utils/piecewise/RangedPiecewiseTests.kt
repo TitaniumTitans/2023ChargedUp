@@ -1,8 +1,10 @@
 package lib.utils.piecewise
 
+import frc.robot.Constants.LimitConstants
+import frc.robot.supersystems.ArmLimits
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import java.lang.IllegalStateException
+import java.util.List
 import kotlin.test.junit5.JUnit5Asserter.assertEquals
 
 class RangedPiecewiseTests {
@@ -48,4 +50,47 @@ class RangedPiecewiseTests {
     fun testBadRange() {
         assertThrows<IllegalStateException> { RangedPiecewise(testingRange, badRangeExcludingMiddlePoint) }
     }
+
+    @Test
+    fun testRobotCode() {
+        val fullArmRange = Range(LimitConstants.STOW_ZONE.value, true, LimitConstants.MAX_MOVEMENT.value, false)
+        val stowRange = Range(LimitConstants.STOW_ZONE.value, true, LimitConstants.SCORE_ZONE.value, false)
+        val fullRangeZone = Range(LimitConstants.SCORE_ZONE.value, true, LimitConstants.GROUND_ZONE.value, false)
+        val floorCollisionZone = Range(LimitConstants.GROUND_ZONE.value, true, LimitConstants.MAX_MOVEMENT.value, false)
+
+        val armRegion = List.of(
+            PiecewiseInterval(
+                stowRange
+            ) { _: Double? ->
+                ArmLimits(
+                    LimitConstants.WRIST_STOW.value, LimitConstants.WRIST_STOW.value,
+                    LimitConstants.ARM_EXT_STOW.value, LimitConstants.ARM_EXT_STOW.value,
+                    LimitConstants.ARM_ANGLE_LOWER.value, LimitConstants.ARM_ANGLE_UPPER.value
+                )
+            },
+            PiecewiseInterval(
+                fullRangeZone
+            ) { _: Double? ->
+                ArmLimits(
+                    LimitConstants.WRIST_SCORE_LOWER.value, LimitConstants.WRIST_SCORE_UPPER.value,
+                    LimitConstants.ARM_EXT_SCORE_LOWER.value, LimitConstants.ARM_EXT_SCORE_UPPER.value,
+                    LimitConstants.ARM_ANGLE_LOWER.value, LimitConstants.ARM_ANGLE_UPPER.value
+                )
+            },
+            PiecewiseInterval(
+                floorCollisionZone
+            ) { _: Double? ->
+                ArmLimits(
+                    LimitConstants.WRIST_STOW.value, LimitConstants.WRIST_STOW.value,
+                    LimitConstants.ARM_EXT_STOW.value, LimitConstants.ARM_EXT_STOW.value,
+                    LimitConstants.ARM_ANGLE_LOWER.value, LimitConstants.ARM_ANGLE_UPPER.value
+                )
+            }
+        )
+        val limitPiecewise = RangedPiecewise(fullArmRange, armRegion)
+
+        limitPiecewise.calculate(200.0);
+
+    }
+
 }
