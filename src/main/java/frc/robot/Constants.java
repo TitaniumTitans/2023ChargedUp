@@ -125,7 +125,7 @@ public final class Constants {
         public static final GosDoubleProperty ARM_EXT_KI = new GosDoubleProperty(false, "Arm extension kI", 0);
         public static final GosDoubleProperty ARM_EXT_KD = new GosDoubleProperty(false, "Arm extension kD", 0);
 
-        public static final double ARM_OFFSET = 0;
+        public static final double ARM_OFFSET = 84;
         public static final double K_REVERSE_LIMIT = 45;
         public static final double K_FORWARD_LIMIT = 300;
 
@@ -170,8 +170,12 @@ public final class Constants {
                 new GosDoubleProperty(false, "Stow Zone Lower Bound", 45);
         public static final GosDoubleProperty SCORE_ZONE =
                 new GosDoubleProperty(false, "Score Zone Lower Bound", 200);
+
+        // Worry about ground at angle 302
         public static final GosDoubleProperty GROUND_ZONE =
                 new GosDoubleProperty(false,"Ground Zone Lower Bound", 280);
+
+        // Actual max limit is 324
         public static final GosDoubleProperty MAX_MOVEMENT =
                 new GosDoubleProperty(false, "Max Movement Bound", 300);
     }

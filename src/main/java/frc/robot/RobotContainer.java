@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.ProfiledPIDCommand;
 import frc.robot.commands.SupersystemToPoseCommand;
+import frc.robot.commands.ToggleArmBrakeModeCommand;
 import frc.robot.subsystems.arm.ArmExtSubsystem;
 import frc.robot.supersystems.ArmPose;
 import frc.robot.supersystems.ArmSupersystem;
@@ -125,7 +126,7 @@ public class RobotContainer {
   public void configDashboard() {
     ShuffleboardTab testCommands = Shuffleboard.getTab("Commands");
 
-    testCommands.add("Toggle Angle Brake Mode", new InstantCommand(() -> m_arm.toggleBrakeMode())).withSize(2, 1);
+    testCommands.add("Toggle Angle Brake Mode", new ToggleArmBrakeModeCommand(m_arm)).withSize(2, 1);
 
     testCommands.add("Test Stow Zone", new SupersystemToPoseCommand(m_super, new ArmPose(1, 10, 90))).withSize(2, 1);
     testCommands.add("Go To Stow", new SupersystemToPoseCommand(m_super, new ArmPose(0.0, 0.0, 30.0))).withSize(2, 1);
