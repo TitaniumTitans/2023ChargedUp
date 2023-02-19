@@ -61,14 +61,18 @@ public class WristSubsystem extends SubsystemBase {
         m_input = new WristIOInputsAutoLogged();
 
         SparkMaxFactory.SparkMaxConfig config = new SparkMaxFactory.SparkMaxConfig();
+        config.setInverted(true);
+        config.setIdleMode(CANSparkMax.IdleMode.kBrake);
 
         m_wristMotor  = SparkMaxFactory.Companion.createSparkMax(WristConstants.WRIST_ID, config);
         // Current limit based off testing 2/28/2023 17:55
         config.setCurrentLimit(10);
+        config.setInverted(false);
         m_intakeMotor  = SparkMaxFactory.Companion.createSparkMax(WristConstants.INTAKE_ID, config);
 
         m_wristEncoder = new CANCoder(WristConstants.WRIST_ANGLE_PORT);
         m_wristEncoder.configSensorInitializationStrategy(SensorInitializationStrategy.BootToZero);
+        m_wristEncoder.configSensorDirection(true);
 
         m_wristZeroLimit = new DigitalInput(WristConstants.LIMIT_SWITCH_PORT);
 
@@ -138,7 +142,7 @@ public class WristSubsystem extends SubsystemBase {
         //updateInputs(m_input);
         //Logger.getInstance().processInputs("Arm Wrist", m_input);
 
-        ///updateShuffleboardData();
+        updateShuffleboardData();
 
         if (atLowerLimit()) {
             zeroWristAngle();
@@ -155,7 +159,7 @@ public class WristSubsystem extends SubsystemBase {
         double currentWristAngle = getWristAngle();
 
         double targetAngleClamped = MathUtil.clamp(targetAngleRaw, Constants.LimitConstants.WRIST_SCORE_LOWER.getValue(), Constants.LimitConstants.WRIST_SCORE_UPPER.getValue());
-        double targetAnglePID = MathUtil.clamp(m_wristPID.calculate(currentWristAngle, targetAngleClamped), -0.25, 0.25);
+        double targetAnglePID = MathUtil.clamp(m_wristPID.calculate(currentWristAngle, targetAngleClamped), -0.15, 0.15);
 
         // Dashboard variables
         prevSetpointRaw = targetAngleRaw;

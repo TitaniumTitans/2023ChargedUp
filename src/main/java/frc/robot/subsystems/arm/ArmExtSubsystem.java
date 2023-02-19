@@ -108,7 +108,8 @@ public class ArmExtSubsystem extends SubsystemBase {
     }
 
     public void setArmSpeed(double speed) {
-        if(armAtLowerLimit() && speed <= 0 || armAtUpperLimit() && speed >= 0){
+        if((armAtLowerLimit() || getArmExtension() <= Constants.LimitConstants.ARM_EXT_STOW.getValue()) && speed <= 0
+                || armAtUpperLimit() && speed >= 0){
             m_armExt.set(0);
         } else {
             m_armExt.set(speed);
@@ -165,7 +166,7 @@ public class ArmExtSubsystem extends SubsystemBase {
         {
             resetExtensionEncoder();
         }
-        //updateShuffleboardData();
+        updateShuffleboardData();
     }
 
     public void updateInputs(ArmExtIOInputsAutoLogged inputs) {

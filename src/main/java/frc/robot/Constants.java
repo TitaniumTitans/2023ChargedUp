@@ -69,8 +69,8 @@ public final class Constants {
     }
 
     public static class WristConstants {
-        public static final int WRIST_ID = 19;
-        public static final int INTAKE_ID = 20;
+        public static final int WRIST_ID = 20;
+        public static final int INTAKE_ID = 19;
 
         public static final int LIMIT_SWITCH_PORT = 2;
         public static final int WRIST_ANGLE_PORT = 21;
@@ -145,7 +145,7 @@ public final class Constants {
 
         // Arm Extension limits for Piecewise Function
         public static final GosDoubleProperty ARM_EXT_STOW =
-                new GosDoubleProperty(false, "Arm Extension Stow Limit", 0);
+                new GosDoubleProperty(false, "Arm Extension Stow Limit", 0.5);
         public static final GosDoubleProperty ARM_EXT_SCORE_LOWER =
                 new GosDoubleProperty(false, "Arm Extension Score Lower Limit", 0);
         public static final GosDoubleProperty ARM_EXT_SCORE_UPPER =
@@ -159,7 +159,7 @@ public final class Constants {
 
         // Wrist limits for Piecewise Function
         public static final GosDoubleProperty WRIST_STOW =
-                new GosDoubleProperty(false, "Wrist Stow Limit", 0);
+                new GosDoubleProperty(false, "Wrist Stow Limit", 1);
         public static final GosDoubleProperty WRIST_SCORE_LOWER =
                 new GosDoubleProperty(false, "Wrist Score Lower Limit", 0);
         public static final GosDoubleProperty WRIST_SCORE_UPPER =
