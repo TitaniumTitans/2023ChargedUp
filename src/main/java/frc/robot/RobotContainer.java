@@ -84,9 +84,9 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     m_drive.setDefaultCommand(new SwerveTeleopDrive(m_drive, m_driveController));
-    m_arm.setDefaultCommand(m_arm.setAngleSpeedFactory(0.0));
-    m_wrist.setDefaultCommand(m_wrist.setWristPowerFactory(0.0));
-    m_ext.setDefaultCommand(m_ext.setArmSpeedFactory(0.0));
+//    m_arm.setDefaultCommand(m_arm.setAngleSpeedFactory(0.0));
+//    m_wrist.setDefaultCommand(m_wrist.setWristPowerFactory(0.0));
+//    m_ext.setDefaultCommand(m_ext.setArmSpeedFactory(0.0));
 
     m_driveController.button(7).onTrue(m_drive.resetGyroBase());
     m_driveController.start().onTrue(m_drive.toggleFieldRelative());
@@ -96,9 +96,9 @@ public class RobotContainer {
     m_driveController.rightTrigger().whileTrue(m_wrist.setIntakeSpeedFactory(1.0))
             .whileFalse(m_wrist.setIntakeSpeedFactory(0.0));
 
-    m_driveController.a().whileTrue(m_wrist.setWristPowerFactory(0.25))
+    m_driveController.b().whileTrue(m_wrist.setWristPowerFactory(0.15))
       .whileFalse(m_wrist.setWristPowerFactory(0.0));
-    m_driveController.b().whileTrue(m_wrist.setWristPowerFactory(-0.25))
+    m_driveController.a().whileTrue(m_wrist.setWristPowerFactory(-0.15))
       .whileFalse(m_wrist.setWristPowerFactory(0.0));
 
 

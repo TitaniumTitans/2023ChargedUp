@@ -146,8 +146,8 @@ public class ArmAngleSubsystem extends SubsystemBase {
     }
 
     public void setAngleSpeed(double speed) {
-        if ((getArmAngle() >= LimitConstants.ARM_ANGLE_LOWER.getValue() && speed >= 0)
-            && (getArmAngle() <= LimitConstants.ARM_ANGLE_UPPER.getValue() && speed <= 0)) {
+        if ((getArmAngle() >= LimitConstants.ARM_ANGLE_LOWER.getValue() && speed <= 0)
+            || (getArmAngle() <= LimitConstants.ARM_ANGLE_UPPER.getValue() && speed >= 0)) {
             m_armAngleMaster.set(speed);
         } else {
             m_armAngleMaster.set(0);
@@ -158,7 +158,7 @@ public class ArmAngleSubsystem extends SubsystemBase {
         if(speed == 0) {
             return runOnce(() -> setAngleSpeed(0));
         }
-        return run(() -> setAngleSpeed(speed));
+        return runOnce(() -> setAngleSpeed(speed));
     }
 
     public void setArmAngle(double targetAngleRaw){
