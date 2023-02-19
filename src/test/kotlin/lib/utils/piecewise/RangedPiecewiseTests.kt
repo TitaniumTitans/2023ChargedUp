@@ -89,7 +89,7 @@ class RangedPiecewiseTests {
         )
         val limitPiecewise = RangedPiecewise(fullArmRange, armRegion)
 
-        limitPiecewise.calculate(200.0);
+        limitPiecewise.calculate(44.0);
 
     }
 
