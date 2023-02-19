@@ -159,7 +159,7 @@ public class ArmAngleSubsystem extends SubsystemBase {
 
         // Clamp target
         double targetAngleClamped = MathUtil.clamp(targetAngleRaw, LimitConstants.ARM_ANGLE_LOWER.getValue(), LimitConstants.ARM_ANGLE_UPPER.getValue());
-        double targetAnglePID = MathUtil.clamp(m_anglePID.calculate(currentArmAngle, targetAngleClamped), -6, 6);
+        double targetAnglePID = MathUtil.clamp(m_anglePID.calculate(currentArmAngle, targetAngleClamped), -3, 3);
 
         // Update dashboard variables
         prevSetpointRaw = targetAngleRaw;
@@ -167,7 +167,7 @@ public class ArmAngleSubsystem extends SubsystemBase {
         prevSetpointPID = targetAnglePID;
 
         // Set voltage based off of PID
-        m_armAngleMaster.setVoltage(-targetAnglePID);
+        m_armAngleMaster.setVoltage(targetAnglePID);
     }
 
     public double getArmAngle() {
@@ -185,6 +185,7 @@ public class ArmAngleSubsystem extends SubsystemBase {
     public boolean armAngleAtUpperLimit(){
         return (getArmAngle() >= LimitConstants.ARM_ANGLE_UPPER.getValue());
     }
+
     public boolean armAngleAtLowerLimit(){
         return (getArmAngle() <= LimitConstants.ARM_ANGLE_LOWER.getValue());
     }
