@@ -41,15 +41,12 @@ class SparkMaxFactory {
      *  current limit: 30 amps
      * @return a spark max configured to the default settings
      */
-    fun createDefaultSpark(id: Int): CANSparkMax {
-        return Companion.createSparkMax(id, SparkMaxConfig())
-    }
-
-    data class SparkWithConfig(val spark:CANSparkMax, val config: SparkMaxConfig)
+    data class SparkWithConfig(val spark:CANSparkMax, val config: SparkMaxConfig = SparkMaxConfig())
 
     companion object {
         const val MAX_CAN_FRAME_PERIOD = 65535;
 
+        // A list of all configured sparks linked to thier configs
         val listOfAllSparksAndConfigs:MutableList<SparkWithConfig> = ArrayList();
         fun updateCanFramePeriods() {
             for (sparkAndConfig in listOfAllSparksAndConfigs) {
