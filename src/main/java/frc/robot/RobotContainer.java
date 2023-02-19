@@ -82,6 +82,9 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     m_drive.setDefaultCommand(new SwerveTeleopDrive(m_drive, m_driveController));
+    m_arm.setDefaultCommand(m_arm.setAngleSpeedFactory(0.0));
+    m_wrist.setDefaultCommand(m_wrist.setWristPowerFactory(0.0));
+    m_ext.setDefaultCommand(m_ext.setArmSpeedFactory(0.0));
 
     m_driveController.button(7).onTrue(m_drive.resetGyroBase());
     m_driveController.start().onTrue(m_drive.toggleFieldRelative());
@@ -128,7 +131,7 @@ public class RobotContainer {
 
     testCommands.add("Toggle Angle Brake Mode", new ToggleArmBrakeModeCommand(m_arm)).withSize(2, 1);
 
-    testCommands.add("Test Stow Zone", new SupersystemToPoseCommand(m_super, new ArmPose(1, 90, 10))).withSize(2, 1);
+    testCommands.add("Test Stow Zone", new SupersystemToPoseCommand(m_super, new ArmPose(1, 30, 10))).withSize(2, 1);
     testCommands.add("Go To Stow", new SupersystemToPoseCommand(m_super, new ArmPose(0.0, 45, 0.0))).withSize(2, 1);
     testCommands.add("Go To Scoring Zone", new SupersystemToPoseCommand(m_super, new ArmPose(5, 200, 90))).withSize(2, 1);
     testCommands.add("Test pose", new ArmPose(5, 90, 200)).withSize(2, 2);
