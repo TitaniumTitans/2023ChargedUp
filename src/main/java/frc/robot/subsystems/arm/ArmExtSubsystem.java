@@ -164,7 +164,7 @@ public class ArmExtSubsystem extends SubsystemBase {
         {
             resetExtensionEncoder();
         }
-        updateShuffleboardData();
+        //updateShuffleboardData();
     }
 
     public void updateInputs(ArmExtIOInputsAutoLogged inputs) {

@@ -80,8 +80,8 @@ public class SwerveDrivetrain extends SubsystemBase {
         updateInputs();
         Logger.getInstance().processInputs("Swerve", m_inputs);
 
-        updatePoseEstimator();
-        m_field.setRobotPose(m_poseEstimator.getEstimatedPosition());
+        //updatePoseEstimator();
+        //m_field.setRobotPose(m_poseEstimator.getEstimatedPosition());
     }
 
     // Getters
