@@ -64,6 +64,25 @@ class SparkMaxFactory {
             }
         }
 
+        fun rerunConfigs() {
+            for (sparkAndConfig in listOfAllSparksAndConfigs) {
+                val spark = sparkAndConfig.spark
+                val config = sparkAndConfig.config
+
+                RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus0, config.frame0Rate)}
+                RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus1, config.frame1Rate)}
+                RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus2, config.frame2Rate)}
+                RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus3, config.frame3Rate)}
+                RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus4, config.frame4Rate)}
+                RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus5, config.frame5Rate)}
+                RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus6, config.frame6Rate)}
+
+                RevUtil.autoRetry {spark.setIdleMode(config.idleMode)}
+                spark.inverted = config.inverted
+                RevUtil.autoRetry {spark.setSmartCurrentLimit(config.currentLimit)}
+            }
+        }
+
         /**
          * Returns a Spark Max motor controller set to the config handed to it
          * @return A configured spark max motor controller
