@@ -32,11 +32,11 @@ class PiecewiseInterval<T>(val range: Range, private val function: Function<Doub
     }
 
     fun isInLeftRange(input: Double): Boolean {
-        return (range.leftInclusive && range.left == input) || (range.left < input)
+        return range.withinRange(input);
     }
 
     fun isInRightRange(input: Double): Boolean {
-        return (range.rightInclusive && range.right == input) || (range.right > input)
+        return range.withinRange(input)
     }
 
     fun calculate(input: Double): T {
