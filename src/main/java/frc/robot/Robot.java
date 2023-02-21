@@ -25,7 +25,7 @@ public class Robot extends LoggedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
 
-  private double timestamp = 0.0;
+  private Timer m_timer;
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -108,11 +108,10 @@ public class Robot extends LoggedRobot {
 
     // Checks every 100 milliseconds (roughly 10 robot cycles) to see if any Spark Maxes have rebooted
     // if one has it will then rerun CAN ID configurations on it to stop CAN bus from overflowing
-    timestamp = Timer.getFPGATimestamp();
 
-    if (timestamp >= 5.0) {
+    if (m_timer.get() >= 5.0) {
       SparkMaxFactory.Companion.updateCanFramePeriods();
-      timestamp = 0;
+      m_timer.reset();
     }
   }
 
