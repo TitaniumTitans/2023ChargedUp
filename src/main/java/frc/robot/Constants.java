@@ -155,7 +155,7 @@ public final class Constants {
         public static final GosDoubleProperty ARM_ANGLE_LOWER =
                 new GosDoubleProperty(false, "Arm Angle Lower Limit", 45);
         public static final GosDoubleProperty ARM_ANGLE_UPPER =
-                new GosDoubleProperty(false, "Arm Angle Upper Limit", 300);
+                new GosDoubleProperty(false, "Arm Angle Upper Limit", 325);
 
         // Wrist limits for Piecewise Function
         public static final GosDoubleProperty WRIST_STOW =
@@ -177,7 +177,7 @@ public final class Constants {
 
         // Actual max limit is 324
         public static final GosDoubleProperty MAX_MOVEMENT =
-                new GosDoubleProperty(false, "Max Movement Bound", 300);
+                new GosDoubleProperty(false, "Max Movement Bound", 325);
     }
 
     public static final int DRIVER_PORT = 0;

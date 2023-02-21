@@ -96,9 +96,9 @@ public class RobotContainer {
     m_driveController.rightTrigger().whileTrue(m_wrist.setIntakeSpeedFactory(1.0))
             .whileFalse(m_wrist.setIntakeSpeedFactory(0.0));
 
-    m_driveController.b().whileTrue(m_wrist.setWristPowerFactory(0.15))
+    m_driveController.b().whileTrue(m_wrist.setWristPowerFactory(0.20))
       .whileFalse(m_wrist.setWristPowerFactory(0.0));
-    m_driveController.a().whileTrue(m_wrist.setWristPowerFactory(-0.15))
+    m_driveController.a().whileTrue(m_wrist.setWristPowerFactory(-0.20))
       .whileFalse(m_wrist.setWristPowerFactory(0.0));
 
 
@@ -136,10 +136,12 @@ public class RobotContainer {
     testCommands.add("Test Stow Zone", new SupersystemToPoseCommand(m_super, new ArmPose(1, 30, 10))).withSize(2, 1);
     testCommands.add("Go To Stow", new SupersystemToPoseCommand(m_super, new ArmPose(0.0, 45, 0.0))).withSize(2, 1);
     //TODO: Find out why angle 200 crashes in Piecewise interval
-    testCommands.add("Go To Scoring Zone", new SupersystemToPoseCommand(m_super, new ArmPose(5, 220, 90))).withSize(2, 1);
     testCommands.add("Test pose", new ArmPose(5, 90, 200)).withSize(2, 2);
 
     testCommands.add("Reset Pose", new InstantCommand(() -> m_drive.resetPoseBase())).withSize(2, 1);
+
+    testCommands.add("Ground Score Tipped Cone", new SupersystemToPoseCommand(m_super, new ArmPose(5.4, 325.0, 165.67))).withSize(2, 1);
+    testCommands.add("Middle Score Zone", new SupersystemToPoseCommand(m_super, new ArmPose(0, 252.1, 99.7))).withSize(2, 1);
   }
 
   /**

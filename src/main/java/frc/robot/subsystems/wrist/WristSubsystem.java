@@ -12,6 +12,7 @@ import com.playingwithfusion.TimeOfFlight;
 import com.playingwithfusion.TimeOfFlight.RangingMode;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -68,6 +69,7 @@ public class WristSubsystem extends SubsystemBase {
         // Current limit based off testing 2/28/2023 17:55
 
         m_wristMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
+        m_wristMotor.setSmartCurrentLimit(40);
         config.setCurrentLimit(10);
         config.setInverted(false);
         m_intakeMotor  = SparkMaxFactory.Companion.createSparkMax(WristConstants.INTAKE_ID, config);
@@ -161,7 +163,7 @@ public class WristSubsystem extends SubsystemBase {
         double currentWristAngle = getWristAngle();
 
         double targetAngleClamped = MathUtil.clamp(targetAngleRaw, Constants.LimitConstants.WRIST_SCORE_LOWER.getValue(), Constants.LimitConstants.WRIST_SCORE_UPPER.getValue());
-        double targetAnglePID = MathUtil.clamp(m_wristPID.calculate(currentWristAngle, targetAngleClamped), -0.15, 0.15);
+        double targetAnglePID = MathUtil.clamp(m_wristPID.calculate(currentWristAngle, targetAngleClamped), -0.25, 0.25);
 
         // Dashboard variables
         prevSetpointRaw = targetAngleRaw;
@@ -175,15 +177,22 @@ public class WristSubsystem extends SubsystemBase {
 
         if (atLowerLimit() && speed <= 0){
             m_wristMotor.set(0.0);
+            SmartDashboard.putBoolean("Wrist Hitting Soft Limit", true);
         } else if (getWristAngle() >= Constants.LimitConstants.WRIST_SCORE_UPPER.getValue() && speed >= 0) {
+            SmartDashboard.putBoolean("Wrist Hitting Soft Limit", true);
             m_wristMotor.set(0.0);
         } else {
             m_wristMotor.set(speed);
+            SmartDashboard.putBoolean("Wrist Hitting Soft Limit", false);
         }
     }
 
     public Command setWristPowerFactory(double speed) {
-        return runOnce(() -> setWristPower(speed));
+        if (speed == 0) {
+            return runOnce(() -> setWristPower(0.05));
+        } else {
+            return runOnce(() -> setWristPower(speed));
+        }
     }
 
     public void setIntakeSpeed(double speed) {
