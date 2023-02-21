@@ -17,8 +17,7 @@ public class ArmLimits {
      * @param angleLower angle lower limit
      * @param angleUpper angle upper limit
      */
-    public ArmLimits(double wristLower, double wristUpper,
-                     double extLower, double extUpper,
+    public ArmLimits(double wristLower, double wristUpper, double extLower, double extUpper,
                      double angleLower, double angleUpper) {
         wristRange = new Range(wristLower, true, wristUpper, true);
         armExtRange = new Range(extLower, true, extUpper, true);
@@ -26,20 +25,14 @@ public class ArmLimits {
     }
 
     public boolean withinWristLimit(double inside) {
-        return (
-                (wristRange.getLeft() > inside || (wristRange.getLeftInclusive() && wristRange.getLeft() == inside)) ||
-                (wristRange.getRight() < inside || (wristRange.getRightInclusive() && wristRange.getRight() == inside)));
+        return wristRange.withinRange(inside);
     }
 
     public boolean withinExtLimit(double inside) {
-        return (
-                (armExtRange.getLeft() > inside || (armExtRange.getLeftInclusive() && armExtRange.getLeft() == inside)) ||
-                (armExtRange.getRight() < inside || (armExtRange.getRightInclusive() && armExtRange.getRight() == inside)));
+        return armExtRange.withinRange(inside);
     }
 
     public boolean withinAngleLimit(double inside) {
-        return (
-                (armAngleRange.getLeft() > inside || (armAngleRange.getLeftInclusive() && armAngleRange.getLeft() == inside)) ||
-                (armAngleRange.getRight() < inside || (armAngleRange.getRightInclusive() && armAngleRange.getRight() == inside)));
+        return armAngleRange.withinRange(inside);
     }
 }
