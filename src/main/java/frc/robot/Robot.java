@@ -147,7 +147,7 @@ public class Robot extends LoggedRobot {
       m_autonomousCommand.cancel();
     }
 
-//    SparkMaxFactory.Companion.
+    SparkMaxFactory.Companion.rerunConfigs();
   }
 
   /** This function is called periodically during operator control. */
