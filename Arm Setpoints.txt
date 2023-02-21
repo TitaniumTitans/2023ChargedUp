@@ -1,0 +1,9 @@
+Cone Tipped ground intake:
+    Ext: 5.4
+    Angle: 325.1
+    wrist: 165.6
+
+middle goal:
+   wrist: 99.7
+   ext: 0
+   angle: 252.1
