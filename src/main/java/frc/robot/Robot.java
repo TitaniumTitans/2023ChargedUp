@@ -110,8 +110,9 @@ public class Robot extends LoggedRobot {
     // if one has it will then rerun CAN ID configurations on it to stop CAN bus from overflowing
     timestamp = Timer.getFPGATimestamp();
 
-    if (timestamp >= Units.millisecondsToSeconds(100)) {
+    if (timestamp >= 5.0) {
       SparkMaxFactory.Companion.updateCanFramePeriods();
+      timestamp = 0;
     }
   }
 
@@ -146,6 +147,8 @@ public class Robot extends LoggedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+
+//    SparkMaxFactory.Companion.
   }
 
   /** This function is called periodically during operator control. */
