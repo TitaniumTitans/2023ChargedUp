@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.util.Units;
+import lib.factories.SparkMaxFactory;
 import org.littletonrobotics.junction.*;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
 import org.littletonrobotics.junction.wpilog.WPILOGReader;
@@ -23,6 +25,7 @@ public class Robot extends LoggedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
 
+  private double timestamp = 0.0;
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -102,6 +105,14 @@ public class Robot extends LoggedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+
+    // Checks every 100 milliseconds (roughly 10 robot cycles) to see if any Spark Maxes have rebooted
+    // if one has it will then rerun CAN ID configurations on it to stop CAN bus from overflowing
+    timestamp = Timer.getFPGATimestamp();
+
+    if (timestamp >= Units.millisecondsToSeconds(100)) {
+      SparkMaxFactory.Companion.updateCanFramePeriods();
+    }
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
