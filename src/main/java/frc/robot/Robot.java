@@ -85,6 +85,7 @@ public class Robot extends LoggedRobot {
     logger.start();
 
     Timer.delay(0.05);
+    m_timer = new Timer();
 
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
