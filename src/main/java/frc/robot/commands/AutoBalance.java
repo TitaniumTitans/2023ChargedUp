@@ -5,6 +5,8 @@
 package frc.robot.commands;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.AutoConstants;
@@ -12,6 +14,8 @@ import frc.robot.subsystems.swerve.SwerveDrivetrain;
 
 public class AutoBalance extends CommandBase {
   private SwerveDrivetrain m_drive;
+
+  private Timer m_timer;
 
   private double m_currentAngle;
   private double m_error;
@@ -22,6 +26,7 @@ public class AutoBalance extends CommandBase {
   /** Creates a new AutoBalance. */
   public AutoBalance(SwerveDrivetrain drive) {
     m_drive = drive;
+    m_timer = new Timer();
     m_currentAngle = 0;
     m_counter = 0;
     m_isLevel = false;
@@ -45,12 +50,17 @@ public class AutoBalance extends CommandBase {
     m_drivePower = MathUtil.clamp(m_drivePower, -0.2, 0.2);
 
     // Counter for checking if robot is truly balanced
-    if (Math.abs(m_error) < 0.5 && m_counter == 10) {
-      m_isLevel = true;
-    }
-    if (Math.abs(m_error) < 0.5 && m_counter < 10) {
-      m_counter++;
-    }
+   if (Math.abs(m_currentAngle) < AutoConstants.DESIRED_BALANCE_ANGLE) {
+     m_timer.start();
+   }
+   if (Math.abs(m_currentAngle) < AutoConstants.DESIRED_BALANCE_ANGLE && m_timer.get() >= Units.millisecondsToSeconds(10)) {
+     m_timer.stop();
+     m_isLevel = true;
+   }
+   if (m_timer.get() > 0 && Math.abs(m_currentAngle) > AutoConstants.DESIRED_BALANCE_ANGLE) {
+     m_timer.stop();
+     m_timer.reset();
+   }
 
     m_drive.setModuleStates(m_drivePower, 0.0, 0.0);
 
