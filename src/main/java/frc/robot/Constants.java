@@ -149,7 +149,7 @@ public final class Constants {
         public static final GosDoubleProperty ARM_EXT_SCORE_LOWER =
                 new GosDoubleProperty(false, "Arm Extension Score Lower Limit", 0);
         public static final GosDoubleProperty ARM_EXT_SCORE_UPPER =
-                new GosDoubleProperty(false, "Arm Extension Score Upper Limit", 10);
+                new GosDoubleProperty(false, "Arm Extension Score Upper Limit", 24);
 
         // Arm Angle limits for Piecewise Function
         public static final GosDoubleProperty ARM_ANGLE_LOWER =
