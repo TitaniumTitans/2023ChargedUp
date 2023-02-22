@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.AutoConstants;
@@ -35,15 +36,15 @@ public class AutoBalance extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    // Gets how far the robot is tilted and calculates proper drive power from it
     m_currentAngle = m_drive.getGyroRoll().getDegrees();
     m_error = AutoConstants.DESIRED_BALANCE_ANGLE - m_currentAngle;
 
     m_drivePower = Math.min(AutoConstants.BALANCE_P * m_error, 1);
     // Limit max power
-    if (Math.abs(m_drivePower) > 0.28) {
-      m_drivePower = Math.copySign(0.28, m_drivePower);
-    }
+    m_drivePower = MathUtil.clamp(m_drivePower, -0.2, 0.2);
 
+    // Counter for checking if robot is truly balanced
     if (Math.abs(m_error) < 0.5 && m_counter == 10) {
       m_isLevel = true;
     }
@@ -52,13 +53,19 @@ public class AutoBalance extends CommandBase {
     }
 
     m_drive.setModuleStates(m_drivePower, 0.0, 0.0);
+
+    // Logging values for debugging
     SmartDashboard.putNumber("Gyro Angle", m_currentAngle);
     SmartDashboard.putNumber("Drive Power", m_drivePower);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    // Set the module azimuths to 45 degrees so robot doesn't slip off the charge station
+    m_drive.setModuleStates(0.0, 0.0, 0.1);
+    m_drive.setModuleStates(0.0, 0.0, 0.0);
+  }
 
   // Returns true when the command should end.
   @Override
