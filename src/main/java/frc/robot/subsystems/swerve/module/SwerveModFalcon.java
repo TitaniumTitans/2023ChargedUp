@@ -1,4 +1,4 @@
-package frc.robot.subsystems.swerve.SwerveModules;
+package frc.robot.subsystems.swerve.module;
 
 import frc.robot.Constants.ModuleConstants;
 import lib.utils.Utils;
@@ -18,14 +18,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class SwerveModFalcon {
     // Physical motors/sensors
-    private TalonFX m_driveFx;
-    private TalonFX m_azimuthFx;
-    private CANCoder m_encoder;
+    private final TalonFX m_driveFx;
+    private final TalonFX m_azimuthFx;
+    private final CANCoder m_encoder;
 
     // Variables stored in code
     private double m_lastAngle;
-    public int m_moduleNumber;
-    public double m_magnetOffset;
+    public final int m_moduleNumber;
+    public final double m_magnetOffset;
 
     public SwerveModFalcon(int moduleNumber, double magnetOffset, int[] canIds) {
         this.m_magnetOffset = magnetOffset;

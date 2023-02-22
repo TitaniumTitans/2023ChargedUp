@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import com.gos.lib.properties.GosDoubleProperty;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -68,8 +69,8 @@ public final class Constants {
     }
 
     public static class WristConstants {
-        public static final int WRIST_ID = 19;
-        public static final int INTAKE_ID = 20;
+        public static final int WRIST_ID = 20;
+        public static final int INTAKE_ID = 19;
 
         public static final int LIMIT_SWITCH_PORT = 2;
         public static final int WRIST_ANGLE_PORT = 21;
@@ -120,10 +121,11 @@ public final class Constants {
         public static final double KI_ANGLE = 0.005;
         public static final double KD_ANGLE = 0.0075;
 
-        public static final double ARM_EXT_KP = 0.1;
-        public static final double ARM_EXT_KI = 0;
-        public static final double ARM_EXT_KD = 0;
-        
+        public static final GosDoubleProperty ARM_EXT_KP = new GosDoubleProperty(false, "Arm extension kP", 0.1);
+        public static final GosDoubleProperty ARM_EXT_KI = new GosDoubleProperty(false, "Arm extension kI", 0);
+        public static final GosDoubleProperty ARM_EXT_KD = new GosDoubleProperty(false, "Arm extension kD", 0);
+
+        public static final double ARM_OFFSET = 84;
         public static final double K_REVERSE_LIMIT = 45;
         public static final double K_FORWARD_LIMIT = 300;
 
@@ -135,6 +137,47 @@ public final class Constants {
         public static final double EXT_LOWER_LIMIT = 0.5;
         public static final double EXT_HIGHER_LIMIT = 25;
 
+        public static final double EXT_PID_TOLERANCE = 0.5;
+    }
+
+    public static class LimitConstants {
+        private LimitConstants() {}
+
+        // Arm Extension limits for Piecewise Function
+        public static final GosDoubleProperty ARM_EXT_STOW =
+                new GosDoubleProperty(false, "Arm Extension Stow Limit", 0.5);
+        public static final GosDoubleProperty ARM_EXT_SCORE_LOWER =
+                new GosDoubleProperty(false, "Arm Extension Score Lower Limit", 0);
+        public static final GosDoubleProperty ARM_EXT_SCORE_UPPER =
+                new GosDoubleProperty(false, "Arm Extension Score Upper Limit", 24);
+
+        // Arm Angle limits for Piecewise Function
+        public static final GosDoubleProperty ARM_ANGLE_LOWER =
+                new GosDoubleProperty(false, "Arm Angle Lower Limit", 45);
+        public static final GosDoubleProperty ARM_ANGLE_UPPER =
+                new GosDoubleProperty(false, "Arm Angle Upper Limit", 325);
+
+        // Wrist limits for Piecewise Function
+        public static final GosDoubleProperty WRIST_STOW =
+                new GosDoubleProperty(false, "Wrist Stow Limit", 1);
+        public static final GosDoubleProperty WRIST_SCORE_LOWER =
+                new GosDoubleProperty(false, "Wrist Score Lower Limit", 0);
+        public static final GosDoubleProperty WRIST_SCORE_UPPER =
+                new GosDoubleProperty(false, "Wrist Score Upper Limit", 200);
+
+        //Arm angle zones for piecewise intervals
+        public static final GosDoubleProperty STOW_ZONE =
+                new GosDoubleProperty(false, "Stow Zone Lower Bound", 45);
+        public static final GosDoubleProperty SCORE_ZONE =
+                new GosDoubleProperty(false, "Score Zone Lower Bound", 200);
+
+        // Worry about ground at angle 302
+        public static final GosDoubleProperty GROUND_ZONE =
+                new GosDoubleProperty(false,"Ground Zone Lower Bound", 280);
+
+        // Actual max limit is 324
+        public static final GosDoubleProperty MAX_MOVEMENT =
+                new GosDoubleProperty(false, "Max Movement Bound", 325);
     }
 
     public static final int DRIVER_PORT = 0;

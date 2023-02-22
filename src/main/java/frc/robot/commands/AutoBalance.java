@@ -51,7 +51,7 @@ public class AutoBalance extends CommandBase {
       m_counter++;
     }
 
-    m_drive.drive(m_drivePower, 0.0, 0.0);
+    m_drive.setModuleStates(m_drivePower, 0.0, 0.0);
     SmartDashboard.putNumber("Gyro Angle", m_currentAngle);
     SmartDashboard.putNumber("Drive Power", m_drivePower);
   }

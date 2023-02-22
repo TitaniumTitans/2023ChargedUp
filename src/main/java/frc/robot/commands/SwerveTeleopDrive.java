@@ -4,11 +4,11 @@
 
 package frc.robot.commands;
 
+import frc.robot.subsystems.swerve.SwerveDrivetrain;
 import lib.utils.Utils;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.subsystems.swerve.SwerveDrivetrain;
 
 /** An example command that uses an example subsystem. */
 public class SwerveTeleopDrive extends CommandBase {
@@ -42,7 +42,7 @@ public class SwerveTeleopDrive extends CommandBase {
     x = Utils.deadBand(x);
     y = Utils.deadBand(y);
     z = Utils.deadBand(z);
-    m_drive.drive(x, y, z);
+    m_drive.setModuleStates(x, y, z);
   }
 
   // Called once the command ends or is interrupted.
