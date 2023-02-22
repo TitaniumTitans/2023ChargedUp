@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
+import frc.robot.commands.IntakeControlCommand;
 import frc.robot.commands.SupersystemToPoseCommand;
 import frc.robot.commands.ToggleArmBrakeModeCommand;
 import frc.robot.subsystems.arm.ArmExtSubsystem;
@@ -91,10 +92,8 @@ public class RobotContainer {
     m_driveController.button(7).onTrue(m_drive.resetGyroBase());
     m_driveController.start().onTrue(m_drive.toggleFieldRelative());
 
-    m_driveController.leftTrigger().whileTrue(m_wrist.setIntakeSpeedFactory(-1.0))
-                    .whileFalse(m_wrist.setIntakeSpeedFactory(0.0));
-    m_driveController.rightTrigger().whileTrue(m_wrist.setIntakeSpeedFactory(1.0))
-            .whileFalse(m_wrist.setIntakeSpeedFactory(0.0));
+    m_driveController.leftTrigger().whileTrue(new IntakeControlCommand(m_wrist, -1.0));
+    m_driveController.rightTrigger().whileTrue(new IntakeControlCommand(m_wrist, 1.0));
 
     m_driveController.b().whileTrue(m_wrist.setWristPowerFactory(0.20))
       .whileFalse(m_wrist.setWristPowerFactory(0.0));
@@ -142,7 +141,9 @@ public class RobotContainer {
 
     testCommands.add("Ground Intake Tipped Cone", new SupersystemToPoseCommand(m_super, new ArmPose(5.4, 325.0, 165.67))).withSize(2, 1);
     testCommands.add("Middle Score Zone", new SupersystemToPoseCommand(m_super, new ArmPose(0, 252.1, 99.7))).withSize(2, 1);
-    testCommands.add("Cone Ground Intake", new SupersystemToPoseCommand(m_super, new ArmPose(0.0, 328, 177.5)));
+    testCommands.add("Cone Ground Intake", new SupersystemToPoseCommand(m_super, new ArmPose(0.0, 328, 177.5))).withSize(2, 1);
+    testCommands.add("High Goal Setpoint", new SupersystemToPoseCommand(m_super, new ArmPose(23.3, 245, 86))).withSize(2, 1);
+    testCommands.add("Human Player Station", new SupersystemToPoseCommand(m_super, new ArmPose(0, 236, 86))).withSize(2, 1);
   }
 
   /**
