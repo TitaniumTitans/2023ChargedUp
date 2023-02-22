@@ -5,7 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.math.util.Units;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -17,6 +17,8 @@ public class AutoBalance extends CommandBase {
 
   private Timer m_timer;
 
+  private final PIDController m_balanceController;
+
   private double m_currentAngle;
   private double m_error;
   private double m_drivePower;
@@ -27,6 +29,7 @@ public class AutoBalance extends CommandBase {
   public AutoBalance(SwerveDrivetrain drive) {
     m_drive = drive;
     m_timer = new Timer();
+    m_balanceController = new PIDController(AutoConstants.BALANCE_P, 0.0, AutoConstants.Balance_D);
     m_currentAngle = 0;
     m_counter = 0;
     m_isLevel = false;
@@ -36,16 +39,18 @@ public class AutoBalance extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    m_balanceController.setSetpoint(AutoConstants.DESIRED_BALANCE_ANGLE);
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     // Gets how far the robot is tilted and calculates proper drive power from it
-    m_currentAngle = m_drive.getGyroRoll().getDegrees();
+    m_currentAngle = m_drive.getGyroPitch().getDegrees();
     m_error = AutoConstants.DESIRED_BALANCE_ANGLE - m_currentAngle;
 
-    m_drivePower = Math.min(AutoConstants.BALANCE_P * m_error, 1);
+    m_drivePower = Math.min(m_balanceController.calculate(m_currentAngle), 1);
     // Limit max power
     m_drivePower = MathUtil.clamp(m_drivePower, -0.2, 0.2);
 
@@ -53,7 +58,7 @@ public class AutoBalance extends CommandBase {
    if (Math.abs(m_currentAngle) < AutoConstants.DESIRED_BALANCE_ANGLE) {
      m_timer.start();
    }
-   if (Math.abs(m_currentAngle) < AutoConstants.DESIRED_BALANCE_ANGLE && m_timer.get() >= Units.millisecondsToSeconds(10)) {
+   if (Math.abs(m_currentAngle) < AutoConstants.DESIRED_BALANCE_ANGLE && m_timer.get() >= 10) {
      m_timer.stop();
      m_isLevel = true;
    }

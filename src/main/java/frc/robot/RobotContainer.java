@@ -7,9 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
-import frc.robot.commands.IntakeControlCommand;
-import frc.robot.commands.SupersystemToPoseCommand;
-import frc.robot.commands.ToggleArmBrakeModeCommand;
+import frc.robot.commands.*;
 import frc.robot.subsystems.arm.ArmExtSubsystem;
 import frc.robot.supersystems.ArmPose;
 import frc.robot.supersystems.ArmSupersystem;
@@ -20,7 +18,6 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-import frc.robot.commands.SwerveTeleopDrive;
 import frc.robot.commands.autonomous.AutoUtils;
 import frc.robot.subsystems.arm.ArmAngleSubsystem;
 import frc.robot.subsystems.swerve.SwerveDrivetrain;
@@ -131,19 +128,22 @@ public class RobotContainer {
     ShuffleboardTab testCommands = Shuffleboard.getTab("Commands");
 
     testCommands.add("Toggle Angle Brake Mode", new ToggleArmBrakeModeCommand(m_arm)).withSize(2, 1);
-
+    // Multiple stow positions for edge case testing
     testCommands.add("Test Stow Zone", new SupersystemToPoseCommand(m_super, new ArmPose(1, 30, 10))).withSize(2, 1);
     testCommands.add("Go To Stow", new SupersystemToPoseCommand(m_super, new ArmPose(0.0, 45, 0.0))).withSize(2, 1);
-    //TODO: Find out why angle 200 crashes in Piecewise interval
     testCommands.add("Test pose", new ArmPose(5, 90, 200)).withSize(2, 2);
 
-    testCommands.add("Reset Pose", new InstantCommand(() -> m_drive.resetPoseBase())).withSize(2, 1);
 
+    // Arm Test Commands
     testCommands.add("Ground Intake Tipped Cone", new SupersystemToPoseCommand(m_super, new ArmPose(5.4, 325.0, 165.67))).withSize(2, 1);
     testCommands.add("Middle Score Zone", new SupersystemToPoseCommand(m_super, new ArmPose(0, 252.1, 99.7))).withSize(2, 1);
     testCommands.add("Cone Ground Intake", new SupersystemToPoseCommand(m_super, new ArmPose(0.0, 328, 177.5))).withSize(2, 1);
     testCommands.add("High Goal Setpoint", new SupersystemToPoseCommand(m_super, new ArmPose(23.3, 245, 86))).withSize(2, 1);
     testCommands.add("Human Player Station", new SupersystemToPoseCommand(m_super, new ArmPose(0, 236, 86))).withSize(2, 1);
+
+    // Swerve Test Commands
+    testCommands.add("Auto Balance", new AutoBalance(m_drive));
+    testCommands.add("Reset Pose", new InstantCommand(() -> m_drive.resetPoseBase())).withSize(2, 1);
   }
 
   /**

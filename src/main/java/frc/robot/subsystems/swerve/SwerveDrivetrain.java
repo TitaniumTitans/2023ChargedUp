@@ -141,8 +141,8 @@ public class SwerveDrivetrain extends SubsystemBase {
         m_gyro.setYaw(0);
     }
 
-    public Rotation2d getGyroRoll() {
-        return Rotation2d.fromDegrees(m_gyro.getRoll());
+    public Rotation2d getGyroPitch() {
+        return Rotation2d.fromDegrees(m_gyro.getPitch());
     }
 
     public void setAbsoluteAngles() {
