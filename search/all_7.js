@@ -1,13 +1,10 @@
 var searchData=
 [
-  ['getautonomouscommand_33',['getAutonomousCommand',['../classfrc_1_1robot_1_1_robot_container.html#ac61d2476e65873e263f844c1c721a82e',1,'frc::robot::RobotContainer']]],
-  ['getazimuthangle_34',['getAzimuthAngle',['../classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_modules_1_1_swerve_mod_falcon.html#aa26691a511a9fd59220d5fe3dec0a324',1,'frc::robot::subsystems::swerve::SwerveModules::SwerveModFalcon']]],
-  ['getcancoder_35',['getCanCoder',['../classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_modules_1_1_swerve_mod_falcon.html#a0b5954a24ce5d8b51176639f86df15f6',1,'frc::robot::subsystems::swerve::SwerveModules::SwerveModFalcon']]],
-  ['getgyroyaw_36',['getGyroYaw',['../classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_falcon_i_o.html#ad31dde8f3c49fc16514111cb5e29c381',1,'frc::robot::subsystems::swerve::SwerveFalconIO']]],
-  ['getmodulepositions_37',['getModulePositions',['../classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_falcon_i_o.html#a9b2a374512086b5497245ba917701ef4',1,'frc::robot::subsystems::swerve::SwerveFalconIO']]],
-  ['getmodulestates_38',['getModuleStates',['../classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_falcon_i_o.html#a075c2c0e3633cc85edbe492724f73215',1,'frc::robot::subsystems::swerve::SwerveFalconIO']]],
-  ['getpose_39',['getPose',['../classfrc_1_1robot_1_1subsystems_1_1vision_1_1_camera_subsystem.html#ac6df668476f950f3c63ba9f4cfa2cd77',1,'frc::robot::subsystems::vision::CameraSubsystem']]],
-  ['getposition_40',['getPosition',['../classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_modules_1_1_swerve_mod_falcon.html#a72c792a401cc2b6c5d020ad9f1972474',1,'frc::robot::subsystems::swerve::SwerveModules::SwerveModFalcon']]],
-  ['getstate_41',['getState',['../classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_modules_1_1_swerve_mod_falcon.html#ae7c5737879e455b953577235deb1a27a',1,'frc::robot::subsystems::swerve::SwerveModules::SwerveModFalcon']]],
-  ['gettargetangle_42',['getTargetAngle',['../classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_modules_1_1_swerve_mod_falcon.html#ae1d178e1b0379e0fff38f80814941908',1,'frc::robot::subsystems::swerve::SwerveModules::SwerveModFalcon']]]
+  ['getautonomouscommand_31',['getAutonomousCommand',['../classfrc_1_1robot_1_1_robot_container.html#ac61d2476e65873e263f844c1c721a82e',1,'frc::robot::RobotContainer']]],
+  ['getazimuthangle_32',['getAzimuthAngle',['../classfrc_1_1robot_1_1subsystems_1_1swerve_1_1module_1_1_swerve_mod_falcon.html#ab4025cf12c54f733a8feef64d527fc9d',1,'frc::robot::subsystems::swerve::module::SwerveModFalcon']]],
+  ['getcancoder_33',['getCanCoder',['../classfrc_1_1robot_1_1subsystems_1_1swerve_1_1module_1_1_swerve_mod_falcon.html#a4b3840aa7b5529d2f143ed7c92214e6b',1,'frc::robot::subsystems::swerve::module::SwerveModFalcon']]],
+  ['getpose_34',['getPose',['../classfrc_1_1robot_1_1subsystems_1_1vision_1_1_camera_subsystem.html#ac6df668476f950f3c63ba9f4cfa2cd77',1,'frc::robot::subsystems::vision::CameraSubsystem']]],
+  ['getposition_35',['getPosition',['../classfrc_1_1robot_1_1subsystems_1_1swerve_1_1module_1_1_swerve_mod_falcon.html#afb8ea2edd3f9c9119e2941dbd7e22520',1,'frc::robot::subsystems::swerve::module::SwerveModFalcon']]],
+  ['getstate_36',['getState',['../classfrc_1_1robot_1_1subsystems_1_1swerve_1_1module_1_1_swerve_mod_falcon.html#a5c35b58f3413f6fe32936f94b93b0130',1,'frc::robot::subsystems::swerve::module::SwerveModFalcon']]],
+  ['gettargetangle_37',['getTargetAngle',['../classfrc_1_1robot_1_1subsystems_1_1swerve_1_1module_1_1_swerve_mod_falcon.html#acae9f84cb82e8c126f1385a5d04c0b92',1,'frc::robot::subsystems::swerve::module::SwerveModFalcon']]]
 ];

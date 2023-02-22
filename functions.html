@@ -88,8 +88,8 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 <div class="textblock">Here is a list of all documented class members with links to the class documentation for each member:</div>
 
 <h3><a id="index_a"></a>- a -</h3><ul>
-<li>ArmAngToSetpoint()
-: <a class="el" href="classfrc_1_1robot_1_1commands_1_1_arm_ang_to_setpoint.html#a115ba5120e4015d9a0fa0e3c5cf347e4">frc.robot.commands.ArmAngToSetpoint</a>
+<li>ArmLimits()
+: <a class="el" href="classfrc_1_1robot_1_1supersystems_1_1_arm_limits.html#a9cf23c2239ecc3a34081f7083ac91559">frc.robot.supersystems.ArmLimits</a>
 </li>
 <li>AutoBalance()
 : <a class="el" href="classfrc_1_1robot_1_1commands_1_1_auto_balance.html#a8c1cb1bc5699e6730606be0b9fcd5750">frc.robot.commands.AutoBalance</a>
@@ -126,20 +126,6 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 </ul>
 
 
-<h3><a id="index_e"></a>- e -</h3><ul>
-<li>end()
-: <a class="el" href="classfrc_1_1robot_1_1commands_1_1_arm_ext_to_setpoint.html#a92a3bc918375601c1739edcd787e97f0">frc.robot.commands.ArmExtToSetpoint</a>
-, <a class="el" href="classfrc_1_1robot_1_1commands_1_1test_1_1_wrist_to_setpoint_command.html#a3683684d5d39733da1bcffcaeba79af7">frc.robot.commands.test.WristToSetpointCommand</a>
-, <a class="el" href="classfrc_1_1robot_1_1commands_1_1_wrist_ang_to_setpoint.html#a2f893d866c1b0ae345fe81d9c4da49e0">frc.robot.commands.WristAngToSetpoint</a>
-</li>
-<li>execute()
-: <a class="el" href="classfrc_1_1robot_1_1commands_1_1_arm_ext_to_setpoint.html#a723e52fb3559049cbf1a935d903d2a82">frc.robot.commands.ArmExtToSetpoint</a>
-, <a class="el" href="classfrc_1_1robot_1_1commands_1_1test_1_1_wrist_to_setpoint_command.html#a426fe4db8a1973936e516e14eb5f3d2e">frc.robot.commands.test.WristToSetpointCommand</a>
-, <a class="el" href="classfrc_1_1robot_1_1commands_1_1_wrist_ang_to_setpoint.html#af3218e17e8775e9ddb3805f3e62a8ad3">frc.robot.commands.WristAngToSetpoint</a>
-</li>
-</ul>
-
-
 <h3><a id="index_f"></a>- f -</h3><ul>
 <li>falconToDegrees()
 : <a class="el" href="classlib_1_1utils_1_1_utils.html#aea6f6ae543a35f30b758575e5c090198">lib.utils.Utils</a>
@@ -149,6 +135,9 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 </li>
 <li>falconToRPM()
 : <a class="el" href="classlib_1_1utils_1_1_utils.html#a142f152727eb53777c7ad8cbe64be89a">lib.utils.Utils</a>
+</li>
+<li>FootPedal()
+: <a class="el" href="classlib_1_1controllers_1_1_foot_pedal.html#ada8a8410bb8b84413a2c643b56e93a62">lib.controllers.FootPedal</a>
 </li>
 <li>function_template_test()
 : <a class="el" href="class_my_library_1_1_subclass_example.html#a306486db0c0bcdcaff339ced71393c63">MyLibrary::SubclassExample&lt; TemplatedClass &gt;</a>
@@ -161,31 +150,22 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 : <a class="el" href="classfrc_1_1robot_1_1_robot_container.html#ac61d2476e65873e263f844c1c721a82e">frc.robot.RobotContainer</a>
 </li>
 <li>getAzimuthAngle()
-: <a class="el" href="classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_modules_1_1_swerve_mod_falcon.html#aa26691a511a9fd59220d5fe3dec0a324">frc.robot.subsystems.swerve.SwerveModules.SwerveModFalcon</a>
+: <a class="el" href="classfrc_1_1robot_1_1subsystems_1_1swerve_1_1module_1_1_swerve_mod_falcon.html#ab4025cf12c54f733a8feef64d527fc9d">frc.robot.subsystems.swerve.module.SwerveModFalcon</a>
 </li>
 <li>getCanCoder()
-: <a class="el" href="classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_modules_1_1_swerve_mod_falcon.html#a0b5954a24ce5d8b51176639f86df15f6">frc.robot.subsystems.swerve.SwerveModules.SwerveModFalcon</a>
-</li>
-<li>getGyroYaw()
-: <a class="el" href="classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_falcon_i_o.html#ad31dde8f3c49fc16514111cb5e29c381">frc.robot.subsystems.swerve.SwerveFalconIO</a>
-</li>
-<li>getModulePositions()
-: <a class="el" href="classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_falcon_i_o.html#a9b2a374512086b5497245ba917701ef4">frc.robot.subsystems.swerve.SwerveFalconIO</a>
-</li>
-<li>getModuleStates()
-: <a class="el" href="classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_falcon_i_o.html#a075c2c0e3633cc85edbe492724f73215">frc.robot.subsystems.swerve.SwerveFalconIO</a>
+: <a class="el" href="classfrc_1_1robot_1_1subsystems_1_1swerve_1_1module_1_1_swerve_mod_falcon.html#a4b3840aa7b5529d2f143ed7c92214e6b">frc.robot.subsystems.swerve.module.SwerveModFalcon</a>
 </li>
 <li>getPose()
 : <a class="el" href="classfrc_1_1robot_1_1subsystems_1_1vision_1_1_camera_subsystem.html#ac6df668476f950f3c63ba9f4cfa2cd77">frc.robot.subsystems.vision.CameraSubsystem</a>
 </li>
 <li>getPosition()
-: <a class="el" href="classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_modules_1_1_swerve_mod_falcon.html#a72c792a401cc2b6c5d020ad9f1972474">frc.robot.subsystems.swerve.SwerveModules.SwerveModFalcon</a>
+: <a class="el" href="classfrc_1_1robot_1_1subsystems_1_1swerve_1_1module_1_1_swerve_mod_falcon.html#afb8ea2edd3f9c9119e2941dbd7e22520">frc.robot.subsystems.swerve.module.SwerveModFalcon</a>
 </li>
 <li>getState()
-: <a class="el" href="classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_modules_1_1_swerve_mod_falcon.html#ae7c5737879e455b953577235deb1a27a">frc.robot.subsystems.swerve.SwerveModules.SwerveModFalcon</a>
+: <a class="el" href="classfrc_1_1robot_1_1subsystems_1_1swerve_1_1module_1_1_swerve_mod_falcon.html#a5c35b58f3413f6fe32936f94b93b0130">frc.robot.subsystems.swerve.module.SwerveModFalcon</a>
 </li>
 <li>getTargetAngle()
-: <a class="el" href="classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_modules_1_1_swerve_mod_falcon.html#ae1d178e1b0379e0fff38f80814941908">frc.robot.subsystems.swerve.SwerveModules.SwerveModFalcon</a>
+: <a class="el" href="classfrc_1_1robot_1_1subsystems_1_1swerve_1_1module_1_1_swerve_mod_falcon.html#acae9f84cb82e8c126f1385a5d04c0b92">frc.robot.subsystems.swerve.module.SwerveModFalcon</a>
 </li>
 </ul>
 
@@ -193,20 +173,6 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 <h3><a id="index_h"></a>- h -</h3><ul>
 <li>HELIOS
 : <a class="el" href="enumfrc_1_1robot_1_1_constants_1_1_mode.html#a0cd25a5f4218f831505b7035f2b48341">frc.robot.Constants.Mode</a>
-</li>
-</ul>
-
-
-<h3><a id="index_i"></a>- i -</h3><ul>
-<li>initialize()
-: <a class="el" href="classfrc_1_1robot_1_1commands_1_1_arm_ext_to_setpoint.html#a9916202647d623b258e5c0467b3cc9c0">frc.robot.commands.ArmExtToSetpoint</a>
-, <a class="el" href="classfrc_1_1robot_1_1commands_1_1test_1_1_wrist_to_setpoint_command.html#a64f5be0ce5604409e8945fbe852f5c82">frc.robot.commands.test.WristToSetpointCommand</a>
-, <a class="el" href="classfrc_1_1robot_1_1commands_1_1_wrist_ang_to_setpoint.html#a32a2ce772c4c359b6a917524a1a1b869">frc.robot.commands.WristAngToSetpoint</a>
-</li>
-<li>isFinished()
-: <a class="el" href="classfrc_1_1robot_1_1commands_1_1_arm_ext_to_setpoint.html#a186aa56c862521d3faede8d876626ac9">frc.robot.commands.ArmExtToSetpoint</a>
-, <a class="el" href="classfrc_1_1robot_1_1commands_1_1test_1_1_wrist_to_setpoint_command.html#adfcd2c6f5db0e22bcb2f11583d626497">frc.robot.commands.test.WristToSetpointCommand</a>
-, <a class="el" href="classfrc_1_1robot_1_1commands_1_1_wrist_ang_to_setpoint.html#a9425fece52ba79bb838791fedb80e419">frc.robot.commands.WristAngToSetpoint</a>
 </li>
 </ul>
 
@@ -232,22 +198,12 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 </ul>
 
 
-<h3><a id="index_p"></a>- p -</h3><ul>
-<li>periodic()
-: <a class="el" href="classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_falcon_i_o.html#ab38c03a4c34a09599218eaa0e1f15900">frc.robot.subsystems.swerve.SwerveFalconIO</a>
-</li>
-</ul>
-
-
 <h3><a id="index_r"></a>- r -</h3><ul>
 <li>REPLAY
 : <a class="el" href="enumfrc_1_1robot_1_1_constants_1_1_mode.html#a84ca85ad922765b17c6ee6186094b202">frc.robot.Constants.Mode</a>
 </li>
-<li>resetGyro()
-: <a class="el" href="classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_falcon_i_o.html#a32b49175e435d37689ab2e65fbc7cd56">frc.robot.subsystems.swerve.SwerveFalconIO</a>
-</li>
 <li>resetToAbsolute()
-: <a class="el" href="classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_modules_1_1_swerve_mod_falcon.html#a4b6f75865b980f11ed55a305079e1a29">frc.robot.subsystems.swerve.SwerveModules.SwerveModFalcon</a>
+: <a class="el" href="classfrc_1_1robot_1_1subsystems_1_1swerve_1_1module_1_1_swerve_mod_falcon.html#ae1a63117c20bc0a93f648c755e17513f">frc.robot.subsystems.swerve.module.SwerveModFalcon</a>
 </li>
 <li>RobotContainer()
 : <a class="el" href="classfrc_1_1robot_1_1_robot_container.html#ab0ea038f5ce3328722a60e0823f51887">frc.robot.RobotContainer</a>
@@ -265,14 +221,11 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 <li>set()
 : <a class="el" href="classlib_1_1utils_1_1drivers_1_1_talon_enhanced.html#adc68a61b81d0efa952808133d74692de">lib.utils.drivers.TalonEnhanced</a>
 </li>
-<li>setAbsoluteAngles()
-: <a class="el" href="classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_falcon_i_o.html#a88b13930d234109fde1005466ac033a9">frc.robot.subsystems.swerve.SwerveFalconIO</a>
-</li>
 <li>setDesiredState()
-: <a class="el" href="classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_modules_1_1_swerve_mod_falcon.html#ae10e7444151dd47b0420bfac9f92ea27">frc.robot.subsystems.swerve.SwerveModules.SwerveModFalcon</a>
+: <a class="el" href="classfrc_1_1robot_1_1subsystems_1_1swerve_1_1module_1_1_swerve_mod_falcon.html#a02ae5e62b8c8df80d28dda2798ef5e47">frc.robot.subsystems.swerve.module.SwerveModFalcon</a>
 </li>
-<li>setModuleStates()
-: <a class="el" href="classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_falcon_i_o.html#aea2ab2041f6569c9a7beb10d8df0f7eb">frc.robot.subsystems.swerve.SwerveFalconIO</a>
+<li>setToPose()
+: <a class="el" href="classfrc_1_1robot_1_1supersystems_1_1_arm_supersystem.html#a9010189461d5680f1d96871693ef18d6">frc.robot.supersystems.ArmSupersystem</a>
 </li>
 <li>SIM
 : <a class="el" href="enumfrc_1_1robot_1_1_constants_1_1_mode.html#a19e98d96c09978b334319606b08ce432">frc.robot.Constants.Mode</a>
@@ -282,12 +235,6 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 </li>
 <li>simulationPeriodic()
 : <a class="el" href="classfrc_1_1robot_1_1_robot.html#a1aee53883dc51a53cd1762b0e02fba61">frc.robot.Robot</a>
-</li>
-<li>SwerveDrivetrain()
-: <a class="el" href="classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_drivetrain.html#a36990dbe9d02f8aa60a675876d63b9f0">frc.robot.subsystems.swerve.SwerveDrivetrain</a>
-</li>
-<li>SwerveFalconIO()
-: <a class="el" href="classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_falcon_i_o.html#a10c6d7d50442284dcc37e3b6359a20d4">frc.robot.subsystems.swerve.SwerveFalconIO</a>
 </li>
 <li>SwerveTeleopDrive()
 : <a class="el" href="classfrc_1_1robot_1_1commands_1_1_swerve_teleop_drive.html#a18da46f43caaf57a292fb879df6d32aa">frc.robot.commands.SwerveTeleopDrive</a>

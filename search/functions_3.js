@@ -1,5 +1,8 @@
 var searchData=
 [
-  ['end_143',['end',['../classfrc_1_1robot_1_1commands_1_1_arm_ext_to_setpoint.html#a92a3bc918375601c1739edcd787e97f0',1,'frc.robot.commands.ArmExtToSetpoint.end()'],['../classfrc_1_1robot_1_1commands_1_1test_1_1_wrist_to_setpoint_command.html#a3683684d5d39733da1bcffcaeba79af7',1,'frc.robot.commands.test.WristToSetpointCommand.end()'],['../classfrc_1_1robot_1_1commands_1_1_wrist_ang_to_setpoint.html#a2f893d866c1b0ae345fe81d9c4da49e0',1,'frc.robot.commands.WristAngToSetpoint.end()']]],
-  ['execute_144',['execute',['../classfrc_1_1robot_1_1commands_1_1_arm_ext_to_setpoint.html#a723e52fb3559049cbf1a935d903d2a82',1,'frc.robot.commands.ArmExtToSetpoint.execute()'],['../classfrc_1_1robot_1_1commands_1_1test_1_1_wrist_to_setpoint_command.html#a426fe4db8a1973936e516e14eb5f3d2e',1,'frc.robot.commands.test.WristToSetpointCommand.execute()'],['../classfrc_1_1robot_1_1commands_1_1_wrist_ang_to_setpoint.html#af3218e17e8775e9ddb3805f3e62a8ad3',1,'frc.robot.commands.WristAngToSetpoint.execute()']]]
+  ['falcontodegrees_125',['falconToDegrees',['../classlib_1_1utils_1_1_utils.html#aea6f6ae543a35f30b758575e5c090198',1,'lib::utils::Utils']]],
+  ['falcontomps_126',['falconToMPS',['../classlib_1_1utils_1_1_utils.html#ab7eafdbffac60ca395d98392461694f5',1,'lib::utils::Utils']]],
+  ['falcontorpm_127',['falconToRPM',['../classlib_1_1utils_1_1_utils.html#a142f152727eb53777c7ad8cbe64be89a',1,'lib::utils::Utils']]],
+  ['footpedal_128',['FootPedal',['../classlib_1_1controllers_1_1_foot_pedal.html#ada8a8410bb8b84413a2c643b56e93a62',1,'lib::controllers::FootPedal']]],
+  ['function_5ftemplate_5ftest_129',['function_template_test',['../class_my_library_1_1_subclass_example.html#a306486db0c0bcdcaff339ced71393c63',1,'MyLibrary::SubclassExample']]]
 ];
