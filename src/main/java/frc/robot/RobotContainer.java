@@ -140,8 +140,9 @@ public class RobotContainer {
 
     testCommands.add("Reset Pose", new InstantCommand(() -> m_drive.resetPoseBase())).withSize(2, 1);
 
-    testCommands.add("Ground Score Tipped Cone", new SupersystemToPoseCommand(m_super, new ArmPose(5.4, 325.0, 165.67))).withSize(2, 1);
+    testCommands.add("Ground Intake Tipped Cone", new SupersystemToPoseCommand(m_super, new ArmPose(5.4, 325.0, 165.67))).withSize(2, 1);
     testCommands.add("Middle Score Zone", new SupersystemToPoseCommand(m_super, new ArmPose(0, 252.1, 99.7))).withSize(2, 1);
+    testCommands.add("Cone Ground Intake", new SupersystemToPoseCommand(m_super, new ArmPose(0.0, 328, 177.5)));
   }
 
   /**
