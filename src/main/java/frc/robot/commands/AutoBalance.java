@@ -23,7 +23,7 @@ public class AutoBalance extends CommandBase {
     m_drive = drive;
     m_currentAngle = 0;
     m_counter = 0;
-    m_isLevel = falset ;
+    m_isLevel = false;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_drive);
   }

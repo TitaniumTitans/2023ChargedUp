@@ -144,7 +144,7 @@ public class SwerveModNeo {
 
     // Angle motor configuration.
     autoRetry(() -> m_angleMotor.restoreFactoryDefaults());
-    m_angleMotor.setInverted(false);
+    m_angleMotor.setInverted(true);
     autoRetry(() -> m_angleMotor.setIdleMode(IdleMode.kBrake));
     autoRetry(() -> m_angleMotor.setSmartCurrentLimit(40));
 
