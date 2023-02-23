@@ -60,7 +60,7 @@ public class SwerveModNeo {
   public void setDesiredState(SwerveModuleState state) {
     // Prevents angle motor from turning further than it needs to. 
     // E.G. rotating from 10 to 270 degrees CW vs CCW.
-    state = SwerveModuleState.optimize(state, getState().angle);
+//    state = SwerveModuleState.optimize(state, getState().angle);
 
     double speed = state.speedMetersPerSecond;
     m_driveMotor.set(speed);
@@ -80,7 +80,7 @@ public class SwerveModNeo {
   }
 
   public double getAngle() {
-    return m_angleEncoder.getPosition();
+    return Units.radiansToDegrees(m_angleEncoder.getPosition());
   }
 
   public SwerveModulePosition getPosition() {
@@ -121,7 +121,7 @@ public class SwerveModNeo {
     // CanCoder configuration.
     CANCoderConfiguration canCoderConfiguration = new CANCoderConfiguration();
     canCoderConfiguration.absoluteSensorRange = AbsoluteSensorRange.Signed_PlusMinus180;
-    canCoderConfiguration.sensorDirection = true;
+    canCoderConfiguration.sensorDirection = false;
     canCoderConfiguration.initializationStrategy = SensorInitializationStrategy.BootToAbsolutePosition;
     canCoderConfiguration.sensorTimeBase = SensorTimeBase.PerSecond;
     
@@ -158,6 +158,6 @@ public class SwerveModNeo {
 
     autoRetry(() -> m_angleEncoder.setPositionConversionFactor(ModuleConstants.POSITION_CONVERSION_FACTOR));
     autoRetry(() -> m_angleEncoder.setPosition(Units.degreesToRadians(m_canCoder.getAbsolutePosition() - m_canCoderOffsetDegrees)));
-    SparkMaxConfigs.configCanStatusFrames(m_angleMotor);   
+    SparkMaxConfigs.configCanStatusFrames(m_angleMotor);
   }
 }

@@ -39,7 +39,7 @@ public final class Constants {
         // PID constants
         public static final double MODULE_KP = 0.26;
         public static final double MODULE_KD = 3;
-        public static final double POSITION_CONVERSION_FACTOR = (Math.PI * 2) / TURNING_RATIO;
+        public static final double POSITION_CONVERSION_FACTOR = ((Math.PI * 2) / TURNING_RATIO);
     }
 
     public static final class DriveConstants {
@@ -51,10 +51,10 @@ public final class Constants {
         public static final int GYRO_CAN = 15;
 
         //Thanos Offsets
-        public static final double MOD_FR_OFFSET = CURRENT_MODE == Mode.THANOS ? 198.8 : -115.6;
-        public static final double MOD_FL_OFFSET = CURRENT_MODE == Mode.THANOS ? 145.9 : 180 + 5.4;
-        public static final double MOD_BR_OFFSET = CURRENT_MODE == Mode.THANOS ? 263.1 : 161.0;
-        public static final double MOD_BL_OFFSET = CURRENT_MODE == Mode.THANOS ? 254.1 : 180 + 177.8;
+        public static final double MOD_FR_OFFSET = 110.8;
+        public static final double MOD_FL_OFFSET = 173.6 ;
+        public static final double MOD_BR_OFFSET = -163.0;
+        public static final double MOD_BL_OFFSET = 0.610;
         // Competition Offset
 
         // Kinematics
