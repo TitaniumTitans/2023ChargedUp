@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['pedals_46',['Pedals',['../enumlib_1_1controllers_1_1_foot_pedal_1_1_pedals.html',1,'lib::controllers::FootPedal']]]
+  ['pedals_47',['Pedals',['../enumlib_1_1controllers_1_1_foot_pedal_1_1_pedals.html',1,'lib::controllers::FootPedal']]]
 ];

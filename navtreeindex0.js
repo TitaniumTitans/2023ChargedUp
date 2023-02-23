@@ -124,7 +124,7 @@ var NAVTREEINDEX0 =
 "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_drivetrain.html#acf4fa426823b3a8b68006161a27926b5":[10,0,0,0,1,1,1,8],
 "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_drivetrain.html#adc26f4216437f86a1f014b4ce2521caa":[10,0,0,0,1,1,1,14],
 "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_drivetrain.html#af98da8275d66eb5b8d0bb879609f51c8":[10,0,0,0,1,1,1,9],
-"classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_drivetrain.html#afb34fb1966326b288b3dd7dd3b0aa72e":[10,0,0,0,1,1,1,3],
+"classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_drivetrain.html#afd26c43314e25d2efab3a9f0f02785c8":[10,0,0,0,1,1,1,3],
 "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1module_1_1_swerve_mod_falcon.html":[10,0,0,0,1,1,0,0],
 "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1module_1_1_swerve_mod_falcon.html#a02ae5e62b8c8df80d28dda2798ef5e47":[10,0,0,0,1,1,0,0,7],
 "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1module_1_1_swerve_mod_falcon.html#a4b3840aa7b5529d2f143ed7c92214e6b":[10,0,0,0,1,1,0,0,2],
@@ -189,6 +189,9 @@ var NAVTREEINDEX0 =
 "classfrc_1_1robot_1_1supersystems_1_1_arm_supersystem.html#a3b41c5922bf35356970d6bec33d7acae":[10,0,0,0,2,2,1],
 "classfrc_1_1robot_1_1supersystems_1_1_arm_supersystem.html#a9010189461d5680f1d96871693ef18d6":[10,0,0,0,2,2,2],
 "classfrc_1_1robot_1_1supersystems_1_1_arm_supersystem.html#afb22dfbf2822c10b9848296504c2ec13":[10,0,0,0,2,2,3],
+"classfrc_1_1robot_1_1supersystems_1_1_dynamic_limit_util.html":[10,0,0,0,2,3],
+"classfrc_1_1robot_1_1supersystems_1_1_dynamic_limit_util.html#a27e5b996cbe2e851580fe7ad9b1de843":[10,0,0,0,2,3,0],
+"classfrc_1_1robot_1_1supersystems_1_1_dynamic_limit_util.html#afec106384304a2edf63c0798af199be4":[10,0,0,0,2,3,1],
 "classlib_1_1controllers_1_1_foot_pedal.html":[10,0,1,0,0],
 "classlib_1_1controllers_1_1_foot_pedal.html#a292559e5c2a32dae6d64ed65abc21535":[10,0,1,0,0,4],
 "classlib_1_1controllers_1_1_foot_pedal.html#a3f0c5f46b3d50002ce6464f5dae0869e":[10,0,1,0,0,10],
@@ -246,8 +249,5 @@ var NAVTREEINDEX0 =
 "classlib_1_1utils_1_1drivers_1_1_talon_enhanced.html#a2d42d51361cbef665ddea46d518dabab":[10,0,1,1,0,2,76],
 "classlib_1_1utils_1_1drivers_1_1_talon_enhanced.html#a2d6ffa872fa58133edbda888cbf420e8":[10,0,1,1,0,2,8],
 "classlib_1_1utils_1_1drivers_1_1_talon_enhanced.html#a2e89d71219f04bcf5425d8eaa6d661a3":[10,0,1,1,0,2,42],
-"classlib_1_1utils_1_1drivers_1_1_talon_enhanced.html#a2eeb5b06ff749bc40ca1197c103efb34":[10,0,1,1,0,2,59],
-"classlib_1_1utils_1_1drivers_1_1_talon_enhanced.html#a30bf0e79c6d6229cb48d563b3df38c8b":[10,0,1,1,0,2,96],
-"classlib_1_1utils_1_1drivers_1_1_talon_enhanced.html#a321b6cf89401fd6d569a5494f28684e9":[10,0,1,1,0,2,89],
-"classlib_1_1utils_1_1drivers_1_1_talon_enhanced.html#a349388a250725926affd8a48680ba452":[10,0,1,1,0,2,66]
+"classlib_1_1utils_1_1drivers_1_1_talon_enhanced.html#a2eeb5b06ff749bc40ca1197c103efb34":[10,0,1,1,0,2,59]
 };

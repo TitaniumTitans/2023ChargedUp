@@ -9,6 +9,7 @@ var hierarchy =
     [ "lib.utils.Rev.SparkMaxWrapper.ControlMode", "enumlib_1_1utils_1_1_rev_1_1_spark_max_wrapper_1_1_control_mode.html", null ],
     [ "lib.utils.Swerve.CTREModuleState", "classlib_1_1utils_1_1_swerve_1_1_c_t_r_e_module_state.html", null ],
     [ "lib.utils.drivers.CTREUtil", "classlib_1_1utils_1_1drivers_1_1_c_t_r_e_util.html", null ],
+    [ "frc.robot.supersystems.DynamicLimitUtil", "classfrc_1_1robot_1_1supersystems_1_1_dynamic_limit_util.html", null ],
     [ "MyLibrary::Example", "class_my_library_1_1_example.html", [
       [ "MyLibrary::SubclassExample< TemplatedClass >", "class_my_library_1_1_subclass_example.html", null ]
     ] ],

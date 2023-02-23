@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['pedals_102',['Pedals',['../enumlib_1_1controllers_1_1_foot_pedal_1_1_pedals.html',1,'lib::controllers::FootPedal']]]
+  ['main_102',['Main',['../classfrc_1_1robot_1_1_main.html',1,'frc::robot']]],
+  ['mode_103',['Mode',['../enumfrc_1_1robot_1_1_constants_1_1_mode.html',1,'frc::robot::Constants']]]
 ];

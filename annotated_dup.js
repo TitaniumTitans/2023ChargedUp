@@ -39,7 +39,8 @@ var annotated_dup =
         [ "supersystems", null, [
           [ "ArmLimits", "classfrc_1_1robot_1_1supersystems_1_1_arm_limits.html", "classfrc_1_1robot_1_1supersystems_1_1_arm_limits" ],
           [ "ArmPose", "classfrc_1_1robot_1_1supersystems_1_1_arm_pose.html", "classfrc_1_1robot_1_1supersystems_1_1_arm_pose" ],
-          [ "ArmSupersystem", "classfrc_1_1robot_1_1supersystems_1_1_arm_supersystem.html", "classfrc_1_1robot_1_1supersystems_1_1_arm_supersystem" ]
+          [ "ArmSupersystem", "classfrc_1_1robot_1_1supersystems_1_1_arm_supersystem.html", "classfrc_1_1robot_1_1supersystems_1_1_arm_supersystem" ],
+          [ "DynamicLimitUtil", "classfrc_1_1robot_1_1supersystems_1_1_dynamic_limit_util.html", "classfrc_1_1robot_1_1supersystems_1_1_dynamic_limit_util" ]
         ] ],
         [ "Constants", "classfrc_1_1robot_1_1_constants.html", "classfrc_1_1robot_1_1_constants" ],
         [ "Main", "classfrc_1_1robot_1_1_main.html", null ],

@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['revutil_103',['RevUtil',['../classlib_1_1utils_1_1drivers_1_1_rev_util.html',1,'lib::utils::drivers']]],
-  ['robot_104',['Robot',['../classfrc_1_1robot_1_1_robot.html',1,'frc::robot']]],
-  ['robotcontainer_105',['RobotContainer',['../classfrc_1_1robot_1_1_robot_container.html',1,'frc::robot']]]
+  ['pedals_104',['Pedals',['../enumlib_1_1controllers_1_1_foot_pedal_1_1_pedals.html',1,'lib::controllers::FootPedal']]]
 ];

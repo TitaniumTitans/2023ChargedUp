@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['footpedal_98',['FootPedal',['../classlib_1_1controllers_1_1_foot_pedal.html',1,'lib::controllers']]]
+  ['example_99',['Example',['../class_my_library_1_1_example.html',1,'MyLibrary']]]
 ];
