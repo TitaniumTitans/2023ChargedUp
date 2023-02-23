@@ -93,6 +93,10 @@ public final class Constants {
         public static final double WRIST_KP = 0.05;
         public static final double WRIST_KI = 0.0;
         public static final double WRIST_KD = 0.0;
+
+        public static final double GROUND_OFFSET = 0.2;
+
+        public static final double INTAKE_LENGTH = 0;
     }
 
 
@@ -113,8 +117,9 @@ public final class Constants {
             new PIDController(0.5, 0, 0);
         
         //Auto balance constants
-        public static final double BALANCE_P = 0.5;
+        public static final double BALANCE_P = -0.02;
         public static final double DESIRED_BALANCE_ANGLE = 1;
+        public static double Balance_D = 0.1;
     }
 
     public static final Mode CURRENT_MODE = Mode.HELIOS;
@@ -134,18 +139,17 @@ public final class Constants {
         public static final GosDoubleProperty ARM_EXT_KD = new GosDoubleProperty(false, "Arm extension kD", 0);
 
         public static final double ARM_OFFSET = 84;
-        public static final double K_REVERSE_LIMIT = 45;
-        public static final double K_FORWARD_LIMIT = 300;
 
         public static final int ENCODER_PORT = 1;
 
         public static final double SPROCKET_DIAMETER = 1.99;
         public static final double EXTENSION_RATIO = (1.0 / 25.0) * (SPROCKET_DIAMETER * Math.PI);
 
-        public static final double EXT_LOWER_LIMIT = 0.5;
-        public static final double EXT_HIGHER_LIMIT = 25;
 
         public static final double EXT_PID_TOLERANCE = 0.5;
+
+        // Used for dynamic limit calculations, unit is inches
+        public static final double PIVOT_HIGHT = 5;
     }
 
     public static class LimitConstants {

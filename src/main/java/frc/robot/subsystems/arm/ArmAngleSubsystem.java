@@ -51,6 +51,7 @@ public class ArmAngleSubsystem extends SubsystemBase {
     public static class ArmAngleIOInputs {
         public double armAngle = 0.0;
         public double armAnglePower = 0.0;
+        public double currentDraw = 0.0;
     }
 
     public ArmAngleSubsystem() {
@@ -137,6 +138,7 @@ public class ArmAngleSubsystem extends SubsystemBase {
     public void updateInputs(ArmAngleIOInputsAutoLogged inputs){
         inputs.armAngle = getArmAngle();
         inputs.armAnglePower = m_armAngleMaster.getAppliedOutput();
+        inputs.currentDraw = m_armAngleMaster.getOutputCurrent();
     }
 
     public void setAngleSpeed(double speed) {
