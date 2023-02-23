@@ -32,7 +32,10 @@ var hierarchy =
       [ "frc.robot.commands.IntakeControlCommand", "classfrc_1_1robot_1_1commands_1_1_intake_control_command.html", null ],
       [ "frc.robot.commands.SupersystemToPoseCommand", "classfrc_1_1robot_1_1commands_1_1_supersystem_to_pose_command.html", null ],
       [ "frc.robot.commands.SwerveTeleopDrive", "classfrc_1_1robot_1_1commands_1_1_swerve_teleop_drive.html", null ],
-      [ "frc.robot.commands.ToggleArmBrakeModeCommand", "classfrc_1_1robot_1_1commands_1_1_toggle_arm_brake_mode_command.html", null ]
+      [ "frc.robot.commands.ToggleArmBrakeModeCommand", "classfrc_1_1robot_1_1commands_1_1_toggle_arm_brake_mode_command.html", null ],
+      [ "frc.robot.commands.test.TestModuleCommand", "classfrc_1_1robot_1_1commands_1_1test_1_1_test_module_command.html", null ],
+      [ "frc.robot.commands.test.TestSwerveCommand", "classfrc_1_1robot_1_1commands_1_1test_1_1_test_swerve_command.html", null ],
+      [ "frc.robot.commands.test.TestSwerveRotationCommand", "classfrc_1_1robot_1_1commands_1_1test_1_1_test_swerve_rotation_command.html", null ]
     ] ],
     [ "CommandGenericHID", null, [
       [ "lib.controllers.FootPedal", "classlib_1_1controllers_1_1_foot_pedal.html", null ]
