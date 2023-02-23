@@ -71,9 +71,9 @@ public final class Constants {
         public static final Transform3d FRONT_CAM_POSE = new Transform3d
                 (new Translation3d(13.0, 4.0, 25.0), new Rotation3d(0.0, 5.0, 0.0));
         public static final Transform3d LEFT_CAM_POSE = new Transform3d
-                (new Translation3d(13.0, 4.0, 25.0), new Rotation3d(0.0, 5.0, 0.0));
+                (new Translation3d(0.0, 0.0, 0.0), new Rotation3d(0.0, 0.0, 270.0));
         public static final String FRONT_CAM_NAME = "FrontPiCam";
-        public static final String LEFT_CAM_NAME = "LeftPiCam";
+        public static final String LEFT_CAM_NAME = "LeftWebCam";
     }
 
     public static class WristConstants {
