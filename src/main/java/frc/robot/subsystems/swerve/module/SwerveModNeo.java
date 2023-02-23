@@ -6,6 +6,7 @@ import com.ctre.phoenix.sensors.CANCoderConfiguration;
 import com.ctre.phoenix.sensors.SensorInitializationStrategy;
 import com.ctre.phoenix.sensors.SensorTimeBase;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.IdleMode;
@@ -46,7 +47,7 @@ public class SwerveModNeo {
     m_driveMotor = SparkMaxFactory.Companion.createSparkMax(canIds[0], config);
     m_driveEncoder = m_driveMotor.getEncoder();
 
-    m_angleMotor = SparkMaxFactory.Companion.createSparkMax(canIds[1], config);
+    m_angleMotor = new CANSparkMax(canIds[1], CANSparkMaxLowLevel.MotorType.kBrushless);
     m_angleEncoder = m_angleMotor.getEncoder();
     m_anglePID = m_angleMotor.getPIDController();
 
@@ -60,7 +61,7 @@ public class SwerveModNeo {
   public void setDesiredState(SwerveModuleState state) {
     // Prevents angle motor from turning further than it needs to. 
     // E.G. rotating from 10 to 270 degrees CW vs CCW.
-    state = SwerveModuleState.optimize(state, getState().angle);
+//    state = SwerveModuleState.optimize(state, getState().angle);
 
     double speed = state.speedMetersPerSecond;
     m_driveMotor.set(speed);
@@ -80,7 +81,7 @@ public class SwerveModNeo {
   }
 
   public double getAngle() {
-    return m_angleEncoder.getPosition();
+    return Units.radiansToDegrees(m_angleEncoder.getPosition());
   }
 
   public SwerveModulePosition getPosition() {
@@ -121,7 +122,7 @@ public class SwerveModNeo {
     // CanCoder configuration.
     CANCoderConfiguration canCoderConfiguration = new CANCoderConfiguration();
     canCoderConfiguration.absoluteSensorRange = AbsoluteSensorRange.Signed_PlusMinus180;
-    canCoderConfiguration.sensorDirection = true;
+    canCoderConfiguration.sensorDirection = false;
     canCoderConfiguration.initializationStrategy = SensorInitializationStrategy.BootToAbsolutePosition;
     canCoderConfiguration.sensorTimeBase = SensorTimeBase.PerSecond;
     
@@ -143,7 +144,7 @@ public class SwerveModNeo {
 
     // Angle motor configuration.
     autoRetry(() -> m_angleMotor.restoreFactoryDefaults());
-    m_angleMotor.setInverted(false);
+    m_angleMotor.setInverted(true);
     autoRetry(() -> m_angleMotor.setIdleMode(IdleMode.kBrake));
     autoRetry(() -> m_angleMotor.setSmartCurrentLimit(40));
 
@@ -158,6 +159,6 @@ public class SwerveModNeo {
 
     autoRetry(() -> m_angleEncoder.setPositionConversionFactor(ModuleConstants.POSITION_CONVERSION_FACTOR));
     autoRetry(() -> m_angleEncoder.setPosition(Units.degreesToRadians(m_canCoder.getAbsolutePosition() - m_canCoderOffsetDegrees)));
-    SparkMaxConfigs.configCanStatusFrames(m_angleMotor);   
+    SparkMaxConfigs.configCanStatusFrames(m_angleMotor);
   }
 }

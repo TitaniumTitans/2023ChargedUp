@@ -7,7 +7,10 @@ package frc.robot;
 import com.gos.lib.properties.GosDoubleProperty;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 import edu.wpi.first.math.util.Units;
@@ -36,7 +39,7 @@ public final class Constants {
         // PID constants
         public static final double MODULE_KP = 0.26;
         public static final double MODULE_KD = 3;
-        public static final double POSITION_CONVERSION_FACTOR = (Math.PI * 2) / TURNING_RATIO;
+        public static final double POSITION_CONVERSION_FACTOR = ((Math.PI * 2) / TURNING_RATIO);
     }
 
     public static final class DriveConstants {
@@ -48,10 +51,10 @@ public final class Constants {
         public static final int GYRO_CAN = 15;
 
         //Thanos Offsets
-        public static final double MOD_FR_OFFSET = CURRENT_MODE == Mode.THANOS ? 198.8 : -115.6;
-        public static final double MOD_FL_OFFSET = CURRENT_MODE == Mode.THANOS ? 145.9 : 180 + 5.4;
-        public static final double MOD_BR_OFFSET = CURRENT_MODE == Mode.THANOS ? 263.1 : 161.0;
-        public static final double MOD_BL_OFFSET = CURRENT_MODE == Mode.THANOS ? 254.1 : 180 + 177.8;
+        public static final double MOD_FR_OFFSET = 110.8;
+        public static final double MOD_FL_OFFSET = 173.6 ;
+        public static final double MOD_BR_OFFSET = -163.0;
+        public static final double MOD_BL_OFFSET = 0.610;
         // Competition Offset
 
         // Kinematics
@@ -66,6 +69,11 @@ public final class Constants {
         new Translation2d(WHEEL_BASE / 2, -TRACK_WIDTH / 2),
         new Translation2d(-WHEEL_BASE / 2, TRACK_WIDTH / 2),
         new Translation2d(-WHEEL_BASE / 2, -TRACK_WIDTH / 2));
+
+        // Cameras
+        public static final Transform3d FRONT_CAM_POSE = new Transform3d
+                (new Translation3d(13.0, 4.0, 25.0), new Rotation3d(0.0, 5.0, 0.0));
+        public static final String FRONT_CAM_NAME = "FrontPiCam";
     }
 
     public static class WristConstants {

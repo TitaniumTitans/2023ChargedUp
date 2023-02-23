@@ -10,6 +10,9 @@ import edu.wpi.first.wpilibj2.command.PrintCommand;
 import frc.robot.commands.IntakeControlCommand;
 import frc.robot.commands.SupersystemToPoseCommand;
 import frc.robot.commands.ToggleArmBrakeModeCommand;
+import frc.robot.commands.test.TestModuleCommand;
+import frc.robot.commands.test.TestSwerveCommand;
+import frc.robot.commands.test.TestSwerveRotationCommand;
 import frc.robot.subsystems.arm.ArmExtSubsystem;
 import frc.robot.supersystems.ArmPose;
 import frc.robot.supersystems.ArmSupersystem;
@@ -144,6 +147,17 @@ public class RobotContainer {
     testCommands.add("Cone Ground Intake", new SupersystemToPoseCommand(m_super, new ArmPose(0.0, 328, 177.5))).withSize(2, 1);
     testCommands.add("High Goal Setpoint", new SupersystemToPoseCommand(m_super, new ArmPose(23.3, 245, 86))).withSize(2, 1);
     testCommands.add("Human Player Station", new SupersystemToPoseCommand(m_super, new ArmPose(0, 236, 86))).withSize(2, 1);
+
+    testCommands.add("Swerve Forward", new TestSwerveCommand(m_drive, 0));
+    testCommands.add("Swerve Right", new TestSwerveCommand(m_drive, 90));
+    testCommands.add("Swerve Backwards", new TestSwerveCommand(m_drive, 180));
+    testCommands.add("Swerve Left", new TestSwerveCommand(m_drive, 270));
+
+    testCommands.add("Swerve Clockwise", new TestSwerveRotationCommand(m_drive, false));
+    testCommands.add("Swerve CounterClockwise", new TestSwerveRotationCommand(m_drive, true));
+
+    testCommands.add("FL Module Test", new TestModuleCommand(m_drive, 0));
+    testCommands.add("BL Module Test", new TestModuleCommand(m_drive, 2));
   }
 
   /**
