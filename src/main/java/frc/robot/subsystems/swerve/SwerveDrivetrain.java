@@ -187,14 +187,23 @@ public class SwerveDrivetrain extends SubsystemBase {
                 m_frontCamSubsystem.getPose(m_poseEstimator.getEstimatedPosition());
         Optional<EstimatedRobotPose> leftCamEstimatePose =
                 m_leftCamSubsystem.getPose(m_poseEstimator.getEstimatedPosition());
-        SmartDashboard.putBoolean("Front cam pose present", frontCamEstimatePose.isPresent());
+
+        SmartDashboard.putBoolean("FC pose present", frontCamEstimatePose.isPresent());
+        SmartDashboard.putBoolean("LC pose present", leftCamEstimatePose.isPresent());
+
         if(frontCamEstimatePose.isPresent()) {
             EstimatedRobotPose frontCamPose = frontCamEstimatePose.get();
+
+            SmartDashboard.putNumber("FC pose X", frontCamPose.estimatedPose.getX());
+            SmartDashboard.putNumber("FC pose Y", frontCamPose.estimatedPose.getY());
 
             m_poseEstimator.addVisionMeasurement(frontCamPose.estimatedPose.toPose2d(), frontCamPose.timestampSeconds);
         }
         if(leftCamEstimatePose.isPresent()) {
             EstimatedRobotPose leftCamPose = leftCamEstimatePose.get();
+
+            SmartDashboard.putNumber("LC pose X", leftCamPose.estimatedPose.getX());
+            SmartDashboard.putNumber("LC pose Y", leftCamPose.estimatedPose.getY());
 
             m_poseEstimator.addVisionMeasurement(leftCamPose.estimatedPose.toPose2d(), leftCamPose.timestampSeconds);
         }
