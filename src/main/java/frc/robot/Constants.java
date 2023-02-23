@@ -7,7 +7,7 @@ package frc.robot;
 import com.gos.lib.properties.GosDoubleProperty;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
-import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.geometry.*;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 import edu.wpi.first.math.util.Units;
@@ -66,6 +66,14 @@ public final class Constants {
         new Translation2d(WHEEL_BASE / 2, -TRACK_WIDTH / 2),
         new Translation2d(-WHEEL_BASE / 2, TRACK_WIDTH / 2),
         new Translation2d(-WHEEL_BASE / 2, -TRACK_WIDTH / 2));
+
+        // Camera constants
+        public static final Transform3d FRONT_CAM_POSE = new Transform3d
+                (new Translation3d(13.0, 4.0, 25.0), new Rotation3d(0.0, 5.0, 0.0));
+        public static final Transform3d LEFT_CAM_POSE = new Transform3d
+                (new Translation3d(13.0, 4.0, 25.0), new Rotation3d(0.0, 5.0, 0.0));
+        public static final String FRONT_CAM_NAME = "FrontPiCam";
+        public static final String LEFT_CAM_NAME = "LeftPiCam";
     }
 
     public static class WristConstants {

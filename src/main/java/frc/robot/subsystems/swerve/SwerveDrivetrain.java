@@ -15,8 +15,12 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.swerve.module.SwerveModNeo;
+import frc.robot.subsystems.vision.CameraSubsystem;
 import org.littletonrobotics.junction.AutoLog;
 import org.littletonrobotics.junction.Logger;
+import org.photonvision.EstimatedRobotPose;
+
+import java.util.Optional;
 
 public class SwerveDrivetrain extends SubsystemBase {
     private final SwerveModNeo m_frMod;
@@ -32,6 +36,8 @@ public class SwerveDrivetrain extends SubsystemBase {
 
     private final Field2d m_field;
     private final SwerveDrivePoseEstimator m_poseEstimator;
+    private final CameraSubsystem m_frontCamSubsystem;
+    private final CameraSubsystem m_leftCamSubsystem;
 
     @AutoLog
     public static class SwerveIOInputs {
@@ -73,6 +79,11 @@ public class SwerveDrivetrain extends SubsystemBase {
                 getModulePositions(),
                 new Pose2d()
         );
+
+        m_frontCamSubsystem = new CameraSubsystem(DriveConstants.FRONT_CAM_NAME, DriveConstants.FRONT_CAM_POSE);
+        m_leftCamSubsystem = new CameraSubsystem(DriveConstants.LEFT_CAM_NAME, DriveConstants.LEFT_CAM_POSE);
+
+        SmartDashboard.putData("Field", m_field);
     }
 
     @Override
@@ -80,8 +91,8 @@ public class SwerveDrivetrain extends SubsystemBase {
         updateInputs();
         Logger.getInstance().processInputs("Swerve", m_inputs);
 
-        //updatePoseEstimator();
-        //m_field.setRobotPose(m_poseEstimator.getEstimatedPosition());
+        updatePoseEstimator();
+        m_field.setRobotPose(m_poseEstimator.getEstimatedPosition());
     }
 
     // Getters
@@ -171,6 +182,22 @@ public class SwerveDrivetrain extends SubsystemBase {
 
     public void updatePoseEstimator() {
         m_poseEstimator.update(getGyroYaw(), getModulePositions());
+
+        Optional<EstimatedRobotPose> frontCamEstimatePose =
+                m_frontCamSubsystem.getPose(m_poseEstimator.getEstimatedPosition());
+        Optional<EstimatedRobotPose> leftCamEstimatePose =
+                m_leftCamSubsystem.getPose(m_poseEstimator.getEstimatedPosition());
+        SmartDashboard.putBoolean("Front cam pose present", frontCamEstimatePose.isPresent());
+        if(frontCamEstimatePose.isPresent()) {
+            EstimatedRobotPose frontCamPose = frontCamEstimatePose.get();
+
+            m_poseEstimator.addVisionMeasurement(frontCamPose.estimatedPose.toPose2d(), frontCamPose.timestampSeconds);
+        }
+        if(leftCamEstimatePose.isPresent()) {
+            EstimatedRobotPose leftCamPose = leftCamEstimatePose.get();
+
+            m_poseEstimator.addVisionMeasurement(leftCamPose.estimatedPose.toPose2d(), leftCamPose.timestampSeconds);
+        }
     }
 
     public void resetPose(Pose2d newPose) {
