@@ -6,6 +6,7 @@ import com.ctre.phoenix.sensors.CANCoderConfiguration;
 import com.ctre.phoenix.sensors.SensorInitializationStrategy;
 import com.ctre.phoenix.sensors.SensorTimeBase;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.IdleMode;
@@ -46,7 +47,7 @@ public class SwerveModNeo {
     m_driveMotor = SparkMaxFactory.Companion.createSparkMax(canIds[0], config);
     m_driveEncoder = m_driveMotor.getEncoder();
 
-    m_angleMotor = SparkMaxFactory.Companion.createSparkMax(canIds[1], config);
+    m_angleMotor = new CANSparkMax(canIds[1], CANSparkMaxLowLevel.MotorType.kBrushless);
     m_angleEncoder = m_angleMotor.getEncoder();
     m_anglePID = m_angleMotor.getPIDController();
 
