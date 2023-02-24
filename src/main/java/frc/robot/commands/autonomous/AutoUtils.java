@@ -32,7 +32,9 @@ public class AutoUtils {
 
     private static final PathPlannerTrajectory m_defaultAutoGen = PathPlanner.loadPath("DefaultPath", m_defaultConfig);
 
-
+    public static PathConstraints getDefaultConstraints() {
+        return m_defaultConfig;
+    }
     //Default getters
     public static Command getDefaultTrajectory(SwerveDrivetrain swerve) {
         return new SequentialCommandGroup(

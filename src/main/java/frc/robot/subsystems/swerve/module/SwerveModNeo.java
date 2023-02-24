@@ -61,7 +61,7 @@ public class SwerveModNeo {
   public void setDesiredState(SwerveModuleState state) {
     // Prevents angle motor from turning further than it needs to. 
     // E.G. rotating from 10 to 270 degrees CW vs CCW.
-//    state = SwerveModuleState.optimize(state, getState().angle);
+    state = SwerveModuleState.optimize(state, getState().angle);
 
     double speed = state.speedMetersPerSecond;
     m_driveMotor.set(speed);

@@ -11,10 +11,10 @@ import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
-import edu.wpi.first.math.geometry.*;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 import edu.wpi.first.math.util.Units;
+import frc.robot.supersystems.ArmPose;
 
 
 /**
@@ -194,6 +194,18 @@ public final class Constants {
         // Actual max limit is 324
         public static final GosDoubleProperty MAX_MOVEMENT =
                 new GosDoubleProperty(false, "Max Movement Bound", 325);
+    }
+
+    public static class ArmSetpoints{
+        public static final ArmPose STOW_POSITION = new ArmPose(0.0, 30, 0.0);
+
+        public static final ArmPose INTAKE_CUBE = new ArmPose(5.4, 325.1, 165.6);
+        public static final ArmPose INTAKE_CONE = new ArmPose(0.0, 328.0, 177.0);
+        public static final ArmPose HUMAN_PLAYER_STATION = new ArmPose(0.0, 236.0, 86.0);
+
+        public static final ArmPose MIDDLE_GOAL_NON_STOW = new ArmPose(0.0, 252.1, 99.7);
+        public static final ArmPose MIDDLE_GOAL_STOW = new ArmPose(0.0, 0.0, 0.0);
+        public static final ArmPose HIGH_GOAL = new ArmPose(23.3, 236.0, 95.3);
     }
 
     public static final int DRIVER_PORT = 0;
