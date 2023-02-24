@@ -63,7 +63,8 @@ public class WristSubsystem extends SubsystemBase {
 
         SparkMaxFactory.SparkMaxConfig config = new SparkMaxFactory.SparkMaxConfig();
         config.setInverted(true);
-        config.setIdleMode(CANSparkMax.IdleMode.kBrake);
+        config.setIdleMode(CANSparkMax.IdleMode.kCoast);
+        config.setCurrentLimit(it 20);
 
         m_wristMotor  = SparkMaxFactory.Companion.createSparkMax(WristConstants.WRIST_ID, config);
         // Current limit based off testing 2/28/2023 17:55
@@ -151,6 +152,10 @@ public class WristSubsystem extends SubsystemBase {
         if (atLowerLimit()) {
             zeroWristAngle();
         }
+
+        SmartDashboard.putNumber("Wrist Current Draw", m_wristMotor.getOutputCurrent());
+        SmartDashboard.putBoolean("Intake Stalling", m_intakeMotor.getFault(CANSparkMax.FaultID.kStall));
+        SmartDashboard.putBoolean("Wrist stalling", m_wristMotor.getFault(CANSparkMax.FaultID.kStall));
     }
 
     public void updateInputs(WristIOInputsAutoLogged inputs){
@@ -189,7 +194,7 @@ public class WristSubsystem extends SubsystemBase {
 
     public Command setWristPowerFactory(double speed) {
         if (speed == 0) {
-            return runOnce(() -> setWristPower(0.05));
+            return runOnce(() -> setWristPower(0.00));
         } else {
             return runOnce(() -> setWristPower(speed));
         }
