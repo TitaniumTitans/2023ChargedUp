@@ -64,7 +64,7 @@ public class WristSubsystem extends SubsystemBase {
         SparkMaxFactory.SparkMaxConfig config = new SparkMaxFactory.SparkMaxConfig();
         config.setInverted(true);
         config.setIdleMode(CANSparkMax.IdleMode.kCoast);
-        config.setCurrentLimit(it 20);
+        config.setCurrentLimit(20);
 
         m_wristMotor  = SparkMaxFactory.Companion.createSparkMax(WristConstants.WRIST_ID, config);
         // Current limit based off testing 2/28/2023 17:55
