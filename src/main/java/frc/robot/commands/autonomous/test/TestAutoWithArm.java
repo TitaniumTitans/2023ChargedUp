@@ -14,7 +14,7 @@ public class TestAutoWithArm {
     public static Command getAuto(SwerveDrivetrain swerve, ArmSupersystem supersystem) {
         HashMap<String, Command> eventMap = new HashMap<>();
         eventMap.put("ArmPose", new SupersystemToPoseCommand(supersystem, Constants.ArmSetpoints.INTAKE_CONE));
-        return AutoUtils.getAutoEventRoutine(PathPlanner.loadPath("TestGoForward.path", AutoUtils.getDefaultConstraints()),
+        return AutoUtils.getAutoEventRoutine(PathPlanner.loadPath("TestGoForward", AutoUtils.getDefaultConstraints()),
                 eventMap,
                 swerve);
     }

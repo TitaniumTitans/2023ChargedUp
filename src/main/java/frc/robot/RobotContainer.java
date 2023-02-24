@@ -165,7 +165,7 @@ public class RobotContainer {
     testCommands.add("Auto Balance", new AutoBalance(m_drive));
     testCommands.add("Reset Pose", new InstantCommand(() -> m_drive.resetPoseBase())).withSize(2, 1);
 
-    testTrajectories.add("Move With Arm", TestAutoWithArm.getAuto(m_drive, m_super));
+//    testTrajectories.add("Move With Arm", TestAutoWithArm.getAuto(m_drive, m_super)).withSize(2, 1);
   }
 
   /**
