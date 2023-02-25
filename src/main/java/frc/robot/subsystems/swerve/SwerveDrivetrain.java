@@ -41,6 +41,8 @@ public class SwerveDrivetrain extends SubsystemBase {
     private final CameraSubsystem m_frontCamSubsystem;
     private final CameraSubsystem m_leftCamSubsystem;
 
+    private boolean slowmode = false;
+
     @AutoLog
     public static class SwerveIOInputs {
         // Mod fr
@@ -168,8 +170,12 @@ public class SwerveDrivetrain extends SubsystemBase {
         SmartDashboard.putNumber("Desired angle FL", states[0].angle.getDegrees());
     }
 
+    public void resetGyro(double heading) {
+        m_gyro.setYaw(heading);
+    }
+
     public void resetGyro() {
-        m_gyro.setYaw(0);
+        resetGyro(0);
     }
 
     public Rotation2d getGyroPitch() {
@@ -270,4 +276,19 @@ public class SwerveDrivetrain extends SubsystemBase {
     public CommandBase resetPoseBase() {
         return runOnce(() -> resetPose(new Pose2d()));
     }
+
+    public void setSlowmode(boolean slow) {
+        slowmode = slow;
+    }
+
+    public boolean getSlowmode() {
+        return slowmode;
+    }
+
+    public CommandBase setSlowmodeFactory(boolean slow) {
+        return runOnce(() -> {
+            setSlowmode(slow);
+        });
+    }
+
 }

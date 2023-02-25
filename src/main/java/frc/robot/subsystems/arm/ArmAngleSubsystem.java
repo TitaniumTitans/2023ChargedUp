@@ -1,5 +1,7 @@
 package frc.robot.subsystems.arm;
 
+
+import com.gos.lib.properties.PidProperty;
 import com.revrobotics.CANSparkMax;
 
 
@@ -70,6 +72,7 @@ public class ArmAngleSubsystem extends SubsystemBase {
         m_encoderArmAngle.setPositionOffset(0);
 
         m_anglePID = new PIDController(ArmConstants.KP_ANGLE, ArmConstants.KI_ANGLE, 0.0);
+//        m_anglePID = new PidProperty.Builder("Arm Angle PID", false);
         m_anglePID.setTolerance(3);
 
         m_inputs = new ArmAngleIOInputsAutoLogged();
@@ -163,7 +166,7 @@ public class ArmAngleSubsystem extends SubsystemBase {
 
         // Clamp target
         double targetAngleClamped = MathUtil.clamp(targetAngleRaw, LimitConstants.ARM_ANGLE_LOWER.getValue(), LimitConstants.ARM_ANGLE_UPPER.getValue());
-        double targetAnglePID = MathUtil.clamp(m_anglePID.calculate(currentArmAngle, targetAngleClamped), -12, 12);
+        double targetAnglePID = MathUtil.clamp(m_anglePID.calculate(currentArmAngle, targetAngleClamped), -6, 6);
 
         // Update dashboard variables
         prevSetpointRaw = targetAngleRaw;

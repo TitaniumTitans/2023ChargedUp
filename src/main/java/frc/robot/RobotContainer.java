@@ -11,6 +11,7 @@ import frc.robot.commands.IntakeControlCommand;
 import frc.robot.commands.SupersystemToPoseCommand;
 import frc.robot.commands.ToggleArmBrakeModeCommand;
 import frc.robot.commands.autonomous.TimerForwardAutoCommand;
+import frc.robot.commands.autonomous.test.ScoreMidAndMoveCommandGroup;
 import frc.robot.commands.autonomous.test.TestAutoWithArm;
 import frc.robot.commands.test.TestModuleCommand;
 import frc.robot.commands.test.TestSwerveCommand;
@@ -120,7 +121,9 @@ public class RobotContainer {
 //            .and(m_driveController.y())
 //            .onFalse(new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.STOW_POSITION));
 
-    m_foot.leftPedal().onTrue(new PrintCommand("Left Pedal Pressed!"));
+    m_foot.leftPedal().onTrue(m_drive.setSlowmodeFactory(true))
+                      .onFalse(m_drive.setSlowmodeFactory(false));
+
     m_foot.middlePedal().onTrue(new PrintCommand("Middle Pedal Pressed"));
     m_foot.rightPedal().onTrue(new PrintCommand("Right Pedal Pressed"));
   }
@@ -129,8 +132,8 @@ public class RobotContainer {
    * Use this method to add autonomous routines to a sendable chooser
    */
   public void configAutoChooser() {
-    m_autoChooser.addDefaultOption("Default Trajectory", AutoUtils.getDefaultTrajectory(m_drive));
-    m_autoChooser.addOption("Event Map Trajectory", AutoUtils.getPathWithEvents(m_drive));
+    m_autoChooser.addDefaultOption("Drive Backwards", new TimerForwardAutoCommand(m_drive, 0.5));
+    m_autoChooser.addOption("Score Mid Move", new ScoreMidAndMoveCommandGroup(m_drive, m_super, m_wrist));
   }
 
   /**
@@ -181,7 +184,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-//    return m_autoChooser.get();
-    return new TimerForwardAutoCommand(m_drive);
+    return m_autoChooser.get();
+//    return new TimerForwardAutoCommand(m_drive, 0.5);
   }
 }
