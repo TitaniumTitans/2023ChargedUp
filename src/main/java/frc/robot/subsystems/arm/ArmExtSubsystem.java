@@ -90,7 +90,6 @@ public class ArmExtSubsystem extends SubsystemBase {
         // Booleans
         // Misc.
         armExtAtSetpointEntry.setBoolean(armExtensionAtSetpoint());
-        armExtMotorInvertedEntry.setBoolean(m_armExt.getInverted());
         // Limits
         armExtAtUpperLimitEntry.setBoolean(armAtUpperLimit());
         armExtAtLowerLimitEntry.setBoolean(armAtLowerLimit());

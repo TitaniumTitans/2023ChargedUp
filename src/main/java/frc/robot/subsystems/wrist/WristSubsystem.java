@@ -107,12 +107,10 @@ public class WristSubsystem extends SubsystemBase {
         wristMotorOutputEntry = wristSubsystemTab.add("Motor output", m_wristMotor.getAppliedOutput()).getEntry();
         intakeMotorOutputEntry = wristSubsystemTab.add("Intake motor output", m_intakeMotor.getAppliedOutput()).getEntry();
     }
-
     private void updateShuffleboardData() {
         // Booleans
         // Misc.
-        wristAtSetpointEntry.setBoolean(wristAtSetpoint());
-        wristMotorInvertedEntry.setBoolean(m_wristMotor.getInverted());
+    wristAtSetpointEntry.setBoolean(wristAtSetpoint());
         pieceInsideEntry.setBoolean(pieceInside());
         // Limits
         wristAtUpperLimit.setBoolean(wristAtUpperLimit());
