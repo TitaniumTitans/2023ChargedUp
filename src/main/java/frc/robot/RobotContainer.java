@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.PrintCommand;
 import frc.robot.commands.IntakeControlCommand;
 import frc.robot.commands.SupersystemToPoseCommand;
 import frc.robot.commands.ToggleArmBrakeModeCommand;
+import frc.robot.commands.autonomous.TimerForwardAutoCommand;
 import frc.robot.commands.autonomous.test.TestAutoWithArm;
 import frc.robot.commands.test.TestModuleCommand;
 import frc.robot.commands.test.TestSwerveCommand;
@@ -181,6 +182,6 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
 //    return m_autoChooser.get();
-    return new InstantCommand();
+    return new TimerForwardAutoCommand(m_drive);
   }
 }
