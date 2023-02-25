@@ -1,7 +1,7 @@
 package lib.utils.piecewise
 
 import java.lang.RuntimeException
-import java.util.function.Function
+import java.util.function.DoubleFunction
 
 /**
  *
@@ -9,7 +9,7 @@ import java.util.function.Function
  * @param function Must be valid from `range.left` to `range.right` inclusive
  *
  */
-class PiecewiseInterval<T>(val range: Range, private val function: Function<Double, T>) {
+class PiecewiseInterval<T>(val range: Range, private val function: DoubleFunction<T>) {
 
     init {
         // 1. Check to make sure left is smaller than right.
@@ -32,11 +32,11 @@ class PiecewiseInterval<T>(val range: Range, private val function: Function<Doub
     }
 
     fun isInLeftRange(input: Double): Boolean {
-        return range.withinRange(input);
+        return range.withinLeftRange(input)
     }
 
     fun isInRightRange(input: Double): Boolean {
-        return range.withinRange(input)
+        return range.withinRightRange(input)
     }
 
     fun calculate(input: Double): T {

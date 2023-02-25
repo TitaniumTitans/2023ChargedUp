@@ -1,0 +1,24 @@
+Cone Tipped ground intake:
+    Ext: 5.4
+    Angle: 325.1
+    wrist: 165.6
+
+middle goal:
+   wrist: 99.7
+   ext: 0
+   angle: 252.1
+
+Cone Untipped from ground:
+    wrist: 177.5
+    ext: 0
+    angle: 328
+
+High Score Zone:
+    wrist: 95.3
+    ext: 23.3
+    angle: 245
+
+Player Station:
+    wrist: 86
+    angle: 236
+    ext: 0

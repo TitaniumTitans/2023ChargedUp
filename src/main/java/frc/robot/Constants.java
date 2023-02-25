@@ -7,7 +7,11 @@ package frc.robot;
 import com.gos.lib.properties.GosDoubleProperty;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.geometry.Translation3d;
+import edu.wpi.first.math.geometry.*;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 import edu.wpi.first.math.util.Units;
@@ -36,7 +40,7 @@ public final class Constants {
         // PID constants
         public static final double MODULE_KP = 0.26;
         public static final double MODULE_KD = 3;
-        public static final double POSITION_CONVERSION_FACTOR = (Math.PI * 2) / TURNING_RATIO;
+        public static final double POSITION_CONVERSION_FACTOR = ((Math.PI * 2) / TURNING_RATIO);
     }
 
     public static final class DriveConstants {
@@ -48,10 +52,10 @@ public final class Constants {
         public static final int GYRO_CAN = 15;
 
         //Thanos Offsets
-        public static final double MOD_FR_OFFSET = CURRENT_MODE == Mode.THANOS ? 198.8 : -115.6;
-        public static final double MOD_FL_OFFSET = CURRENT_MODE == Mode.THANOS ? 145.9 : 180 + 5.4;
-        public static final double MOD_BR_OFFSET = CURRENT_MODE == Mode.THANOS ? 263.1 : 161.0;
-        public static final double MOD_BL_OFFSET = CURRENT_MODE == Mode.THANOS ? 254.1 : 180 + 177.8;
+        public static final double MOD_FR_OFFSET = 110.8;
+        public static final double MOD_FL_OFFSET = 173.6 ;
+        public static final double MOD_BR_OFFSET = -163.0;
+        public static final double MOD_BL_OFFSET = 0.610;
         // Competition Offset
 
         // Kinematics
@@ -66,6 +70,14 @@ public final class Constants {
         new Translation2d(WHEEL_BASE / 2, -TRACK_WIDTH / 2),
         new Translation2d(-WHEEL_BASE / 2, TRACK_WIDTH / 2),
         new Translation2d(-WHEEL_BASE / 2, -TRACK_WIDTH / 2));
+
+        // Camera constants
+        public static final Transform3d FRONT_CAM_POSE = new Transform3d
+                (new Translation3d(13.0, 4.0, 25.0), new Rotation3d(0.0, 5.0, 0.0));
+        public static final Transform3d LEFT_CAM_POSE = new Transform3d
+                (new Translation3d(4.0, 6.0, 25.0), new Rotation3d(90.0, 0.0, 90.0));
+        public static final String FRONT_CAM_NAME = "FrontPiCam";
+        public static final String LEFT_CAM_NAME = "LeftWebCam";
     }
 
     public static class WristConstants {
@@ -85,6 +97,10 @@ public final class Constants {
         public static final double WRIST_KP = 0.05;
         public static final double WRIST_KI = 0.0;
         public static final double WRIST_KD = 0.0;
+
+        public static final double GROUND_OFFSET = 0.2;
+
+        public static final double INTAKE_LENGTH = 0;
     }
 
 
@@ -105,8 +121,9 @@ public final class Constants {
             new PIDController(0.5, 0, 0);
         
         //Auto balance constants
-        public static final double BALANCE_P = 0.5;
+        public static final double BALANCE_P = -0.02;
         public static final double DESIRED_BALANCE_ANGLE = 1;
+        public static double Balance_D = 0.1;
     }
 
     public static final Mode CURRENT_MODE = Mode.HELIOS;
@@ -126,18 +143,17 @@ public final class Constants {
         public static final GosDoubleProperty ARM_EXT_KD = new GosDoubleProperty(false, "Arm extension kD", 0);
 
         public static final double ARM_OFFSET = 84;
-        public static final double K_REVERSE_LIMIT = 45;
-        public static final double K_FORWARD_LIMIT = 300;
 
         public static final int ENCODER_PORT = 1;
 
         public static final double SPROCKET_DIAMETER = 1.99;
         public static final double EXTENSION_RATIO = (1.0 / 25.0) * (SPROCKET_DIAMETER * Math.PI);
 
-        public static final double EXT_LOWER_LIMIT = 0.5;
-        public static final double EXT_HIGHER_LIMIT = 25;
 
         public static final double EXT_PID_TOLERANCE = 0.5;
+
+        // Used for dynamic limit calculations, unit is inches
+        public static final double PIVOT_HIGHT = 5;
     }
 
     public static class LimitConstants {
@@ -149,13 +165,13 @@ public final class Constants {
         public static final GosDoubleProperty ARM_EXT_SCORE_LOWER =
                 new GosDoubleProperty(false, "Arm Extension Score Lower Limit", 0);
         public static final GosDoubleProperty ARM_EXT_SCORE_UPPER =
-                new GosDoubleProperty(false, "Arm Extension Score Upper Limit", 10);
+                new GosDoubleProperty(false, "Arm Extension Score Upper Limit", 24);
 
         // Arm Angle limits for Piecewise Function
         public static final GosDoubleProperty ARM_ANGLE_LOWER =
                 new GosDoubleProperty(false, "Arm Angle Lower Limit", 45);
         public static final GosDoubleProperty ARM_ANGLE_UPPER =
-                new GosDoubleProperty(false, "Arm Angle Upper Limit", 300);
+                new GosDoubleProperty(false, "Arm Angle Upper Limit", 325);
 
         // Wrist limits for Piecewise Function
         public static final GosDoubleProperty WRIST_STOW =
@@ -177,7 +193,7 @@ public final class Constants {
 
         // Actual max limit is 324
         public static final GosDoubleProperty MAX_MOVEMENT =
-                new GosDoubleProperty(false, "Max Movement Bound", 300);
+                new GosDoubleProperty(false, "Max Movement Bound", 325);
     }
 
     public static final int DRIVER_PORT = 0;

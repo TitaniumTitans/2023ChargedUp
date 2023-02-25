@@ -1,7 +1,9 @@
 package frc.robot.subsystems.swerve;
 
+import com.ctre.phoenix.sensors.Pigeon2;
 import com.ctre.phoenix.sensors.PigeonIMU;
 
+import com.ctre.phoenix.sensors.WPI_Pigeon2;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -15,8 +17,12 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.swerve.module.SwerveModNeo;
+import frc.robot.subsystems.vision.CameraSubsystem;
 import org.littletonrobotics.junction.AutoLog;
 import org.littletonrobotics.junction.Logger;
+import org.photonvision.EstimatedRobotPose;
+
+import java.util.Optional;
 
 public class SwerveDrivetrain extends SubsystemBase {
     private final SwerveModNeo m_frMod;
@@ -24,7 +30,7 @@ public class SwerveDrivetrain extends SubsystemBase {
     private final SwerveModNeo m_blMod;
     private final SwerveModNeo m_brMod;
 
-    private final PigeonIMU m_gyro;
+    private final WPI_Pigeon2 m_gyro;
 
     private final SwerveIOInputsAutoLogged m_inputs;
 
@@ -32,6 +38,8 @@ public class SwerveDrivetrain extends SubsystemBase {
 
     private final Field2d m_field;
     private final SwerveDrivePoseEstimator m_poseEstimator;
+    private final CameraSubsystem m_frontCamSubsystem;
+    private final CameraSubsystem m_leftCamSubsystem;
 
     @AutoLog
     public static class SwerveIOInputs {
@@ -62,7 +70,7 @@ public class SwerveDrivetrain extends SubsystemBase {
         m_blMod = new SwerveModNeo(2, DriveConstants.MOD_BL_OFFSET, DriveConstants.MOD_BL_CANS, false);
         m_brMod = new SwerveModNeo(3, DriveConstants.MOD_BR_OFFSET, DriveConstants.MOD_BR_CANS, false);
 
-        m_gyro = new PigeonIMU(DriveConstants.GYRO_CAN);
+        m_gyro = new WPI_Pigeon2(DriveConstants.GYRO_CAN);
         m_inputs = new SwerveIOInputsAutoLogged();
 
         m_field = new Field2d();
@@ -73,6 +81,11 @@ public class SwerveDrivetrain extends SubsystemBase {
                 getModulePositions(),
                 new Pose2d()
         );
+
+        m_frontCamSubsystem = new CameraSubsystem(DriveConstants.FRONT_CAM_NAME, DriveConstants.FRONT_CAM_POSE);
+        m_leftCamSubsystem = new CameraSubsystem(DriveConstants.LEFT_CAM_NAME, DriveConstants.LEFT_CAM_POSE);
+
+        SmartDashboard.putData("Field", m_field);
     }
 
     @Override
@@ -80,18 +93,33 @@ public class SwerveDrivetrain extends SubsystemBase {
         updateInputs();
         Logger.getInstance().processInputs("Swerve", m_inputs);
 
-        //updatePoseEstimator();
-        //m_field.setRobotPose(m_poseEstimator.getEstimatedPosition());
+        updatePoseEstimator();
+        m_field.setRobotPose(getPose());
+
+        double[] angles = getAngles();
+
+        SmartDashboard.putNumber("FL Angle", angles[0]);
+        SmartDashboard.putNumber("FR Angle", angles[1]);
+        SmartDashboard.putNumber("BL Angle", angles[2]);
+        SmartDashboard.putNumber("BR Angle", angles[3]);
+
+        Rotation2d[] cancoderAngles = getCancoderAngles();
+        SmartDashboard.putNumber("FL Cancoder", cancoderAngles[0].getDegrees());
+        SmartDashboard.putNumber("FR Cancoder", cancoderAngles[1].getDegrees());
+        SmartDashboard.putNumber("BL Cancoder", cancoderAngles[2].getDegrees());
+        SmartDashboard.putNumber("BR Cancoder", cancoderAngles[3].getDegrees());
+
+        m_field.setRobotPose(m_poseEstimator.getEstimatedPosition());
     }
 
     // Getters
     public SwerveModulePosition[] getModulePositions() {
         SwerveModulePosition[] modPos = new SwerveModulePosition[4];
 
-        modPos[1] = m_flMod.getPosition();
-        modPos[0] = m_frMod.getPosition();
-        modPos[3] = m_blMod.getPosition();
-        modPos[2] = m_brMod.getPosition();
+        modPos[0] = m_flMod.getPosition();
+        modPos[1] = m_frMod.getPosition();
+        modPos[2] = m_blMod.getPosition();
+        modPos[3] = m_brMod.getPosition();
 
     return modPos;
     }
@@ -109,7 +137,7 @@ public class SwerveDrivetrain extends SubsystemBase {
     }
 
     public Rotation2d getGyroYaw() {
-        return Rotation2d.fromDegrees((m_gyro.getYaw() * -1));
+        return m_gyro.getRotation2d();
     }
 
 
@@ -131,18 +159,20 @@ public class SwerveDrivetrain extends SubsystemBase {
     }
 
     public void setModuleStates(SwerveModuleState[] states) {
-        m_flMod.setDesiredState(states[1]);
-        m_frMod.setDesiredState(states[0]);
-        m_blMod.setDesiredState(states[3]);
-        m_brMod.setDesiredState(states[2]);
+        m_flMod.setDesiredState(states[0]);
+        m_frMod.setDesiredState(states[1]);
+        m_blMod.setDesiredState(states[2]);
+        m_brMod.setDesiredState(states[3]);
+
+        SmartDashboard.putNumber("Desired angle FL", states[0].angle.getDegrees());
     }
 
     public void resetGyro() {
         m_gyro.setYaw(0);
     }
 
-    public Rotation2d getGyroRoll() {
-        return Rotation2d.fromDegrees(m_gyro.getRoll());
+    public Rotation2d getGyroPitch() {
+        return Rotation2d.fromDegrees(m_gyro.getPitch());
     }
 
     public void setAbsoluteAngles() {
@@ -171,6 +201,31 @@ public class SwerveDrivetrain extends SubsystemBase {
 
     public void updatePoseEstimator() {
         m_poseEstimator.update(getGyroYaw(), getModulePositions());
+
+        Optional<EstimatedRobotPose> frontCamEstimatePose =
+                m_frontCamSubsystem.getPose(getPose());
+        Optional<EstimatedRobotPose> leftCamEstimatePose =
+                m_leftCamSubsystem.getPose(getPose());
+
+        SmartDashboard.putBoolean("FC pose present", frontCamEstimatePose.isPresent());
+        SmartDashboard.putBoolean("LC pose present", leftCamEstimatePose.isPresent());
+
+        if(frontCamEstimatePose.isPresent()) {
+            EstimatedRobotPose frontCamPose = frontCamEstimatePose.get();
+
+            SmartDashboard.putNumber("FC pose X", frontCamPose.estimatedPose.getX());
+            SmartDashboard.putNumber("FC pose Y", frontCamPose.estimatedPose.getY());
+
+            m_poseEstimator.addVisionMeasurement(frontCamPose.estimatedPose.toPose2d(), frontCamPose.timestampSeconds);
+        }
+        if(leftCamEstimatePose.isPresent()) {
+            EstimatedRobotPose leftCamPose = leftCamEstimatePose.get();
+
+            SmartDashboard.putNumber("LC pose X", leftCamPose.estimatedPose.getX());
+            SmartDashboard.putNumber("LC pose Y", leftCamPose.estimatedPose.getY());
+
+            m_poseEstimator.addVisionMeasurement(leftCamPose.estimatedPose.toPose2d(), leftCamPose.timestampSeconds);
+        }
     }
 
     public void resetPose(Pose2d newPose) {
@@ -178,10 +233,11 @@ public class SwerveDrivetrain extends SubsystemBase {
     }
 
     public Pose2d getPose() {
-        double estPoseX = m_poseEstimator.getEstimatedPosition().getX();
-        double estPoseY = m_poseEstimator.getEstimatedPosition().getY();
+//        double estPoseX = m_poseEstimator.getEstimatedPosition().getX();
+//        double estPoseY = m_poseEstimator.getEstimatedPosition().getY();
 
-        return new Pose2d(estPoseX, estPoseY * -1, new Rotation2d());
+//        return new Pose2d(estPoseX, estPoseY * -1, new Rotation2d());
+        return m_poseEstimator.getEstimatedPosition();
     }
 
     public double[] getAngles(){

@@ -7,8 +7,13 @@ package frc.robot;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
+import frc.robot.commands.IntakeControlCommand;
 import frc.robot.commands.SupersystemToPoseCommand;
 import frc.robot.commands.ToggleArmBrakeModeCommand;
+import frc.robot.commands.test.TestModuleCommand;
+import frc.robot.commands.test.TestSwerveCommand;
+import frc.robot.commands.test.TestSwerveRotationCommand;
+import frc.robot.commands.*;
 import frc.robot.subsystems.arm.ArmExtSubsystem;
 import frc.robot.supersystems.ArmPose;
 import frc.robot.supersystems.ArmSupersystem;
@@ -19,7 +24,6 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-import frc.robot.commands.SwerveTeleopDrive;
 import frc.robot.commands.autonomous.AutoUtils;
 import frc.robot.subsystems.arm.ArmAngleSubsystem;
 import frc.robot.subsystems.swerve.SwerveDrivetrain;
@@ -91,14 +95,12 @@ public class RobotContainer {
     m_driveController.button(7).onTrue(m_drive.resetGyroBase());
     m_driveController.start().onTrue(m_drive.toggleFieldRelative());
 
-    m_driveController.leftTrigger().whileTrue(m_wrist.setIntakeSpeedFactory(-1.0))
-                    .whileFalse(m_wrist.setIntakeSpeedFactory(0.0));
-    m_driveController.rightTrigger().whileTrue(m_wrist.setIntakeSpeedFactory(1.0))
-            .whileFalse(m_wrist.setIntakeSpeedFactory(0.0));
+    m_driveController.leftTrigger().whileTrue(new IntakeControlCommand(m_wrist, -1.0));
+    m_driveController.rightTrigger().whileTrue(new IntakeControlCommand(m_wrist, 1.0));
 
-    m_driveController.b().whileTrue(m_wrist.setWristPowerFactory(0.15))
+    m_driveController.b().whileTrue(m_wrist.setWristPowerFactory(0.50))
       .whileFalse(m_wrist.setWristPowerFactory(0.0));
-    m_driveController.a().whileTrue(m_wrist.setWristPowerFactory(-0.15))
+    m_driveController.a().whileTrue(m_wrist.setWristPowerFactory(-0.50))
       .whileFalse(m_wrist.setWristPowerFactory(0.0));
 
 
@@ -132,13 +134,33 @@ public class RobotContainer {
     ShuffleboardTab testCommands = Shuffleboard.getTab("Commands");
 
     testCommands.add("Toggle Angle Brake Mode", new ToggleArmBrakeModeCommand(m_arm)).withSize(2, 1);
-
+    // Multiple stow positions for edge case testing
     testCommands.add("Test Stow Zone", new SupersystemToPoseCommand(m_super, new ArmPose(1, 30, 10))).withSize(2, 1);
     testCommands.add("Go To Stow", new SupersystemToPoseCommand(m_super, new ArmPose(0.0, 45, 0.0))).withSize(2, 1);
-    //TODO: Find out why angle 200 crashes in Piecewise interval
-    testCommands.add("Go To Scoring Zone", new SupersystemToPoseCommand(m_super, new ArmPose(5, 220, 90))).withSize(2, 1);
     testCommands.add("Test pose", new ArmPose(5, 90, 200)).withSize(2, 2);
 
+
+    // Arm Test Commands
+    testCommands.add("Ground Intake Tipped Cone", new SupersystemToPoseCommand(m_super, new ArmPose(5.4, 325.0, 165.67))).withSize(2, 1);
+    testCommands.add("Middle Score Zone", new SupersystemToPoseCommand(m_super, new ArmPose(0, 252.1, 99.7))).withSize(2, 1);
+    testCommands.add("Cone Ground Intake", new SupersystemToPoseCommand(m_super, new ArmPose(0.0, 328, 177.5))).withSize(2, 1);
+    testCommands.add("High Goal Setpoint", new SupersystemToPoseCommand(m_super, new ArmPose(23.3, 245, 86))).withSize(2, 1);
+    testCommands.add("Human Player Station", new SupersystemToPoseCommand(m_super, new ArmPose(0, 236, 86))).withSize(2, 1);
+
+
+    // Swerve Test Commands
+    testCommands.add("Swerve Forward", new TestSwerveCommand(m_drive, 0));
+    testCommands.add("Swerve Right", new TestSwerveCommand(m_drive, 90));
+    testCommands.add("Swerve Backwards", new TestSwerveCommand(m_drive, 180));
+    testCommands.add("Swerve Left", new TestSwerveCommand(m_drive, 270));
+
+    testCommands.add("Swerve Clockwise", new TestSwerveRotationCommand(m_drive, false));
+    testCommands.add("Swerve CounterClockwise", new TestSwerveRotationCommand(m_drive, true));
+
+    testCommands.add("FL Module Test", new TestModuleCommand(m_drive, 0));
+    testCommands.add("BL Module Test", new TestModuleCommand(m_drive, 2));
+
+    testCommands.add("Auto Balance", new AutoBalance(m_drive));
     testCommands.add("Reset Pose", new InstantCommand(() -> m_drive.resetPoseBase())).withSize(2, 1);
   }
 

@@ -12,6 +12,7 @@ import com.playingwithfusion.TimeOfFlight;
 import com.playingwithfusion.TimeOfFlight.RangingMode;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -62,12 +63,12 @@ public class WristSubsystem extends SubsystemBase {
 
         SparkMaxFactory.SparkMaxConfig config = new SparkMaxFactory.SparkMaxConfig();
         config.setInverted(true);
-        config.setIdleMode(CANSparkMax.IdleMode.kBrake);
+        config.setIdleMode(CANSparkMax.IdleMode.kCoast);
+        config.setCurrentLimit(20);
 
         m_wristMotor  = SparkMaxFactory.Companion.createSparkMax(WristConstants.WRIST_ID, config);
         // Current limit based off testing 2/28/2023 17:55
 
-        m_wristMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
         config.setCurrentLimit(10);
         config.setInverted(false);
         m_intakeMotor  = SparkMaxFactory.Companion.createSparkMax(WristConstants.INTAKE_ID, config);
@@ -147,6 +148,10 @@ public class WristSubsystem extends SubsystemBase {
         if (atLowerLimit()) {
             zeroWristAngle();
         }
+
+        SmartDashboard.putNumber("Wrist Current Draw", m_wristMotor.getOutputCurrent());
+        SmartDashboard.putBoolean("Intake Stalling", m_intakeMotor.getFault(CANSparkMax.FaultID.kStall));
+        SmartDashboard.putBoolean("Wrist stalling", m_wristMotor.getFault(CANSparkMax.FaultID.kStall));
     }
 
     public void updateInputs(WristIOInputsAutoLogged inputs){
@@ -173,15 +178,22 @@ public class WristSubsystem extends SubsystemBase {
 
         if (atLowerLimit() && speed <= 0){
             m_wristMotor.set(0.0);
+            SmartDashboard.putBoolean("Wrist Hitting Soft Limit", true);
         } else if (getWristAngle() >= Constants.LimitConstants.WRIST_SCORE_UPPER.getValue() && speed >= 0) {
+            SmartDashboard.putBoolean("Wrist Hitting Soft Limit", true);
             m_wristMotor.set(0.0);
         } else {
             m_wristMotor.set(speed);
+            SmartDashboard.putBoolean("Wrist Hitting Soft Limit", false);
         }
     }
 
     public Command setWristPowerFactory(double speed) {
-        return runOnce(() -> setWristPower(speed));
+        if (speed == 0) {
+            return runOnce(() -> setWristPower(0.00));
+        } else {
+            return runOnce(() -> setWristPower(speed));
+        }
     }
 
     public void setIntakeSpeed(double speed) {

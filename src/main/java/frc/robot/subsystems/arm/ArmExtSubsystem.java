@@ -35,7 +35,7 @@ public class ArmExtSubsystem extends SubsystemBase {
     private GenericEntry armExtAtUpperLimitEntry;
     private GenericEntry armExtAtLowerLimitEntry;
     private GenericEntry armExtEncoderLowerThanLimitEntry;
-    private GenericEntry armExtRawEntry;
+//    private GenericEntry armExtRawEntry;
     private GenericEntry armExtConvertedEntry;
     private GenericEntry armExtTargetEntry;
     private GenericEntry armExtSetpointClampedEntry;
@@ -77,7 +77,7 @@ public class ArmExtSubsystem extends SubsystemBase {
 
         // Doubles
         // Angles
-        armExtRawEntry = armExtTab.add("Angle raw", m_relativeEncoderArmEx.getPosition()).getEntry();
+//        armExtRawEntry = armExtTab.add("Angle raw", m_relativeEncoderArmEx.getPosition()).getEntry();
         armExtConvertedEntry = armExtTab.add("Angle converted", getArmExtension()).getEntry();
         // Targets
         armExtTargetEntry = armExtTab.add("Target", prevSetpointRaw).getEntry();
@@ -97,7 +97,7 @@ public class ArmExtSubsystem extends SubsystemBase {
 
         // Doubles
         // Angles
-        armExtRawEntry.setDouble(m_relativeEncoderArmEx.getPosition());
+//        armExtRawEntry.setDouble(m_relativeEncoderArmEx.getPosition());
         armExtConvertedEntry.setDouble(getArmExtension());
         // Targets
         armExtTargetEntry.setDouble(prevSetpointRaw);
@@ -133,7 +133,7 @@ public class ArmExtSubsystem extends SubsystemBase {
     }
 
     public double getArmExtension() {
-        return m_relativeEncoderArmEx.getPosition() * Constants.ArmConstants.EXTENSION_RATIO;
+        return m_relativeEncoderArmEx.getPosition();
     }
 
     public boolean armAtLowerLimit() {
