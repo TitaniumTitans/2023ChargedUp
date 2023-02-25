@@ -107,7 +107,9 @@ public class RobotContainer {
             .alongWith(new IntakeControlCommand(m_wrist, 1.0)));
 
     m_driveController.a().whileTrue(new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.STOW_POSITION));
-    m_driveController.b().whileTrue(new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.HUMAN_PLAYER_STATION));
+    m_driveController.b().whileTrue(
+            new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.HUMAN_PLAYER_STATION)
+            .alongWith(new IntakeControlCommand(m_wrist, 1.0)));
 
     m_driveController.leftBumper().whileTrue(new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.HIGH_GOAL));
     m_driveController.rightBumper().whileTrue(new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.MIDDLE_GOAL_NON_STOW));
@@ -178,6 +180,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoChooser.get();
+//    return m_autoChooser.get();
+    return new InstantCommand();
   }
 }
