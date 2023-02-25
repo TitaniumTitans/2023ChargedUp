@@ -1,7 +1,7 @@
 package frc.robot.supersystems;
 
-import frc.robot.Constants;
 import lib.utils.piecewise.Range;
+import java.util.Objects;
 
 public class ArmLimits {
     public final Range armExtRange;
@@ -34,5 +34,18 @@ public class ArmLimits {
 
     public boolean withinAngleLimit(double inside) {
         return armAngleRange.withinRange(inside);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ArmLimits armLimits = (ArmLimits) o;
+        return armExtRange.equals(armLimits.armExtRange) && armAngleRange.equals(armLimits.armAngleRange) && wristRange.equals(armLimits.wristRange);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(armExtRange, armAngleRange, wristRange);
     }
 }

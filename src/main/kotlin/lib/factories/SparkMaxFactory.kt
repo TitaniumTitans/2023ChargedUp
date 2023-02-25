@@ -107,6 +107,8 @@ class SparkMaxFactory {
 
             listOfAllSparksAndConfigs.add(SparkWithConfig(spark, config.copy()))
 
+            spark.burnFlash();
+
             return spark
         }
     }
