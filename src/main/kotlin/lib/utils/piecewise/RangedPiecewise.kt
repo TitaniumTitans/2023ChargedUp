@@ -1,6 +1,5 @@
 package lib.utils.piecewise
 
-import edu.wpi.first.math.MathUtil
 import java.lang.RuntimeException
 import java.util.*
 
@@ -33,7 +32,7 @@ class RangedPiecewise<T>(
     }
 
     fun calculate(input: Double): T {
-        val clampedInput = MathUtil.clamp(input, piecewiseRange.left, piecewiseRange.right)
+        val clampedInput = piecewiseRange.clamp(input)
         // Check the cached value first, then verify if needed
         return intervalList.find { interval -> interval.isInRange(clampedInput) }?.calculate(clampedInput)
             ?: throw RuntimeException("An interval should have been found. Please report this issue.")

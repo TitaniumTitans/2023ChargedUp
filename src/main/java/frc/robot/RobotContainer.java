@@ -167,7 +167,7 @@ public class RobotContainer {
 
 //    testCommands.add("FL Module Test", new TestModuleCommand(m_drive, 0));
 //    testCommands.add("BL Module Test", new TestModuleCommand(m_drive, 2));
-    
+
     testCommands.add("Auto Balance", new AutoBalance(m_drive));
     testCommands.add("Reset Pose", new InstantCommand(() -> m_drive.resetPoseBase())).withSize(2, 1);
 

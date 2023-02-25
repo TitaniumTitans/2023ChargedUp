@@ -37,7 +37,6 @@ public class WristSubsystem extends SubsystemBase {
     //Shuffleboard data
     private ShuffleboardTab wristSubsystemTab;
     private GenericEntry wristAtSetpointEntry;
-    private GenericEntry wristMotorInvertedEntry;
     private GenericEntry pieceInsideEntry;
     private GenericEntry wristAtUpperLimit;
     private GenericEntry wristAtLowerLimitEntry;
@@ -64,12 +63,11 @@ public class WristSubsystem extends SubsystemBase {
         SparkMaxFactory.SparkMaxConfig config = new SparkMaxFactory.SparkMaxConfig();
         config.setInverted(true);
         config.setIdleMode(CANSparkMax.IdleMode.kBrake);
+        config.setCurrentLimit(20);
 
         m_wristMotor  = SparkMaxFactory.Companion.createSparkMax(WristConstants.WRIST_ID, config);
         // Current limit based off testing 2/28/2023 17:55
 
-        m_wristMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
-        m_wristMotor.setSmartCurrentLimit(40);
         config.setCurrentLimit(10);
         config.setInverted(false);
         m_intakeMotor  = SparkMaxFactory.Companion.createSparkMax(WristConstants.INTAKE_ID, config);
@@ -95,7 +93,6 @@ public class WristSubsystem extends SubsystemBase {
         // Booleans
         // Misc.
         wristAtSetpointEntry = wristSubsystemTab.add("At setpoint", wristAtSetpoint()).getEntry();
-        wristMotorInvertedEntry = wristSubsystemTab.add("Motor inverted", m_wristMotor.getInverted()).getEntry();
         pieceInsideEntry = wristSubsystemTab.add("Piece inside", pieceInside()).getEntry();
         // Limits
         wristAtUpperLimit = wristSubsystemTab.add("At upper limit", wristAtUpperLimit()).getEntry();
@@ -120,7 +117,6 @@ public class WristSubsystem extends SubsystemBase {
         // Booleans
         // Misc.
         wristAtSetpointEntry.setBoolean(wristAtSetpoint());
-        wristMotorInvertedEntry.setBoolean(m_wristMotor.getInverted());
         pieceInsideEntry.setBoolean(pieceInside());
         // Limits
         wristAtUpperLimit.setBoolean(wristAtUpperLimit());
@@ -143,14 +139,18 @@ public class WristSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        //updateInputs(m_input);
-        //Logger.getInstance().processInputs("Arm Wrist", m_input);
+        updateInputs(m_input);
+        Logger.getInstance().processInputs("Arm Wrist", m_input);
 
         updateShuffleboardData();
 
         if (atLowerLimit()) {
             zeroWristAngle();
         }
+
+        SmartDashboard.putNumber("Wrist Current Draw", m_wristMotor.getOutputCurrent());
+        SmartDashboard.putBoolean("Intake Stalling", m_intakeMotor.getFault(CANSparkMax.FaultID.kStall));
+        SmartDashboard.putBoolean("Wrist stalling", m_wristMotor.getFault(CANSparkMax.FaultID.kStall));
     }
 
     public void updateInputs(WristIOInputsAutoLogged inputs){
@@ -189,7 +189,7 @@ public class WristSubsystem extends SubsystemBase {
 
     public Command setWristPowerFactory(double speed) {
         if (speed == 0) {
-            return runOnce(() -> setWristPower(0.05));
+            return runOnce(() -> setWristPower(0.00));
         } else {
             return runOnce(() -> setWristPower(speed));
         }

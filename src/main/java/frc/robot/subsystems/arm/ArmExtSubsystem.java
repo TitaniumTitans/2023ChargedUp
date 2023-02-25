@@ -31,11 +31,9 @@ public class ArmExtSubsystem extends SubsystemBase {
     //Shuffleboard data
     private final ShuffleboardTab armExtTab;
     private GenericEntry armExtAtSetpointEntry;
-    private GenericEntry armExtMotorInvertedEntry;
     private GenericEntry armExtAtUpperLimitEntry;
     private GenericEntry armExtAtLowerLimitEntry;
     private GenericEntry armExtEncoderLowerThanLimitEntry;
-//    private GenericEntry armExtRawEntry;
     private GenericEntry armExtConvertedEntry;
     private GenericEntry armExtTargetEntry;
     private GenericEntry armExtSetpointClampedEntry;
@@ -69,7 +67,6 @@ public class ArmExtSubsystem extends SubsystemBase {
         // Booleans
         // Misc.
         armExtAtSetpointEntry = armExtTab.add("At setpoint", armExtensionAtSetpoint()).getEntry();
-        armExtMotorInvertedEntry = armExtTab.add("Motor inverted", m_armExt.getInverted()).getEntry();
         // Limits
         armExtAtUpperLimitEntry = armExtTab.add("At upper limit", armAtUpperLimit()).getEntry();
         armExtAtLowerLimitEntry = armExtTab.add("Limit switch triggered", armAtLowerLimit()).getEntry();
@@ -77,7 +74,6 @@ public class ArmExtSubsystem extends SubsystemBase {
 
         // Doubles
         // Angles
-//        armExtRawEntry = armExtTab.add("Angle raw", m_relativeEncoderArmEx.getPosition()).getEntry();
         armExtConvertedEntry = armExtTab.add("Angle converted", getArmExtension()).getEntry();
         // Targets
         armExtTargetEntry = armExtTab.add("Target", prevSetpointRaw).getEntry();
@@ -90,7 +86,6 @@ public class ArmExtSubsystem extends SubsystemBase {
         // Booleans
         // Misc.
         armExtAtSetpointEntry.setBoolean(armExtensionAtSetpoint());
-        armExtMotorInvertedEntry.setBoolean(m_armExt.getInverted());
         // Limits
         armExtAtUpperLimitEntry.setBoolean(armAtUpperLimit());
         armExtAtLowerLimitEntry.setBoolean(armAtLowerLimit());
@@ -98,7 +93,6 @@ public class ArmExtSubsystem extends SubsystemBase {
 
         // Doubles
         // Angles
-//        armExtRawEntry.setDouble(m_relativeEncoderArmEx.getPosition());
         armExtConvertedEntry.setDouble(getArmExtension());
         // Targets
         armExtTargetEntry.setDouble(prevSetpointRaw);
