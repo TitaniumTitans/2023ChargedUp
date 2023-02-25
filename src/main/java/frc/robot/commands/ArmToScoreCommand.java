@@ -1,9 +1,11 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.swerve.SwerveDrivetrain;
 import frc.robot.supersystems.ArmSupersystem;
+import lib.utils.Utils;
 
 
 public class ArmToScoreCommand extends CommandBase {
@@ -14,7 +16,7 @@ public class ArmToScoreCommand extends CommandBase {
 
     public ArmToScoreCommand(ArmSupersystem supersystem, SwerveDrivetrain drive) {
         m_super = supersystem;
-        m_heading = drive.getGyroYaw().getDegrees();
+        m_heading = Utils.normalize(drive.getGyroYaw().getDegrees());
         // each subsystem used by the command must be passed into the
         // addRequirements() method (which takes a vararg of Subsystem)
         m_super.addRequirements(this);
@@ -31,6 +33,7 @@ public class ArmToScoreCommand extends CommandBase {
         } else {
             m_super.setToPose(Constants.ArmSetpoints.STOW_POSITION);
         }
+        SmartDashboard.putNumber("Gyro Heading In Command", m_heading);
     }
 
     @Override

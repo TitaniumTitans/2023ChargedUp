@@ -106,8 +106,8 @@ public final class Constants {
 
     public static class AutoConstants {
         //Trajectory following values
-        public static final double MAX_VELOCITY_PERCENT_OUTPUT = 0.5;
-        public static final double MAX_ACCELERATION_PERCENT_OUTPUT = 0.5;
+        public static final double MAX_VELOCITY_PERCENT_OUTPUT = 0.25;
+        public static final double MAX_ACCELERATION_PERCENT_OUTPUT = 0.25;
 
         public static final Constraints THETA_CONSTRAINTS = 
             new Constraints(MAX_VELOCITY_PERCENT_OUTPUT, MAX_ACCELERATION_PERCENT_OUTPUT);
@@ -197,7 +197,8 @@ public final class Constants {
     }
 
     public static class ArmSetpoints{
-        public static final ArmPose STOW_POSITION = new ArmPose(0.0, 15, 0.0);
+        public static final ArmPose STOW_POSITION = new ArmPose(0.0, 18, 0.0);
+        public static final ArmPose VERT_STOW_POSE = new ArmPose(0.0, 180, 0.0);
 
         public static final ArmPose INTAKE_CUBE = new ArmPose(6.6, 325.1, 170.6);
         public static final ArmPose INTAKE_CONE = new ArmPose(1.0, 328.0, 177.0);

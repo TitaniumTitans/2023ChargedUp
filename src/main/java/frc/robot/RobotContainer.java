@@ -99,21 +99,23 @@ public class RobotContainer {
     m_driveController.leftTrigger().whileTrue(new IntakeControlCommand(m_wrist, -1.0));
     m_driveController.rightTrigger().whileTrue(new IntakeControlCommand(m_wrist, 1.0));
 
-    m_driveController.x().onTrue(
-            new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.INTAKE_CONE)
-            .alongWith(new IntakeControlCommand(m_wrist, 1.0)));
-    m_driveController.y().onTrue(
+    m_driveController.x().whileTrue(
             new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.INTAKE_CUBE)
             .alongWith(new IntakeControlCommand(m_wrist, 1.0)));
+    m_driveController.y().whileTrue(
+            new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.INTAKE_CONE)
+            .alongWith(new IntakeControlCommand(m_wrist, 1.0)));
 
-    m_driveController.a().onTrue(new ArmToScoreCommand(m_super, m_drive));
-    m_driveController.b().onTrue(new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.MIDDLE_GOAL_NON_STOW));
+    m_driveController.a().whileTrue(new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.STOW_POSITION));
+    m_driveController.b().whileTrue(new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.HUMAN_PLAYER_STATION));
 
-    m_driveController.a()
-            .and(m_driveController.b())
-            .and(m_driveController.x())
-            .and(m_driveController.y())
-            .onFalse(new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.STOW_POSITION));
+    m_driveController.leftBumper().whileTrue(new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.HIGH_GOAL));
+    m_driveController.rightBumper().whileTrue(new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.MIDDLE_GOAL_NON_STOW));
+//    m_driveController.a()
+//            .and(m_driveController.b())
+//            .and(m_driveController.x())
+//            .and(m_driveController.y())
+//            .onFalse(new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.STOW_POSITION));
 
     m_foot.leftPedal().onTrue(new PrintCommand("Left Pedal Pressed!"));
     m_foot.middlePedal().onTrue(new PrintCommand("Middle Pedal Pressed"));
@@ -149,18 +151,19 @@ public class RobotContainer {
     testCommands.add("High Goal Setpoint", new SupersystemToPoseCommand(m_super, new ArmPose(23.3, 245, 86))).withSize(2, 1);
     testCommands.add("Human Player Station", new SupersystemToPoseCommand(m_super, new ArmPose(0, 236, 86))).withSize(2, 1);
 
+    testCommands.add("Vert Stow", new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.VERT_STOW_POSE));
 
     // Swerve Test Commands
-    testCommands.add("Swerve Forward", new TestSwerveCommand(m_drive, 0));
-    testCommands.add("Swerve Right", new TestSwerveCommand(m_drive, 90));
-    testCommands.add("Swerve Backwards", new TestSwerveCommand(m_drive, 180));
-    testCommands.add("Swerve Left", new TestSwerveCommand(m_drive, 270));
+//    testCommands.add("Swerve Forward", new TestSwerveCommand(m_drive, 0));
+//    testCommands.add("Swerve Right", new TestSwerveCommand(m_drive, 90));
+//    testCommands.add("Swerve Backwards", new TestSwerveCommand(m_drive, 180));
+//    testCommands.add("Swerve Left", new TestSwerveCommand(m_drive, 270));
 
-    testCommands.add("Swerve Clockwise", new TestSwerveRotationCommand(m_drive, false));
-    testCommands.add("Swerve CounterClockwise", new TestSwerveRotationCommand(m_drive, true));
+//    testCommands.add("Swerve Clockwise", new TestSwerveRotationCommand(m_drive, false));
+//    testCommands.add("Swerve CounterClockwise", new TestSwerveRotationCommand(m_drive, true));
 
-    testCommands.add("FL Module Test", new TestModuleCommand(m_drive, 0));
-    testCommands.add("BL Module Test", new TestModuleCommand(m_drive, 2));
+//    testCommands.add("FL Module Test", new TestModuleCommand(m_drive, 0));
+//    testCommands.add("BL Module Test", new TestModuleCommand(m_drive, 2));
     
     testCommands.add("Auto Balance", new AutoBalance(m_drive));
     testCommands.add("Reset Pose", new InstantCommand(() -> m_drive.resetPoseBase())).withSize(2, 1);
