@@ -163,7 +163,7 @@ public class WristSubsystem extends SubsystemBase {
         double currentWristAngle = getWristAngle();
 
         double targetAngleClamped = MathUtil.clamp(targetAngleRaw, Constants.LimitConstants.WRIST_SCORE_LOWER.getValue(), Constants.LimitConstants.WRIST_SCORE_UPPER.getValue());
-        double targetAnglePID = MathUtil.clamp(m_wristPID.calculate(currentWristAngle, targetAngleClamped), -0.25, 0.25);
+        double targetAnglePID = MathUtil.clamp(m_wristPID.calculate(currentWristAngle, targetAngleClamped), -0.5, 0.5);
 
         // Dashboard variables
         prevSetpointRaw = targetAngleRaw;

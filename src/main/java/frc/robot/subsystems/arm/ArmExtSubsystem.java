@@ -150,7 +150,7 @@ public class ArmExtSubsystem extends SubsystemBase {
     }
 
     public void resetExtensionEncoder() {
-        m_relativeEncoderArmEx.setPosition(-1.0);
+        m_relativeEncoderArmEx.setPosition(0.0);
     }
 
     public boolean armExtensionAtSetpoint() {
