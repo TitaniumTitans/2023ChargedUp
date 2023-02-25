@@ -64,8 +64,10 @@ public class Robot extends LoggedRobot {
       case THANOS:
       case SIM:
       case HELIOS:
-      logger.addDataReceiver(new WPILOGWriter("/var/log/helios"));
-      logger.addDataReceiver(new NT4Publisher());
+        if(isReal()) {
+          logger.addDataReceiver(new WPILOGWriter("/media/sda1/helios"));
+        }
+        logger.addDataReceiver(new NT4Publisher());
       break;
 
       // Running a physics simulator, log to local folder
