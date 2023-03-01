@@ -232,7 +232,7 @@ public class WristSubsystem extends SubsystemBase {
     }
 
     public boolean pieceInside() {
-        return m_tofSensor.getRange() < 1000;
+        return m_intakeMotor.getFault(CANSparkMax.FaultID.kStall);
     }
 
     public double getDetectionRange() {
