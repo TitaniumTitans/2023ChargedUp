@@ -106,8 +106,8 @@ public final class Constants {
 
     public static class AutoConstants {
         //Trajectory following values
-        public static final double MAX_VELOCITY_PERCENT_OUTPUT = 0.5;
-        public static final double MAX_ACCELERATION_PERCENT_OUTPUT = 0.5;
+        public static final double MAX_VELOCITY_PERCENT_OUTPUT = 0.25;
+        public static final double MAX_ACCELERATION_PERCENT_OUTPUT = 0.25;
 
         public static final Constraints THETA_CONSTRAINTS = 
             new Constraints(MAX_VELOCITY_PERCENT_OUTPUT, MAX_ACCELERATION_PERCENT_OUTPUT);
@@ -142,7 +142,7 @@ public final class Constants {
         public static final GosDoubleProperty ARM_EXT_KI = new GosDoubleProperty(false, "Arm extension kI", 0);
         public static final GosDoubleProperty ARM_EXT_KD = new GosDoubleProperty(false, "Arm extension kD", 0);
 
-        public static final double ARM_OFFSET = 84;
+        public static final double ARM_OFFSET = 84 + 120;
 
         public static final int ENCODER_PORT = 1;
 
@@ -165,11 +165,11 @@ public final class Constants {
         public static final GosDoubleProperty ARM_EXT_SCORE_LOWER =
                 new GosDoubleProperty(false, "Arm Extension Score Lower Limit", 0);
         public static final GosDoubleProperty ARM_EXT_SCORE_UPPER =
-                new GosDoubleProperty(false, "Arm Extension Score Upper Limit", 24);
+                new GosDoubleProperty(false, "Arm Extension Score Upper Limit", 25);
 
         // Arm Angle limits for Piecewise Function
         public static final GosDoubleProperty ARM_ANGLE_LOWER =
-                new GosDoubleProperty(false, "Arm Angle Lower Limit", 45);
+                new GosDoubleProperty(false, "Arm Angle Lower Limit", 13);
         public static final GosDoubleProperty ARM_ANGLE_UPPER =
                 new GosDoubleProperty(false, "Arm Angle Upper Limit", 325);
 
@@ -197,15 +197,16 @@ public final class Constants {
     }
 
     public static class ArmSetpoints{
-        public static final ArmPose STOW_POSITION = new ArmPose(0.0, 30, 0.0);
+        public static final ArmPose STOW_POSITION = new ArmPose(0.0, 18, 0.0);
+        public static final ArmPose VERT_STOW_POSE = new ArmPose(0.0, 180, 0.0);
 
-        public static final ArmPose INTAKE_CUBE = new ArmPose(5.4, 325.1, 165.6);
-        public static final ArmPose INTAKE_CONE = new ArmPose(0.0, 328.0, 177.0);
-        public static final ArmPose HUMAN_PLAYER_STATION = new ArmPose(0.0, 236.0, 86.0);
+        public static final ArmPose INTAKE_CUBE = new ArmPose(6.6, 325.1, 170.6);
+        public static final ArmPose INTAKE_CONE = new ArmPose(1.0, 328.0, 177.0);
+        public static final ArmPose HUMAN_PLAYER_STATION = new ArmPose(0.0, 237.6, 86.0);
 
         public static final ArmPose MIDDLE_GOAL_NON_STOW = new ArmPose(0.0, 252.1, 99.7);
         public static final ArmPose MIDDLE_GOAL_STOW = new ArmPose(0.0, 0.0, 0.0);
-        public static final ArmPose HIGH_GOAL = new ArmPose(23.3, 236.0, 95.3);
+        public static final ArmPose HIGH_GOAL = new ArmPose(24.3, 247.0, 95.3);
     }
 
     public static final int DRIVER_PORT = 0;
