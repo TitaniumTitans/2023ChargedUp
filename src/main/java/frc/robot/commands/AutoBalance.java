@@ -47,7 +47,7 @@ public class AutoBalance extends CommandBase {
   @Override
   public void execute() {
     // Gets how far the robot is tilted and calculates proper drive power from it
-    m_currentAngle = m_drive.getGyroPitch().getDegrees();
+    m_currentAngle = m_drive.getGyroRoll().getDegrees();
     m_error = AutoConstants.DESIRED_BALANCE_ANGLE - m_currentAngle;
 
     m_drivePower = Math.min(m_balanceController.calculate(m_currentAngle), 1);
