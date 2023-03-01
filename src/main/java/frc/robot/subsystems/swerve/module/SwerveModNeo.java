@@ -76,7 +76,7 @@ public class SwerveModNeo {
       m_driveMotor.set(speed);
     } else {
       double speedff = m_driveFF.calculate(speed);
-      m_drivePID.setReference(speed, CANSparkMax.ControlType.kVelocity, 0, speedff);
+      m_drivePID.setReference(speed, CANSparkMax.ControlType.kVoltage, 0, speedff);
     }
     double angle = Math.abs(state.speedMetersPerSecond) <= 0.0
       ? m_lastAngle
