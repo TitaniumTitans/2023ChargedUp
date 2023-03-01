@@ -61,9 +61,9 @@ public class AutoUtils {
 
     public static Command getAutoRoutine(PathPlannerTrajectory traj, SwerveDrivetrain swerve){
         return new SequentialCommandGroup(
-            new InstantCommand(() -> swerve.resetPose(m_defaultAutoGen.getInitialHolonomicPose())),
+            new InstantCommand(() -> swerve.resetPose(traj.getInitialHolonomicPose())),
 
-            new PPSwerveControllerCommand(m_defaultAutoGen, 
+            new PPSwerveControllerCommand(traj,
             swerve::getPose, 
             DriveConstants.DRIVE_KINEMATICS, 
             AutoConstants.CONTROLLER_X, 
