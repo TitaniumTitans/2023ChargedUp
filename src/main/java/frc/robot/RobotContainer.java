@@ -10,6 +10,8 @@ import edu.wpi.first.wpilibj2.command.PrintCommand;
 import frc.robot.commands.IntakeControlCommand;
 import frc.robot.commands.SupersystemToPoseCommand;
 import frc.robot.commands.ToggleArmBrakeModeCommand;
+import frc.robot.commands.autonomous.TimerForwardAutoCommand;
+import frc.robot.commands.autonomous.test.TestAutoWithArm;
 import frc.robot.commands.test.TestModuleCommand;
 import frc.robot.commands.test.TestSwerveCommand;
 import frc.robot.commands.test.TestSwerveRotationCommand;
@@ -98,21 +100,25 @@ public class RobotContainer {
     m_driveController.leftTrigger().whileTrue(new IntakeControlCommand(m_wrist, -1.0));
     m_driveController.rightTrigger().whileTrue(new IntakeControlCommand(m_wrist, 1.0));
 
-    m_driveController.b().whileTrue(m_wrist.setWristPowerFactory(0.50))
-      .whileFalse(m_wrist.setWristPowerFactory(0.0));
-    m_driveController.a().whileTrue(m_wrist.setWristPowerFactory(-0.50))
-      .whileFalse(m_wrist.setWristPowerFactory(0.0));
+    m_driveController.x().whileTrue(
+            new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.INTAKE_CUBE)
+            .alongWith(new IntakeControlCommand(m_wrist, 1.0)));
+    m_driveController.y().whileTrue(
+            new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.INTAKE_CONE)
+            .alongWith(new IntakeControlCommand(m_wrist, 1.0)));
 
+    m_driveController.a().whileTrue(new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.STOW_POSITION));
+    m_driveController.b().whileTrue(
+            new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.HUMAN_PLAYER_STATION)
+            .alongWith(new IntakeControlCommand(m_wrist, 1.0)));
 
-    m_driveController.x().whileTrue(m_arm.setAngleSpeedFactory(0.5))
-      .whileFalse(m_arm.setAngleSpeedFactory(0.0));
-    m_driveController.y().whileTrue(m_arm.setAngleSpeedFactory(-0.5))
-            .whileFalse(m_arm.setAngleSpeedFactory(0.0));
-
-      m_driveController.rightBumper().whileTrue(m_ext.setArmSpeedFactory(0.5))
-              .whileFalse(m_ext.setArmSpeedFactory(0.0));
-    m_driveController.leftBumper().whileTrue(m_ext.setArmSpeedFactory(-0.5))
-            .whileFalse(m_ext.setArmSpeedFactory(0.0));
+    m_driveController.leftBumper().whileTrue(new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.HIGH_GOAL));
+    m_driveController.rightBumper().whileTrue(new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.MIDDLE_GOAL_NON_STOW));
+//    m_driveController.a()
+//            .and(m_driveController.b())
+//            .and(m_driveController.x())
+//            .and(m_driveController.y())
+//            .onFalse(new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.STOW_POSITION));
 
     m_foot.leftPedal().onTrue(new PrintCommand("Left Pedal Pressed!"));
     m_foot.middlePedal().onTrue(new PrintCommand("Middle Pedal Pressed"));
@@ -132,6 +138,7 @@ public class RobotContainer {
    */
   public void configDashboard() {
     ShuffleboardTab testCommands = Shuffleboard.getTab("Commands");
+    ShuffleboardTab testTrajectories = Shuffleboard.getTab("Trajectories");
 
     testCommands.add("Toggle Angle Brake Mode", new ToggleArmBrakeModeCommand(m_arm)).withSize(2, 1);
     // Multiple stow positions for edge case testing
@@ -147,21 +154,24 @@ public class RobotContainer {
     testCommands.add("High Goal Setpoint", new SupersystemToPoseCommand(m_super, new ArmPose(23.3, 245, 86))).withSize(2, 1);
     testCommands.add("Human Player Station", new SupersystemToPoseCommand(m_super, new ArmPose(0, 236, 86))).withSize(2, 1);
 
+    testCommands.add("Vert Stow", new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.VERT_STOW_POSE));
 
     // Swerve Test Commands
-    testCommands.add("Swerve Forward", new TestSwerveCommand(m_drive, 0));
-    testCommands.add("Swerve Right", new TestSwerveCommand(m_drive, 90));
-    testCommands.add("Swerve Backwards", new TestSwerveCommand(m_drive, 180));
-    testCommands.add("Swerve Left", new TestSwerveCommand(m_drive, 270));
+//    testCommands.add("Swerve Forward", new TestSwerveCommand(m_drive, 0));
+//    testCommands.add("Swerve Right", new TestSwerveCommand(m_drive, 90));
+//    testCommands.add("Swerve Backwards", new TestSwerveCommand(m_drive, 180));
+//    testCommands.add("Swerve Left", new TestSwerveCommand(m_drive, 270));
 
-    testCommands.add("Swerve Clockwise", new TestSwerveRotationCommand(m_drive, false));
-    testCommands.add("Swerve CounterClockwise", new TestSwerveRotationCommand(m_drive, true));
+//    testCommands.add("Swerve Clockwise", new TestSwerveRotationCommand(m_drive, false));
+//    testCommands.add("Swerve CounterClockwise", new TestSwerveRotationCommand(m_drive, true));
 
-    testCommands.add("FL Module Test", new TestModuleCommand(m_drive, 0));
-    testCommands.add("BL Module Test", new TestModuleCommand(m_drive, 2));
-    
+//    testCommands.add("FL Module Test", new TestModuleCommand(m_drive, 0));
+//    testCommands.add("BL Module Test", new TestModuleCommand(m_drive, 2));
+
     testCommands.add("Auto Balance", new AutoBalance(m_drive));
     testCommands.add("Reset Pose", new InstantCommand(() -> m_drive.resetPoseBase())).withSize(2, 1);
+
+//    testTrajectories.add("Move With Arm", TestAutoWithArm.getAuto(m_drive, m_super));
   }
 
   /**
@@ -171,6 +181,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoChooser.get();
+//    return m_autoChooser.get();
+    return new TimerForwardAutoCommand(m_drive);
   }
 }

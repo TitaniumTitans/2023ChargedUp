@@ -1,8 +1,5 @@
 package frc.robot.subsystems.swerve;
 
-import com.ctre.phoenix.sensors.Pigeon2;
-import com.ctre.phoenix.sensors.PigeonIMU;
-
 import com.ctre.phoenix.sensors.WPI_Pigeon2;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -40,6 +37,10 @@ public class SwerveDrivetrain extends SubsystemBase {
     private final SwerveDrivePoseEstimator m_poseEstimator;
     private final CameraSubsystem m_frontCamSubsystem;
     private final CameraSubsystem m_leftCamSubsystem;
+
+    private double m_currentRoll = 0;
+    private double m_previousRoll = 0;
+
 
     @AutoLog
     public static class SwerveIOInputs {
@@ -97,6 +98,7 @@ public class SwerveDrivetrain extends SubsystemBase {
         m_field.setRobotPose(getPose());
 
         double[] angles = getAngles();
+        SmartDashboard.putNumber("Swerve Gyro Yaw", getGyroYaw().getDegrees());
 
         SmartDashboard.putNumber("FL Angle", angles[0]);
         SmartDashboard.putNumber("FR Angle", angles[1]);
@@ -110,6 +112,9 @@ public class SwerveDrivetrain extends SubsystemBase {
         SmartDashboard.putNumber("BR Cancoder", cancoderAngles[3].getDegrees());
 
         m_field.setRobotPose(m_poseEstimator.getEstimatedPosition());
+
+        m_previousRoll = m_currentRoll;
+        m_currentRoll = getGyroRoll().getDegrees();
     }
 
     // Getters
@@ -171,8 +176,12 @@ public class SwerveDrivetrain extends SubsystemBase {
         m_gyro.setYaw(0);
     }
 
-    public Rotation2d getGyroPitch() {
-        return Rotation2d.fromDegrees(m_gyro.getPitch());
+    public Rotation2d getGyroRoll() {
+        return Rotation2d.fromDegrees(m_gyro.getRoll());
+    }
+
+    public double getGyroRollRate() {
+        return m_currentRoll - m_previousRoll;
     }
 
     public void setAbsoluteAngles() {
@@ -204,28 +213,28 @@ public class SwerveDrivetrain extends SubsystemBase {
 
         Optional<EstimatedRobotPose> frontCamEstimatePose =
                 m_frontCamSubsystem.getPose(getPose());
-        Optional<EstimatedRobotPose> leftCamEstimatePose =
-                m_leftCamSubsystem.getPose(getPose());
+//        Optional<EstimatedRobotPose> leftCamEstimatePose =
+//                m_leftCamSubsystem.getPose(getPose());
 
         SmartDashboard.putBoolean("FC pose present", frontCamEstimatePose.isPresent());
-        SmartDashboard.putBoolean("LC pose present", leftCamEstimatePose.isPresent());
+//        SmartDashboard.putBoolean("LC pose present", leftCamEstimatePose.isPresent());
 
-        if(frontCamEstimatePose.isPresent()) {
-            EstimatedRobotPose frontCamPose = frontCamEstimatePose.get();
-
-            SmartDashboard.putNumber("FC pose X", frontCamPose.estimatedPose.getX());
-            SmartDashboard.putNumber("FC pose Y", frontCamPose.estimatedPose.getY());
-
-            m_poseEstimator.addVisionMeasurement(frontCamPose.estimatedPose.toPose2d(), frontCamPose.timestampSeconds);
-        }
-        if(leftCamEstimatePose.isPresent()) {
-            EstimatedRobotPose leftCamPose = leftCamEstimatePose.get();
-
-            SmartDashboard.putNumber("LC pose X", leftCamPose.estimatedPose.getX());
-            SmartDashboard.putNumber("LC pose Y", leftCamPose.estimatedPose.getY());
-
-            m_poseEstimator.addVisionMeasurement(leftCamPose.estimatedPose.toPose2d(), leftCamPose.timestampSeconds);
-        }
+//        if(frontCamEstimatePose.isPresent()) {
+//            EstimatedRobotPose frontCamPose = frontCamEstimatePose.get();
+//
+//            SmartDashboard.putNumber("FC pose X", frontCamPose.estimatedPose.getX());
+//            SmartDashboard.putNumber("FC pose Y", frontCamPose.estimatedPose.getY());
+//
+//            m_poseEstimator.addVisionMeasurement(frontCamPose.estimatedPose.toPose2d(), frontCamPose.timestampSeconds);
+//        }
+//        if(leftCamEstimatePose.isPresent()) {
+//            EstimatedRobotPose leftCamPose = leftCamEstimatePose.get();
+//
+//            SmartDashboard.putNumber("LC pose X", leftCamPose.estimatedPose.getX());
+//            SmartDashboard.putNumber("LC pose Y", leftCamPose.estimatedPose.getY());
+//
+//            m_poseEstimator.addVisionMeasurement(leftCamPose.estimatedPose.toPose2d(), leftCamPose.timestampSeconds);
+//        }
     }
 
     public void resetPose(Pose2d newPose) {
