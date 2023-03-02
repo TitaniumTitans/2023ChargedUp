@@ -22,7 +22,7 @@ class SparkMaxFactory {
     data class SparkMaxConfig(
             var frame0Rate: Int = 100,
             var frame1Rate: Int = 200,
-            var frame2Rate: Int = 20,
+            var frame2Rate: Int = 40,
             var frame3Rate: Int = MAX_CAN_FRAME_PERIOD,
             var frame4Rate: Int = MAX_CAN_FRAME_PERIOD,
             var frame5Rate: Int = MAX_CAN_FRAME_PERIOD,

@@ -20,8 +20,8 @@ public class ScoreMidAndMoveCommandGroup extends SequentialCommandGroup {
         //           super(new OpenClawCommand(), new MoveArmCommand());
         super(
                 new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.MIDDLE_GOAL_NON_STOW)
-                        .alongWith(new WaitCommand(4).andThen(new IntakeControlCommand(m_wrist, -1.0)))
-                        .raceWith(new WaitCommand(5)),
+                        .alongWith(new WaitCommand(5).andThen(new IntakeControlCommand(m_wrist, -1.0)))
+                        .raceWith(new WaitCommand(6)),
                 new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.STOW_POSITION)
                         .raceWith(new TimerForwardAutoCommand(m_drive, -0.5)),
                 new InstantCommand(() -> {m_drive.resetGyro(180);})

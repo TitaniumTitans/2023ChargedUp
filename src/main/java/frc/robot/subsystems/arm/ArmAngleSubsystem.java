@@ -166,7 +166,7 @@ public class ArmAngleSubsystem extends SubsystemBase {
 
         // Clamp target
         double targetAngleClamped = MathUtil.clamp(targetAngleRaw, LimitConstants.ARM_ANGLE_LOWER.getValue(), LimitConstants.ARM_ANGLE_UPPER.getValue());
-        double targetAnglePID = MathUtil.clamp(m_anglePID.calculate(currentArmAngle, targetAngleClamped), -6, 6);
+        double targetAnglePID = MathUtil.clamp(m_anglePID.calculate(currentArmAngle, targetAngleClamped), -9, 9);
 
         // Update dashboard variables
         prevSetpointRaw = targetAngleRaw;

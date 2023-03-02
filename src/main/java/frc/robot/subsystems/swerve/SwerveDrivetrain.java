@@ -277,17 +277,17 @@ public class SwerveDrivetrain extends SubsystemBase {
         return runOnce(() -> resetPose(new Pose2d()));
     }
 
-    public void setSlowmode(boolean slow) {
-        slowmode = slow;
+    public void setSlowmode() {
+        slowmode = !slowmode;
     }
 
     public boolean getSlowmode() {
         return slowmode;
     }
 
-    public CommandBase setSlowmodeFactory(boolean slow) {
+    public CommandBase setSlowmodeFactory() {
         return runOnce(() -> {
-            setSlowmode(slow);
+            setSlowmode();
         });
     }
 
