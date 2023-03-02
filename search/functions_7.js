@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['optimize_147',['optimize',['../classlib_1_1utils_1_1_swerve_1_1_c_t_r_e_module_state.html#abc282beadeb2e6d7b144959da8fbbf58',1,'lib::utils::Swerve::CTREModuleState']]]
+  ['long_5ffunction_5fwith_5fmany_5fparameters_159',['long_function_with_many_parameters',['../class_my_library_1_1_subclass_example.html#aa76c75a24c1652733cdfe2a972db96c6',1,'MyLibrary::SubclassExample']]]
 ];

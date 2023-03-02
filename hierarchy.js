@@ -27,13 +27,16 @@ var hierarchy =
     [ "frc.robot.subsystems.swerve.module.SwerveModFalcon", "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1module_1_1_swerve_mod_falcon.html", null ],
     [ "frc.robot.subsystems.swerve.module.SwerveModNeo", "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1module_1_1_swerve_mod_neo.html", null ],
     [ "lib.utils.drivers.TalonEnhanced", "classlib_1_1utils_1_1drivers_1_1_talon_enhanced.html", null ],
+    [ "frc.robot.commands.autonomous.test.TestAutoWithArm", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1test_1_1_test_auto_with_arm.html", null ],
     [ "lib.utils.Utils", "classlib_1_1utils_1_1_utils.html", null ],
     [ "CommandBase", null, [
+      [ "frc.robot.commands.ArmToScoreCommand", "classfrc_1_1robot_1_1commands_1_1_arm_to_score_command.html", null ],
       [ "frc.robot.commands.AutoBalance", "classfrc_1_1robot_1_1commands_1_1_auto_balance.html", null ],
       [ "frc.robot.commands.IntakeControlCommand", "classfrc_1_1robot_1_1commands_1_1_intake_control_command.html", null ],
       [ "frc.robot.commands.SupersystemToPoseCommand", "classfrc_1_1robot_1_1commands_1_1_supersystem_to_pose_command.html", null ],
       [ "frc.robot.commands.SwerveTeleopDrive", "classfrc_1_1robot_1_1commands_1_1_swerve_teleop_drive.html", null ],
       [ "frc.robot.commands.ToggleArmBrakeModeCommand", "classfrc_1_1robot_1_1commands_1_1_toggle_arm_brake_mode_command.html", null ],
+      [ "frc.robot.commands.autonomous.TimerForwardAutoCommand", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_timer_forward_auto_command.html", null ],
       [ "frc.robot.commands.test.TestModuleCommand", "classfrc_1_1robot_1_1commands_1_1test_1_1_test_module_command.html", null ],
       [ "frc.robot.commands.test.TestSwerveCommand", "classfrc_1_1robot_1_1commands_1_1test_1_1_test_swerve_command.html", null ],
       [ "frc.robot.commands.test.TestSwerveRotationCommand", "classfrc_1_1robot_1_1commands_1_1test_1_1_test_swerve_rotation_command.html", null ]

@@ -4,13 +4,18 @@ var annotated_dup =
       [ "robot", null, [
         [ "commands", null, [
           [ "autonomous", null, [
-            [ "AutoUtils", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_auto_utils.html", null ]
+            [ "test", null, [
+              [ "TestAutoWithArm", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1test_1_1_test_auto_with_arm.html", null ]
+            ] ],
+            [ "AutoUtils", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_auto_utils.html", null ],
+            [ "TimerForwardAutoCommand", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_timer_forward_auto_command.html", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_timer_forward_auto_command" ]
           ] ],
           [ "test", null, [
             [ "TestModuleCommand", "classfrc_1_1robot_1_1commands_1_1test_1_1_test_module_command.html", "classfrc_1_1robot_1_1commands_1_1test_1_1_test_module_command" ],
             [ "TestSwerveCommand", "classfrc_1_1robot_1_1commands_1_1test_1_1_test_swerve_command.html", "classfrc_1_1robot_1_1commands_1_1test_1_1_test_swerve_command" ],
             [ "TestSwerveRotationCommand", "classfrc_1_1robot_1_1commands_1_1test_1_1_test_swerve_rotation_command.html", "classfrc_1_1robot_1_1commands_1_1test_1_1_test_swerve_rotation_command" ]
           ] ],
+          [ "ArmToScoreCommand", "classfrc_1_1robot_1_1commands_1_1_arm_to_score_command.html", "classfrc_1_1robot_1_1commands_1_1_arm_to_score_command" ],
           [ "AutoBalance", "classfrc_1_1robot_1_1commands_1_1_auto_balance.html", "classfrc_1_1robot_1_1commands_1_1_auto_balance" ],
           [ "IntakeControlCommand", "classfrc_1_1robot_1_1commands_1_1_intake_control_command.html", "classfrc_1_1robot_1_1commands_1_1_intake_control_command" ],
           [ "SupersystemToPoseCommand", "classfrc_1_1robot_1_1commands_1_1_supersystem_to_pose_command.html", "classfrc_1_1robot_1_1commands_1_1_supersystem_to_pose_command" ],

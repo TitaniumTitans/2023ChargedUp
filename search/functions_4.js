@@ -1,10 +1,8 @@
 var searchData=
 [
-  ['getautonomouscommand_138',['getAutonomousCommand',['../classfrc_1_1robot_1_1_robot_container.html#ac61d2476e65873e263f844c1c721a82e',1,'frc::robot::RobotContainer']]],
-  ['getazimuthangle_139',['getAzimuthAngle',['../classfrc_1_1robot_1_1subsystems_1_1swerve_1_1module_1_1_swerve_mod_falcon.html#ab4025cf12c54f733a8feef64d527fc9d',1,'frc::robot::subsystems::swerve::module::SwerveModFalcon']]],
-  ['getcancoder_140',['getCanCoder',['../classfrc_1_1robot_1_1subsystems_1_1swerve_1_1module_1_1_swerve_mod_falcon.html#a4b3840aa7b5529d2f143ed7c92214e6b',1,'frc::robot::subsystems::swerve::module::SwerveModFalcon']]],
-  ['getpose_141',['getPose',['../classfrc_1_1robot_1_1subsystems_1_1vision_1_1_camera_subsystem.html#ac6df668476f950f3c63ba9f4cfa2cd77',1,'frc::robot::subsystems::vision::CameraSubsystem']]],
-  ['getposition_142',['getPosition',['../classfrc_1_1robot_1_1subsystems_1_1swerve_1_1module_1_1_swerve_mod_falcon.html#afb8ea2edd3f9c9119e2941dbd7e22520',1,'frc::robot::subsystems::swerve::module::SwerveModFalcon']]],
-  ['getstate_143',['getState',['../classfrc_1_1robot_1_1subsystems_1_1swerve_1_1module_1_1_swerve_mod_falcon.html#a5c35b58f3413f6fe32936f94b93b0130',1,'frc::robot::subsystems::swerve::module::SwerveModFalcon']]],
-  ['gettargetangle_144',['getTargetAngle',['../classfrc_1_1robot_1_1subsystems_1_1swerve_1_1module_1_1_swerve_mod_falcon.html#acae9f84cb82e8c126f1385a5d04c0b92',1,'frc::robot::subsystems::swerve::module::SwerveModFalcon']]]
+  ['falcontodegrees_145',['falconToDegrees',['../classlib_1_1utils_1_1_utils.html#aea6f6ae543a35f30b758575e5c090198',1,'lib::utils::Utils']]],
+  ['falcontomps_146',['falconToMPS',['../classlib_1_1utils_1_1_utils.html#ab7eafdbffac60ca395d98392461694f5',1,'lib::utils::Utils']]],
+  ['falcontorpm_147',['falconToRPM',['../classlib_1_1utils_1_1_utils.html#a142f152727eb53777c7ad8cbe64be89a',1,'lib::utils::Utils']]],
+  ['footpedal_148',['FootPedal',['../classlib_1_1controllers_1_1_foot_pedal.html#ada8a8410bb8b84413a2c643b56e93a62',1,'lib::controllers::FootPedal']]],
+  ['function_5ftemplate_5ftest_149',['function_template_test',['../class_my_library_1_1_subclass_example.html#a306486db0c0bcdcaff339ced71393c63',1,'MyLibrary::SubclassExample']]]
 ];
