@@ -40,7 +40,7 @@ public class SwerveModNeo {
   private double m_lastAngle;
   private boolean m_invert;
 
-  private boolean isOpenLoop = false;
+  private boolean isOpenLoop = true;
   private SimpleMotorFeedforward m_driveFF;
 
   public SwerveModNeo(int moduleNumber, double offsets, int[] canIds, boolean driveInvert) {
