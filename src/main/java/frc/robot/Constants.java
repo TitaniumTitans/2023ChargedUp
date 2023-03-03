@@ -15,6 +15,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 import edu.wpi.first.math.util.Units;
 import frc.robot.supersystems.ArmPose;
+import lib.utils.zone.Zone;
 
 
 /**
@@ -126,6 +127,16 @@ public final class Constants {
         public static final double BALANCE_P = -0.02;
         public static final double DESIRED_BALANCE_ANGLE = 1;
         public static double Balance_D = 0.1;
+
+        // Zones for auto alignment
+        //Total field distance that robot can get to
+        // 10.54 meters x, by 8.02 meters y
+
+        public static Zone blueAllienceZone = new Zone(
+            new Translation2d(1.38, 8.02),
+        3.36,
+        5.49
+        );
     }
 
     public static final Mode CURRENT_MODE = Mode.HELIOS;

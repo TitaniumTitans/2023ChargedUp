@@ -1,10 +1,10 @@
 package lib.utils.zone
 
 import edu.wpi.first.math.geometry.Pose2d
-import edu.wpi.first.math.geometry.Transform2d
+import edu.wpi.first.math.geometry.Translation2d
 import lib.utils.piecewise.Range
 
-class Zone(topleft: Transform2d, width: Double, height: Double) {
+class Zone(topleft: Translation2d, width: Double, height: Double) {
 
     val leftRange: Range
     val topRange: Range
