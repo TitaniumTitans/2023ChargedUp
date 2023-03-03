@@ -6,6 +6,7 @@ import java.util.Map;
 import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
+import com.pathplanner.lib.auto.SwerveAutoBuilder;
 import com.pathplanner.lib.commands.FollowPathWithEvents;
 import com.pathplanner.lib.commands.PPSwerveControllerCommand;
 
@@ -32,7 +33,13 @@ public class AutoUtils {
 
     private static final PathPlannerTrajectory m_defaultAutoGen = PathPlanner.loadPath("DefaultPath", m_defaultConfig);
 
+//    private static final SwerveAutoBuilder defaultAutoFactory = new SwerveAutoBuilder(
+//
+//    )
 
+    public static PathConstraints getDefaultConstraints() {
+        return m_defaultConfig;
+    }
     //Default getters
     public static Command getDefaultTrajectory(SwerveDrivetrain swerve) {
         return new SequentialCommandGroup(
@@ -59,9 +66,9 @@ public class AutoUtils {
 
     public static Command getAutoRoutine(PathPlannerTrajectory traj, SwerveDrivetrain swerve){
         return new SequentialCommandGroup(
-            new InstantCommand(() -> swerve.resetPose(m_defaultAutoGen.getInitialHolonomicPose())),
+            new InstantCommand(() -> swerve.resetPose(traj.getInitialHolonomicPose())),
 
-            new PPSwerveControllerCommand(m_defaultAutoGen, 
+            new PPSwerveControllerCommand(traj,
             swerve::getPose, 
             DriveConstants.DRIVE_KINEMATICS, 
             AutoConstants.CONTROLLER_X, 

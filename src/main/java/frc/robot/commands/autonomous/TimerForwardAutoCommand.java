@@ -1,18 +1,20 @@
-package frc.robot.commands;
+package frc.robot.commands.autonomous;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.wrist.WristSubsystem;
+import frc.robot.subsystems.swerve.SwerveDrivetrain;
 
 
-public class WristAngToSetpoint extends CommandBase {
-    private final WristSubsystem m_wristSubsystem;
-    private final double m_SetPoint;
+public class TimerForwardAutoCommand extends CommandBase {
+    private final SwerveDrivetrain m_swerveDrivetrain;
+    private final Timer m_timer;
 
-    public WristAngToSetpoint(WristSubsystem wristSubsystem, double SetPoint) {
-        m_wristSubsystem = wristSubsystem;
-        m_SetPoint = SetPoint;
+    public TimerForwardAutoCommand(SwerveDrivetrain swerveDrivetrain) {
+        this.m_swerveDrivetrain = swerveDrivetrain;
+        m_timer = new Timer();
+        // each subsystem used by the command must be passed into the
         // addRequirements() method (which takes a vararg of Subsystem)
-        addRequirements(this.m_wristSubsystem);
+        addRequirements(this.m_swerveDrivetrain);
     }
 
     /**
@@ -20,7 +22,8 @@ public class WristAngToSetpoint extends CommandBase {
      */
     @Override
     public void initialize() {
-
+        m_swerveDrivetrain.setModuleStates(0.0, 0.0, 0.0);
+        m_timer.start();
     }
 
     /**
@@ -29,7 +32,7 @@ public class WristAngToSetpoint extends CommandBase {
      */
     @Override
     public void execute() {
-        m_wristSubsystem.setWristAngle(m_SetPoint);
+        m_swerveDrivetrain.setModuleStates(0.5, 0.0, 0.0);
     }
 
     /**
@@ -49,7 +52,7 @@ public class WristAngToSetpoint extends CommandBase {
     @Override
     public boolean isFinished() {
         // TODO: Make this return true when this Command no longer needs to run execute()
-        return m_wristSubsystem.wristAtSetpoint();
+        return m_timer.get() >= 2.5;
     }
 
     /**
@@ -62,6 +65,6 @@ public class WristAngToSetpoint extends CommandBase {
      */
     @Override
     public void end(boolean interrupted) {
-        m_wristSubsystem.setWristPower(0);
+        m_swerveDrivetrain.setModuleStates(0.0, 0.0, 0.0);
     }
 }

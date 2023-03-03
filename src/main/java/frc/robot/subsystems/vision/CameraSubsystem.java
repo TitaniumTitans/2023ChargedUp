@@ -37,13 +37,13 @@ public class CameraSubsystem implements Subsystem {
                 (aprilTagFieldLayout, PhotonPoseEstimator.PoseStrategy.CLOSEST_TO_REFERENCE_POSE, m_camera, 
                     camPose);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new IllegalStateException(e);
         }
     }
 
     /**
      * Gets optional estimatedRobotPose from AprilTag data
-     * @param prevEstimatedRobotPose Pose 2d refrence position for the Photon Vision pose estimator to work off of
+     * @param prevEstimatedRobotPose Pose 2d reference position for the Photon Vision pose estimator to work off of
      * @return Optional estimatedRobotPose, a Pose3d and a timestamp in seconds
      */
     public Optional<EstimatedRobotPose> getPose(Pose2d prevEstimatedRobotPose) {

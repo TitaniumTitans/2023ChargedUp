@@ -2,12 +2,10 @@ package lib.utils.drivers;
 
 
 import com.revrobotics.REVLibError;
-
 import edu.wpi.first.wpilibj.DriverStation;
-
 public class RevUtil {
     public interface ConfigCall {
-        abstract REVLibError run();
+        REVLibError run();
     }
 
     private static final int MAX_RETRY_COUNT = 3;
@@ -26,21 +24,34 @@ public class RevUtil {
         }
     }
 
-    public static void autoRetry(ConfigCall configCall) {
-        int i;
-        REVLibError err;
-        for (i = 0; hasError(err = configCall.run()) && i < MAX_RETRY_COUNT; i++) {
-            DriverStation.reportWarning(String.format("Try #%d failed: %s. Retrying...", i, err.toString()), false);
-            try {
-                Thread.sleep(RETRY_DELAY_MS);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
+    public static REVLibError autoRetry(ConfigCall configCall) {
+        REVLibError err = REVLibError.kOk; // Use an error be default, this will be overridden on the first pass
+
+        // Loop for MAX_RETRY_COUNT
+        for (int i = 0; i < MAX_RETRY_COUNT; i++) {
+            err = configCall.run();
+
+            // If there is an error, wait for a short period and try again.
+            // Otherwise, break the loop
+            if(hasError(err)) {
+                try {
+                    // Some tools recommended against this, but because we are dealing with hardware, this should be sufficient.
+                    Thread.sleep(RETRY_DELAY_MS);
+                } catch (InterruptedException ignored) {
+                    // For some reason, the thread was intentionally interrupted
+                    // Follow through with the interrupt
+                    Thread.currentThread().interrupt();
+                }
+            } else {
+                break;
             }
         }
-        if (i > MAX_RETRY_COUNT) {
-            DriverStation.reportError("Error: Maximum retry count exceeded.", false);
-        } else if (i > 0) {
-            DriverStation.reportWarning(String.format("Try #%d succeeded!", i), false);
+
+        // If err is still an error, then the loop reached MAX_RETRY_COUNT and could not set the config
+        if (hasError(err)) {
+            // Display the error to the driver with stack trace to see WHAT failed to configure.
+            DriverStation.reportError("Failed to configure after " + MAX_RETRY_COUNT + "counts. (" + configCall.hashCode() + ")",  true);
         }
+        return err;
     }
 }
