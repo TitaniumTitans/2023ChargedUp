@@ -7,6 +7,8 @@ package frc.robot;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.auto.PIDConstants;
 import com.pathplanner.lib.auto.SwerveAutoBuilder;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
@@ -176,6 +178,7 @@ public class RobotContainer {
     testCommands.add("Vert Stow", new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.VERT_STOW_POSE));
 
     // Swerve Test Commands
+    testCommands.add("Auto Align Center", new AutoAlignCommand(m_drive, new Pose2d(14.0, 1.5, new Rotation2d())));
 //    testCommands.add("Swerve Forward", new TestSwerveCommand(m_drive, 0));
 //    testCommands.add("Swerve Right", new TestSwerveCommand(m_drive, 90));
 //    testCommands.add("Swerve Backwards", new TestSwerveCommand(m_drive, 180));
