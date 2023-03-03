@@ -78,6 +78,8 @@ public final class Constants {
                 (new Translation3d(4.0, 6.0, 25.0), new Rotation3d(90.0, 0.0, 90.0));
         public static final String FRONT_CAM_NAME = "FrontPiCam";
         public static final String LEFT_CAM_NAME = "LeftWebCam";
+
+        public static final double CAM_AMBIGUITY_THRESHOLD = 0.3;
     }
 
     public static class WristConstants {
