@@ -1,15 +1,24 @@
 package lib.utils.zone
 
+import edu.wpi.first.math.geometry.Pose2d
 import edu.wpi.first.math.geometry.Transform2d
 import lib.utils.piecewise.Range
 
-class Zone(topleft: Transform2d, topright: Transform2d, bottomleft: Transform2d, bottomright: Transform2d) {
+class Zone(topleft: Transform2d, width: Double, height: Double) {
 
+    val leftRange: Range
+    val topRange: Range
     init {
-        // create a "square" on the field to check if
-        val topRange = Range(topleft.x, true, topright.x, true)
-        val bottomRange = Range(bottomleft.x, true, bottomright.x, true)
-        val leftRange = Range(topleft.y, true, bottomleft.y, true)
-        val rightRange = Range(topright.y, true, bottomright.y, true)
+        //Construct a "rectangle" for zone based off the uppermost left point
+        //Make sure all units are in meters
+        leftRange = Range(topleft.x, true, topleft.y - height, true)
+        topRange = Range(topleft.y, true, topleft.x - width, true)
+    }
+
+    fun inZone(pose: Pose2d): Boolean {
+        var inLeft = leftRange.withinRange(pose.y)
+        var inTop = topRange.withinRange(pose.x)
+
+        return inLeft && inTop
     }
 }
