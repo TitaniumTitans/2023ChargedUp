@@ -52,7 +52,7 @@ public class AutoBalance extends CommandBase {
 
     m_drivePower = Math.min(m_balanceController.calculate(m_currentAngle), 1);
     // Limit max power
-    m_drivePower = MathUtil.clamp(m_drivePower, -0.2, 0.2);
+    m_drivePower = MathUtil.clamp(m_drivePower, -0.75, 0.75);
 
     // Counter for checking if robot is truly balanced
    if (Math.abs(m_currentAngle) < AutoConstants.DESIRED_BALANCE_ANGLE) {
