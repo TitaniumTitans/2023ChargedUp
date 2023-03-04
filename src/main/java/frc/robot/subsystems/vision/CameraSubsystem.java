@@ -61,7 +61,7 @@ public class CameraSubsystem implements Subsystem {
 
         ArrayList<PhotonTrackedTarget> goodTargets = new ArrayList<>();
 
-        Pose3d filteredPose;
+        Double filteredPose;
 
         if(!camResult.hasTargets()) {
             return Optional.empty();
@@ -71,26 +71,39 @@ public class CameraSubsystem implements Subsystem {
                 /**
                  * Probably don't need this.
                  */
-//                Optional<Pose3d> targetPose = m_aprilTagFieldLayout.getTagPose(target.getFiducialId());
-//
-//                Pose3d bestTagPose = targetPose.get().transformBy(target.getBestCameraToTarget().inverse())
-//                        .transformBy(robotToCam);
-//                Pose3d altTagPose = targetPose.get().transformBy(target.getAlternateCameraToTarget().inverse())
-//                        .transformBy(robotToCam);
-//                double bestPoseAndPrevPoseDist = Math.sqrt((bestTagPose.getX() - prevEstimatedRobotPose.getX()
-//                * (bestTagPose.getX() - prevEstimatedRobotPose.getX()))
-//                + ((bestTagPose.getY() - prevEstimatedRobotPose.getY())
-//                * (bestTagPose.getY() - prevEstimatedRobotPose.getY())));
-//                double altPoseAndPrevPoseDist = Math.sqrt((altTagPose.getX() - prevEstimatedRobotPose.getX()
-//                        * (altTagPose.getX() - prevEstimatedRobotPose.getX()))
-//                        + ((altTagPose.getY() - prevEstimatedRobotPose.getY())
-//                        * (altTagPose.getY() - prevEstimatedRobotPose.getY())));
-//                if (bestPoseAndPrevPoseDist < altPoseAndPrevPoseDist) {
-//                    filteredPose = bestTagPose;
-//                } else {
-//                    filteredPose = altTagPose;
-//                }
-                if (target.getPoseAmbiguity() <= Constants.DriveConstants.CAM_AMBIGUITY_THRESHOLD.getValue())
+                Optional<Pose3d> targetPose = m_aprilTagFieldLayout.getTagPose(target.getFiducialId());
+
+                if (targetPose.isEmpty())
+                {
+                    continue;
+                }
+                Pose3d bestTagPose = targetPose.get().transformBy(target.getBestCameraToTarget().inverse())
+                        .transformBy(robotToCam);
+                Pose3d altTagPose = targetPose.get().transformBy(target.getAlternateCameraToTarget().inverse())
+                        .transformBy(robotToCam);
+                double bestPoseAndPrevPoseDist = Math.sqrt((bestTagPose.getX() - prevEstimatedRobotPose.getX()
+                * (bestTagPose.getX() - prevEstimatedRobotPose.getX()))
+                + ((bestTagPose.getY() - prevEstimatedRobotPose.getY())
+                * (bestTagPose.getY() - prevEstimatedRobotPose.getY())));
+                double altPoseAndPrevPoseDist = Math.sqrt((altTagPose.getX() - prevEstimatedRobotPose.getX()
+                        * (altTagPose.getX() - prevEstimatedRobotPose.getX()))
+                        + ((altTagPose.getY() - prevEstimatedRobotPose.getY())
+                        * (altTagPose.getY() - prevEstimatedRobotPose.getY())));
+
+                if (bestPoseAndPrevPoseDist < altPoseAndPrevPoseDist) {
+                    filteredPose = Math.sqrt(((bestTagPose.getX() - targetPose.get().getX())
+                            * (bestTagPose.getX() - targetPose.get().getX()))
+                            + ((bestTagPose.getY() - targetPose.get().getY())
+                            * (bestTagPose.getY() - targetPose.get().getY())));
+                } else {
+                    filteredPose = Math.sqrt(((altTagPose.getX() - targetPose.get().getX())
+                            * (altTagPose.getX() - targetPose.get().getX()))
+                            + ((altTagPose.getY() - targetPose.get().getY())
+                            * (altTagPose.getY() - targetPose.get().getY())));
+                }
+
+                if (target.getPoseAmbiguity() <= Constants.DriveConstants.CAM_AMBIGUITY_THRESHOLD.getValue()
+                        && filteredPose < Constants.DriveConstants.CAM_DISTANCE_THRESHOLD.getValue())
                 {
                     goodTargets.add(target);
                 }

@@ -86,7 +86,9 @@ public final class Constants {
         public static final String LEFT_CAM_NAME = "LeftWebCam";
 
         public static final GosDoubleProperty CAM_AMBIGUITY_THRESHOLD
-                = new GosDoubleProperty(false, "Camera ambiguity", 0.3);
+                = new GosDoubleProperty(false, "Camera ambiguity threshold", 0.3);
+        public static final GosDoubleProperty CAM_DISTANCE_THRESHOLD
+                = new GosDoubleProperty(false, "Camera distance threshold", 7);
     }
 
     public static class WristConstants {
