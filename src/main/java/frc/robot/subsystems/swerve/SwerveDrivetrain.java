@@ -216,8 +216,14 @@ public class SwerveDrivetrain extends SubsystemBase {
     }
 
     public void updatePoseEstimator() {
+        /**
+         * Get swerve odometry
+         */
         m_poseEstimator.update(getGyroYaw(), getModulePositions());
 
+        /**
+         * Create new vision poses for each cam
+         */
         Optional<EstimatedRobotPose> frontCamEstimatePose =
                 m_frontCamSubsystem.getPose(getPose());
         Optional<EstimatedRobotPose> leftCamEstimatePose =
@@ -226,6 +232,9 @@ public class SwerveDrivetrain extends SubsystemBase {
         SmartDashboard.putBoolean("FC pose present", frontCamEstimatePose.isPresent());
         SmartDashboard.putBoolean("LC pose present", leftCamEstimatePose.isPresent());
 
+        /**
+         * Add each vision measurement to the pose estimator if it exists for each camera
+         */
         if(frontCamEstimatePose.isPresent()) {
             EstimatedRobotPose frontCamPose = frontCamEstimatePose.get();
 

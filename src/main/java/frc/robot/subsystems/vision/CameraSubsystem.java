@@ -62,7 +62,7 @@ public class CameraSubsystem implements Subsystem {
 
         ArrayList<PhotonTrackedTarget> goodTargets = new ArrayList<>();
 
-        Double filteredPose;
+        Double robotToTagDist;
 
         if(!camResult.hasTargets()) {
             return Optional.empty();
@@ -70,7 +70,7 @@ public class CameraSubsystem implements Subsystem {
             for (PhotonTrackedTarget target: camResult.getTargets())
             {
                 /**
-                 * Probably don't need this.
+                 * Get the current target position and check if it is a valid target.
                  */
                 Optional<Pose3d> targetPose = m_aprilTagFieldLayout.getTagPose(target.getFiducialId());
 
@@ -78,10 +78,19 @@ public class CameraSubsystem implements Subsystem {
                 {
                     continue;
                 }
+
+                /**
+                 * Calculate the position of the robot based on the best target result and alternate target result.
+                 */
                 Pose3d bestTagPose = targetPose.get().transformBy(target.getBestCameraToTarget().inverse())
                         .transformBy(robotToCam);
                 Pose3d altTagPose = targetPose.get().transformBy(target.getAlternateCameraToTarget().inverse())
                         .transformBy(robotToCam);
+
+                /**
+                 * Calculate the distance between the bestTagPose and the previous pose.
+                 * And calculate the distance between the altTagPose and the previous pose.
+                 */
                 double bestPoseAndPrevPoseDist = Math.sqrt((bestTagPose.getX() - prevEstimatedRobotPose.getX()
                 * (bestTagPose.getX() - prevEstimatedRobotPose.getX()))
                 + ((bestTagPose.getY() - prevEstimatedRobotPose.getY())
@@ -91,27 +100,37 @@ public class CameraSubsystem implements Subsystem {
                         + ((altTagPose.getY() - prevEstimatedRobotPose.getY())
                         * (altTagPose.getY() - prevEstimatedRobotPose.getY())));
 
+                /**
+                 * check which robot position based on the two different results is closer to the previous pose.
+                 * Then calculate the distance between the desired robot position and the tag position.
+                 */
                 if (bestPoseAndPrevPoseDist < altPoseAndPrevPoseDist) {
-                    filteredPose = Math.sqrt(((bestTagPose.getX() - targetPose.get().getX())
+                    robotToTagDist = Math.sqrt(((bestTagPose.getX() - targetPose.get().getX())
                             * (bestTagPose.getX() - targetPose.get().getX()))
                             + ((bestTagPose.getY() - targetPose.get().getY())
                             * (bestTagPose.getY() - targetPose.get().getY())));
                 } else {
-                    filteredPose = Math.sqrt(((altTagPose.getX() - targetPose.get().getX())
+                    robotToTagDist = Math.sqrt(((altTagPose.getX() - targetPose.get().getX())
                             * (altTagPose.getX() - targetPose.get().getX()))
                             + ((altTagPose.getY() - targetPose.get().getY())
                             * (altTagPose.getY() - targetPose.get().getY())));
                 }
 
+                /**
+                 * Check if the ambiguity of the tag is below the predetermined threshold.
+                 * And check if the distance between the robot and tag is below the predetermined threshold.
+                 */
                 if (target.getPoseAmbiguity() <= Constants.DriveConstants.CAM_AMBIGUITY_THRESHOLD.getValue()
-                        && filteredPose < Constants.DriveConstants.CAM_DISTANCE_THRESHOLD.getValue())
+                        && robotToTagDist < Constants.DriveConstants.CAM_DISTANCE_THRESHOLD.getValue())
                 {
                     goodTargets.add(target);
                 }
             }
         }
 
-
+        /**
+         * Create a new photon pipeline with the list of good targets
+         */
         PhotonPipelineResult filteredCamResults = new PhotonPipelineResult
                 (camResult.getLatencyMillis(), goodTargets);
         filteredCamResults.setTimestampSeconds(camResult.getTimestampSeconds());
