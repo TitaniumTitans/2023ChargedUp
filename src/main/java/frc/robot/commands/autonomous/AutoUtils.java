@@ -11,12 +11,14 @@ import com.pathplanner.lib.commands.FollowPathWithEvents;
 import com.pathplanner.lib.commands.PPSwerveControllerCommand;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Robot;
 import frc.robot.subsystems.swerve.SwerveDrivetrain;
 
 
@@ -66,7 +68,9 @@ public class AutoUtils {
 
     public static Command getAutoRoutine(PathPlannerTrajectory traj, SwerveDrivetrain swerve){
         return new SequentialCommandGroup(
-            new InstantCommand(() -> swerve.resetPose(traj.getInitialPose())),
+            new InstantCommand(() -> swerve.resetPose(PathPlannerTrajectory.transformTrajectoryForAlliance
+                    (traj, DriverStation.getAlliance()).getInitialPose())),
+
 
             new PPSwerveControllerCommand(traj,
             swerve::getPose, 
