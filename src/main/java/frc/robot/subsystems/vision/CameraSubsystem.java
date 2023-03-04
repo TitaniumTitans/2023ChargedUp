@@ -24,6 +24,7 @@ import java.util.Optional;
 public class CameraSubsystem implements Subsystem {
 
     private final PhotonCamera m_camera;
+    private final Transform3d robotToCam;
 
     private PhotonPoseEstimator m_photonPoseEstimator;
 
@@ -32,17 +33,18 @@ public class CameraSubsystem implements Subsystem {
     /**
      * Creates a new CameraSubsystem
      * @param camName Name of the camera in the system
-     * @param camPose Transform3d of the camera's position relative to the robot
+     * @param camPose 3d transform of the camera's position relative to the robot
      */
     public CameraSubsystem(String camName, Transform3d camPose) {
         m_camera = new PhotonCamera(camName);
 
+        robotToCam = camPose;
         try {
             m_aprilTagFieldLayout =
                 AprilTagFieldLayout.loadFromResource(AprilTagFields.k2023ChargedUp.m_resourceFile);
             m_photonPoseEstimator = new PhotonPoseEstimator
                 (m_aprilTagFieldLayout, PhotonPoseEstimator.PoseStrategy.CLOSEST_TO_REFERENCE_POSE, m_camera,
-                    camPose);
+                    robotToCam);
         } catch (IOException e) {
             throw new IllegalStateException(e);
         }
@@ -51,10 +53,9 @@ public class CameraSubsystem implements Subsystem {
     /**
      * Gets optional estimatedRobotPose from AprilTag data
      * @param prevEstimatedRobotPose Pose 2d reference position for the Photon Vision pose estimator to work off of
-     * @param robotToCam 3d transform offset of the camera to the robot
      * @return Optional estimatedRobotPose, a 3d pose and a timestamp in seconds
      */
-    public Optional<EstimatedRobotPose> getPose(Pose2d prevEstimatedRobotPose, Transform3d robotToCam) {
+    public Optional<EstimatedRobotPose> getPose(Pose2d prevEstimatedRobotPose) {
         m_photonPoseEstimator.setReferencePose(prevEstimatedRobotPose);
 
         PhotonPipelineResult camResult = m_camera.getLatestResult();
