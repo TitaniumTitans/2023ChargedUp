@@ -178,7 +178,7 @@ public class RobotContainer {
     testCommands.add("Vert Stow", new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.VERT_STOW_POSE));
 
     // Swerve Test Commands
-    testCommands.add("Auto Align Center", new AutoAlignCommand(m_drive, new Pose2d(14.0, 1.5, new Rotation2d())));
+    testCommands.add("Auto Align Center", new AutoAlignCommand(m_drive, new Pose2d(14.5, 1.5, new Rotation2d(0.0))));
 //    testCommands.add("Swerve Forward", new TestSwerveCommand(m_drive, 0));
 //    testCommands.add("Swerve Right", new TestSwerveCommand(m_drive, 90));
 //    testCommands.add("Swerve Backwards", new TestSwerveCommand(m_drive, 180));

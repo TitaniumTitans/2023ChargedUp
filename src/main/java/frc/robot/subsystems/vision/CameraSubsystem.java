@@ -139,6 +139,13 @@ public class CameraSubsystem implements Subsystem {
     }
 
 
+    public Pose2d getTagPose() {
+        Optional<Pose3d> pose = m_aprilTagFieldLayout.getTagPose(m_camera.getLatestResult().getBestTarget().getFiducialId());
 
-
+        if(pose.isPresent()) {
+            return pose.get().toPose2d();
+        } else {
+            return new Pose2d();
+        }
+    }
 }

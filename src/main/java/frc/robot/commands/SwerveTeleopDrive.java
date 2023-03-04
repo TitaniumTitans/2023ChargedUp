@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import frc.robot.Constants;
 import frc.robot.subsystems.swerve.SwerveDrivetrain;
 import lib.utils.Utils;
 
@@ -42,6 +43,10 @@ public class SwerveTeleopDrive extends CommandBase {
     x = Utils.deadBand(x);
     y = Utils.deadBand(y);
     z = Utils.deadBand(z);
+
+    x = x * Constants.ModuleConstants.MAX_SPEED_MPS;
+    y = y * Constants.ModuleConstants.MAX_SPEED_MPS;
+    z = z * Constants.ModuleConstants.MAX_SPEED_MPS;
     m_drive.setModuleStates(x, y, z);
   }
 

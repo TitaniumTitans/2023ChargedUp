@@ -50,7 +50,7 @@ public class AutoUtils {
             DriveConstants.DRIVE_KINEMATICS, 
             AutoConstants.CONTROLLER_X, 
             AutoConstants.CONTROLLER_Y, 
-            new PIDController(0, 0, 0), 
+            AutoConstants.THETA_CONTROLLER,
             swerve::setModuleStates,
             true,
             swerve)
@@ -66,14 +66,14 @@ public class AutoUtils {
 
     public static Command getAutoRoutine(PathPlannerTrajectory traj, SwerveDrivetrain swerve){
         return new SequentialCommandGroup(
-            new InstantCommand(() -> swerve.resetPose(traj.getInitialHolonomicPose())),
+            new InstantCommand(() -> swerve.resetPose(traj.getInitialPose())),
 
             new PPSwerveControllerCommand(traj,
             swerve::getPose, 
             DriveConstants.DRIVE_KINEMATICS, 
             AutoConstants.CONTROLLER_X, 
             AutoConstants.CONTROLLER_Y, 
-            new PIDController(0, 0, 0), 
+            AutoConstants.THETA_CONTROLLER,
             swerve::setModuleStates,
             true,
             swerve)

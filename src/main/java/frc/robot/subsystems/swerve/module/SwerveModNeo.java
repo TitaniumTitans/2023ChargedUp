@@ -40,7 +40,7 @@ public class SwerveModNeo {
   private double m_lastAngle;
   private boolean m_invert;
 
-  private boolean isOpenLoop = true;
+  private boolean isOpenLoop = false;
   private SimpleMotorFeedforward m_driveFF;
 
   public SwerveModNeo(int moduleNumber, double offsets, int[] canIds, boolean driveInvert) {
@@ -73,7 +73,7 @@ public class SwerveModNeo {
 
     double speed = state.speedMetersPerSecond;
     if (isOpenLoop) {
-      m_driveMotor.set(speed);
+      m_driveMotor.set(speed / ModuleConstants.MAX_SPEED_MPS);
     } else {
       double speedff = m_driveFF.calculate(speed);
       m_drivePID.setReference(speed, CANSparkMax.ControlType.kVoltage, 0, speedff);

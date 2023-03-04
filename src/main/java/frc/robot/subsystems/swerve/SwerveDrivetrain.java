@@ -253,6 +253,10 @@ public class SwerveDrivetrain extends SubsystemBase {
         }
     }
 
+    public Pose2d getFrontCamTagPose() {
+        return m_frontCamSubsystem.getTagPose();
+    }
+
     public void resetPose(Pose2d newPose) {
         m_poseEstimator.resetPosition(getGyroYaw(), getModulePositions(), newPose);
     }

@@ -47,6 +47,8 @@ public final class Constants {
         public static final double MODULE_KV = 1.75;
         public static final double MODULE_KA = 0.0;
         public static final double MODULE_DRIVE_KP = 0.5;
+
+        public static final double MAX_SPEED_MPS = 5.0;
     }
 
     public static final class DriveConstants {
@@ -118,15 +120,15 @@ public final class Constants {
     public static class AutoConstants {
         //Trajectory following values
         public static final double MAX_VELOCITY_PERCENT_OUTPUT = 0.25;
-        public static final double MAX_ACCELERATION_PERCENT_OUTPUT = 0.25;
+        public static final double MAX_ACCELERATION_PERCENT_OUTPUT = 0.1;
 
         public static final PIDController THETA_CONTROLLER =
-            new PIDController(0.0, 0.0, 0.0);
+            new PIDController(1.0, 0.0, 0.0);
         
         public static final PIDController CONTROLLER_X =
-            new PIDController(0.5, 0, 0);
+            new PIDController(1.0, 0, 0);
         public static final PIDController CONTROLLER_Y =
-            new PIDController(0.5, 0, 0);
+            new PIDController(1.0, 0, 0);
         
         //Auto balance constants
         public static final double BALANCE_P = -0.02;
