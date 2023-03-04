@@ -133,6 +133,11 @@ public class RobotContainer {
             new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.HUMAN_PLAYER_STATION)
             .alongWith(new IntakeControlCommand(m_wrist, 1.0)));
 
+    m_driveController.povLeft().whileTrue(new AutoAlignCommand(m_drive, AutoAlignCommand.AlignmentOptions.LEFT_ALIGN));
+    m_driveController.povUp().whileTrue(new AutoAlignCommand(m_drive, AutoAlignCommand.AlignmentOptions.CENTER_ALIGN));
+    m_driveController.povRight().whileTrue(new AutoAlignCommand(m_drive, AutoAlignCommand.AlignmentOptions.RIGHT_ALIGN));
+    m_driveController.povDown().whileTrue(new AutoAlignCommand(m_drive, AutoAlignCommand.AlignmentOptions.HUMAN_PLAYER_ALIGN));
+
     m_driveController.leftBumper().whileTrue(new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.HIGH_GOAL));
     m_driveController.rightBumper().whileTrue(new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.MIDDLE_GOAL_NON_STOW));
 //    m_driveController.a()

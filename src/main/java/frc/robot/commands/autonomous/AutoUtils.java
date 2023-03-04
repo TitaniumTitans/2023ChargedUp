@@ -2,6 +2,7 @@ package frc.robot.commands.autonomous;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.BooleanSupplier;
 
 import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
@@ -12,10 +13,7 @@ import com.pathplanner.lib.commands.PPSwerveControllerCommand;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.PrintCommand;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Robot;
@@ -66,10 +64,19 @@ public class AutoUtils {
     return new FollowPathWithEvents(getDefaultTrajectory(swerve), m_defaultAutoGen.getMarkers(), defaultEventMap);
     }
 
-    public static Command getAutoRoutine(PathPlannerTrajectory traj, SwerveDrivetrain swerve){
+    public static Command getAutoRoutine(PathPlannerTrajectory traj, SwerveDrivetrain swerve, boolean firstTrajectory){
         return new SequentialCommandGroup(
-            new InstantCommand(() -> swerve.resetPose(PathPlannerTrajectory.transformTrajectoryForAlliance
-                    (traj, DriverStation.getAlliance()).getInitialPose())),
+            new ConditionalCommand(new InstantCommand(() ->
+                    swerve.resetPose(
+                    PathPlannerTrajectory.transformTrajectoryForAlliance(traj, DriverStation.getAlliance()).getInitialPose())),
+                    new InstantCommand(),
+                    new BooleanSupplier() {
+                        @Override
+                        public boolean getAsBoolean() {
+                            return firstTrajectory;
+                        }
+                    }
+            ),
 
 
             new PPSwerveControllerCommand(traj,
@@ -85,6 +92,6 @@ public class AutoUtils {
     }
     
     public static Command getAutoEventRoutine(PathPlannerTrajectory traj, Map<String, Command> events, SwerveDrivetrain swerve) {
-        return new FollowPathWithEvents(getAutoRoutine(traj, swerve), traj.getMarkers(), events);
+        return new FollowPathWithEvents(getAutoRoutine(traj, swerve, true), traj.getMarkers(), events);
     }
 }

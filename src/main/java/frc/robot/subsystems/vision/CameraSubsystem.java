@@ -89,6 +89,11 @@ public class CameraSubsystem implements Subsystem {
                 Pose3d altTagPose = targetPose.get().transformBy(target.getAlternateCameraToTarget().inverse())
                         .transformBy(robotToCam);
 
+                SmartDashboard.putNumber("Best Tag X", bestTagPose.getX());
+                SmartDashboard.putNumber("Best Tag Y", bestTagPose.getY());
+                SmartDashboard.putNumber("Alt Tag X", altTagPose.getX());
+                SmartDashboard.putNumber("Alt Tag Y", altTagPose.getY());
+
                 /**
                  * Calculate the distance between the bestTagPose and the previous pose.
                  * And calculate the distance between the altTagPose and the previous pose.
@@ -107,16 +112,26 @@ public class CameraSubsystem implements Subsystem {
                  * Then calculate the distance between the desired robot position and the tag position.
                  */
                 if (bestPoseAndPrevPoseDist < altPoseAndPrevPoseDist) {
+                    /*
                     robotToTagDist = Math.sqrt(((bestTagPose.getX() - targetPose.get().getX())
                             * (bestTagPose.getX() - targetPose.get().getX()))
                             + ((bestTagPose.getY() - targetPose.get().getY())
                             * (bestTagPose.getY() - targetPose.get().getY())));
+
+                     */
+
+                    robotToTagDist = bestTagPose.minus(targetPose.get()).getTranslation().getNorm();
                 } else {
+                    /*
                     robotToTagDist = Math.sqrt(((altTagPose.getX() - targetPose.get().getX())
                             * (altTagPose.getX() - targetPose.get().getX()))
                             + ((altTagPose.getY() - targetPose.get().getY())
                             * (altTagPose.getY() - targetPose.get().getY())));
+                    */
+                    robotToTagDist = bestTagPose.minus(targetPose.get()).getTranslation().getNorm();
                 }
+
+                SmartDashboard.putNumber("Robot to Tag Distance", robotToTagDist);
 
                 /**
                  * Check if the ambiguity of the tag is below the predetermined threshold.
