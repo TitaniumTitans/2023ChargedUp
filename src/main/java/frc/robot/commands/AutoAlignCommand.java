@@ -60,33 +60,39 @@ public class AutoAlignCommand extends CommandBase {
         // Figure out what pose the robot should be
         Pose2d tagPose = m_drive.getFrontCamTagPose();
 
-        Translation2d translatedTranslation;
+        Translation2d translatedEnd;
+        Translation2d translatedMiddle;
 
         switch(m_align){
             case HUMAN_PLAYER_ALIGN:
             case LEFT_ALIGN:
-                translatedTranslation = tagPose.transformBy(leftTranslation).getTranslation();
+                translatedEnd = tagPose.transformBy(leftTranslation).getTranslation();
                 break;
             case RIGHT_ALIGN:
-                translatedTranslation = tagPose.transformBy(rightTranslation).getTranslation();
+                translatedEnd = tagPose.transformBy(rightTranslation).getTranslation();
                 break;
             default:
-                translatedTranslation = tagPose.transformBy(centerTranslation).getTranslation();
+                translatedEnd = tagPose.transformBy(centerTranslation).getTranslation();
         }
+
+        translatedMiddle = tagPose.getRotation().getDegrees() == 180 ?
+                translatedEnd.minus(new Translation2d(0.25, 0)) :
+                translatedEnd.plus(new Translation2d(0.25, 0));
 
 
         //generate a path based on the tag you see, flipped 180 from tag pose
         m_traj = PathPlanner.generatePath(
                 AutoUtils.getDefaultConstraints(),
                 new PathPoint(m_drive.getPose().getTranslation(), new Rotation2d(), m_drive.getPose().getRotation()),
-//                new PathPoint(translatedTranslation.minus(new Translation2d(0.25, 0)), tagPose.getRotation(), tagPose.getRotation().rotateBy(Rotation2d.fromDegrees(180))),
-                new PathPoint(translatedTranslation, new Rotation2d(), tagPose.getRotation().rotateBy(Rotation2d.fromDegrees(180)))
+                new PathPoint(translatedMiddle, new Rotation2d(), tagPose.getRotation().rotateBy(Rotation2d.fromDegrees(180))),
+                new PathPoint(translatedEnd, new Rotation2d(), tagPose.getRotation().rotateBy(Rotation2d.fromDegrees(180)))
         );
 
-        SmartDashboard.putNumber("Tag Rotation", tagPose.getRotation().getDegrees());
+//        SmartDashboard.putNumber("Tag Rotation", tagPose.getRotation().getDegrees());
 
-        path = AutoUtils.getAutoRoutine(m_traj, m_drive, false);
-        path.schedule();
+        m_drive.createPPSwerveController(m_traj);
+//        path = AutoUtils.getAutoRoutine(m_traj, m_drive, false);
+//        path.schedule();
     }
 
     @Override
@@ -96,6 +102,6 @@ public class AutoAlignCommand extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        path.cancel();
+//        path.cancel();
     }
 }

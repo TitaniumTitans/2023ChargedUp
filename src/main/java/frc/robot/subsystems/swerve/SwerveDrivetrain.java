@@ -1,6 +1,8 @@
 package frc.robot.subsystems.swerve;
 
 import com.ctre.phoenix.sensors.WPI_Pigeon2;
+import com.pathplanner.lib.PathPlannerTrajectory;
+import com.pathplanner.lib.commands.PPSwerveControllerCommand;
 import edu.wpi.first.math.MatBuilder;
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.Nat;
@@ -16,7 +18,9 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.ProxyCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.swerve.module.SwerveModNeo;
 import frc.robot.subsystems.vision.CameraSubsystem;
@@ -287,6 +291,20 @@ public class SwerveDrivetrain extends SubsystemBase {
         };
     }
 
+    @SuppressWarnings("PMD.AvoidReassigningParameters")
+    public Command followPPTrajectory(PathPlannerTrajectory traj) {
+        return new PPSwerveControllerCommand(
+                traj,
+                this::getPose,
+                DriveConstants.DRIVE_KINEMATICS,
+                Constants.AutoConstants.CONTROLLER_X,
+                Constants.AutoConstants.CONTROLLER_Y,
+                Constants.AutoConstants.THETA_CONTROLLER,
+                this::setModuleStates,
+                this
+        );
+    }
+
     public Command resetGyroBase() {
         return runOnce(this::resetGyro);
     }
@@ -297,5 +315,9 @@ public class SwerveDrivetrain extends SubsystemBase {
 
     public CommandBase resetPoseBase() {
         return runOnce(() -> resetPose(new Pose2d()));
+    }
+
+    public CommandBase createPPSwerveController(PathPlannerTrajectory traj) {
+        return new ProxyCommand(() -> followPPTrajectory(traj));
     }
 }
