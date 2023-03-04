@@ -5,6 +5,7 @@ import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -25,7 +26,7 @@ public class ArmAngleSubsystem extends SubsystemBase {
     private final CANSparkMax m_armAngleFollower;
     private final DutyCycleEncoder m_encoderArmAngle;
     // Misc.
-    private final PIDController m_anglePID;
+    private final ProfiledPIDController m_anglePID;
     private ArmAngleIOInputsAutoLogged m_inputs;
     // Logging variables
     private double prevSetpointRaw;
@@ -69,7 +70,7 @@ public class ArmAngleSubsystem extends SubsystemBase {
         m_encoderArmAngle.setDistancePerRotation(360);
         m_encoderArmAngle.setPositionOffset(0);
 
-        m_anglePID = new PIDController(ArmConstants.KP_ANGLE, ArmConstants.KI_ANGLE, 0.0);
+        m_anglePID = new ProfiledPIDController(ArmConstants.KP_ANGLE, ArmConstants.KI_ANGLE, 0.0, ArmConstants.ARM_CONSTRAINTS);
         m_anglePID.setTolerance(3);
 
         m_inputs = new ArmAngleIOInputsAutoLogged();

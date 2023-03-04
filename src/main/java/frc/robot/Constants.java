@@ -139,6 +139,9 @@ public final class Constants {
         public static final double KP_ANGLE = 0.23;
         public static final double KI_ANGLE = 0.005;
         public static final double KD_ANGLE = 0.0075;
+        public static final double KV_ANGLE = 0.1;
+
+        public static final Constraints ARM_CONSTRAINTS = new Constraints(10.0, 10.0);
 
         public static final GosDoubleProperty ARM_EXT_KP = new GosDoubleProperty(false, "Arm extension kP", 0.1);
         public static final GosDoubleProperty ARM_EXT_KI = new GosDoubleProperty(false, "Arm extension kI", 0);
