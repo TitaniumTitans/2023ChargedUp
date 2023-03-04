@@ -8,11 +8,15 @@ import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import frc.robot.Constants;
 import org.photonvision.EstimatedRobotPose;
 import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonPoseEstimator;
+import org.photonvision.targeting.PhotonPipelineResult;
+import org.photonvision.targeting.PhotonTrackedTarget;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Optional;
 
 
@@ -49,14 +53,24 @@ public class CameraSubsystem implements Subsystem {
     public Optional<EstimatedRobotPose> getPose(Pose2d prevEstimatedRobotPose) {
         m_photonPoseEstimator.setReferencePose(prevEstimatedRobotPose);
 
-        Optional<EstimatedRobotPose> estimate = m_photonPoseEstimator.update();
-        if (estimate.isPresent()) {
-            EstimatedRobotPose pose = estimate.get();
-            SmartDashboard.putNumber("Vision only X pose", pose.estimatedPose.getX());
-            SmartDashboard.putNumber("vision only Y pose", pose.estimatedPose.getY());
+        PhotonPipelineResult camResult = m_camera.getLatestResult();
+        ArrayList<PhotonTrackedTarget> goodTargets = new ArrayList<>();
+
+        if(!camResult.hasTargets()) {
+            return Optional.empty();
+        } else {
+            for (PhotonTrackedTarget target: camResult.getTargets()) {
+                if (target.getPoseAmbiguity() < Constants.DriveConstants.CAM_AMBIGUITY_THRESHOLD.getValue()) {
+                    goodTargets.add(target);
+                }
+            }
         }
 
-        return estimate;
+        PhotonPipelineResult filteredCamResult =
+                new PhotonPipelineResult(camResult.getLatencyMillis(), goodTargets);
+        filteredCamResult.setTimestampSeconds(camResult.getTimestampSeconds());
+
+        return m_photonPoseEstimator.update(filteredCamResult);
     }
 
 

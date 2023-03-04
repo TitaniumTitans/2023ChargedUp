@@ -79,11 +79,14 @@ public final class Constants {
 
         // Camera constants
         public static final Transform3d FRONT_CAM_POSE = new Transform3d
-                (new Translation3d(Units.inchesToMeters(13.0), Units.inchesToMeters(5.0), Units.inchesToMeters(25.0)), new Rotation3d(1.0, 5.0, 0.0));
+                (new Translation3d(Units.inchesToMeters(13.0), Units.inchesToMeters(5.0), Units.inchesToMeters(25.0)), new Rotation3d(0.0, Units.degreesToRadians(5.0), Units.degreesToRadians(180.0)));
         public static final Transform3d LEFT_CAM_POSE = new Transform3d
-                (new Translation3d(Units.inchesToMeters(4.0), Units.inchesToMeters(6.0), Units.inchesToMeters(25.0)), new Rotation3d(90.0, 0.0, 90.0));
+                (new Translation3d(Units.inchesToMeters(4.0), Units.inchesToMeters(6.0), Units.inchesToMeters(25.0)), new Rotation3d(Units.degreesToRadians(90.0), 0.0, Units.degreesToRadians(90.0)));
         public static final String FRONT_CAM_NAME = "FrontPiCam";
         public static final String LEFT_CAM_NAME = "LeftWebCam";
+
+        public static final GosDoubleProperty CAM_AMBIGUITY_THRESHOLD
+                = new GosDoubleProperty(false, "Camera ambiguity", 0.3);
     }
 
     public static class WristConstants {
