@@ -30,6 +30,8 @@ public class CameraSubsystem implements Subsystem {
 
     private AprilTagFieldLayout m_aprilTagFieldLayout;
 
+    private int m_prevTag = 1;
+
     /**
      * Creates a new CameraSubsystem
      * @param camName Name of the camera in the system
@@ -140,7 +142,15 @@ public class CameraSubsystem implements Subsystem {
 
 
     public Pose2d getTagPose() {
-        Optional<Pose3d> pose = m_aprilTagFieldLayout.getTagPose(m_camera.getLatestResult().getBestTarget().getFiducialId());
+        PhotonPipelineResult results = m_camera.getLatestResult();
+        Optional<Pose3d> pose;
+
+        if (results.hasTargets()) {
+            pose = m_aprilTagFieldLayout.getTagPose(results.getBestTarget().getFiducialId());
+            m_prevTag = results.getBestTarget().getFiducialId();
+        } else {
+            pose = m_aprilTagFieldLayout.getTagPose(m_prevTag);
+        }
 
         if(pose.isPresent()) {
             return pose.get().toPose2d();

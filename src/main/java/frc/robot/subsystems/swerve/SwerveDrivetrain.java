@@ -41,7 +41,7 @@ public class SwerveDrivetrain extends SubsystemBase {
     private final Field2d m_field;
     private final SwerveDrivePoseEstimator m_poseEstimator;
     private final CameraSubsystem m_frontCamSubsystem;
-    private final CameraSubsystem m_leftCamSubsystem;
+//    private final CameraSubsystem m_leftCamSubsystem;
 
     private double m_currentRoll = 0;
     private double m_previousRoll = 0;
@@ -91,7 +91,7 @@ public class SwerveDrivetrain extends SubsystemBase {
         );
 
         m_frontCamSubsystem = new CameraSubsystem(DriveConstants.FRONT_CAM_NAME, DriveConstants.FRONT_CAM_POSE);
-        m_leftCamSubsystem = new CameraSubsystem(DriveConstants.LEFT_CAM_NAME, DriveConstants.LEFT_CAM_POSE);
+//        m_leftCamSubsystem = new CameraSubsystem(DriveConstants.LEFT_CAM_NAME, DriveConstants.LEFT_CAM_POSE);
 
         SmartDashboard.putData("Field", m_field);
     }
@@ -226,11 +226,11 @@ public class SwerveDrivetrain extends SubsystemBase {
          */
         Optional<EstimatedRobotPose> frontCamEstimatePose =
                 m_frontCamSubsystem.getPose(getPose());
-        Optional<EstimatedRobotPose> leftCamEstimatePose =
-                m_leftCamSubsystem.getPose(getPose());
+//        Optional<EstimatedRobotPose> leftCamEstimatePose =
+//                m_leftCamSubsystem.getPose(getPose());
 
         SmartDashboard.putBoolean("FC pose present", frontCamEstimatePose.isPresent());
-        SmartDashboard.putBoolean("LC pose present", leftCamEstimatePose.isPresent());
+//        SmartDashboard.putBoolean("LC pose present", leftCamEstimatePose.isPresent());
 
         /**
          * Add each vision measurement to the pose estimator if it exists for each camera
@@ -243,14 +243,14 @@ public class SwerveDrivetrain extends SubsystemBase {
 
             m_poseEstimator.addVisionMeasurement(frontCamPose.estimatedPose.toPose2d(), frontCamPose.timestampSeconds);
         }
-        if(leftCamEstimatePose.isPresent()) {
-            EstimatedRobotPose leftCamPose = leftCamEstimatePose.get();
-
-            SmartDashboard.putNumber("LC pose X", leftCamPose.estimatedPose.getX());
-            SmartDashboard.putNumber("LC pose Y", leftCamPose.estimatedPose.getY());
-
-            m_poseEstimator.addVisionMeasurement(leftCamPose.estimatedPose.toPose2d(), leftCamPose.timestampSeconds);
-        }
+//        if(leftCamEstimatePose.isPresent()) {
+//            EstimatedRobotPose leftCamPose = leftCamEstimatePose.get();
+//
+//            SmartDashboard.putNumber("LC pose X", leftCamPose.estimatedPose.getX());
+//            SmartDashboard.putNumber("LC pose Y", leftCamPose.estimatedPose.getY());
+//
+//            m_poseEstimator.addVisionMeasurement(leftCamPose.estimatedPose.toPose2d(), leftCamPose.timestampSeconds);
+//        }
     }
 
     public Pose2d getFrontCamTagPose() {

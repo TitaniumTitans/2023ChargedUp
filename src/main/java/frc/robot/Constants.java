@@ -119,8 +119,8 @@ public final class Constants {
 
     public static class AutoConstants {
         //Trajectory following values
-        public static final double MAX_VELOCITY_PERCENT_OUTPUT = 0.25;
-        public static final double MAX_ACCELERATION_PERCENT_OUTPUT = 0.1;
+        public static final double MAX_VELOCITY_PERCENT_OUTPUT = 1.0;
+        public static final double MAX_ACCELERATION_PERCENT_OUTPUT = 0.5;
 
         public static final PIDController THETA_CONTROLLER =
             new PIDController(1.0, 0.0, 0.0);
