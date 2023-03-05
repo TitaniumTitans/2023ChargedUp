@@ -47,19 +47,17 @@ public class AutoBalance extends CommandBase {
   @Override
   public void execute() {
     // Gets how far the robot is tilted and calculates proper drive power from it
-    m_currentAngle = m_drive.getGyroRoll().getDegrees();
+    m_currentAngle = m_drive.getGyroPitch().getDegrees();
     m_error = AutoConstants.DESIRED_BALANCE_ANGLE - m_currentAngle;
 
     m_drivePower = Math.min(m_balanceController.calculate(m_currentAngle), 1);
     // Limit max power
-    m_drivePower = MathUtil.clamp(m_drivePower, -2, 2);
+    m_drivePower = MathUtil.clamp(m_drivePower, -0.6, 0.6);
 
-    double rollRateBalance = m_drive.getGyroRollRate();
-    if (Math.abs(rollRateBalance) >= 0.5) {
-      m_drivePower = 0;
+    double rollRateBalance = m_drive.getGyroRollPitch();
+    if (Math.abs(rollRateBalance) >= 0.3) {
+      m_drivePower = Math.copySign(0.0, -m_drive.getGyroPitch().getDegrees());
       SmartDashboard.putNumber("Stop Balancing", 1);
-    } else {
-      m_drivePower = Math.copySign(0.05, m_drive.getGyroRoll().getDegrees());
     }
 
     // Counter for checking if robot is truly balanced
@@ -76,13 +74,13 @@ public class AutoBalance extends CommandBase {
       m_timer.reset();
     }
 
-    m_drive.drive(-m_drivePower, 0.0, 0.0);
+    m_drive.drive(m_drivePower, 0.0, 0.0);
 
     // Logging values for debugging
     SmartDashboard.putNumber("Gyro Angle", m_currentAngle);
     SmartDashboard.putNumber("Drive Power", m_drivePower);
     SmartDashboard.putNumber("Roll Rate Balance", rollRateBalance);
-    SmartDashboard.putNumber("Roll Rate Balance Raw", m_drive.getGyroRollRate());
+    SmartDashboard.putNumber("Roll Rate Balance Raw", m_drive.getGyroRollPitch());
   }
 
   // Called once the command ends or is interrupted.

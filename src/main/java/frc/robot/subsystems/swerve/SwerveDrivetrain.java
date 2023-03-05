@@ -138,7 +138,7 @@ public class SwerveDrivetrain extends SubsystemBase {
         m_field.setRobotPose(m_poseEstimator.getEstimatedPosition());
 
         m_previousRoll = m_currentRoll;
-        m_currentRoll = getGyroRoll().getDegrees();
+        m_currentRoll = getGyroPitch().getDegrees();
     }
 
     // Getters
@@ -200,11 +200,11 @@ public class SwerveDrivetrain extends SubsystemBase {
         m_gyro.setYaw(0);
     }
 
-    public Rotation2d getGyroRoll() {
-        return Rotation2d.fromDegrees(m_gyro.getRoll());
+    public Rotation2d getGyroPitch() {
+        return Rotation2d.fromDegrees(m_gyro.getPitch());
     }
 
-    public double getGyroRollRate() {
+    public double getGyroRollPitch() {
         return m_currentRoll - m_previousRoll;
     }
 

@@ -72,4 +72,8 @@ public class ArmSupersystem {
         angleSetpoint = MathUtil.clamp(angleSetpoint, armLimits.armAngleRange.getLeft(), armLimits.armAngleRange.getRight());
         angleArmSubsystem.setArmAngle(angleSetpoint);
     }
+
+    public boolean atSetpoint() {
+        return wristSubsystem.wristAtSetpoint() && extArmSubsystem.armExtensionAtSetpoint() && angleArmSubsystem.armAngleAtSetpoint();
+    }
 }

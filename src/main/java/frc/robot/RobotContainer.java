@@ -14,6 +14,7 @@ import frc.robot.commands.IntakeControlCommand;
 import frc.robot.commands.SupersystemToPoseCommand;
 import frc.robot.commands.ToggleArmBrakeModeCommand;
 import frc.robot.commands.*;
+import frc.robot.commands.autonomous.ScoreMiddleAndMobilityCommandGroup;
 import frc.robot.subsystems.arm.ArmExtSubsystem;
 import frc.robot.supersystems.ArmPose;
 import frc.robot.supersystems.ArmSupersystem;
@@ -151,6 +152,7 @@ public class RobotContainer {
     m_autoChooser.addDefaultOption("Default Trajectory", AutoUtils.getDefaultTrajectory(m_drive));
     m_autoChooser.addOption("Event Map Trajectory", AutoUtils.getPathWithEvents(m_drive));
     m_autoChooser.addOption("Test for auto", m_drive.getAutoBuilder(new HashMap<>()).fullAuto(PathPlanner.loadPath("Test For Allience", AutoUtils.getDefaultConstraints())));
+    m_autoChooser.addOption("Score Middle Mobility", new ScoreMiddleAndMobilityCommandGroup(m_drive, m_super, m_wrist));
   }
 
   /**

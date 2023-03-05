@@ -133,7 +133,7 @@ public final class Constants {
                 new PIDConstants(1.0, 0.0, 0.0);
         
         //Auto balance constants
-        public static final double BALANCE_P = -0.02;
+        public static final double BALANCE_P = -0.2;
         public static final double DESIRED_BALANCE_ANGLE = 1;
         public static double Balance_D = 0.1;
 
@@ -187,7 +187,7 @@ public final class Constants {
         public static final double EXTENSION_RATIO = (1.0 / 25.0) * (SPROCKET_DIAMETER * Math.PI);
 
 
-        public static final double EXT_PID_TOLERANCE = 0.5;
+        public static final double EXT_PID_TOLERANCE = 1;
 
         // Used for dynamic limit calculations, unit is inches
         public static final double PIVOT_HIGHT = 5;
