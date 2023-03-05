@@ -7,19 +7,12 @@ package frc.robot;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.auto.PIDConstants;
 import com.pathplanner.lib.auto.SwerveAutoBuilder;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import frc.robot.commands.IntakeControlCommand;
 import frc.robot.commands.SupersystemToPoseCommand;
 import frc.robot.commands.ToggleArmBrakeModeCommand;
-import frc.robot.commands.autonomous.TimerForwardAutoCommand;
-import frc.robot.commands.autonomous.test.TestAutoWithArm;
-import frc.robot.commands.test.TestModuleCommand;
-import frc.robot.commands.test.TestSwerveCommand;
-import frc.robot.commands.test.TestSwerveRotationCommand;
 import frc.robot.commands.*;
 import frc.robot.subsystems.arm.ArmExtSubsystem;
 import frc.robot.supersystems.ArmPose;
@@ -83,17 +76,17 @@ public class RobotContainer {
       // Default case, should be set to a replay mode
       default:
     }
-      defaultAutoBuilder = new SwerveAutoBuilder(
-              m_drive::getPose,
-              m_drive::resetPose,
-              Constants.DriveConstants.DRIVE_KINEMATICS,
-              new PIDConstants(1.5, 0, 0),
-              new PIDConstants(1, 0, 0),
-              m_drive::setModuleStates,
-              new HashMap<>(),
-              true,
-              m_drive
-      );
+//      defaultAutoBuilder = new SwerveAutoBuilder(
+//              m_drive::getPose,
+//              m_drive::resetPose,
+//              Constants.DriveConstants.DRIVE_KINEMATICS,
+//              new PIDConstants(1.5, 0, 0),
+//              new PIDConstants(1, 0, 0),
+//              m_drive::drive,
+//              new HashMap<>(),
+//              true,
+//              m_drive
+//      );
 
     LiveWindow.disableAllTelemetry();
 
@@ -133,10 +126,10 @@ public class RobotContainer {
             new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.HUMAN_PLAYER_STATION)
             .alongWith(new IntakeControlCommand(m_wrist, 1.0)));
 
-    m_driveController.povLeft().whileTrue(new AutoAlignCommand(m_drive, AutoAlignCommand.AlignmentOptions.LEFT_ALIGN));
-    m_driveController.povUp().whileTrue(new AutoAlignCommand(m_drive, AutoAlignCommand.AlignmentOptions.CENTER_ALIGN));
-    m_driveController.povRight().whileTrue(new AutoAlignCommand(m_drive, AutoAlignCommand.AlignmentOptions.RIGHT_ALIGN));
-    m_driveController.povDown().whileTrue(new AutoAlignCommand(m_drive, AutoAlignCommand.AlignmentOptions.HUMAN_PLAYER_ALIGN));
+    m_driveController.povLeft().whileTrue(m_drive.createPPSwerveController(SwerveDrivetrain.AlignmentOptions.LEFT_ALIGN));
+    m_driveController.povUp().whileTrue(m_drive.createPPSwerveController(SwerveDrivetrain.AlignmentOptions.CENTER_ALIGN));
+    m_driveController.povRight().whileTrue(m_drive.createPPSwerveController(SwerveDrivetrain.AlignmentOptions.RIGHT_ALIGN));
+    m_driveController.povDown().whileTrue(m_drive.createPPSwerveController(SwerveDrivetrain.AlignmentOptions.HUMAN_PLAYER_ALIGN));
 
     m_driveController.leftBumper().whileTrue(new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.HIGH_GOAL));
     m_driveController.rightBumper().whileTrue(new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.MIDDLE_GOAL_NON_STOW));
@@ -155,8 +148,9 @@ public class RobotContainer {
    * Use this method to add autonomous routines to a sendable chooser
    */
   public void configAutoChooser() {
-    m_autoChooser.addDefaultOption("Default Trajectory", defaultAutoBuilder.fullAuto(PathPlanner.loadPath("DefaultPath", AutoUtils.getDefaultConstraints())));
+    m_autoChooser.addDefaultOption("Default Trajectory", AutoUtils.getDefaultTrajectory(m_drive));
     m_autoChooser.addOption("Event Map Trajectory", AutoUtils.getPathWithEvents(m_drive));
+    m_autoChooser.addOption("Test for auto", m_drive.getAutoBuilder(new HashMap<>()).fullAuto(PathPlanner.loadPath("Test For Allience", AutoUtils.getDefaultConstraints())));
   }
 
   /**
@@ -167,6 +161,7 @@ public class RobotContainer {
     ShuffleboardTab testTrajectories = Shuffleboard.getTab("Trajectories");
 
     testCommands.add("Toggle Angle Brake Mode", new ToggleArmBrakeModeCommand(m_arm)).withSize(2, 1);
+    testCommands.add("Toggle Wrist Brake Mode", new InstantCommand(() -> m_wrist.toggleBrakeMode()));
     // Multiple stow positions for edge case testing
     testCommands.add("Test Stow Zone", new SupersystemToPoseCommand(m_super, new ArmPose(1, 30, 10))).withSize(2, 1);
     testCommands.add("Go To Stow", new SupersystemToPoseCommand(m_super, new ArmPose(0.0, 45, 0.0))).withSize(2, 1);
@@ -183,9 +178,9 @@ public class RobotContainer {
     testCommands.add("Vert Stow", new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.VERT_STOW_POSE));
 
     // Swerve Test Commands
-    testCommands.add("Auto Align Center", new AutoAlignCommand(m_drive, AutoAlignCommand.AlignmentOptions.CENTER_ALIGN));
-    testCommands.add("Auto Align Left", new AutoAlignCommand(m_drive, AutoAlignCommand.AlignmentOptions.LEFT_ALIGN));
-    testCommands.add("Auto Align Right", new AutoAlignCommand(m_drive, AutoAlignCommand.AlignmentOptions.RIGHT_ALIGN));
+//    testCommands.add("Auto Align Center", new AutoAlignCommand(m_drive, AutoAlignCommand.AlignmentOptions.CENTER_ALIGN));
+//    testCommands.add("Auto Align Left", new AutoAlignCommand(m_drive, AutoAlignCommand.AlignmentOptions.LEFT_ALIGN));
+//    testCommands.add("Auto Align Right", new AutoAlignCommand(m_drive, AutoAlignCommand.AlignmentOptions.RIGHT_ALIGN));
 //    testCommands.add("Swerve Forward", new TestSwerveCommand(m_drive, 0));
 //    testCommands.add("Swerve Right", new TestSwerveCommand(m_drive, 90));
 //    testCommands.add("Swerve Backwards", new TestSwerveCommand(m_drive, 180));

@@ -47,7 +47,7 @@ public class SwerveTeleopDrive extends CommandBase {
     x = x * Constants.ModuleConstants.MAX_SPEED_MPS;
     y = y * Constants.ModuleConstants.MAX_SPEED_MPS;
     z = z * Constants.ModuleConstants.MAX_SPEED_MPS;
-    m_drive.setModuleStates(x, y, z);
+    m_drive.drive(x, y, z);
   }
 
   // Called once the command ends or is interrupted.

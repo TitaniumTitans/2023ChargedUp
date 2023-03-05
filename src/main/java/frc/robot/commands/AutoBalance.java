@@ -76,7 +76,7 @@ public class AutoBalance extends CommandBase {
       m_timer.reset();
     }
 
-    m_drive.setModuleStates(-m_drivePower, 0.0, 0.0);
+    m_drive.drive(-m_drivePower, 0.0, 0.0);
 
     // Logging values for debugging
     SmartDashboard.putNumber("Gyro Angle", m_currentAngle);
@@ -89,8 +89,8 @@ public class AutoBalance extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     // Set the module azimuths to 45 degrees so robot doesn't slip off the charge station
-    m_drive.setModuleStates(0.0, 0.0, 0.1);
-    m_drive.setModuleStates(0.0, 0.0, 0.0);
+    m_drive.drive(0.0, 0.0, 0.1);
+    m_drive.drive(0.0, 0.0, 0.0);
   }
 
   // Returns true when the command should end.

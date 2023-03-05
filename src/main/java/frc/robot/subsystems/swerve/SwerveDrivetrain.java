@@ -1,19 +1,20 @@
 package frc.robot.subsystems.swerve;
 
 import com.ctre.phoenix.sensors.WPI_Pigeon2;
+import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
+import com.pathplanner.lib.PathPoint;
+import com.pathplanner.lib.auto.SwerveAutoBuilder;
 import com.pathplanner.lib.commands.PPSwerveControllerCommand;
 import edu.wpi.first.math.MatBuilder;
-import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.Nat;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.math.numbers.N1;
-import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -22,12 +23,15 @@ import edu.wpi.first.wpilibj2.command.ProxyCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.AutoConstants;
+import frc.robot.commands.autonomous.AutoUtils;
 import frc.robot.subsystems.swerve.module.SwerveModNeo;
 import frc.robot.subsystems.vision.CameraSubsystem;
 import org.littletonrobotics.junction.AutoLog;
 import org.littletonrobotics.junction.Logger;
 import org.photonvision.EstimatedRobotPose;
 
+import java.util.HashMap;
 import java.util.Optional;
 
 public class SwerveDrivetrain extends SubsystemBase {
@@ -47,8 +51,16 @@ public class SwerveDrivetrain extends SubsystemBase {
     private final CameraSubsystem m_frontCamSubsystem;
 //    private final CameraSubsystem m_leftCamSubsystem;
 
+
     private double m_currentRoll = 0;
     private double m_previousRoll = 0;
+
+    public enum AlignmentOptions {
+        LEFT_ALIGN,
+        CENTER_ALIGN,
+        RIGHT_ALIGN,
+        HUMAN_PLAYER_ALIGN
+    }
 
 
     @AutoLog
@@ -98,6 +110,7 @@ public class SwerveDrivetrain extends SubsystemBase {
 //        m_leftCamSubsystem = new CameraSubsystem(DriveConstants.LEFT_CAM_NAME, DriveConstants.LEFT_CAM_POSE);
 
         SmartDashboard.putData("Field", m_field);
+
     }
 
     @Override
@@ -158,7 +171,7 @@ public class SwerveDrivetrain extends SubsystemBase {
 
 
     // Setters
-    public void setModuleStates(double xTranslation, double yTranslation, double zRotation) {
+    public void drive(double xTranslation, double yTranslation, double zRotation) {
         SwerveModuleState[] states = DriveConstants.DRIVE_KINEMATICS.toSwerveModuleStates(
             fieldOriented ? ChassisSpeeds.fromFieldRelativeSpeeds(
                 xTranslation,
@@ -292,7 +305,39 @@ public class SwerveDrivetrain extends SubsystemBase {
     }
 
     @SuppressWarnings("PMD.AvoidReassigningParameters")
-    public Command followPPTrajectory(PathPlannerTrajectory traj) {
+    public Command followPPTrajectory(AlignmentOptions align) {
+        // Figure out what pose the robot should be
+        Pose2d tagPose = getFrontCamTagPose();
+
+        Translation2d translatedEnd;
+        Translation2d translatedMiddle;
+        PathPlannerTrajectory traj;
+
+        switch(align){
+            case HUMAN_PLAYER_ALIGN:
+            case LEFT_ALIGN:
+                translatedEnd = tagPose.transformBy(AutoConstants.LEFT_TRANSLATION).getTranslation();
+                break;
+            case RIGHT_ALIGN:
+                translatedEnd = tagPose.transformBy(AutoConstants.RIGHT_TRANSLATION).getTranslation();
+                break;
+            default:
+                translatedEnd = tagPose.transformBy(AutoConstants.CENTER_TRANSLATION).getTranslation();
+        }
+
+        translatedMiddle = tagPose.getRotation().getDegrees() == 180 ?
+                translatedEnd.minus(new Translation2d(0.25, 0)) :
+                translatedEnd.plus(new Translation2d(0.25, 0));
+
+
+        //generate a path based on the tag you see, flipped 180 from tag pose
+        traj = PathPlanner.generatePath(
+                AutoUtils.getDefaultConstraints(),
+                new PathPoint(getPose().getTranslation(), new Rotation2d(), getPose().getRotation()),
+                new PathPoint(translatedMiddle, new Rotation2d(), tagPose.getRotation().rotateBy(Rotation2d.fromDegrees(180))),
+                new PathPoint(translatedEnd, new Rotation2d(), tagPose.getRotation().rotateBy(Rotation2d.fromDegrees(180)))
+        );
+
         return new PPSwerveControllerCommand(
                 traj,
                 this::getPose,
@@ -301,6 +346,20 @@ public class SwerveDrivetrain extends SubsystemBase {
                 Constants.AutoConstants.CONTROLLER_Y,
                 Constants.AutoConstants.THETA_CONTROLLER,
                 this::setModuleStates,
+                this
+        );
+    }
+
+    public SwerveAutoBuilder getAutoBuilder(HashMap<String, Command> eventMap) {
+        return new SwerveAutoBuilder(
+                this::getPose,
+                this::resetPose,
+                DriveConstants.DRIVE_KINEMATICS,
+                AutoConstants.CONSTANTS_X,
+                AutoConstants.THETA_CONSTANTS,
+                this::setModuleStates,
+                eventMap,
+                true,
                 this
         );
     }
@@ -317,7 +376,7 @@ public class SwerveDrivetrain extends SubsystemBase {
         return runOnce(() -> resetPose(new Pose2d()));
     }
 
-    public CommandBase createPPSwerveController(PathPlannerTrajectory traj) {
-        return new ProxyCommand(() -> followPPTrajectory(traj));
+    public CommandBase createPPSwerveController(AlignmentOptions align) {
+        return new ProxyCommand(() -> followPPTrajectory(align));
     }
 }

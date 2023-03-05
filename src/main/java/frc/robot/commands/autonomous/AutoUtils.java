@@ -2,21 +2,17 @@ package frc.robot.commands.autonomous;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.BooleanSupplier;
 
 import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
-import com.pathplanner.lib.auto.SwerveAutoBuilder;
 import com.pathplanner.lib.commands.FollowPathWithEvents;
 import com.pathplanner.lib.commands.PPSwerveControllerCommand;
 
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
-import frc.robot.Robot;
 import frc.robot.subsystems.swerve.SwerveDrivetrain;
 
 
@@ -68,14 +64,9 @@ public class AutoUtils {
         return new SequentialCommandGroup(
             new ConditionalCommand(new InstantCommand(() ->
                     swerve.resetPose(
-                    PathPlannerTrajectory.transformTrajectoryForAlliance(traj, DriverStation.getAlliance()).getInitialPose())),
+                    PathPlannerTrajectory.transformTrajectoryForAlliance(traj, DriverStation.getAlliance()).getInitialHolonomicPose())),
                     new InstantCommand(),
-                    new BooleanSupplier() {
-                        @Override
-                        public boolean getAsBoolean() {
-                            return firstTrajectory;
-                        }
-                    }
+                    () -> firstTrajectory
             ),
 
 

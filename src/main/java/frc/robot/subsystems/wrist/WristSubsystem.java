@@ -222,6 +222,14 @@ public class WristSubsystem extends SubsystemBase {
         return (getWristAngle() <= Constants.LimitConstants.WRIST_SCORE_LOWER.getValue());
     }
 
+    public void toggleBrakeMode() {
+        if (m_wristMotor.getIdleMode() == CANSparkMax.IdleMode.kBrake) {
+            m_wristMotor.setIdleMode(CANSparkMax.IdleMode.kCoast);
+        } else {
+            m_wristMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
+        }
+    }
+
 
     public double getIntakeAmps() {
         return m_intakeMotor.getOutputCurrent();
