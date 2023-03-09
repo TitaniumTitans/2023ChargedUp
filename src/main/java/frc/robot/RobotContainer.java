@@ -20,6 +20,7 @@ import frc.robot.commands.test.TestSwerveCommand;
 import frc.robot.commands.test.TestSwerveRotationCommand;
 import frc.robot.commands.*;
 import frc.robot.subsystems.arm.ArmExtSubsystem;
+import frc.robot.subsystems.candle.CANdleSubsystem;
 import frc.robot.supersystems.ArmPose;
 import frc.robot.supersystems.ArmSupersystem;
 import lib.controllers.FootPedal;
@@ -51,6 +52,7 @@ public class RobotContainer {
   private ArmAngleSubsystem m_arm;
   private ArmExtSubsystem m_ext;
   private ArmSupersystem m_super;
+  private CANdleSubsystem m_CANdle;
   private FootPedal m_foot;
 
   //Controllers
@@ -73,6 +75,7 @@ public class RobotContainer {
         m_ext = new ArmExtSubsystem();
         m_super = new ArmSupersystem(m_arm, m_ext, m_wrist);
         m_foot = new FootPedal(1);
+        m_CANdle = new CANdleSubsystem();
         break;
 
       case SIM:
@@ -191,6 +194,18 @@ public class RobotContainer {
     testCommands.add("Reset Pose", new InstantCommand(() -> m_drive.resetPoseBase())).withSize(2, 1);
 
 //    testTrajectories.add("Move With Arm", TestAutoWithArm.getAuto(m_drive, m_super));
+
+    // CANdle test commands
+    testCommands.add("Fire animation", m_CANdle.setAnimationFactory(CANdleSubsystem.AnimationType.Fire));
+    testCommands.add("Color flow animation", m_CANdle.setAnimationFactory(CANdleSubsystem.AnimationType.ColorFlow));
+    testCommands.add("Rainbow animation", m_CANdle.setAnimationFactory(CANdleSubsystem.AnimationType.Rainbow));
+    testCommands.add("Twinkle animation", m_CANdle.setAnimationFactory(CANdleSubsystem.AnimationType.Twinkle));
+    testCommands.add("Strobe animation", m_CANdle.setAnimationFactory(CANdleSubsystem.AnimationType.Strobe));
+    testCommands.add("Set all animation", m_CANdle.setAnimationFactory(CANdleSubsystem.AnimationType.SetAll));
+
+    testCommands.add("Increment animation", m_CANdle.incrementAnimationFactory());
+    testCommands.add("Decrement animation", m_CANdle.decrementAnimationFactory());
+
   }
 
   /**

@@ -4,15 +4,14 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.led.*;
 import com.gos.lib.properties.GosDoubleProperty;
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
-import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 import edu.wpi.first.math.util.Units;
 import frc.robot.supersystems.ArmPose;
 
@@ -83,6 +82,21 @@ public final class Constants {
                 (new Translation3d(Units.inchesToMeters(4.0), Units.inchesToMeters(6.0), Units.inchesToMeters(25.0)), new Rotation3d(90.0, 0.0, 90.0));
         public static final String FRONT_CAM_NAME = "FrontPiCam";
         public static final String LEFT_CAM_NAME = "LeftWebCam";
+    }
+
+    public static class CANdleConstants {
+        public static final int CANDLE_ID = 22;
+        public static final int LED_COUNT = 0;
+        public static Animation COLOR_FLOW_ANIM = new ColorFlowAnimation(100, 100, 100, 100,
+                10.0, LED_COUNT, ColorFlowAnimation.Direction.Forward);
+        public static Animation FIRE_ANIM = new FireAnimation(100, 100, LED_COUNT, 100,
+                1.0);
+        public static Animation RAINBOW_ANIM = new RainbowAnimation(100, 100, 100);
+        public static Animation TWINKLE_ANIM = new TwinkleAnimation(100, 100, 100, 100,
+                10.0, LED_COUNT, TwinkleAnimation.TwinklePercent.Percent42);
+        public static Animation STROBE = new StrobeAnimation(100, 100, 100, 100,
+                10.0, LED_COUNT);
+        public static Animation SET_ALL_ANIM = null;
     }
 
     public static class WristConstants {
