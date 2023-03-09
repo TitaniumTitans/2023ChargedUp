@@ -5,14 +5,15 @@
 package frc.robot;
 
 import com.gos.lib.properties.GosDoubleProperty;
+import com.pathplanner.lib.auto.PIDConstants;
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.geometry.Translation3d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
-import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 import edu.wpi.first.math.util.Units;
 import frc.robot.supersystems.ArmPose;
 
@@ -46,6 +47,8 @@ public final class Constants {
         public static final double MODULE_KV = 1.75;
         public static final double MODULE_KA = 0.0;
         public static final double MODULE_DRIVE_KP = 0.5;
+
+        public static final double MAX_SPEED_MPS = 3.048;
     }
 
     public static final class DriveConstants {
@@ -77,12 +80,19 @@ public final class Constants {
         new Translation2d(-WHEEL_BASE / 2, -TRACK_WIDTH / 2));
 
         // Camera constants
-        public static final Transform3d FRONT_CAM_POSE = new Transform3d
-                (new Translation3d(Units.inchesToMeters(13.0), Units.inchesToMeters(4.0), Units.inchesToMeters(25.0)), new Rotation3d(0.0, 5.0, 0.0));
-        public static final Transform3d LEFT_CAM_POSE = new Transform3d
-                (new Translation3d(Units.inchesToMeters(4.0), Units.inchesToMeters(6.0), Units.inchesToMeters(25.0)), new Rotation3d(90.0, 0.0, 90.0));
+        public static final Transform3d FRONT_CAM_POSE = new Transform3d(
+                new Translation3d(Units.inchesToMeters(15.0), Units.inchesToMeters(3.25), Units.inchesToMeters(9.25)),
+                new Rotation3d(0.0, Units.degreesToRadians(2.5), Units.degreesToRadians(-1.0)));
+        public static final Transform3d LEFT_CAM_POSE = new Transform3d(
+                new Translation3d(Units.inchesToMeters(4.0), Units.inchesToMeters(6.0), Units.inchesToMeters(25.0)),
+                new Rotation3d(Units.degreesToRadians(90.0), 0.0, Units.degreesToRadians(90.0)));
         public static final String FRONT_CAM_NAME = "FrontPiCam";
         public static final String LEFT_CAM_NAME = "LeftWebCam";
+
+        public static final GosDoubleProperty CAM_AMBIGUITY_THRESHOLD
+                = new GosDoubleProperty(false, "Camera ambiguity threshold", 0.3);
+        public static final GosDoubleProperty CAM_DISTANCE_THRESHOLD
+                = new GosDoubleProperty(false, "Camera distance threshold", 7);
     }
 
     public static class WristConstants {
@@ -111,21 +121,42 @@ public final class Constants {
 
     public static class AutoConstants {
         //Trajectory following values
-        public static final double MAX_VELOCITY_PERCENT_OUTPUT = 0.25;
-        public static final double MAX_ACCELERATION_PERCENT_OUTPUT = 0.25;
+        public static final double MAX_VELOCITY_PERCENT_OUTPUT = 2.0;
+        public static final double MAX_ACCELERATION_PERCENT_OUTPUT = 1.0;
 
         public static final PIDController THETA_CONTROLLER =
-            new PIDController(0.0, 0.0, 0.0);
-        
+                new PIDController(1.0, 0.0, 0.0);
+
         public static final PIDController CONTROLLER_X =
-            new PIDController(0.5, 0, 0);
+            new PIDController(2.5, 0, 0);
         public static final PIDController CONTROLLER_Y =
-            new PIDController(0.5, 0, 0);
+            new PIDController(2.5, 0, 0);
+
+        public static final PIDConstants CONSTANTS_X =
+                new PIDConstants(2.5, 0, 0);
+
+        public static final PIDConstants THETA_CONSTANTS =
+                new PIDConstants(1.0, 0.0, 0.0);
         
         //Auto balance constants
-        public static final double BALANCE_P = -0.02;
+        public static final double BALANCE_P = -0.2;
         public static final double DESIRED_BALANCE_ANGLE = 1;
         public static double Balance_D = 0.1;
+
+        public static final Transform2d CENTER_TRANSLATION = new Transform2d(
+                new Translation2d(0.6, 0.0),
+                new Rotation2d(0.0)
+        );
+
+        public static final Transform2d LEFT_TRANSLATION = new Transform2d(
+                new Translation2d(0.6, 0.6),
+                new Rotation2d()
+        );
+
+        public static final Transform2d RIGHT_TRANSLATION = new Transform2d(
+                new Translation2d(0.6, -0.6),
+                new Rotation2d()
+        );
     }
 
     public static final Mode CURRENT_MODE = Mode.HELIOS;
@@ -144,7 +175,7 @@ public final class Constants {
         public static final GosDoubleProperty ARM_EXT_KI = new GosDoubleProperty(false, "Arm extension kI", 0);
         public static final GosDoubleProperty ARM_EXT_KD = new GosDoubleProperty(false, "Arm extension kD", 0);
 
-        public static final double ARM_OFFSET = 84 + 120 + 243;
+        public static final double ARM_OFFSET = -37;
 
         public static final int ENCODER_PORT = 1;
 
@@ -152,7 +183,7 @@ public final class Constants {
         public static final double EXTENSION_RATIO = (1.0 / 25.0) * (SPROCKET_DIAMETER * Math.PI);
 
 
-        public static final double EXT_PID_TOLERANCE = 0.5;
+        public static final double EXT_PID_TOLERANCE = 1;
 
         // Used for dynamic limit calculations, unit is inches
         public static final double PIVOT_HIGHT = 5;
