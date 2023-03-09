@@ -6,21 +6,29 @@ import java.util.Map;
 import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
-import com.pathplanner.lib.auto.SwerveAutoBuilder;
 import com.pathplanner.lib.commands.FollowPathWithEvents;
 import com.pathplanner.lib.commands.PPSwerveControllerCommand;
 
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.PrintCommand;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.swerve.SwerveDrivetrain;
 
 
 public class AutoUtils {
+
+    public enum ScoringHeights {
+        HIGH,
+        MIDDLE,
+        LOW
+    }
+
+    public enum StartingZones {
+        LEFT,
+        MIDDLE,
+        RIGHT
+    }
 
     private AutoUtils() {
         throw new IllegalStateException("Utility Class");
@@ -50,7 +58,7 @@ public class AutoUtils {
             DriveConstants.DRIVE_KINEMATICS, 
             AutoConstants.CONTROLLER_X, 
             AutoConstants.CONTROLLER_Y, 
-            new PIDController(0, 0, 0), 
+            AutoConstants.THETA_CONTROLLER,
             swerve::setModuleStates,
             true,
             swerve)
@@ -64,16 +72,22 @@ public class AutoUtils {
     return new FollowPathWithEvents(getDefaultTrajectory(swerve), m_defaultAutoGen.getMarkers(), defaultEventMap);
     }
 
-    public static Command getAutoRoutine(PathPlannerTrajectory traj, SwerveDrivetrain swerve){
+    public static Command getAutoRoutine(PathPlannerTrajectory traj, SwerveDrivetrain swerve, boolean firstTrajectory){
         return new SequentialCommandGroup(
-            new InstantCommand(() -> swerve.resetPose(traj.getInitialHolonomicPose())),
+            new ConditionalCommand(new InstantCommand(() ->
+                    swerve.resetPose(
+                    PathPlannerTrajectory.transformTrajectoryForAlliance(traj, DriverStation.getAlliance()).getInitialHolonomicPose())),
+                    new InstantCommand(),
+                    () -> firstTrajectory
+            ),
+
 
             new PPSwerveControllerCommand(traj,
             swerve::getPose, 
             DriveConstants.DRIVE_KINEMATICS, 
             AutoConstants.CONTROLLER_X, 
             AutoConstants.CONTROLLER_Y, 
-            new PIDController(0, 0, 0), 
+            AutoConstants.THETA_CONTROLLER,
             swerve::setModuleStates,
             true,
             swerve)
@@ -81,6 +95,6 @@ public class AutoUtils {
     }
     
     public static Command getAutoEventRoutine(PathPlannerTrajectory traj, Map<String, Command> events, SwerveDrivetrain swerve) {
-        return new FollowPathWithEvents(getAutoRoutine(traj, swerve), traj.getMarkers(), events);
+        return new FollowPathWithEvents(getAutoRoutine(traj, swerve, true), traj.getMarkers(), events);
     }
 }

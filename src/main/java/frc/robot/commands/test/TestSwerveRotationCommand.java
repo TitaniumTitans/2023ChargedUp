@@ -24,9 +24,9 @@ public class TestSwerveRotationCommand extends CommandBase {
     @Override
     public void execute() {
         if (clockwise) {
-            swerveDrivetrain.setModuleStates(0.0, 0.0, 0.2);
+            swerveDrivetrain.drive(0.0, 0.0, 0.2);
         } else {
-            swerveDrivetrain.setModuleStates(0.0, 0.0, -0.5);
+            swerveDrivetrain.drive(0.0, 0.0, -0.5);
         }
     }
 

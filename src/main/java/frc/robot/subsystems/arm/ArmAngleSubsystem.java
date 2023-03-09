@@ -11,6 +11,7 @@ import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.LimitConstants;
@@ -72,8 +73,7 @@ public class ArmAngleSubsystem extends SubsystemBase {
         m_encoderArmAngle.setPositionOffset(0);
 
         m_anglePID = new PIDController(ArmConstants.KP_ANGLE, ArmConstants.KI_ANGLE, 0.0);
-//        m_anglePID = new PidProperty.Builder("Arm Angle PID", false);
-        m_anglePID.setTolerance(3);
+        m_anglePID.setTolerance(10);
 
         m_inputs = new ArmAngleIOInputsAutoLogged();
 
@@ -136,6 +136,7 @@ public class ArmAngleSubsystem extends SubsystemBase {
         Logger.getInstance().processInputs("Arm Angle", m_inputs);
 
         updateShuffleboardData();
+        SmartDashboard.putBoolean("Angle At Setpoint", armAngleAtSetpoint());
     }
 
     public void updateInputs(ArmAngleIOInputsAutoLogged inputs){
