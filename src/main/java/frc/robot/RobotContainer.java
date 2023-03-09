@@ -10,6 +10,7 @@ import com.pathplanner.lib.auto.SwerveAutoBuilder;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
+import edu.wpi.first.wpilibj2.command.ProxyCommand;
 import frc.robot.commands.IntakeControlCommand;
 import frc.robot.commands.SupersystemToPoseCommand;
 import frc.robot.commands.ToggleArmBrakeModeCommand;
@@ -196,15 +197,15 @@ public class RobotContainer {
 //    testTrajectories.add("Move With Arm", TestAutoWithArm.getAuto(m_drive, m_super));
 
     // CANdle test commands
-    testCommands.add("Fire animation", m_CANdle.setAnimationFactory(CANdleSubsystem.AnimationType.Fire));
-    testCommands.add("Color flow animation", m_CANdle.setAnimationFactory(CANdleSubsystem.AnimationType.ColorFlow));
-    testCommands.add("Rainbow animation", m_CANdle.setAnimationFactory(CANdleSubsystem.AnimationType.Rainbow));
-    testCommands.add("Twinkle animation", m_CANdle.setAnimationFactory(CANdleSubsystem.AnimationType.Twinkle));
-    testCommands.add("Strobe animation", m_CANdle.setAnimationFactory(CANdleSubsystem.AnimationType.Strobe));
-    testCommands.add("Set all animation", m_CANdle.setAnimationFactory(CANdleSubsystem.AnimationType.SetAll));
+    testCommands.add("Fire animation", new ProxyCommand(m_CANdle.setAnimationFactory(CANdleSubsystem.AnimationType.Fire)));
+    testCommands.add("Color flow animation", new ProxyCommand(m_CANdle.setAnimationFactory(CANdleSubsystem.AnimationType.ColorFlow)));
+    testCommands.add("Rainbow animation", new ProxyCommand(m_CANdle.setAnimationFactory(CANdleSubsystem.AnimationType.Rainbow)));
+    testCommands.add("Twinkle animation", new ProxyCommand(m_CANdle.setAnimationFactory(CANdleSubsystem.AnimationType.Twinkle)));
+    testCommands.add("Strobe animation", new ProxyCommand(m_CANdle.setAnimationFactory(CANdleSubsystem.AnimationType.Strobe)));
+    testCommands.add("Set all animation", new ProxyCommand(m_CANdle.setAnimationFactory(CANdleSubsystem.AnimationType.SetAll)));
 
-    testCommands.add("Increment animation", m_CANdle.incrementAnimationFactory());
-    testCommands.add("Decrement animation", m_CANdle.decrementAnimationFactory());
+    testCommands.add("Increment animation", new ProxyCommand(m_CANdle.incrementAnimationFactory()));
+    testCommands.add("Decrement animation", new ProxyCommand(m_CANdle.decrementAnimationFactory()));
 
   }
 

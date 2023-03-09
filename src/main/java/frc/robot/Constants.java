@@ -86,7 +86,7 @@ public final class Constants {
 
     public static class CANdleConstants {
         public static final int CANDLE_ID = 22;
-        public static final int LED_COUNT = 0;
+        public static final int LED_COUNT = 8;
         public static Animation COLOR_FLOW_ANIM = new ColorFlowAnimation(100, 100, 100, 100,
                 10.0, LED_COUNT, ColorFlowAnimation.Direction.Forward);
         public static Animation FIRE_ANIM = new FireAnimation(100, 100, LED_COUNT, 100,
