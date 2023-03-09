@@ -9,8 +9,8 @@ class Zone(topleft: Translation2d, bottomRight: Translation2d) {
     val leftRange: Range
     val topRange: Range
     init {
-        //Construct a "rectangle" for zone based off the uppermost left point
-        //Make sure all units are in meters
+        // Construct a "rectangle" for zone based off the uppermost left point
+        // Make sure all units are in meters
         leftRange = Range(topleft.y, true, bottomRight.y, true)
         topRange = Range(topleft.x, true, bottomRight.x, true)
     }
