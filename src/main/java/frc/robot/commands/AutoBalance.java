@@ -55,21 +55,24 @@ public class AutoBalance extends CommandBase {
     m_drivePower = MathUtil.clamp(m_drivePower, -0.6, 0.6);
 
     double rollRateBalance = m_drive.getGyroRollPitch();
+    // if robot is tilting forward, stop moving so we don't overshoot the balance
     if (Math.abs(rollRateBalance) >= 0.3) {
-      m_drivePower = Math.copySign(0.0, -m_drive.getGyroPitch().getDegrees());
-      SmartDashboard.putNumber("Stop Balancing", 1);
+//      m_drivePower = Math.copySign(0.0, -m_drive.getGyroPitch().getDegrees());
+      m_drivePower = 0.0;
+//      SmartDashboard.putNumber("Stop Balancing", 1);
     }
 
     // Counter for checking if robot is truly balanced
     if (Math.abs(m_currentAngle) < AutoConstants.DESIRED_BALANCE_ANGLE) {
+      // if robot is balanced, stop moving and start a timer
       m_timer.start();
       m_drivePower = 0.0;
-    }
-    if (Math.abs(m_currentAngle) < AutoConstants.DESIRED_BALANCE_ANGLE && m_timer.get() >= 10) {
+    } else if (Math.abs(m_currentAngle) < AutoConstants.DESIRED_BALANCE_ANGLE && m_timer.get() >= 10) {
+      // If robot has been balanced for 10 seconds, stop the command
       m_timer.stop();
       m_isLevel = true;
-    }
-    if (m_timer.get() > 0 && Math.abs(m_currentAngle) > AutoConstants.DESIRED_BALANCE_ANGLE) {
+    } else if (m_timer.get() > 0 && Math.abs(m_currentAngle) > AutoConstants.DESIRED_BALANCE_ANGLE) {
+      // if robot is no longer balanced, stop and reset the timer
       m_timer.stop();
       m_timer.reset();
     }
@@ -77,10 +80,10 @@ public class AutoBalance extends CommandBase {
     m_drive.drive(m_drivePower, 0.0, 0.0);
 
     // Logging values for debugging
-    SmartDashboard.putNumber("Gyro Angle", m_currentAngle);
-    SmartDashboard.putNumber("Drive Power", m_drivePower);
-    SmartDashboard.putNumber("Roll Rate Balance", rollRateBalance);
-    SmartDashboard.putNumber("Roll Rate Balance Raw", m_drive.getGyroRollPitch());
+//    SmartDashboard.putNumber("Gyro Angle", m_currentAngle);
+//    SmartDashboard.putNumber("Drive Power", m_drivePower);
+//    SmartDashboard.putNumber("Roll Rate Balance", rollRateBalance);
+//    SmartDashboard.putNumber("Roll Rate Balance Raw", m_drive.getGyroRollPitch());
   }
 
   // Called once the command ends or is interrupted.
