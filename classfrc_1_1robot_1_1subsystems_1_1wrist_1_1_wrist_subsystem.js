@@ -13,6 +13,7 @@ var classfrc_1_1robot_1_1subsystems_1_1wrist_1_1_wrist_subsystem =
     [ "setWristAngle", "classfrc_1_1robot_1_1subsystems_1_1wrist_1_1_wrist_subsystem.html#ad323b10c857200840b0497dc13c5b271", null ],
     [ "setWristPower", "classfrc_1_1robot_1_1subsystems_1_1wrist_1_1_wrist_subsystem.html#ab8fa98ae88a211574a632ec709337aea", null ],
     [ "setWristPowerFactory", "classfrc_1_1robot_1_1subsystems_1_1wrist_1_1_wrist_subsystem.html#aafc801e3517e0f44e9ec9ec1c0ed0a1f", null ],
+    [ "toggleBrakeMode", "classfrc_1_1robot_1_1subsystems_1_1wrist_1_1_wrist_subsystem.html#ad223a1b05a0d89acd84ff5f0b2b2649b", null ],
     [ "updateInputs", "classfrc_1_1robot_1_1subsystems_1_1wrist_1_1_wrist_subsystem.html#a3dd144c4828546f9beacad2541e064de", null ],
     [ "wristAtSetpoint", "classfrc_1_1robot_1_1subsystems_1_1wrist_1_1_wrist_subsystem.html#a80f9899a7f98435d3e2b3ff5e2360421", null ],
     [ "wristAtUpperLimit", "classfrc_1_1robot_1_1subsystems_1_1wrist_1_1_wrist_subsystem.html#afebe1fc58dc638a7dcff47879e22f4ac", null ],

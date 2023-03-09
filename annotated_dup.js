@@ -7,7 +7,9 @@ var annotated_dup =
             [ "test", null, [
               [ "TestAutoWithArm", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1test_1_1_test_auto_with_arm.html", null ]
             ] ],
-            [ "AutoUtils", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_auto_utils.html", null ],
+            [ "AutoFactory", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_auto_factory.html", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_auto_factory" ],
+            [ "AutoUtils", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_auto_utils.html", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_auto_utils" ],
+            [ "ScoreMiddleAndMobilityCommandGroup", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_score_middle_and_mobility_command_group.html", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_score_middle_and_mobility_command_group" ],
             [ "TimerForwardAutoCommand", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_timer_forward_auto_command.html", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_timer_forward_auto_command" ]
           ] ],
           [ "test", null, [
@@ -15,9 +17,10 @@ var annotated_dup =
             [ "TestSwerveCommand", "classfrc_1_1robot_1_1commands_1_1test_1_1_test_swerve_command.html", "classfrc_1_1robot_1_1commands_1_1test_1_1_test_swerve_command" ],
             [ "TestSwerveRotationCommand", "classfrc_1_1robot_1_1commands_1_1test_1_1_test_swerve_rotation_command.html", "classfrc_1_1robot_1_1commands_1_1test_1_1_test_swerve_rotation_command" ]
           ] ],
-          [ "ArmToScoreCommand", "classfrc_1_1robot_1_1commands_1_1_arm_to_score_command.html", "classfrc_1_1robot_1_1commands_1_1_arm_to_score_command" ],
           [ "AutoBalance", "classfrc_1_1robot_1_1commands_1_1_auto_balance.html", "classfrc_1_1robot_1_1commands_1_1_auto_balance" ],
           [ "IntakeControlCommand", "classfrc_1_1robot_1_1commands_1_1_intake_control_command.html", "classfrc_1_1robot_1_1commands_1_1_intake_control_command" ],
+          [ "ScoreMiddleCommandGroup", "classfrc_1_1robot_1_1commands_1_1_score_middle_command_group.html", "classfrc_1_1robot_1_1commands_1_1_score_middle_command_group" ],
+          [ "SupersystemToPoseAutoCommand", "classfrc_1_1robot_1_1commands_1_1_supersystem_to_pose_auto_command.html", "classfrc_1_1robot_1_1commands_1_1_supersystem_to_pose_auto_command" ],
           [ "SupersystemToPoseCommand", "classfrc_1_1robot_1_1commands_1_1_supersystem_to_pose_command.html", "classfrc_1_1robot_1_1commands_1_1_supersystem_to_pose_command" ],
           [ "SwerveTeleopDrive", "classfrc_1_1robot_1_1commands_1_1_swerve_teleop_drive.html", "classfrc_1_1robot_1_1commands_1_1_swerve_teleop_drive" ],
           [ "ToggleArmBrakeModeCommand", "classfrc_1_1robot_1_1commands_1_1_toggle_arm_brake_mode_command.html", "classfrc_1_1robot_1_1commands_1_1_toggle_arm_brake_mode_command" ]

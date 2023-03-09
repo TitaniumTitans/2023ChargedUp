@@ -1,7 +1,10 @@
 var hierarchy =
 [
+    [ "frc.robot.subsystems.swerve.SwerveDrivetrain.AlignmentOptions", "enumfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_drivetrain_1_1_alignment_options.html", null ],
     [ "frc.robot.supersystems.ArmLimits", "classfrc_1_1robot_1_1supersystems_1_1_arm_limits.html", null ],
     [ "frc.robot.supersystems.ArmSupersystem", "classfrc_1_1robot_1_1supersystems_1_1_arm_supersystem.html", null ],
+    [ "frc.robot.commands.autonomous.AutoFactory", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_auto_factory.html", null ],
+    [ "frc.robot.commands.autonomous.AutoFactory.AutoMode", "enumfrc_1_1robot_1_1commands_1_1autonomous_1_1_auto_factory_1_1_auto_mode.html", null ],
     [ "frc.robot.commands.autonomous.AutoUtils", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_auto_utils.html", null ],
     [ "lib.utils.drivers.CTREUtil.ConfigCall", "interfacelib_1_1utils_1_1drivers_1_1_c_t_r_e_util_1_1_config_call.html", null ],
     [ "lib.utils.drivers.RevUtil.ConfigCall", "interfacelib_1_1utils_1_1drivers_1_1_rev_util_1_1_config_call.html", null ],
@@ -21,8 +24,10 @@ var hierarchy =
     [ "lib.controllers.FootPedal.Pedals", "enumlib_1_1controllers_1_1_foot_pedal_1_1_pedals.html", null ],
     [ "lib.utils.drivers.RevUtil", "classlib_1_1utils_1_1drivers_1_1_rev_util.html", null ],
     [ "frc.robot.RobotContainer", "classfrc_1_1robot_1_1_robot_container.html", null ],
+    [ "frc.robot.commands.autonomous.AutoUtils.ScoringHeights", "enumfrc_1_1robot_1_1commands_1_1autonomous_1_1_auto_utils_1_1_scoring_heights.html", null ],
     [ "lib.utils.Rev.SparkMaxConfigs", "classlib_1_1utils_1_1_rev_1_1_spark_max_configs.html", null ],
     [ "lib.utils.Rev.SparkMaxWrapper", "classlib_1_1utils_1_1_rev_1_1_spark_max_wrapper.html", null ],
+    [ "frc.robot.commands.autonomous.AutoUtils.StartingZones", "enumfrc_1_1robot_1_1commands_1_1autonomous_1_1_auto_utils_1_1_starting_zones.html", null ],
     [ "lib.utils.Swerve.SwerveAzimuthFactoy", "classlib_1_1utils_1_1_swerve_1_1_swerve_azimuth_factoy.html", null ],
     [ "frc.robot.subsystems.swerve.module.SwerveModFalcon", "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1module_1_1_swerve_mod_falcon.html", null ],
     [ "frc.robot.subsystems.swerve.module.SwerveModNeo", "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1module_1_1_swerve_mod_neo.html", null ],
@@ -30,9 +35,9 @@ var hierarchy =
     [ "frc.robot.commands.autonomous.test.TestAutoWithArm", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1test_1_1_test_auto_with_arm.html", null ],
     [ "lib.utils.Utils", "classlib_1_1utils_1_1_utils.html", null ],
     [ "CommandBase", null, [
-      [ "frc.robot.commands.ArmToScoreCommand", "classfrc_1_1robot_1_1commands_1_1_arm_to_score_command.html", null ],
       [ "frc.robot.commands.AutoBalance", "classfrc_1_1robot_1_1commands_1_1_auto_balance.html", null ],
       [ "frc.robot.commands.IntakeControlCommand", "classfrc_1_1robot_1_1commands_1_1_intake_control_command.html", null ],
+      [ "frc.robot.commands.SupersystemToPoseAutoCommand", "classfrc_1_1robot_1_1commands_1_1_supersystem_to_pose_auto_command.html", null ],
       [ "frc.robot.commands.SupersystemToPoseCommand", "classfrc_1_1robot_1_1commands_1_1_supersystem_to_pose_command.html", null ],
       [ "frc.robot.commands.SwerveTeleopDrive", "classfrc_1_1robot_1_1commands_1_1_swerve_teleop_drive.html", null ],
       [ "frc.robot.commands.ToggleArmBrakeModeCommand", "classfrc_1_1robot_1_1commands_1_1_toggle_arm_brake_mode_command.html", null ],
@@ -46,6 +51,10 @@ var hierarchy =
     ] ],
     [ "Sendable", null, [
       [ "frc.robot.supersystems.ArmPose", "classfrc_1_1robot_1_1supersystems_1_1_arm_pose.html", null ]
+    ] ],
+    [ "SequentialCommandGroup", null, [
+      [ "frc.robot.commands.ScoreMiddleCommandGroup", "classfrc_1_1robot_1_1commands_1_1_score_middle_command_group.html", null ],
+      [ "frc.robot.commands.autonomous.ScoreMiddleAndMobilityCommandGroup", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_score_middle_and_mobility_command_group.html", null ]
     ] ],
     [ "Subsystem", null, [
       [ "frc.robot.subsystems.vision.CameraSubsystem", "classfrc_1_1robot_1_1subsystems_1_1vision_1_1_camera_subsystem.html", null ]
