@@ -146,7 +146,7 @@ public final class Constants {
 
         public static final double ARM_OFFSET = 84 + 120 + 243;
 
-        public static final int ENCODER_PORT = 1;
+        public static final int ENCODER_PORT = 24;
 
         public static final double SPROCKET_DIAMETER = 1.99;
         public static final double EXTENSION_RATIO = (1.0 / 25.0) * (SPROCKET_DIAMETER * Math.PI);
