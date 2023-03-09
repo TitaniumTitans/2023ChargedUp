@@ -128,7 +128,7 @@ public class CameraSubsystem implements Subsystem {
                             + ((altTagPose.getY() - targetPose.get().getY())
                             * (altTagPose.getY() - targetPose.get().getY())));
                     */
-                    robotToTagDist = bestTagPose.minus(targetPose.get()).getTranslation().getNorm();
+                    robotToTagDist = altTagPose.minus(targetPose.get()).getTranslation().getNorm();
                 }
 
                 SmartDashboard.putNumber("Robot to Tag Distance", robotToTagDist);
