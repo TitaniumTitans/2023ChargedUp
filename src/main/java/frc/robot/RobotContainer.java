@@ -79,17 +79,6 @@ public class RobotContainer {
       // Default case, should be set to a replay mode
       default:
     }
-//      defaultAutoBuilder = new SwerveAutoBuilder(
-//              m_drive::getPose,
-//              m_drive::resetPose,
-//              Constants.DriveConstants.DRIVE_KINEMATICS,
-//              new PIDConstants(1.5, 0, 0),
-//              new PIDConstants(1, 0, 0),
-//              m_drive::drive,
-//              new HashMap<>(),
-//              true,
-//              m_drive
-//      );
 
     LiveWindow.disableAllTelemetry();
 
@@ -133,20 +122,28 @@ public class RobotContainer {
 
     //Auto Align with rumble for driving
     m_driveController.povLeft().whileTrue(m_drive.createPPSwerveController(SwerveDrivetrain.AlignmentOptions.LEFT_ALIGN)
-            .andThen(new InstantCommand(() -> {m_driveController.getHID().setRumble(GenericHID.RumbleType.kBothRumble, 0.5);}))
-            .andThen(new InstantCommand(() -> {m_driveController.getHID().setRumble(GenericHID.RumbleType.kBothRumble, 0.0);})));
+            .andThen(new InstantCommand(() ->
+                    m_driveController.getHID().setRumble(GenericHID.RumbleType.kBothRumble, 0.5)))
+            .andThen(new InstantCommand(() ->
+                    m_driveController.getHID().setRumble(GenericHID.RumbleType.kBothRumble, 0.0))));
 
     m_driveController.povUp().whileTrue(m_drive.createPPSwerveController(SwerveDrivetrain.AlignmentOptions.CENTER_ALIGN)
-            .andThen(new InstantCommand(() -> {m_driveController.getHID().setRumble(GenericHID.RumbleType.kBothRumble, 0.5);}))
-            .andThen(new InstantCommand(() -> {m_driveController.getHID().setRumble(GenericHID.RumbleType.kBothRumble, 0.0);})));
+            .andThen(new InstantCommand(() ->
+                    m_driveController.getHID().setRumble(GenericHID.RumbleType.kBothRumble, 0.5)))
+            .andThen(new InstantCommand(() ->
+                    m_driveController.getHID().setRumble(GenericHID.RumbleType.kBothRumble, 0.0))));
 
     m_driveController.povRight().whileTrue(m_drive.createPPSwerveController(SwerveDrivetrain.AlignmentOptions.RIGHT_ALIGN)
-            .andThen(new InstantCommand(() -> {m_driveController.getHID().setRumble(GenericHID.RumbleType.kBothRumble, 0.5);}))
-            .andThen(new InstantCommand(() -> {m_driveController.getHID().setRumble(GenericHID.RumbleType.kBothRumble, 0.0);})));
+            .andThen(new InstantCommand(() ->
+                    m_driveController.getHID().setRumble(GenericHID.RumbleType.kBothRumble, 0.5)))
+            .andThen(new InstantCommand(() ->
+                    m_driveController.getHID().setRumble(GenericHID.RumbleType.kBothRumble, 0.0))));
 
     m_driveController.povDown().whileTrue(m_drive.createPPSwerveController(SwerveDrivetrain.AlignmentOptions.HUMAN_PLAYER_ALIGN)
-            .andThen(new InstantCommand(() -> {m_driveController.getHID().setRumble(GenericHID.RumbleType.kBothRumble, 0.5);}))
-            .andThen(new InstantCommand(() -> {m_driveController.getHID().setRumble(GenericHID.RumbleType.kBothRumble, 0.0);})));
+            .andThen(new InstantCommand(() ->
+                    m_driveController.getHID().setRumble(GenericHID.RumbleType.kBothRumble, 0.5)))
+            .andThen(new InstantCommand(() ->
+                    m_driveController.getHID().setRumble(GenericHID.RumbleType.kBothRumble, 0.0))));
 
     m_driveController.leftBumper().whileTrue(new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.HIGH_GOAL));
     m_driveController.rightBumper().whileTrue(new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.MIDDLE_GOAL_NON_STOW));
