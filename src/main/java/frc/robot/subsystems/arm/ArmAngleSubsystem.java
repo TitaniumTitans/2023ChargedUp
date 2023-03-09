@@ -179,7 +179,7 @@ public class ArmAngleSubsystem extends SubsystemBase {
     }
 
     public double getArmAngle() {
-        return Utils.normalize(360 - ((m_encoderArmAngle.getAbsolutePosition() * 360)) - ArmConstants.ARM_OFFSET);
+        return m_encoderArmAngle.getAbsolutePosition();
     }
 
     public boolean armAngleAtSetpoint() {
