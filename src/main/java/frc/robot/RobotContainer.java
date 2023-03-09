@@ -4,6 +4,9 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.PathPlanner;
+import com.pathplanner.lib.auto.PIDConstants;
+import com.pathplanner.lib.auto.SwerveAutoBuilder;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
@@ -34,6 +37,8 @@ import frc.robot.subsystems.wrist.WristSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
+import java.util.HashMap;
+
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -55,6 +60,8 @@ public class RobotContainer {
   //Logged chooser for auto
   private final LoggedDashboardChooser<Command> m_autoChooser = new LoggedDashboardChooser<>("Auto Modes");
 
+  private static SwerveAutoBuilder defaultAutoBuilder;
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     switch (Constants.CURRENT_MODE) {
@@ -75,6 +82,18 @@ public class RobotContainer {
       // Default case, should be set to a replay mode
       default:
     }
+      defaultAutoBuilder = new SwerveAutoBuilder(
+              m_drive::getPose,
+              m_drive::resetPose,
+              Constants.DriveConstants.DRIVE_KINEMATICS,
+              new PIDConstants(1.5, 0, 0),
+              new PIDConstants(1, 0, 0),
+              m_drive::setModuleStates,
+              new HashMap<>(),
+              true,
+              m_drive
+      );
+
     LiveWindow.disableAllTelemetry();
 
     // Configure the button bindings
@@ -184,6 +203,5 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     return m_autoChooser.get();
-//    return new TimerForwardAutoCommand(m_drive, 0.5);
   }
 }
