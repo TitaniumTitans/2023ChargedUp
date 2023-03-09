@@ -151,16 +151,6 @@ public final class Constants {
                 new Translation2d(0.6, -0.6),
                 new Rotation2d()
         );
-
-        // Zones for auto alignment
-        //Total field distance that robot can get to
-        // 10.54 meters x, by 8.02 meters y
-
-        public static Zone blueAllienceZone = new Zone(
-            new Translation2d(1.38, 8.02),
-        3.36,
-        5.49
-        );
     }
 
     public static final Mode CURRENT_MODE = Mode.HELIOS;

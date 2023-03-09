@@ -14,6 +14,7 @@ import frc.robot.commands.IntakeControlCommand;
 import frc.robot.commands.SupersystemToPoseCommand;
 import frc.robot.commands.ToggleArmBrakeModeCommand;
 import frc.robot.commands.*;
+import frc.robot.commands.autonomous.AutoFactory;
 import frc.robot.commands.autonomous.ScoreMiddleAndMobilityCommandGroup;
 import frc.robot.subsystems.arm.ArmExtSubsystem;
 import frc.robot.supersystems.ArmPose;
@@ -54,6 +55,7 @@ public class RobotContainer {
 
   //Logged chooser for auto
   private final LoggedDashboardChooser<Command> m_autoChooser = new LoggedDashboardChooser<>("Auto Modes");
+  private final AutoFactory m_autoFactory;
 
   private static SwerveAutoBuilder defaultAutoBuilder;
 
@@ -90,6 +92,8 @@ public class RobotContainer {
 //      );
 
     LiveWindow.disableAllTelemetry();
+
+    m_autoFactory = new AutoFactory(m_super, m_drive, m_wrist);
 
     // Configure the button bindings
     configureButtonBindings();
@@ -214,6 +218,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoChooser.get();
+//    return m_autoChooser.get();
+    return m_autoFactory.getAutoRoutine();
   }
 }

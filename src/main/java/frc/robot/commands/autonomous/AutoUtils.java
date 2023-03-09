@@ -18,6 +18,18 @@ import frc.robot.subsystems.swerve.SwerveDrivetrain;
 
 public class AutoUtils {
 
+    public enum ScoringHeights {
+        HIGH,
+        MIDDLE,
+        LOW
+    }
+
+    public enum StartingZones {
+        LEFT,
+        MIDDLE,
+        RIGHT
+    }
+
     private AutoUtils() {
         throw new IllegalStateException("Utility Class");
     }
