@@ -5,6 +5,7 @@ import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Transform3d;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -22,6 +23,9 @@ public class CameraSubsystem implements Subsystem {
 
     private PhotonPoseEstimator m_photonPoseEstimator;
 
+    private DriverStation.Alliance m_prevAlliance;
+    private AprilTagFieldLayout m_tagLayout;
+
     /**
      * Creates a new CameraSubsystem
      * @param camName Name of the camera in the system
@@ -29,12 +33,18 @@ public class CameraSubsystem implements Subsystem {
      */
     public CameraSubsystem(String camName, Transform3d camPose) {
         m_camera = new PhotonCamera(camName);
+        m_prevAlliance = DriverStation.getAlliance();
 
         try {
-            AprilTagFieldLayout aprilTagFieldLayout = 
+            m_tagLayout =
                 AprilTagFieldLayout.loadFromResource(AprilTagFields.k2023ChargedUp.m_resourceFile);
+            if(m_prevAlliance == DriverStation.Alliance.Blue) {
+                m_tagLayout.setOrigin(AprilTagFieldLayout.OriginPosition.kBlueAllianceWallRightSide);
+            } else {
+                m_tagLayout.setOrigin(AprilTagFieldLayout.OriginPosition.kRedAllianceWallRightSide);
+            }
             m_photonPoseEstimator = new PhotonPoseEstimator
-                (aprilTagFieldLayout, PhotonPoseEstimator.PoseStrategy.CLOSEST_TO_REFERENCE_POSE, m_camera, 
+                (m_tagLayout, PhotonPoseEstimator.PoseStrategy.CLOSEST_TO_REFERENCE_POSE, m_camera,
                     camPose);
         } catch (IOException e) {
             throw new IllegalStateException(e);
@@ -48,6 +58,8 @@ public class CameraSubsystem implements Subsystem {
      */
     public Optional<EstimatedRobotPose> getPose(Pose2d prevEstimatedRobotPose) {
         m_photonPoseEstimator.setReferencePose(prevEstimatedRobotPose);
+
+        if
 
         Optional<EstimatedRobotPose> estimate = m_photonPoseEstimator.update();
         if (estimate.isPresent()) {
