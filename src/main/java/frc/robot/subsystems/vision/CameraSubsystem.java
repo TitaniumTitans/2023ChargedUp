@@ -59,7 +59,13 @@ public class CameraSubsystem implements Subsystem {
     public Optional<EstimatedRobotPose> getPose(Pose2d prevEstimatedRobotPose) {
         m_photonPoseEstimator.setReferencePose(prevEstimatedRobotPose);
 
-        if
+        if (DriverStation.getAlliance() != m_prevAlliance) {
+            m_prevAlliance = DriverStation.getAlliance();
+            if (DriverStation.getAlliance() == DriverStation.Alliance.Red) {
+                m_tagLayout.setOrigin(AprilTagFieldLayout.OriginPosition.kRedAllianceWallRightSide);
+            } else {
+                m_tagLayout.setOrigin(AprilTagFieldLayout.OriginPosition.kBlueAllianceWallRightSide);
+            }
 
         Optional<EstimatedRobotPose> estimate = m_photonPoseEstimator.update();
         if (estimate.isPresent()) {
