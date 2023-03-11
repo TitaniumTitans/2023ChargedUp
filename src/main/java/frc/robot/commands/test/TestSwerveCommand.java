@@ -25,13 +25,13 @@ public class TestSwerveCommand extends CommandBase {
     @Override
     public void execute() {
         if (0 <= m_angle && m_angle <= 89){
-            m_drive.setModuleStates(0.5, 0.0, 0.0);
+            m_drive.drive(0.5, 0.0, 0.0);
         } else if ((90 <= m_angle) && m_angle <= 179) {
-            m_drive.setModuleStates(0.0, 0.5, 0.0);
+            m_drive.drive(0.0, 0.5, 0.0);
         } else if ((180 <= m_angle) && (m_angle <= 269)) {
-            m_drive.setModuleStates(-0.5, 0.0, 0.0);
+            m_drive.drive(-0.5, 0.0, 0.0);
         } else if (270 <= m_angle && m_angle <= 360) {
-            m_drive.setModuleStates(0.0, -0.5, 0.0);
+            m_drive.drive(0.0, -0.5, 0.0);
         }
     }
 

@@ -10,6 +10,7 @@ import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -148,8 +149,8 @@ public class ArmExtSubsystem extends SubsystemBase {
     }
 
     public boolean armExtensionAtSetpoint() {
-        return ((getArmExtension() >= prevSetpointClamped + Constants.ArmConstants.EXT_PID_TOLERANCE)
-                || (getArmExtension() <= prevSetpointClamped - Constants.ArmConstants.EXT_PID_TOLERANCE));
+        return ((getArmExtension() <= prevSetpointClamped + Constants.ArmConstants.EXT_PID_TOLERANCE)
+                || (getArmExtension() >= prevSetpointClamped - Constants.ArmConstants.EXT_PID_TOLERANCE));
     }
 
     @Override
@@ -161,6 +162,8 @@ public class ArmExtSubsystem extends SubsystemBase {
             resetExtensionEncoder();
         }
         updateShuffleboardData();
+
+        SmartDashboard.putBoolean("Ext at setpoint", armExtensionAtSetpoint());
     }
 
     public void updateInputs(ArmExtIOInputsAutoLogged inputs) {

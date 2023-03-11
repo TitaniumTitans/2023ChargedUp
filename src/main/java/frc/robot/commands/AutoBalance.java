@@ -47,39 +47,51 @@ public class AutoBalance extends CommandBase {
   @Override
   public void execute() {
     // Gets how far the robot is tilted and calculates proper drive power from it
-    m_currentAngle = m_drive.getGyroRoll().getDegrees();
+    m_currentAngle = m_drive.getGyroPitch().getDegrees();
     m_error = AutoConstants.DESIRED_BALANCE_ANGLE - m_currentAngle;
 
     m_drivePower = Math.min(m_balanceController.calculate(m_currentAngle), 1);
     // Limit max power
-    m_drivePower = MathUtil.clamp(m_drivePower, -0.2, 0.2);
+    m_drivePower = MathUtil.clamp(m_drivePower, -0.6, 0.6);
+
+    double rollRateBalance = m_drive.getGyroRollPitch();
+    // if robot is tilting forward, stop moving so we don't overshoot the balance
+    if (Math.abs(rollRateBalance) >= 0.3) {
+//      m_drivePower = Math.copySign(0.0, -m_drive.getGyroPitch().getDegrees());
+      m_drivePower = 0.0;
+//      SmartDashboard.putNumber("Stop Balancing", 1);
+    }
 
     // Counter for checking if robot is truly balanced
-   if (Math.abs(m_currentAngle) < AutoConstants.DESIRED_BALANCE_ANGLE) {
-     m_timer.start();
-   }
-   if (Math.abs(m_currentAngle) < AutoConstants.DESIRED_BALANCE_ANGLE && m_timer.get() >= 10) {
-     m_timer.stop();
-     m_isLevel = true;
-   }
-   if (m_timer.get() > 0 && Math.abs(m_currentAngle) > AutoConstants.DESIRED_BALANCE_ANGLE) {
-     m_timer.stop();
-     m_timer.reset();
-   }
+    if (Math.abs(m_currentAngle) < AutoConstants.DESIRED_BALANCE_ANGLE) {
+      // if robot is balanced, stop moving and start a timer
+      m_timer.start();
+      m_drivePower = 0.0;
+    } else if (Math.abs(m_currentAngle) < AutoConstants.DESIRED_BALANCE_ANGLE && m_timer.get() >= 10) {
+      // If robot has been balanced for 10 seconds, stop the command
+      m_timer.stop();
+      m_isLevel = true;
+    } else if (m_timer.get() > 0 && Math.abs(m_currentAngle) > AutoConstants.DESIRED_BALANCE_ANGLE) {
+      // if robot is no longer balanced, stop and reset the timer
+      m_timer.stop();
+      m_timer.reset();
+    }
 
-    m_drive.setModuleStates(m_drivePower, 0.0, 0.0);
+    m_drive.drive(m_drivePower, 0.0, 0.0);
 
     // Logging values for debugging
-    SmartDashboard.putNumber("Gyro Angle", m_currentAngle);
-    SmartDashboard.putNumber("Drive Power", m_drivePower);
+//    SmartDashboard.putNumber("Gyro Angle", m_currentAngle);
+//    SmartDashboard.putNumber("Drive Power", m_drivePower);
+//    SmartDashboard.putNumber("Roll Rate Balance", rollRateBalance);
+//    SmartDashboard.putNumber("Roll Rate Balance Raw", m_drive.getGyroRollPitch());
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     // Set the module azimuths to 45 degrees so robot doesn't slip off the charge station
-    m_drive.setModuleStates(0.0, 0.0, 0.1);
-    m_drive.setModuleStates(0.0, 0.0, 0.0);
+    m_drive.drive(0.0, 0.0, 0.1);
+    m_drive.drive(0.0, 0.0, 0.0);
   }
 
   // Returns true when the command should end.

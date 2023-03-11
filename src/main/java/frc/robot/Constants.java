@@ -7,8 +7,12 @@ package frc.robot;
 import com.gos.lib.properties.GosDoubleProperty;
 import com.pathplanner.lib.auto.PIDConstants;
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.controller.ProfiledPIDController;
-import edu.wpi.first.math.geometry.*;
+import edu.wpi.first.math.geometry.Translation3d;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 import edu.wpi.first.math.util.Units;
@@ -87,9 +91,9 @@ public final class Constants {
         public static final String LEFT_CAM_NAME = "LeftWebCam";
 
         public static final GosDoubleProperty CAM_AMBIGUITY_THRESHOLD
-                = new GosDoubleProperty(false, "Camera ambiguity threshold", 0.3);
+                = new GosDoubleProperty(false, "Camera ambiguity threshold", 0.2);
         public static final GosDoubleProperty CAM_DISTANCE_THRESHOLD
-                = new GosDoubleProperty(false, "Camera distance threshold", 7);
+                = new GosDoubleProperty(false, "Camera distance threshold", 4);
     }
 
     public static class WristConstants {

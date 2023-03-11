@@ -82,7 +82,7 @@ public class WristSubsystem extends SubsystemBase {
         m_tofSensor.setRangingMode(RangingMode.Short, 10);
 
         m_wristPID = new PIDController(WristConstants.WRIST_KP, WristConstants.WRIST_KI, WristConstants.WRIST_KD);
-        m_wristPID.setTolerance(2);
+        m_wristPID.setTolerance(10);
 
         wristSubsystemTab = Shuffleboard.getTab("WristSubsystem");
 
@@ -151,6 +151,7 @@ public class WristSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("Wrist Current Draw", m_wristMotor.getOutputCurrent());
         SmartDashboard.putBoolean("Intake Stalling", m_intakeMotor.getFault(CANSparkMax.FaultID.kStall));
         SmartDashboard.putBoolean("Wrist stalling", m_wristMotor.getFault(CANSparkMax.FaultID.kStall));
+        SmartDashboard.putBoolean("Wrist at setpoint", wristAtSetpoint());
     }
 
     public void updateInputs(WristIOInputsAutoLogged inputs){
@@ -220,6 +221,14 @@ public class WristSubsystem extends SubsystemBase {
 
     public boolean debugWristLowerThanLimit() {
         return (getWristAngle() <= Constants.LimitConstants.WRIST_SCORE_LOWER.getValue());
+    }
+
+    public void toggleBrakeMode() {
+        if (m_wristMotor.getIdleMode() == CANSparkMax.IdleMode.kBrake) {
+            m_wristMotor.setIdleMode(CANSparkMax.IdleMode.kCoast);
+        } else {
+            m_wristMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
+        }
     }
 
 

@@ -3,9 +3,11 @@ name: SonarQube Analysis
 
 on:
   push:
-    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+    types: [opened, reopened, review_requested]
+  pull_request_review:
+    types: [edited, submitted]
   workflow_dispatch:
 
 
@@ -36,4 +38,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-        run: ./gradlew sonar --info
+        run: ./gradlew build sonar --info
