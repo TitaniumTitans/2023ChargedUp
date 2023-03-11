@@ -86,7 +86,6 @@ public class RobotContainer {
 
     // Configure the button bindings
     configureButtonBindings();
-    configAutoChooser();
     configDashboard();
   }
 
@@ -151,16 +150,6 @@ public class RobotContainer {
     m_foot.leftPedal().onTrue(new PrintCommand("Left Pedal Pressed!"));
     m_foot.middlePedal().onTrue(new PrintCommand("Middle Pedal Pressed"));
     m_foot.rightPedal().onTrue(new PrintCommand("Right Pedal Pressed"));
-  }
-
-  /**
-   * Use this method to add autonomous routines to a sendable chooser
-   */
-  public void configAutoChooser() {
-    m_autoChooser.addDefaultOption("Default Trajectory", AutoUtils.getDefaultTrajectory(m_drive));
-    m_autoChooser.addOption("Event Map Trajectory", AutoUtils.getPathWithEvents(m_drive));
-    m_autoChooser.addOption("Test for auto", m_drive.getAutoBuilder(new HashMap<>()).fullAuto(PathPlanner.loadPath("Test For Allience", AutoUtils.getDefaultConstraints())));
-    m_autoChooser.addOption("Score Middle Mobility", new ScoreMiddleAndMobilityCommandGroup(m_drive, m_super, m_wrist));
   }
 
   /**
