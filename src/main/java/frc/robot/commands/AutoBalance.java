@@ -7,7 +7,6 @@ package frc.robot.commands;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.subsystems.swerve.SwerveDrivetrain;
@@ -29,7 +28,7 @@ public class AutoBalance extends CommandBase {
   public AutoBalance(SwerveDrivetrain drive) {
     m_drive = drive;
     m_timer = new Timer();
-    m_balanceController = new PIDController(AutoConstants.BALANCE_P, 0.0, AutoConstants.Balance_D);
+    m_balanceController = new PIDController(AutoConstants.BALANCE_P, 0.0, AutoConstants.BALANCE_D);
     m_currentAngle = 0;
     m_counter = 0;
     m_isLevel = false;
