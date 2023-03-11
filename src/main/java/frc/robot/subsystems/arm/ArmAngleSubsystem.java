@@ -1,7 +1,5 @@
 package frc.robot.subsystems.arm;
 
-import com.ctre.phoenix.sensors.CANCoder;
-import com.ctre.phoenix.sensors.SensorInitializationStrategy;
 import com.revrobotics.CANSparkMax;
 
 
@@ -25,7 +23,7 @@ public class ArmAngleSubsystem extends SubsystemBase {
     // Encoders
     private final CANSparkMax m_armAngleMaster;
     private final CANSparkMax m_armAngleFollower;
-    private final CANCoder m_encoderArmAngle;
+    private final DutyCycleEncoder m_encoderArmAngle;
     // Misc.
     private final PIDController m_anglePID;
     private ArmAngleIOInputsAutoLogged m_inputs;
@@ -65,13 +63,11 @@ public class ArmAngleSubsystem extends SubsystemBase {
         m_armAngleFollower = SparkMaxFactory.Companion.createSparkMax(ArmConstants.ARM_ANGLE_ID_FOLLOWER, config);
 
         m_armAngleFollower.follow(m_armAngleMaster);
-
-        m_encoderArmAngle = new CANCoder(ArmConstants.ENCODER_PORT);
-        m_encoderArmAngle.configFactoryDefault();
-        m_encoderArmAngle.setPosition(0.0);
-        m_encoderArmAngle.configMagnetOffset(0);
-        m_encoderArmAngle.configSensorInitializationStrategy(SensorInitializationStrategy.BootToAbsolutePosition);
-        m_encoderArmAngle.configGetAbsoluteSensorRange();
+    
+        m_encoderArmAngle = new DutyCycleEncoder(ArmConstants.ENCODER_PORT);
+        m_encoderArmAngle.reset();
+        m_encoderArmAngle.setDistancePerRotation(360);
+        m_encoderArmAngle.setPositionOffset(0);
 
         m_anglePID = new PIDController(ArmConstants.KP_ANGLE, ArmConstants.KI_ANGLE, 0.0);
         m_anglePID.setTolerance(3);
@@ -180,6 +176,10 @@ public class ArmAngleSubsystem extends SubsystemBase {
 
     public double getArmAngle() {
         return m_encoderArmAngle.getAbsolutePosition();
+    }
+
+    public boolean encoderConnected() {
+        return m_encoderArmAngle.isConnected();
     }
 
     public boolean armAngleAtSetpoint() {
