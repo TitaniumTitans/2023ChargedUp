@@ -58,6 +58,12 @@ public class AutoFactory {
         }
 
         m_modeChooser.addDefaultOption("Mobility", AutoMode.MOBILITY);
+
+        for (AutoMode mode : AutoMode.values()) {
+            if (mode != AutoMode.MOBILITY) {
+                m_modeChooser.addOption(mode.toString(), mode);
+            }
+        }
     }
 
     public Command getAutoRoutine() {
@@ -67,6 +73,8 @@ public class AutoFactory {
         switch (mode) {
             case MOBILITY:
                 return new MobilityCommandGroup(m_swerve, start);
+            case ENGAGE:
+                return new BalanceCommandGroup(m_swerve, start);
         }
 
         return new InstantCommand();
