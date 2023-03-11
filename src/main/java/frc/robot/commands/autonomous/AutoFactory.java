@@ -1,7 +1,6 @@
 package frc.robot.commands.autonomous;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import frc.robot.commands.autonomous.AutoUtils.ScoringHeights;
 import frc.robot.commands.autonomous.AutoUtils.StartingZones;
@@ -10,8 +9,6 @@ import frc.robot.subsystems.wrist.WristSubsystem;
 import frc.robot.supersystems.ArmSupersystem;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
-import java.util.HashMap;
-import java.util.Map;
 
 public class AutoFactory {
 
@@ -32,20 +29,10 @@ public class AutoFactory {
         TRIPLE_CONE
     }
 
-    private final HashMap<StartingZones, Map<ScoringHeights, Map<AutoMode, Command>>> m_autoOptions = new HashMap<>();
-
     public AutoFactory(ArmSupersystem m_super, SwerveDrivetrain m_drive, WristSubsystem m_wrist) {
         m_modeChooser = new LoggedDashboardChooser<>("Auto Mode");
         m_heightChooser = new LoggedDashboardChooser<>("Scoring Height");
         m_locationChooser = new LoggedDashboardChooser<>("Starting Location");
-
-        for (StartingZones start : StartingZones.values()) {
-            m_autoOptions.put(start, new HashMap<>());
-            for (ScoringHeights height : ScoringHeights.values()) {
-                m_autoOptions.get(start).put(height, new HashMap<>());
-                m_autoOptions.get(start).get(height).put(AutoMode.MOBILITY, new PrintCommand(String.format("Scoring mobility with %s height and %s starting zone", height.toString(), start.toString())));
-            }
-        }
 
         // Initialize dashboard choosers
         for (StartingZones start : StartingZones.values()) {
@@ -63,7 +50,6 @@ public class AutoFactory {
         StartingZones start = m_locationChooser.get();
         ScoringHeights height = m_heightChooser.get();
         AutoMode mode = m_modeChooser.get();
-
-        return m_autoOptions.get(start).get(height).get(mode);
+        return new PrintCommand(String.format("Auto Mode: %s - Scoring mobility with %s height and %s starting zone", mode, height, start));
     }
 }
