@@ -141,7 +141,8 @@ public final class Constants {
         
         //Auto balance constants
         public static final double BALANCE_P = -0.2;
-        public static final double DESIRED_BALANCE_ANGLE = 1;
+        public static final double DESIRED_BALANCE_ANGLE = 0;
+        public static final double ACCEPTABLE_BALANCE_ANGLE = 1.5;
         public static double Balance_D = 0.1;
 
         public static final Transform2d CENTER_TRANSLATION = new Transform2d(
