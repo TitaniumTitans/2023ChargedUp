@@ -75,6 +75,8 @@ public class AutoFactory {
                 return new MobilityCommandGroup(m_swerve, start);
             case ENGAGE:
                 return new BalanceCommandGroup(m_swerve, start);
+            case SINGE_SCORE_CUBE:
+                return new OneCubeCommandGroup(m_super, m_swerve, m_wrist, start, height);
         }
 
         return new InstantCommand();

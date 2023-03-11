@@ -309,7 +309,7 @@ public class SwerveDrivetrain extends SubsystemBase {
     }
 
     @SuppressWarnings("PMD.AvoidReassigningParameters")
-    public Command followPPTrajectory(AlignmentOptions align) {
+    public Command alignToTag(AlignmentOptions align) {
         // Figure out what pose the robot should be
         Pose2d tagPose = getFrontCamTagPose();
 
@@ -385,6 +385,6 @@ public class SwerveDrivetrain extends SubsystemBase {
     }
 
     public CommandBase createPPSwerveController(AlignmentOptions align) {
-        return new ProxyCommand(() -> followPPTrajectory(align));
+        return new ProxyCommand(() -> alignToTag(align));
     }
 }
