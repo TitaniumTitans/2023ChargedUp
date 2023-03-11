@@ -31,7 +31,7 @@ import org.littletonrobotics.junction.AutoLog;
 import org.littletonrobotics.junction.Logger;
 import org.photonvision.EstimatedRobotPose;
 
-import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 public class SwerveDrivetrain extends SubsystemBase {
@@ -150,7 +150,7 @@ public class SwerveDrivetrain extends SubsystemBase {
         modPos[2] = m_blMod.getPosition();
         modPos[3] = m_brMod.getPosition();
 
-    return modPos;
+        return modPos;
     }
 
 
@@ -173,18 +173,16 @@ public class SwerveDrivetrain extends SubsystemBase {
     // Setters
     public void drive(double xTranslation, double yTranslation, double zRotation) {
         SwerveModuleState[] states = DriveConstants.DRIVE_KINEMATICS.toSwerveModuleStates(
-            fieldOriented ? ChassisSpeeds.fromFieldRelativeSpeeds(
-                xTranslation,
-                yTranslation,
-                zRotation,
-                getGyroYaw()) :
-            new ChassisSpeeds(
-                xTranslation,
-                yTranslation,
-                zRotation
-            ));
+                fieldOriented ? ChassisSpeeds.fromFieldRelativeSpeeds(
+                        xTranslation,
+                        yTranslation,
+                        zRotation,
+                        getGyroYaw()
+                )
+                : new ChassisSpeeds(xTranslation, yTranslation, zRotation)
+        );
 
-    setModuleStates(states);
+        setModuleStates(states);
     }
 
     public void setModuleStates(SwerveModuleState[] states) {
@@ -237,12 +235,12 @@ public class SwerveDrivetrain extends SubsystemBase {
     }
 
     public void updatePoseEstimator() {
-        /**
+        /*
          * Get swerve odometry
          */
         m_poseEstimator.update(getGyroYaw(), getModulePositions());
 
-        /**
+        /*
          * Create new vision poses for each cam
          */
         Optional<EstimatedRobotPose> frontCamEstimatePose =
@@ -253,10 +251,10 @@ public class SwerveDrivetrain extends SubsystemBase {
         SmartDashboard.putBoolean("FC pose present", frontCamEstimatePose.isPresent());
 //        SmartDashboard.putBoolean("LC pose present", leftCamEstimatePose.isPresent());
 
-        /**
+        /*
          * Add each vision measurement to the pose estimator if it exists for each camera
          */
-        if(frontCamEstimatePose.isPresent()) {
+        if (frontCamEstimatePose.isPresent()) {
             EstimatedRobotPose frontCamPose = frontCamEstimatePose.get();
 
             SmartDashboard.putNumber("FC pose X", frontCamPose.estimatedPose.getX());
@@ -290,8 +288,8 @@ public class SwerveDrivetrain extends SubsystemBase {
         return m_poseEstimator.getEstimatedPosition();
     }
 
-    public double[] getAngles(){
-        return new double[]{
+    public double[] getAngles() {
+        return new double[] {
                 m_flMod.getAngle(),
                 m_frMod.getAngle(),
                 m_blMod.getAngle(),
@@ -317,7 +315,7 @@ public class SwerveDrivetrain extends SubsystemBase {
         Translation2d translatedMiddle;
         PathPlannerTrajectory traj;
 
-        switch(align){
+        switch (align) {
             case HUMAN_PLAYER_ALIGN:
             case LEFT_ALIGN:
                 translatedEnd = tagPose.transformBy(AutoConstants.LEFT_TRANSLATION).getTranslation();
@@ -354,7 +352,7 @@ public class SwerveDrivetrain extends SubsystemBase {
         );
     }
 
-    public SwerveAutoBuilder getAutoBuilder(HashMap<String, Command> eventMap) {
+    public SwerveAutoBuilder getAutoBuilder(Map<String, Command> eventMap) {
         return new SwerveAutoBuilder(
                 this::getPose,
                 this::resetPose,

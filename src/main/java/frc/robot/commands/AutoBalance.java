@@ -9,21 +9,18 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.subsystems.swerve.SwerveDrivetrain;
 
 public class AutoBalance extends CommandBase {
-  private SwerveDrivetrain m_drive;
+  private final SwerveDrivetrain m_drive;
 
-  private Timer m_timer;
-  private Timer m_balanceTimer;
+  private final Timer m_timer;
+  private final Timer m_balanceTimer;
 
   private final PIDController m_balanceController;
 
-  private double m_currentAngle;
-  private double m_error;
-  private double m_drivePower;
-  private int m_counter;
   private boolean m_isLevel;
 
   /** Creates a new AutoBalance. */
@@ -31,9 +28,7 @@ public class AutoBalance extends CommandBase {
     m_drive = drive;
     m_timer = new Timer();
     m_balanceTimer = new Timer();
-    m_balanceController = new PIDController(AutoConstants.BALANCE_P, 0.0, AutoConstants.Balance_D);
-    m_currentAngle = 0;
-    m_counter = 0;
+    m_balanceController = new PIDController(AutoConstants.BALANCE_P, 0.0, AutoConstants.BALANCE_D);
     m_isLevel = false;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_drive);
@@ -56,10 +51,10 @@ public class AutoBalance extends CommandBase {
   @Override
   public void execute() {
     // Gets how far the robot is tilted and calculates proper drive power from it
-    m_currentAngle = m_drive.getGyroPitch().getDegrees();
-    m_error = AutoConstants.DESIRED_BALANCE_ANGLE - m_currentAngle;
+    double m_currentAngle = m_drive.getGyroPitch().getDegrees();
+    double m_error = AutoConstants.DESIRED_BALANCE_ANGLE - m_currentAngle;
+    double m_drivePower = Math.min(m_balanceController.calculate(m_currentAngle), 1);
 
-    m_drivePower = Math.min(m_balanceController.calculate(m_currentAngle), 1);
     // Limit max power
     m_drivePower = MathUtil.clamp(m_drivePower, -0.5, 0.5);
 

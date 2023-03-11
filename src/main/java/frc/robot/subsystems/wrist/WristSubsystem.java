@@ -35,7 +35,7 @@ public class WristSubsystem extends SubsystemBase {
     private double prevSetpointPID;
 
     //Shuffleboard data
-    private ShuffleboardTab wristSubsystemTab;
+    private final ShuffleboardTab wristSubsystemTab;
     private GenericEntry wristAtSetpointEntry;
     private GenericEntry pieceInsideEntry;
     private GenericEntry wristAtUpperLimit;
@@ -174,17 +174,18 @@ public class WristSubsystem extends SubsystemBase {
         m_wristMotor.set(targetAnglePID);
     }
 
+    static final String HITTING_SOFT_LIMIT_STRING = "Wrist Hitting Soft Limit";
     public void setWristPower(double speed) {
 
         if (atLowerLimit() && speed <= 0){
             m_wristMotor.set(0.0);
-            SmartDashboard.putBoolean("Wrist Hitting Soft Limit", true);
+            SmartDashboard.putBoolean(HITTING_SOFT_LIMIT_STRING, true);
         } else if (getWristAngle() >= Constants.LimitConstants.WRIST_SCORE_UPPER.getValue() && speed >= 0) {
-            SmartDashboard.putBoolean("Wrist Hitting Soft Limit", true);
+            SmartDashboard.putBoolean(HITTING_SOFT_LIMIT_STRING, true);
             m_wristMotor.set(0.0);
         } else {
             m_wristMotor.set(speed);
-            SmartDashboard.putBoolean("Wrist Hitting Soft Limit", false);
+            SmartDashboard.putBoolean(HITTING_SOFT_LIMIT_STRING, false);
         }
     }
 

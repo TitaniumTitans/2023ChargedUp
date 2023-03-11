@@ -14,7 +14,6 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
-import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 import edu.wpi.first.math.util.Units;
 import frc.robot.supersystems.ArmPose;
 
@@ -30,7 +29,8 @@ import frc.robot.supersystems.ArmPose;
 public final class Constants {
 
     /*Constants for physical aspects of the modules, plus PID loops constants*/
-    public static final class ModuleConstants{
+    public static final class ModuleConstants {
+        private ModuleConstants() { throw new IllegalStateException("Utility Class"); }
         // Physical wheel constants
         public static final double WHEEL_DIAMETER_METERS = Units.inchesToMeters(4.0);
         public static final double WHEEL_CIRCUMFERENCE_METERS = 2 * Math.PI * (WHEEL_DIAMETER_METERS / 2);
@@ -53,6 +53,7 @@ public final class Constants {
     }
 
     public static final class DriveConstants {
+        private DriveConstants() { throw new IllegalStateException("Utility Class"); }
         // Can ID ports
         public static final int[] MOD_FR_CANS = {3, 4, 5};
         public static final int[] MOD_FL_CANS = {6, 7, 8};
@@ -97,6 +98,8 @@ public final class Constants {
     }
 
     public static class WristConstants {
+        private WristConstants() { throw new IllegalStateException("Utility Class"); }
+
         public static final int WRIST_ID = 20;
         public static final int INTAKE_ID = 19;
 
@@ -121,6 +124,8 @@ public final class Constants {
 
 
     public static class AutoConstants {
+        private AutoConstants() { throw new IllegalStateException("Utility Class"); }
+
         //Trajectory following values
         public static final double MAX_VELOCITY_PERCENT_OUTPUT = 3.0;
         public static final double MAX_ACCELERATION_PERCENT_OUTPUT = 1.5;
@@ -143,7 +148,7 @@ public final class Constants {
         public static final double BALANCE_P = -0.04;
         public static final double DESIRED_BALANCE_ANGLE = 0;
         public static final double ACCEPTABLE_BALANCE_ANGLE = 1.5;
-        public static double Balance_D = 0.1;
+        public static final double BALANCE_D = 0.1;
 
         public static final Transform2d CENTER_TRANSLATION = new Transform2d(
                 new Translation2d(0.6, 0.0),
@@ -164,6 +169,8 @@ public final class Constants {
     public static final Mode CURRENT_MODE = Mode.HELIOS;
 
     public static class ArmConstants {
+        private ArmConstants() { throw new IllegalStateException("Utility Class"); }
+
         public static final int ARM_EXTENSION_ID = 18;
         public static final int ARM_ANGLE_ID_MASTER = 16;
         public static final int ARM_ANGLE_ID_FOLLOWER = 17;
@@ -192,7 +199,7 @@ public final class Constants {
     }
 
     public static class LimitConstants {
-        private LimitConstants() {}
+        private LimitConstants() { throw new IllegalStateException("Utility Class"); }
 
         // Arm Extension limits for Piecewise Function
         public static final GosDoubleProperty ARM_EXT_STOW =
@@ -232,6 +239,8 @@ public final class Constants {
     }
 
     public static class ArmSetpoints{
+        private ArmSetpoints() { throw new IllegalStateException("Utility Class"); }
+
         public static final ArmPose STOW_POSITION = new ArmPose(0.0, 18, 0.0);
         public static final ArmPose VERT_STOW_POSE = new ArmPose(0.0, 180, 0.0);
 
