@@ -28,6 +28,7 @@ public class CameraSubsystem implements Subsystem {
 
     /**
      * Creates a new CameraSubsystem
+     *
      * @param camName Name of the camera in the system
      * @param camPose Transform3d of the camera's position relative to the robot
      */
@@ -37,15 +38,15 @@ public class CameraSubsystem implements Subsystem {
 
         try {
             m_tagLayout =
-                AprilTagFieldLayout.loadFromResource(AprilTagFields.k2023ChargedUp.m_resourceFile);
-            if(m_prevAlliance == DriverStation.Alliance.Blue) {
+                    AprilTagFieldLayout.loadFromResource(AprilTagFields.k2023ChargedUp.m_resourceFile);
+            if (m_prevAlliance == DriverStation.Alliance.Blue) {
                 m_tagLayout.setOrigin(AprilTagFieldLayout.OriginPosition.kBlueAllianceWallRightSide);
             } else {
                 m_tagLayout.setOrigin(AprilTagFieldLayout.OriginPosition.kRedAllianceWallRightSide);
             }
             m_photonPoseEstimator = new PhotonPoseEstimator
-                (m_tagLayout, PhotonPoseEstimator.PoseStrategy.CLOSEST_TO_REFERENCE_POSE, m_camera,
-                    camPose);
+                    (m_tagLayout, PhotonPoseEstimator.PoseStrategy.CLOSEST_TO_REFERENCE_POSE, m_camera,
+                            camPose);
         } catch (IOException e) {
             throw new IllegalStateException(e);
         }
@@ -53,6 +54,7 @@ public class CameraSubsystem implements Subsystem {
 
     /**
      * Gets optional estimatedRobotPose from AprilTag data
+     *
      * @param prevEstimatedRobotPose Pose 2d reference position for the Photon Vision pose estimator to work off of
      * @return Optional estimatedRobotPose, a Pose3d and a timestamp in seconds
      */
@@ -66,6 +68,7 @@ public class CameraSubsystem implements Subsystem {
             } else {
                 m_tagLayout.setOrigin(AprilTagFieldLayout.OriginPosition.kBlueAllianceWallRightSide);
             }
+        }
 
         Optional<EstimatedRobotPose> estimate = m_photonPoseEstimator.update();
         if (estimate.isPresent()) {
@@ -76,8 +79,4 @@ public class CameraSubsystem implements Subsystem {
 
         return estimate;
     }
-
-
-
-
 }
