@@ -83,7 +83,7 @@ public final class Constants {
         // Camera constants
         public static final Transform3d FRONT_CAM_POSE = new Transform3d(
                 new Translation3d(Units.inchesToMeters(12.0), 0.0, Units.inchesToMeters(8.00)),
-                new Rotation3d(Math.PI, 0.0, 0.0));
+                new Rotation3d(0.0, 0.0, 0.0));
         public static final Transform3d LEFT_CAM_POSE = new Transform3d(
                 new Translation3d(Units.inchesToMeters(4.0), Units.inchesToMeters(6.0), Units.inchesToMeters(25.0)),
                 new Rotation3d(Units.degreesToRadians(90.0), 0.0, Units.degreesToRadians(90.0)));
@@ -110,7 +110,7 @@ public final class Constants {
 
         public static final double WRIST_UPPER_LIMIT = 125.0;
         public static final int TOF_PORT = 23;
-        public static final double WRIST_KP = 0.05;
+        public static final double WRIST_KP = 0.04;
         public static final double WRIST_KI = 0.0;
         public static final double WRIST_KD = 0.0;
 
@@ -126,18 +126,18 @@ public final class Constants {
         public static final double MAX_ACCELERATION_PERCENT_OUTPUT = 1.5;
 
         public static final PIDController THETA_CONTROLLER =
-                new PIDController(1.0, 0.0, 0.0);
+                new PIDController(1.5, 0.0, 0.0);
 
         public static final PIDController CONTROLLER_X =
-            new PIDController(2.5, 0, 0);
+            new PIDController(3.0, 0, 0);
         public static final PIDController CONTROLLER_Y =
-            new PIDController(2.5, 0, 0);
+            new PIDController(3.0, 0, 0);
 
         public static final PIDConstants CONSTANTS_X =
-                new PIDConstants(2.5, 0, 0);
+                new PIDConstants(3.0, 0, 0);
 
         public static final PIDConstants THETA_CONSTANTS =
-                new PIDConstants(1.0, 0.0, 0.0);
+                new PIDConstants(3.0, 0.0, 0.0);
         
         //Auto balance constants
         public static final double BALANCE_P = -0.04;
@@ -146,17 +146,27 @@ public final class Constants {
         public static double Balance_D = 0.1;
 
         public static final Transform2d CENTER_TRANSLATION = new Transform2d(
-                new Translation2d(0.6, 0.0),
+                new Translation2d(0.65, 0.0),
                 new Rotation2d(0.0)
         );
 
         public static final Transform2d LEFT_TRANSLATION = new Transform2d(
-                new Translation2d(0.6, 0.6),
+                new Translation2d(0.65, 0.6),
+                new Rotation2d()
+        );
+
+        public static final Transform2d HUMAN_PLAYER_RIGHT_TRANSLATION = new Transform2d(
+                new Translation2d(0.6, 0.9),
+                new Rotation2d()
+        );
+
+        public static final Transform2d HUMAN_PLAYER_LEFT_TRANSLATION = new Transform2d(
+                new Translation2d(0.6, -0.9),
                 new Rotation2d()
         );
 
         public static final Transform2d RIGHT_TRANSLATION = new Transform2d(
-                new Translation2d(0.6, -0.6),
+                new Translation2d(0.65, -0.6),
                 new Rotation2d()
         );
     }
@@ -173,9 +183,11 @@ public final class Constants {
         public static final double KI_ANGLE = 0.005;
         public static final double KD_ANGLE = 0.0075;
 
-        public static final GosDoubleProperty ARM_EXT_KP = new GosDoubleProperty(false, "Arm extension kP", 0.1);
+        public static final GosDoubleProperty ARM_EXT_KP = new GosDoubleProperty(false, "Arm extension kP", 0.2);
         public static final GosDoubleProperty ARM_EXT_KI = new GosDoubleProperty(false, "Arm extension kI", 0);
         public static final GosDoubleProperty ARM_EXT_KD = new GosDoubleProperty(false, "Arm extension kD", 0);
+
+        public static final Constraints ARM_CONSTRAINTS = new Constraints(1000,  500);
 
         public static final double ARM_OFFSET = 165;
 
@@ -220,7 +232,7 @@ public final class Constants {
         public static final GosDoubleProperty STOW_ZONE =
                 new GosDoubleProperty(false, "Stow Zone Lower Bound", 45);
         public static final GosDoubleProperty SCORE_ZONE =
-                new GosDoubleProperty(false, "Score Zone Lower Bound", 200);
+                new GosDoubleProperty(true, "Score Zone Lower Bound", 190);
 
         // Worry about ground at angle 302
         public static final GosDoubleProperty GROUND_ZONE =
@@ -232,12 +244,12 @@ public final class Constants {
     }
 
     public static class ArmSetpoints{
-        public static final ArmPose STOW_POSITION = new ArmPose(0.0, 18, 0.0);
+        public static final ArmPose STOW_POSITION = new ArmPose(0.0, 30, 0.0);
         public static final ArmPose VERT_STOW_POSE = new ArmPose(0.0, 180, 0.0);
 
-        public static final ArmPose INTAKE_CUBE = new ArmPose(6.6, 325.1, 172.6);
-        public static final ArmPose INTAKE_CONE = new ArmPose(1.0, 328.0, 179.0);
-        public static final ArmPose HUMAN_PLAYER_STATION = new ArmPose(0.0, 234.6, 86.0);
+        public static final ArmPose INTAKE_CUBE = new ArmPose(6.6, 325.1, 165.6);
+        public static final ArmPose INTAKE_CONE = new ArmPose(1.0, 328.0, 170.0);
+        public static final ArmPose HUMAN_PLAYER_STATION = new ArmPose(0.0, 236.6, 80.0);
 
         public static final ArmPose MIDDLE_GOAL_NON_STOW = new ArmPose(0.0, 252.1, 99.7);
         public static final ArmPose MIDDLE_GOAL_STOW = new ArmPose(0.0, 0.0, 0.0);

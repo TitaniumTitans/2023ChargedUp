@@ -67,6 +67,7 @@ public class WristSubsystem extends SubsystemBase {
 
         m_wristMotor  = SparkMaxFactory.Companion.createSparkMax(WristConstants.WRIST_ID, config);
         // Current limit based off testing 2/28/2023 17:55
+        m_wristMotor.setOpenLoopRampRate(0.1);
 
         config.setCurrentLimit(40);
         config.setInverted(false);
@@ -164,7 +165,7 @@ public class WristSubsystem extends SubsystemBase {
         double currentWristAngle = getWristAngle();
 
         double targetAngleClamped = MathUtil.clamp(targetAngleRaw, Constants.LimitConstants.WRIST_SCORE_LOWER.getValue(), Constants.LimitConstants.WRIST_SCORE_UPPER.getValue());
-        double targetAnglePID = MathUtil.clamp(m_wristPID.calculate(currentWristAngle, targetAngleClamped), -0.5, 0.5);
+        double targetAnglePID = MathUtil.clamp(m_wristPID.calculate(currentWristAngle, targetAngleClamped), -0.7, 0.7);
 
         // Dashboard variables
         prevSetpointRaw = targetAngleRaw;
@@ -197,7 +198,11 @@ public class WristSubsystem extends SubsystemBase {
     }
 
     public void setIntakeSpeed(double speed) {
-        m_intakeMotor.set(speed);
+        if (speed == 0) {
+            m_intakeMotor.set(0.1);
+        } else {
+            m_intakeMotor.set(speed);
+        }
     }
 
     public Command setIntakeSpeedFactory(double speed) {

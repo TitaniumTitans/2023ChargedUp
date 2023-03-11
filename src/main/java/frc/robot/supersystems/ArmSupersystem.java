@@ -77,6 +77,12 @@ public class ArmSupersystem {
         angleArmSubsystem.setArmAngle(angleSetpoint);
     }
 
+    public void toggleAllBrakemode() {
+        angleArmSubsystem.toggleBrakeMode();
+        wristSubsystem.toggleBrakeMode();
+        extArmSubsystem.toggleBrakeMode();
+    }
+
     public boolean atSetpoint() {
         SmartDashboard.putBoolean("Wrist at setpoint", wristSubsystem.wristAtSetpoint());
         SmartDashboard.putBoolean("EXT at setpoint", extArmSubsystem.armExtensionAtSetpoint());

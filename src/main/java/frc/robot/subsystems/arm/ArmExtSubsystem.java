@@ -40,6 +40,8 @@ public class ArmExtSubsystem extends SubsystemBase {
     private GenericEntry armExtSetpointClampedEntry;
     private GenericEntry armExtMotorOutputEntry;
 
+
+
     @AutoLog
     public static class ArmExtIOInputs {
         public double armExtension = 0.0;
@@ -49,6 +51,7 @@ public class ArmExtSubsystem extends SubsystemBase {
         SparkMaxFactory.SparkMaxConfig config = new SparkMaxFactory.SparkMaxConfig();
 
         m_armExt = SparkMaxFactory.Companion.createSparkMax(Constants.ArmConstants.ARM_EXTENSION_ID, config);
+        m_armExt.setClosedLoopRampRate(0.1);
 
         m_relativeEncoderArmEx = m_armExt.getEncoder();
         m_relativeEncoderArmEx.setPositionConversionFactor(Constants.ArmConstants.EXTENSION_RATIO);
@@ -57,6 +60,7 @@ public class ArmExtSubsystem extends SubsystemBase {
         m_extPID.setP(Constants.ArmConstants.ARM_EXT_KP.getValue());
         m_extPID.setI(Constants.ArmConstants.ARM_EXT_KI.getValue());
         m_extPID.setD(Constants.ArmConstants.ARM_EXT_KD.getValue());
+        m_extPID.setOutputRange(-2, 2);
 
 
         m_armLimitSwitch = new DigitalInput(Constants.ArmConstants.LIMIT_SWITCH_PORT);
@@ -164,6 +168,14 @@ public class ArmExtSubsystem extends SubsystemBase {
         updateShuffleboardData();
 
         SmartDashboard.putBoolean("Ext at setpoint", armExtensionAtSetpoint());
+    }
+
+    public void toggleBrakeMode() {
+        if (m_armExt.getIdleMode() == CANSparkMax.IdleMode.kBrake) {
+            m_armExt.setIdleMode(CANSparkMax.IdleMode.kCoast);
+        } else {
+            m_armExt.setIdleMode(CANSparkMax.IdleMode.kBrake);
+        }
     }
 
     public void updateInputs(ArmExtIOInputsAutoLogged inputs) {

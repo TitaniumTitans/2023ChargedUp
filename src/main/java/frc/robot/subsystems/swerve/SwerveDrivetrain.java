@@ -44,7 +44,7 @@ public class SwerveDrivetrain extends SubsystemBase {
 
     private final SwerveIOInputsAutoLogged m_inputs;
 
-    private boolean fieldOriented = false;
+    private boolean fieldOriented = true;
 
     private final Field2d m_field;
     private final SwerveDrivePoseEstimator m_poseEstimator;
@@ -111,7 +111,7 @@ public class SwerveDrivetrain extends SubsystemBase {
 //        m_leftCamSubsystem = new CameraSubsystem(DriveConstants.LEFT_CAM_NAME, DriveConstants.LEFT_CAM_POSE);
 
         SmartDashboard.putData("Field", m_field);
-
+        resetGyro();
     }
 
     @Override
@@ -283,6 +283,10 @@ public class SwerveDrivetrain extends SubsystemBase {
         return m_frontCamSubsystem.getTagPose();
     }
 
+    public int getFrontCamTagID() {
+        return m_frontCamSubsystem.getTagID();
+    }
+
     public void resetPose(Pose2d newPose) {
         m_poseEstimator.resetPosition(getGyroYaw(), getModulePositions(), newPose);
     }
@@ -317,6 +321,7 @@ public class SwerveDrivetrain extends SubsystemBase {
     public Command alignToTag(AlignmentOptions align) {
         // Figure out what pose the robot should be
         Pose2d tagPose = getFrontCamTagPose();
+        int tagID = getFrontCamTagID();
 
         Translation2d translatedEnd;
         Translation2d translatedMiddle;
@@ -324,11 +329,21 @@ public class SwerveDrivetrain extends SubsystemBase {
 
         switch(align){
             case HUMAN_PLAYER_ALIGN:
+                translatedEnd = tagPose.transformBy(AutoConstants.HUMAN_PLAYER_RIGHT_TRANSLATION).getTranslation();
+                break;
             case LEFT_ALIGN:
-                translatedEnd = tagPose.transformBy(AutoConstants.LEFT_TRANSLATION).getTranslation();
+                if (tagID == 4 || tagID == 5) {
+                    translatedEnd = tagPose.transformBy(AutoConstants.HUMAN_PLAYER_LEFT_TRANSLATION).getTranslation();
+                } else {
+                    translatedEnd = tagPose.transformBy(AutoConstants.LEFT_TRANSLATION).getTranslation();
+                }
                 break;
             case RIGHT_ALIGN:
-                translatedEnd = tagPose.transformBy(AutoConstants.RIGHT_TRANSLATION).getTranslation();
+                if (tagID == 4 || tagID == 5) {
+                    translatedEnd = tagPose.transformBy(AutoConstants.HUMAN_PLAYER_RIGHT_TRANSLATION).getTranslation();
+                } else {
+                    translatedEnd = tagPose.transformBy(AutoConstants.RIGHT_TRANSLATION).getTranslation();
+                }
                 break;
             default:
                 translatedEnd = tagPose.transformBy(AutoConstants.CENTER_TRANSLATION).getTranslation();
@@ -338,12 +353,17 @@ public class SwerveDrivetrain extends SubsystemBase {
                 translatedEnd.minus(new Translation2d(0.25, 0)) :
                 translatedEnd.plus(new Translation2d(0.25, 0));
 
+        Translation2d chassisSpeed = new Translation2d(
+                getChassisSpeed().vxMetersPerSecond,
+                getChassisSpeed().vyMetersPerSecond
+        );
+
 
         //generate a path based on the tag you see, flipped 180 from tag pose
         traj = PathPlanner.generatePath(
                 AutoUtils.getDefaultConstraints(),
-                new PathPoint(getPose().getTranslation(), new Rotation2d(), getPose().getRotation()),
-                new PathPoint(translatedMiddle, new Rotation2d(), tagPose.getRotation().rotateBy(Rotation2d.fromDegrees(180))),
+                new PathPoint(getPose().getTranslation(), new Rotation2d(), getPose().getRotation(), chassisSpeed.getNorm()),
+//                new PathPoint(translatedMiddle, new Rotation2d(), tagPose.getRotation().rotateBy(Rotation2d.fromDegrees(180))),
                 new PathPoint(translatedEnd, new Rotation2d(), tagPose.getRotation().rotateBy(Rotation2d.fromDegrees(180)))
         );
 
@@ -357,6 +377,10 @@ public class SwerveDrivetrain extends SubsystemBase {
                 this::setModuleStates,
                 this
         );
+    }
+
+    public ChassisSpeeds getChassisSpeed() {
+        return DriveConstants.DRIVE_KINEMATICS.toChassisSpeeds(getModuleStates());
     }
 
     public SwerveAutoBuilder getAutoBuilder(HashMap<String, Command> eventMap) {

@@ -193,4 +193,14 @@ public class CameraSubsystem implements Subsystem {
             return new Pose2d();
         }
     }
+
+    public int getTagID() {
+        PhotonPipelineResult results = m_camera.getLatestResult();
+
+        if (results.hasTargets()) {
+            return results.getBestTarget().getFiducialId();
+        } else {
+            return 0;
+        }
+    }
 }

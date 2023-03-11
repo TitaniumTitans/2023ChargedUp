@@ -7,6 +7,7 @@ import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -28,6 +29,7 @@ public class ArmAngleSubsystem extends SubsystemBase {
     private final CANSparkMax m_armAngleFollower;
     private final DutyCycleEncoder m_encoderArmAngle;
     // Misc.
+//    private final ProfiledPIDController m_anglePID;
     private final PIDController m_anglePID;
     private ArmAngleIOInputsAutoLogged m_inputs;
     // Logging variables
@@ -61,6 +63,7 @@ public class ArmAngleSubsystem extends SubsystemBase {
         SparkMaxFactory.SparkMaxConfig config = new SparkMaxFactory.SparkMaxConfig();
         config.setFrame0Rate(10);
         m_armAngleMaster = SparkMaxFactory.Companion.createSparkMax(ArmConstants.ARM_ANGLE_ID_MASTER, config);
+        m_armAngleMaster.setOpenLoopRampRate(0.2);
 
         config.setFrame0Rate(SparkMaxFactory.MAX_CAN_FRAME_PERIOD);
         m_armAngleFollower = SparkMaxFactory.Companion.createSparkMax(ArmConstants.ARM_ANGLE_ID_FOLLOWER, config);
@@ -72,6 +75,7 @@ public class ArmAngleSubsystem extends SubsystemBase {
         m_encoderArmAngle.setDistancePerRotation(360);
         m_encoderArmAngle.setPositionOffset(0);
 
+//        m_anglePID = new ProfiledPIDController(ArmConstants.KP_ANGLE, ArmConstants.KI_ANGLE, 0.0, ArmConstants.ARM_CONSTRAINTS);
         m_anglePID = new PIDController(ArmConstants.KP_ANGLE, ArmConstants.KI_ANGLE, 0.0);
         m_anglePID.setTolerance(5);
 
@@ -167,12 +171,16 @@ public class ArmAngleSubsystem extends SubsystemBase {
 
         // Clamp target
         double targetAngleClamped = MathUtil.clamp(targetAngleRaw, LimitConstants.ARM_ANGLE_LOWER.getValue(), LimitConstants.ARM_ANGLE_UPPER.getValue());
-        double targetAnglePID = MathUtil.clamp(m_anglePID.calculate(currentArmAngle, targetAngleClamped), -9, 9);
+        double targetAnglePID = MathUtil.clamp(m_anglePID.calculate(currentArmAngle, targetAngleClamped), -12, 12);
 
         // Update dashboard variables
         prevSetpointRaw = targetAngleRaw;
         prevSetpointClamped = targetAngleClamped;
         prevSetpointPID = targetAnglePID;
+
+        SmartDashboard.putNumber("Target Angle Clamped", targetAngleClamped);
+        SmartDashboard.putNumber("Raw output", m_anglePID.calculate(currentArmAngle, targetAngleClamped));
+        SmartDashboard.putNumber("Angle PID Output", targetAnglePID);
 
         // Set voltage based off of PID
         m_armAngleMaster.setVoltage(targetAnglePID);
