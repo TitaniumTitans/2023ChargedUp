@@ -54,6 +54,7 @@ public class SwerveDrivetrain extends SubsystemBase {
 
     private double m_currentPitch = 0;
     private double m_previousPitch = 0;
+    private boolean slowmode = false;
 
     public enum AlignmentOptions {
         LEFT_ALIGN,
@@ -196,8 +197,12 @@ public class SwerveDrivetrain extends SubsystemBase {
         SmartDashboard.putNumber("Desired angle FL", states[0].angle.getDegrees());
     }
 
+    public void resetGyro(double heading) {
+        m_gyro.setYaw(heading);
+    }
+
     public void resetGyro() {
-        m_gyro.setYaw(0);
+        resetGyro(0);
     }
 
     public Rotation2d getGyroPitch() {
@@ -382,6 +387,20 @@ public class SwerveDrivetrain extends SubsystemBase {
 
     public CommandBase resetPoseBase() {
         return runOnce(() -> resetPose(new Pose2d()));
+    }
+
+    public void setSlowmode() {
+        slowmode = !slowmode;
+    }
+
+    public boolean getSlowmode() {
+        return slowmode;
+    }
+
+    public CommandBase setSlowmodeFactory() {
+        return runOnce(() -> {
+            setSlowmode();
+        });
     }
 
     public CommandBase createPPSwerveController(AlignmentOptions align) {

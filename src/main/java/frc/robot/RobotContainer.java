@@ -147,7 +147,8 @@ public class RobotContainer {
     m_driveController.leftBumper().whileTrue(new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.HIGH_GOAL));
     m_driveController.rightBumper().whileTrue(new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.MIDDLE_GOAL_NON_STOW));
 
-    m_foot.leftPedal().onTrue(new PrintCommand("Left Pedal Pressed!"));
+    m_foot.leftPedal().whileTrue(m_drive.setSlowmodeFactory()).whileFalse(m_drive.setSlowmodeFactory());
+
     m_foot.middlePedal().onTrue(new PrintCommand("Middle Pedal Pressed"));
     m_foot.rightPedal().onTrue(new PrintCommand("Right Pedal Pressed"));
   }

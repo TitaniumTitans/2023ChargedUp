@@ -169,7 +169,7 @@ public final class Constants {
         public static final int ARM_ANGLE_ID_FOLLOWER = 17;
         public static final int LIMIT_SWITCH_PORT = 3;
 
-        public static final double KP_ANGLE = 0.23;
+        public static final double KP_ANGLE = 0.33;
         public static final double KI_ANGLE = 0.005;
         public static final double KD_ANGLE = 0.0075;
 
@@ -237,11 +237,11 @@ public final class Constants {
 
         public static final ArmPose INTAKE_CUBE = new ArmPose(6.6, 325.1, 170.6);
         public static final ArmPose INTAKE_CONE = new ArmPose(1.0, 328.0, 177.0);
-        public static final ArmPose HUMAN_PLAYER_STATION = new ArmPose(0.0, 237.6, 86.0);
+        public static final ArmPose HUMAN_PLAYER_STATION = new ArmPose(0.0, 234.6, 86.0);
 
         public static final ArmPose MIDDLE_GOAL_NON_STOW = new ArmPose(0.0, 252.1, 99.7);
         public static final ArmPose MIDDLE_GOAL_STOW = new ArmPose(0.0, 0.0, 0.0);
-        public static final ArmPose HIGH_GOAL = new ArmPose(24.3, 247.0, 95.3);
+        public static final ArmPose HIGH_GOAL = new ArmPose(24.3, 245.0, 95.3);
     }
 
     public static final int DRIVER_PORT = 0;

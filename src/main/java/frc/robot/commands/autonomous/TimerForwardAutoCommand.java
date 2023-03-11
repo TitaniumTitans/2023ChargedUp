@@ -8,10 +8,12 @@ import frc.robot.subsystems.swerve.SwerveDrivetrain;
 public class TimerForwardAutoCommand extends CommandBase {
     private final SwerveDrivetrain m_swerveDrivetrain;
     private final Timer m_timer;
+    private double m_speed = 0.0;
 
-    public TimerForwardAutoCommand(SwerveDrivetrain swerveDrivetrain) {
+    public TimerForwardAutoCommand(SwerveDrivetrain swerveDrivetrain, double speed) {
         this.m_swerveDrivetrain = swerveDrivetrain;
         m_timer = new Timer();
+        m_speed = speed;
         // each subsystem used by the command must be passed into the
         // addRequirements() method (which takes a vararg of Subsystem)
         addRequirements(this.m_swerveDrivetrain);
@@ -32,7 +34,7 @@ public class TimerForwardAutoCommand extends CommandBase {
      */
     @Override
     public void execute() {
-        m_swerveDrivetrain.drive(0.5, 0.0, 0.0);
+        m_swerveDrivetrain.setModuleStates(m_speed, 0.0, 0.0);
     }
 
     /**
