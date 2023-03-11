@@ -63,7 +63,7 @@ public class AutoBalance extends CommandBase {
     // Limit max power
     m_drivePower = MathUtil.clamp(m_drivePower, -0.5, 0.5);
 
-    double rollRateBalance = m_drive.getGyroRollPitch();
+    double rollRateBalance = m_drive.getGyroPitchRate();
     // if robot is tilting forward, stop moving so we don't overshoot the balance
     if (Math.abs(rollRateBalance) >= 0.3) {
       m_balanceTimer.start();
@@ -74,7 +74,7 @@ public class AutoBalance extends CommandBase {
 //      m_drivePower = Math.copySign(0.15, -m_drive.getGyroPitch().getDegrees());
       m_drivePower = 0.0;
     }
-    if (m_balanceTimer.hasElapsed(1.0)) {
+    if (m_balanceTimer.hasElapsed(0.75)) {
       m_balanceTimer.stop();
       m_balanceTimer.reset();
     }

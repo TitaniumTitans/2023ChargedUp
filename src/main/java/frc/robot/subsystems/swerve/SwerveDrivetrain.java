@@ -52,8 +52,8 @@ public class SwerveDrivetrain extends SubsystemBase {
 //    private final CameraSubsystem m_leftCamSubsystem;
 
 
-    private double m_currentRoll = 0;
-    private double m_previousRoll = 0;
+    private double m_currentPitch = 0;
+    private double m_previousPitch = 0;
 
     public enum AlignmentOptions {
         LEFT_ALIGN,
@@ -137,8 +137,8 @@ public class SwerveDrivetrain extends SubsystemBase {
 
         m_field.setRobotPose(m_poseEstimator.getEstimatedPosition());
 
-        m_previousRoll = m_currentRoll;
-        m_currentRoll = getGyroPitch().getDegrees();
+        m_previousPitch = m_currentPitch;
+        m_currentPitch = getGyroPitch().getDegrees();
     }
 
     // Getters
@@ -204,8 +204,12 @@ public class SwerveDrivetrain extends SubsystemBase {
         return Rotation2d.fromDegrees(m_gyro.getPitch());
     }
 
-    public double getGyroRollPitch() {
-        return m_currentRoll - m_previousRoll;
+    public Rotation2d getGyroRoll() {
+        return Rotation2d.fromDegrees(m_gyro.getRoll());
+    }
+
+    public double getGyroPitchRate() {
+        return m_currentPitch - m_previousPitch;
     }
 
     public void setAbsoluteAngles() {
@@ -370,6 +374,10 @@ public class SwerveDrivetrain extends SubsystemBase {
 
     public Command toggleFieldRelative() {
         return runOnce(() -> fieldOriented = !fieldOriented);
+    }
+
+    public void setFieldRelative(boolean relative) {
+        fieldOriented = relative;
     }
 
     public CommandBase resetPoseBase() {

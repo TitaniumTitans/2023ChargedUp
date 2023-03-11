@@ -7,6 +7,7 @@ import com.pathplanner.lib.PathPlannerTrajectory;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.AutoBalance;
+import frc.robot.commands.AutoBalanceTransCommand;
 import frc.robot.subsystems.swerve.SwerveDrivetrain;
 
 import java.util.HashMap;
@@ -41,6 +42,6 @@ public class BalanceCommandGroup extends SequentialCommandGroup {
         }
 
         addCommands(m_swerve.getAutoBuilder(new HashMap<>()).fullAuto(trajectory));
-        addCommands(new AutoBalance(m_swerve));
+        addCommands(new AutoBalanceTransCommand(m_swerve));
     }
 }

@@ -122,8 +122,8 @@ public final class Constants {
 
     public static class AutoConstants {
         //Trajectory following values
-        public static final double MAX_VELOCITY_PERCENT_OUTPUT = 2.0;
-        public static final double MAX_ACCELERATION_PERCENT_OUTPUT = 1.0;
+        public static final double MAX_VELOCITY_PERCENT_OUTPUT = 3.0;
+        public static final double MAX_ACCELERATION_PERCENT_OUTPUT = 1.5;
 
         public static final PIDController THETA_CONTROLLER =
                 new PIDController(1.0, 0.0, 0.0);
@@ -140,7 +140,7 @@ public final class Constants {
                 new PIDConstants(1.0, 0.0, 0.0);
         
         //Auto balance constants
-        public static final double BALANCE_P = -0.2;
+        public static final double BALANCE_P = -0.04;
         public static final double DESIRED_BALANCE_ANGLE = 0;
         public static final double ACCEPTABLE_BALANCE_ANGLE = 1.5;
         public static double Balance_D = 0.1;
