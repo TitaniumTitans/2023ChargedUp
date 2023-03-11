@@ -68,7 +68,7 @@ public class WristSubsystem extends SubsystemBase {
         m_wristMotor  = SparkMaxFactory.Companion.createSparkMax(WristConstants.WRIST_ID, config);
         // Current limit based off testing 2/28/2023 17:55
 
-        config.setCurrentLimit(10);
+        config.setCurrentLimit(40);
         config.setInverted(false);
         m_intakeMotor  = SparkMaxFactory.Companion.createSparkMax(WristConstants.INTAKE_ID, config);
 
@@ -82,7 +82,7 @@ public class WristSubsystem extends SubsystemBase {
         m_tofSensor.setRangingMode(RangingMode.Short, 10);
 
         m_wristPID = new PIDController(WristConstants.WRIST_KP, WristConstants.WRIST_KI, WristConstants.WRIST_KD);
-        m_wristPID.setTolerance(10);
+        m_wristPID.setTolerance(5);
 
         wristSubsystemTab = Shuffleboard.getTab("WristSubsystem");
 

@@ -6,8 +6,8 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
-import frc.robot.commands.ArmToScoreCommand;
 import frc.robot.commands.IntakeControlCommand;
+import frc.robot.commands.SupersystemToPoseAutoCommand;
 import frc.robot.commands.SupersystemToPoseCommand;
 import frc.robot.commands.autonomous.TimerForwardAutoCommand;
 import frc.robot.subsystems.swerve.SwerveDrivetrain;
@@ -19,10 +19,10 @@ public class ScoreMidAndMoveCommandGroup extends SequentialCommandGroup {
         // TODO: Add your sequential commands in the super() call, e.g.
         //           super(new OpenClawCommand(), new MoveArmCommand());
         super(
-                new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.MIDDLE_GOAL_NON_STOW)
+                new SupersystemToPoseAutoCommand(m_super, Constants.ArmSetpoints.MIDDLE_GOAL_NON_STOW)
                         .alongWith(new WaitCommand(5).andThen(new IntakeControlCommand(m_wrist, -1.0)))
                         .raceWith(new WaitCommand(6)),
-                new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.STOW_POSITION)
+                new SupersystemToPoseAutoCommand(m_super, Constants.ArmSetpoints.STOW_POSITION)
                         .raceWith(new TimerForwardAutoCommand(m_drive, -0.5)),
                 new InstantCommand(() -> {m_drive.resetGyro(180);})
         );

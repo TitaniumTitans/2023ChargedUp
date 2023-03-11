@@ -34,7 +34,7 @@ public class TimerForwardAutoCommand extends CommandBase {
      */
     @Override
     public void execute() {
-        m_swerveDrivetrain.setModuleStates(m_speed, 0.0, 0.0);
+        m_swerveDrivetrain.drive(m_speed, 0.0, 0.0);
     }
 
     /**

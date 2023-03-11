@@ -122,7 +122,7 @@ public final class Constants {
 
     public static class AutoConstants {
         //Trajectory following values
-        public static final double MAX_VELOCITY_PERCENT_OUTPUT = 3.0;
+        public static final double MAX_VELOCITY_PERCENT_OUTPUT = 2.0;
         public static final double MAX_ACCELERATION_PERCENT_OUTPUT = 1.5;
 
         public static final PIDController THETA_CONTROLLER =
@@ -185,7 +185,7 @@ public final class Constants {
         public static final double EXTENSION_RATIO = (1.0 / 25.0) * (SPROCKET_DIAMETER * Math.PI);
 
 
-        public static final double EXT_PID_TOLERANCE = 3;
+        public static final double EXT_PID_TOLERANCE = 0.0;
 
         // Used for dynamic limit calculations, unit is inches
         public static final double PIVOT_HIGHT = 5;
@@ -235,8 +235,8 @@ public final class Constants {
         public static final ArmPose STOW_POSITION = new ArmPose(0.0, 18, 0.0);
         public static final ArmPose VERT_STOW_POSE = new ArmPose(0.0, 180, 0.0);
 
-        public static final ArmPose INTAKE_CUBE = new ArmPose(6.6, 325.1, 170.6);
-        public static final ArmPose INTAKE_CONE = new ArmPose(1.0, 328.0, 177.0);
+        public static final ArmPose INTAKE_CUBE = new ArmPose(6.6, 325.1, 172.6);
+        public static final ArmPose INTAKE_CONE = new ArmPose(1.0, 328.0, 179.0);
         public static final ArmPose HUMAN_PLAYER_STATION = new ArmPose(0.0, 234.6, 86.0);
 
         public static final ArmPose MIDDLE_GOAL_NON_STOW = new ArmPose(0.0, 252.1, 99.7);

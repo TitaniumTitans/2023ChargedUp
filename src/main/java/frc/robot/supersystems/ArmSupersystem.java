@@ -1,6 +1,7 @@
 package frc.robot.supersystems;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.LimitConstants;
 import frc.robot.subsystems.arm.ArmAngleSubsystem;
@@ -25,6 +26,9 @@ public class ArmSupersystem {
             new PiecewiseInterval<>(fullRangeZone, ignored -> new ArmLimits(LimitConstants.WRIST_SCORE_LOWER.getValue(), LimitConstants.WRIST_SCORE_UPPER.getValue(),
                                                                             LimitConstants.ARM_EXT_SCORE_LOWER.getValue(),LimitConstants.ARM_EXT_SCORE_UPPER.getValue(),
                                                                             LimitConstants.ARM_ANGLE_LOWER.getValue(), LimitConstants.ARM_ANGLE_UPPER.getValue())),
+            /**
+             * Extension upper not constant?
+             */
             new PiecewiseInterval<>(floorCollisionZone, ignored -> new ArmLimits(LimitConstants.WRIST_STOW.getValue(), LimitConstants.WRIST_SCORE_UPPER.getValue(),
                                                                                 LimitConstants.ARM_EXT_STOW.getValue(), 6.1,
                                                                                 LimitConstants.ARM_ANGLE_LOWER.getValue(), LimitConstants.ARM_ANGLE_UPPER.getValue()))
@@ -74,6 +78,9 @@ public class ArmSupersystem {
     }
 
     public boolean atSetpoint() {
-        return wristSubsystem.wristAtSetpoint() && extArmSubsystem.armExtensionAtSetpoint() && angleArmSubsystem.armAngleAtSetpoint();
+        SmartDashboard.putBoolean("Wrist at setpoint", wristSubsystem.wristAtSetpoint());
+        SmartDashboard.putBoolean("EXT at setpoint", extArmSubsystem.armExtensionAtSetpoint());
+        SmartDashboard.putBoolean("Angle at setpoint", angleArmSubsystem.armAngleAtSetpoint());
+        return (wristSubsystem.wristAtSetpoint() && angleArmSubsystem.armAngleAtSetpoint()) && extArmSubsystem.armExtensionAtSetpoint();
     }
 }
