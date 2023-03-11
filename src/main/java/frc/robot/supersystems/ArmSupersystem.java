@@ -60,15 +60,15 @@ public class ArmSupersystem {
         double angleSetpoint = pose.angleSetpoint;
         double extSetpoint = pose.extSetpoint;
 
-        /** Wrist limits and output are calculated here */
+        /* Wrist limits and output are calculated here */
         wristSetpoint = MathUtil.clamp(wristSetpoint, armLimits.wristRange.getLeft(), armLimits.wristRange.getRight());
         wristSubsystem.setWristAngle(wristSetpoint);
 
-        /** Extension limits and outputs are calculated here */
+        /* Extension limits and outputs are calculated here */
         extSetpoint = MathUtil.clamp(extSetpoint, armLimits.armExtRange.getLeft(), armLimits.armExtRange.getRight());
         extArmSubsystem.setArmExtension(extSetpoint);
 
-        /** Angle limits and outputs are calculated here */
+        /* Angle limits and outputs are calculated here */
         angleSetpoint = MathUtil.clamp(angleSetpoint, armLimits.armAngleRange.getLeft(), armLimits.armAngleRange.getRight());
         angleArmSubsystem.setArmAngle(angleSetpoint);
     }
