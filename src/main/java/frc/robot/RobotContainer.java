@@ -94,15 +94,15 @@ public class RobotContainer {
 
         m_driveController.x().whileTrue(
                 new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.INTAKE_CUBE)
-                        .alongWith(new IntakeControlCommand(m_wrist, 1.0)));
+                        .alongWith(new IntakeControlCommand(m_wrist, 1.0, m_driveController.getHID())));
         m_driveController.y().whileTrue(
                 new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.INTAKE_CONE)
-                        .alongWith(new IntakeControlCommand(m_wrist, 1.0)));
+                        .alongWith(new IntakeControlCommand(m_wrist, 1.0, m_driveController.getHID())));
 
         m_driveController.a().whileTrue(new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.STOW_POSITION));
         m_driveController.b().whileTrue(
                 new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.HUMAN_PLAYER_STATION)
-                        .alongWith(new IntakeControlCommand(m_wrist, 1.0)));
+                        .alongWith(new IntakeControlCommand(m_wrist, 1.0, m_driveController.getHID())));
 
         //Auto Align with rumble for driving
         m_driveController.povLeft()

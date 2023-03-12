@@ -30,8 +30,10 @@ public class IntakeControlCommand extends CommandBase {
     @Override
     public void execute() {
         m_wrist.setIntakeSpeed(m_speed);
-        if(m_controller != null && m_wrist.isStalling()) {
-            m_controller.setRumble(GenericHID.RumbleType.kBothRumble, 1);
+        if(m_wrist.isStalling()) {
+            setRumble(1);
+        } else {
+            setRumble(0);
         }
     }
 
@@ -44,6 +46,18 @@ public class IntakeControlCommand extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         m_wrist.setIntakeSpeed(0.0);
-        m_controller.setRumble(GenericHID.RumbleType.kBothRumble, 0);
+        setRumble(0);
     }
+
+    private double previousRumble = 0;
+    private void setRumble(double power) {
+        if(power == previousRumble) {
+            return;
+        }
+        if(m_controller != null) {
+            m_controller.setRumble(GenericHID.RumbleType.kBothRumble, power);
+            previousRumble = power;
+        }
+    }
+
 }
