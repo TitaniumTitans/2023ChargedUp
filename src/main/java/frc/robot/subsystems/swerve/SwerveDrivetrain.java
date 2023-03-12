@@ -140,6 +140,8 @@ public class SwerveDrivetrain extends SubsystemBase {
 
         m_previousPitch = m_currentPitch;
         m_currentPitch = getGyroPitch().getDegrees();
+
+        int temp = getFrontCamTagID();
     }
 
     // Getters
@@ -361,7 +363,7 @@ public class SwerveDrivetrain extends SubsystemBase {
         traj = PathPlanner.generatePath(
                 AutoUtils.getDefaultConstraints(),
                 new PathPoint(getPose().getTranslation(), new Rotation2d(), getPose().getRotation(), chassisSpeed.getNorm()),
-//                new PathPoint(translatedMiddle, new Rotation2d(), tagPose.getRotation().rotateBy(Rotation2d.fromDegrees(180))),
+                new PathPoint(translatedMiddle, new Rotation2d(), tagPose.getRotation().rotateBy(Rotation2d.fromDegrees(180))),
                 new PathPoint(translatedEnd, new Rotation2d(), tagPose.getRotation().rotateBy(Rotation2d.fromDegrees(180)))
         );
 

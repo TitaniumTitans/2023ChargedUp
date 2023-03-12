@@ -198,9 +198,10 @@ public class CameraSubsystem implements Subsystem {
         PhotonPipelineResult results = m_camera.getLatestResult();
 
         if (results.hasTargets()) {
+            m_prevTag = results.getBestTarget().getFiducialId();
             return results.getBestTarget().getFiducialId();
         } else {
-            return 0;
+            return m_prevTag;
         }
     }
 }

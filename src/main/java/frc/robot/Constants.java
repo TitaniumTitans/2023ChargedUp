@@ -134,12 +134,12 @@ public final class Constants {
                 new PIDController(1.5, 0.0, 0.0);
 
         public static final PIDController CONTROLLER_X =
-            new PIDController(3.0, 0, 0);
+            new PIDController(2.5, 0, 0);
         public static final PIDController CONTROLLER_Y =
-            new PIDController(3.0, 0, 0);
+            new PIDController(2.5, 0, 0);
 
         public static final PIDConstants CONSTANTS_X =
-                new PIDConstants(3.0, 0, 0);
+                new PIDConstants(2.5, 0, 0);
 
         public static final PIDConstants THETA_CONSTANTS =
                 new PIDConstants(3.0, 0.0, 0.0);
@@ -151,12 +151,12 @@ public final class Constants {
         public static final double BALANCE_D = 0.1;
 
         public static final Transform2d CENTER_TRANSLATION = new Transform2d(
-                new Translation2d(0.65, 0.0),
+                new Translation2d(0.75, 0.0),
                 new Rotation2d(0.0)
         );
 
         public static final Transform2d LEFT_TRANSLATION = new Transform2d(
-                new Translation2d(0.65, 0.6),
+                new Translation2d(0.75, 0.55),
                 new Rotation2d()
         );
 
@@ -171,7 +171,7 @@ public final class Constants {
         );
 
         public static final Transform2d RIGHT_TRANSLATION = new Transform2d(
-                new Translation2d(0.65, -0.6),
+                new Translation2d(0.75, -0.6),
                 new Rotation2d()
         );
     }
@@ -193,8 +193,6 @@ public final class Constants {
         public static final GosDoubleProperty ARM_EXT_KP = new GosDoubleProperty(false, "Arm extension kP", 0.2);
         public static final GosDoubleProperty ARM_EXT_KI = new GosDoubleProperty(false, "Arm extension kI", 0);
         public static final GosDoubleProperty ARM_EXT_KD = new GosDoubleProperty(false, "Arm extension kD", 0);
-
-        public static final Constraints ARM_CONSTRAINTS = new Constraints(1000,  500);
 
         public static final double ARM_OFFSET = 165;
 
