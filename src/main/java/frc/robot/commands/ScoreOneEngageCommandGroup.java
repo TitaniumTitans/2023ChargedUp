@@ -23,7 +23,7 @@ public class ScoreOneEngageCommandGroup extends SequentialCommandGroup {
         addCommands(new IntakeControlCommand(m_wrist, 0.0)
                 .raceWith(new WaitCommand(0.0)));
 
-        addCommands(new BalanceCommandGroup(m_swerve, start)
-                .alongWith(new SupersystemToPoseAutoCommand(m_super, Constants.ArmSetpoints.STOW_POSITION)));
+        addCommands(new SupersystemToPoseAutoCommand(m_super, Constants.ArmSetpoints.STOW_POSITION));
+        addCommands(new BalanceCommandGroup(m_swerve, start));
     }
 }

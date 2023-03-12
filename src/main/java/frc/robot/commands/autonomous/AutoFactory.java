@@ -83,6 +83,9 @@ public class AutoFactory {
             case SINGLE_CONE_ENGAGE:
             case SINGLE_CUBE_ENGAGE:
                 return new ScoreOneEngageCommandGroup(m_swerve, m_super, m_wrist, start, height);
+            case DOUBLE_SCORE_CONE:
+            case DOUBLE_SCORE_CUBE:
+                return new ScoreTwoCommandGroup(m_swerve, m_super, height, start);
         }
 
         return new InstantCommand();

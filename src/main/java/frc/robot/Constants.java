@@ -127,7 +127,7 @@ public final class Constants {
         private AutoConstants() { throw new IllegalStateException("Utility Class"); }
 
         //Trajectory following values
-        public static final double MAX_VELOCITY_PERCENT_OUTPUT = 2.0;
+        public static final double MAX_VELOCITY_PERCENT_OUTPUT = 3.0;
         public static final double MAX_ACCELERATION_PERCENT_OUTPUT = 1.5;
 
         public static final PIDController THETA_CONTROLLER =
@@ -139,10 +139,10 @@ public final class Constants {
             new PIDController(2.75, 0, 0);
 
         public static final PIDConstants CONSTANTS_X =
-                new PIDConstants(2.5, 0, 0);
+                new PIDConstants(2.55, 0, 0);
 
         public static final PIDConstants THETA_CONSTANTS =
-                new PIDConstants(3.0, 0.0, 0.0);
+                new PIDConstants(2.0, 0.0, 0.0);
         
         //Auto balance constants
         public static final double BALANCE_P = -0.04;
@@ -186,7 +186,7 @@ public final class Constants {
         public static final int ARM_ANGLE_ID_FOLLOWER = 17;
         public static final int LIMIT_SWITCH_PORT = 3;
 
-        public static final double KP_ANGLE = 0.43;
+        public static final double KP_ANGLE = 0.48;
         public static final double KI_ANGLE = 0.005;
         public static final double KD_ANGLE = 0.0075;
 
@@ -258,7 +258,7 @@ public final class Constants {
 
         public static final ArmPose MIDDLE_GOAL_NON_STOW = new ArmPose(0.0, 252.1, 99.7);
         public static final ArmPose MIDDLE_GOAL_STOW = new ArmPose(0.0, 0.0, 0.0);
-        public static final ArmPose HIGH_GOAL = new ArmPose(24.3, 245.0, 95.3);
+        public static final ArmPose HIGH_GOAL = new ArmPose(24.3, 242.0, 95.3);
     }
 
     public static final int DRIVER_PORT = 0;

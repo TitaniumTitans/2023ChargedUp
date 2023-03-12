@@ -364,9 +364,9 @@ public class SwerveDrivetrain extends SubsystemBase {
                 translatedEnd.minus(new Translation2d(0.25, 0)) :
                 translatedEnd.plus(new Translation2d(0.25, 0));
 
-        Translation2d translatedStart = tagPose.getRotation().getDegrees() == 180 ?
-                getPose().getTranslation().plus(new Translation2d(0.5, 0.0)) :
-                getPose().getTranslation().minus(new Translation2d(0.5, 0.0));
+//        Translation2d translatedStart = tagPose.getRotation().getDegrees() == 180 ?
+//                getPose().getTranslation().minus(new Translation2d(0.05 0.0)) :
+//                getPose().getTranslation().plus(new Translation2d(0.05, 0.0));
 
         Translation2d chassisSpeed = new Translation2d(
                 getChassisSpeed().vxMetersPerSecond,
@@ -378,7 +378,7 @@ public class SwerveDrivetrain extends SubsystemBase {
         //generate a path based on the tag you see, flipped 180 from tag pose
         traj = PathPlanner.generatePath(
                 AutoUtils.getDefaultConstraints(),
-                new PathPoint(translatedStart, new Rotation2d(), getPose().getRotation(), chassisSpeed.getNorm()),
+                new PathPoint(getPose().getTranslation(), new Rotation2d(), getPose().getRotation(), chassisSpeed.getNorm()),
                 new PathPoint(translatedMiddle, new Rotation2d(), tagPose.getRotation().rotateBy(Rotation2d.fromDegrees(180))),
                 new PathPoint(translatedEnd, new Rotation2d(), tagPose.getRotation().rotateBy(Rotation2d.fromDegrees(180)))
         );

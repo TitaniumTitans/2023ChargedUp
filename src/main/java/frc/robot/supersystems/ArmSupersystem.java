@@ -86,8 +86,8 @@ public class ArmSupersystem {
         return wristSubsystem.atSetpoint() && extArmSubsystem.atSetpoint() && angleArmSubsystem.atSetpoint();
     }
 
-    public CommandBase runIntakeForTime(double seconds) {
-        return wristSubsystem.setIntakeSpeedFactory(1)
+    public CommandBase runIntakeForTime(double seconds, double speed) {
+        return wristSubsystem.setIntakeSpeedFactory(speed)
                 .andThen(new WaitCommand(seconds))
                 .andThen(wristSubsystem.setIntakeSpeedFactory(0));
     }
