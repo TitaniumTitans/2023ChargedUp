@@ -50,7 +50,7 @@ public class ScoreTwoCommandGroup extends SequentialCommandGroup {
 
         HashMap<String, Command> autoEvents = new HashMap<>();
         autoEvents.put("LowerIntake", new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.INTAKE_CUBE));
-        autoEvents.put("Pickup", m_armSupersystem.runIntakeForTime(0.3, 1));
+        autoEvents.put("Pickup", m_armSupersystem.runIntakeForTime(5    , 1));
         autoEvents.put("ClearGround", new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.STOW_POSITION));
         autoEvents.put("Score", new SupersystemToPoseAutoCommand(m_armSupersystem, armScoringPose));
 
