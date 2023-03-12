@@ -154,7 +154,7 @@ public class ArmExtSubsystem extends SubsystemBase {
 
     public boolean armExtensionAtSetpoint() {
         return ((getArmExtension() <= prevSetpointClamped + Constants.ArmConstants.EXT_PID_TOLERANCE)
-                || (getArmExtension() >= prevSetpointClamped - Constants.ArmConstants.EXT_PID_TOLERANCE));
+                && (getArmExtension() >= prevSetpointClamped - Constants.ArmConstants.EXT_PID_TOLERANCE));
     }
 
     @Override
@@ -167,7 +167,7 @@ public class ArmExtSubsystem extends SubsystemBase {
         }
         updateShuffleboardData();
 
-        SmartDashboard.putBoolean("Ext at setpoint", armExtensionAtSetpoint());
+        SmartDashboard.putBoolean("Periodic Ext at setpoint", armExtensionAtSetpoint());
     }
 
     public void toggleBrakeMode() {

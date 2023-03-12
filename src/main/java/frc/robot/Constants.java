@@ -202,7 +202,7 @@ public final class Constants {
         public static final double EXTENSION_RATIO = (1.0 / 25.0) * (SPROCKET_DIAMETER * Math.PI);
 
 
-        public static final double EXT_PID_TOLERANCE = 0.0;
+        public static final double EXT_PID_TOLERANCE = 1.0;
 
         // Used for dynamic limit calculations, unit is inches
         public static final double PIVOT_HIGHT = 5;

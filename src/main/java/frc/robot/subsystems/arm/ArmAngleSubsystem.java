@@ -146,7 +146,7 @@ public class ArmAngleSubsystem extends SubsystemBase {
         Logger.getInstance().processInputs("Arm Angle", m_inputs);
 
         updateShuffleboardData();
-        SmartDashboard.putBoolean("Angle At Setpoint", armAngleAtSetpoint());
+        SmartDashboard.putBoolean("Periodic Angle At Setpoint", armAngleAtSetpoint());
     }
 
     public void updateInputs(ArmAngleIOInputsAutoLogged inputs){

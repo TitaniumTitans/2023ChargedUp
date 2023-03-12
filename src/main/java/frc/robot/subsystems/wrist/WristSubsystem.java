@@ -148,7 +148,7 @@ public class WristSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("Wrist Current Draw", m_wristMotor.getOutputCurrent());
         SmartDashboard.putBoolean("Intake Stalling", m_intakeMotor.getFault(CANSparkMax.FaultID.kStall));
         SmartDashboard.putBoolean("Wrist stalling", m_wristMotor.getFault(CANSparkMax.FaultID.kStall));
-        SmartDashboard.putBoolean("Wrist at setpoint", wristAtSetpoint());
+        SmartDashboard.putBoolean("Periodic Wrist at setpoint", wristAtSetpoint());
     }
 
     public void updateInputs(WristIOInputsAutoLogged inputs){
@@ -196,7 +196,7 @@ public class WristSubsystem extends SubsystemBase {
 
     public void setIntakeSpeed(double speed) {
         if (speed == 0) {
-            m_intakeMotor.set(0.1);
+            m_intakeMotor.set(0.01);
         } else {
             m_intakeMotor.set(speed);
         }
