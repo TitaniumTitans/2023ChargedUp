@@ -4,9 +4,6 @@
 
 package frc.robot;
 
-import com.pathplanner.lib.PathPlanner;
-import com.pathplanner.lib.auto.PIDConstants;
-import com.pathplanner.lib.auto.SwerveAutoBuilder;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
@@ -15,7 +12,6 @@ import frc.robot.commands.SupersystemToPoseCommand;
 import frc.robot.commands.ToggleArmBrakeModeCommand;
 import frc.robot.commands.*;
 import frc.robot.commands.autonomous.AutoFactory;
-import frc.robot.commands.autonomous.ScoreMiddleAndMobilityCommandGroup;
 import frc.robot.subsystems.arm.ArmExtSubsystem;
 import frc.robot.supersystems.ArmPose;
 import frc.robot.supersystems.ArmSupersystem;
@@ -26,14 +22,11 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-import frc.robot.commands.autonomous.AutoUtils;
 import frc.robot.subsystems.arm.ArmAngleSubsystem;
 import frc.robot.subsystems.swerve.SwerveDrivetrain;
 import frc.robot.subsystems.wrist.WristSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-
-import java.util.HashMap;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -56,8 +49,6 @@ public class RobotContainer {
   //Logged chooser for auto
   private final LoggedDashboardChooser<Command> m_autoChooser = new LoggedDashboardChooser<>("Auto Modes");
   private final AutoFactory m_autoFactory;
-
-  private static SwerveAutoBuilder defaultAutoBuilder;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -97,15 +88,12 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     m_drive.setDefaultCommand(new SwerveTeleopDrive(m_drive, m_driveController));
-//    m_arm.setDefaultCommand(m_arm.setAngleSpeedFactory(0.0));
-//    m_wrist.setDefaultCommand(m_wrist.setWristPowerFactory(0.0));
-//    m_ext.setDefaultCommand(m_ext.setArmSpeedFactory(0.0));
 
     m_driveController.button(7).onTrue(m_drive.resetGyroBase());
     m_driveController.start().onTrue(m_drive.toggleFieldRelative());
 
     m_driveController.leftTrigger().whileTrue(new IntakeControlCommand(m_wrist, -5.0));
-    m_driveController.rightTrigger().whileTrue(new IntakeControlCommand(m_wrist, 1.0));
+    m_driveController.rightTrigger().whileTrue(new IntakeControlCommand(m_wrist, 1.0, m_driveController.getHID()));
 
     m_driveController.x().whileTrue(
             new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.INTAKE_CUBE)

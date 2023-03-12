@@ -243,9 +243,12 @@ public class WristSubsystem extends SubsystemBase {
         return m_intakeMotor.getFault(CANSparkMax.FaultID.kStall);
     }
 
-
-
     public boolean atSetpoint() {
         return m_wristPID.atSetpoint();
     }
+
+    public boolean isStalling() {
+        return m_intakeMotor.getFault(CANSparkMax.FaultID.kStall);
+    }
+
 }
