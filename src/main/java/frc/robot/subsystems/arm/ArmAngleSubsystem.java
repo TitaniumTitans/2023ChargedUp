@@ -31,14 +31,14 @@ public class ArmAngleSubsystem extends SubsystemBase {
     // Misc.
 //    private final ProfiledPIDController m_anglePID;
     private final PIDController m_anglePID;
-    private ArmAngleIOInputsAutoLogged m_inputs;
+    private final ArmAngleIOInputsAutoLogged m_inputs;
     // Logging variables
     private double prevSetpointRaw;
     private double prevSetpointClamped;
     private double prevSetpointPID;
 
     //Shuffleboard data
-    private ShuffleboardTab armAngleTab;
+    private final ShuffleboardTab armAngleTab;
     private GenericEntry armAngleAtSetpointEntry;
     private GenericEntry armAngleAtUpperLimitEntry;
     private GenericEntry armAngleAtLowerLimitEntry;
@@ -49,7 +49,6 @@ public class ArmAngleSubsystem extends SubsystemBase {
     private GenericEntry armAngleSetpointClampedEntry;
     private GenericEntry armAnglePIDOutputEntry;
     private GenericEntry armAngleMasterOutputEntry;
-    private GenericEntry armAngleFollowerOutputEntry;
     private GenericEntry currentCommandOutputEntry;
 
     @AutoLog
@@ -89,6 +88,7 @@ public class ArmAngleSubsystem extends SubsystemBase {
         // Booleans
         // Misc.
         armAngleAtSetpointEntry = armAngleTab.add("At setpoint", armAngleAtSetpoint()).getEntry();
+
         // Limits
         armAngleAtUpperLimitEntry = armAngleTab.add("At upper limit", armAngleAtUpperLimit()).getEntry();
         armAngleAtLowerLimitEntry = armAngleTab.add("At lower limit", armAngleAtLowerLimit()).getEntry();
@@ -98,10 +98,12 @@ public class ArmAngleSubsystem extends SubsystemBase {
         armAngleEncoderRawEntry = armAngleTab.add("Encoder raw", m_encoderArmAngle.getAbsolutePosition()).getEntry();
         armAngleRawEntry = armAngleTab.add("Angle raw", m_encoderArmAngle.getAbsolutePosition() * 360).getEntry();
         armAngleConvertedEntry = armAngleTab.add("Angle converted", getArmAngle()).getEntry();
+
         // Targets
         armAngleTargetEntry = armAngleTab.add("Target", prevSetpointRaw).getEntry();
         armAngleSetpointClampedEntry = armAngleTab.add("Clamped setpoint", prevSetpointClamped).getEntry();
         armAnglePIDOutputEntry = armAngleTab.add("PID setpoint output", prevSetpointPID).getEntry();
+
         // Misc.
         armAngleMasterOutputEntry = armAngleTab.add("Arm Angle Applied Output", 0).getEntry();
         currentCommandOutputEntry = armAngleTab.add("Current Command", "No Command").getEntry();
@@ -111,7 +113,7 @@ public class ArmAngleSubsystem extends SubsystemBase {
         // Booleans
         // Misc.
         armAngleAtSetpointEntry.setBoolean(armAngleAtSetpoint());
-//        armAngleEncoderConnectedEntry.setBoolean(encoderConnected());
+
         // Motor inversions
         // Limits
         armAngleAtUpperLimitEntry.setBoolean(armAngleAtUpperLimit());
@@ -122,14 +124,18 @@ public class ArmAngleSubsystem extends SubsystemBase {
         armAngleEncoderRawEntry.setDouble(m_encoderArmAngle.getAbsolutePosition());
         armAngleRawEntry.setDouble(m_encoderArmAngle.getAbsolutePosition() * 360);
         armAngleConvertedEntry.setDouble(getArmAngle());
+
         // Targets
         armAngleTargetEntry.setDouble(prevSetpointRaw);
         armAngleSetpointClampedEntry.setDouble(prevSetpointClamped);
         armAnglePIDOutputEntry.setDouble(prevSetpointPID);
+
         // Misc.
         Command currentCommand = getCurrentCommand();
         if(currentCommand != null) {
             currentCommandOutputEntry.setString(currentCommand.getName());
+        } else {
+            currentCommandOutputEntry.setString("No Command");
         }
         armAngleMasterOutputEntry.setDouble(m_armAngleMaster.getAppliedOutput());
     }
@@ -159,9 +165,6 @@ public class ArmAngleSubsystem extends SubsystemBase {
     }
 
     public Command setAngleSpeedFactory(double speed) {
-        if(speed == 0) {
-            return runOnce(() -> setAngleSpeed(0));
-        }
         return runOnce(() -> setAngleSpeed(speed));
     }
 
@@ -208,11 +211,23 @@ public class ArmAngleSubsystem extends SubsystemBase {
 
     public void toggleBrakeMode() {
         if(m_armAngleMaster.getIdleMode() == CANSparkMax.IdleMode.kBrake) {
-            m_armAngleMaster.setIdleMode(CANSparkMax.IdleMode.kCoast);
-            m_armAngleFollower.setIdleMode(CANSparkMax.IdleMode.kCoast);
+            disableBrakeMode();
         } else {
-            m_armAngleMaster.setIdleMode(CANSparkMax.IdleMode.kBrake);
-            m_armAngleFollower.setIdleMode(CANSparkMax.IdleMode.kBrake);
+            enableBrakeMode();
         }
     }
+
+    public void enableBrakeMode() {
+        setBrakeMode(CANSparkMax.IdleMode.kBrake);
+    }
+
+    public void disableBrakeMode() {
+        setBrakeMode(CANSparkMax.IdleMode.kCoast);
+    }
+
+    public void setBrakeMode(CANSparkMax.IdleMode idleMode) {
+        m_armAngleMaster.setIdleMode(idleMode);
+        m_armAngleFollower.setIdleMode(idleMode);
+    }
+
 }
