@@ -8,8 +8,6 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DigitalInput;
-import com.playingwithfusion.TimeOfFlight;
-import com.playingwithfusion.TimeOfFlight.RangingMode;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -45,7 +43,6 @@ public class WristSubsystem extends SubsystemBase {
     private GenericEntry wristTargetEntry;
     private GenericEntry wristSetpointClampedEntry;
     private GenericEntry wristPIDOutputEntry;
-    private GenericEntry wristTOFSensorDistanceEntry;
     private GenericEntry wristMotorOutputEntry;
     private GenericEntry intakeMotorOutputEntry;
 
@@ -91,7 +88,7 @@ public class WristSubsystem extends SubsystemBase {
     private void addShuffleboardData() {
         // Booleans
         // Misc.
-        wristAtSetpointEntry = wristSubsystemTab.add("At setpoint", wristAtSetpoint()).getEntry();
+        wristAtSetpointEntry = wristSubsystemTab.add("At setpoint", atSetpoint()).getEntry();
         pieceInsideEntry = wristSubsystemTab.add("Piece inside", pieceInside()).getEntry();
         // Limits
         wristAtUpperLimit = wristSubsystemTab.add("At upper limit", wristAtUpperLimit()).getEntry();
@@ -114,7 +111,7 @@ public class WristSubsystem extends SubsystemBase {
     private void updateShuffleboardData() {
         // Booleans
         // Misc.
-        wristAtSetpointEntry.setBoolean(wristAtSetpoint());
+        wristAtSetpointEntry.setBoolean(atSetpoint());
         pieceInsideEntry.setBoolean(pieceInside());
         // Limits
         wristAtUpperLimit.setBoolean(wristAtUpperLimit());
@@ -148,7 +145,7 @@ public class WristSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("Wrist Current Draw", m_wristMotor.getOutputCurrent());
         SmartDashboard.putBoolean("Intake Stalling", m_intakeMotor.getFault(CANSparkMax.FaultID.kStall));
         SmartDashboard.putBoolean("Wrist stalling", m_wristMotor.getFault(CANSparkMax.FaultID.kStall));
-        SmartDashboard.putBoolean("Periodic Wrist at setpoint", wristAtSetpoint());
+        SmartDashboard.putBoolean("Periodic Wrist at setpoint", atSetpoint());
     }
 
     public void updateInputs(WristIOInputsAutoLogged inputs){
@@ -248,7 +245,7 @@ public class WristSubsystem extends SubsystemBase {
 
 
 
-    public boolean wristAtSetpoint() {
+    public boolean atSetpoint() {
         return m_wristPID.atSetpoint();
     }
 }

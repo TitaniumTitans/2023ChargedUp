@@ -5,7 +5,6 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -71,7 +70,7 @@ public class ArmExtSubsystem extends SubsystemBase {
     private void addShuffleboardData() {
         // Booleans
         // Misc.
-        armExtAtSetpointEntry = armExtTab.add("At setpoint", armExtensionAtSetpoint()).getEntry();
+        armExtAtSetpointEntry = armExtTab.add("At setpoint", atSetpoint()).getEntry();
         // Limits
         armExtAtUpperLimitEntry = armExtTab.add("At upper limit", armAtUpperLimit()).getEntry();
         armExtAtLowerLimitEntry = armExtTab.add("Limit switch triggered", armAtLowerLimit()).getEntry();
@@ -90,7 +89,7 @@ public class ArmExtSubsystem extends SubsystemBase {
     private void updateShuffleboardData() {
         // Booleans
         // Misc.
-        armExtAtSetpointEntry.setBoolean(armExtensionAtSetpoint());
+        armExtAtSetpointEntry.setBoolean(atSetpoint());
         // Limits
         armExtAtUpperLimitEntry.setBoolean(armAtUpperLimit());
         armExtAtLowerLimitEntry.setBoolean(armAtLowerLimit());
@@ -152,9 +151,10 @@ public class ArmExtSubsystem extends SubsystemBase {
         m_relativeEncoderArmEx.setPosition(0.0);
     }
 
-    public boolean armExtensionAtSetpoint() {
-        return ((getArmExtension() <= prevSetpointClamped + Constants.ArmConstants.EXT_PID_TOLERANCE)
-                && (getArmExtension() >= prevSetpointClamped - Constants.ArmConstants.EXT_PID_TOLERANCE));
+    public boolean atSetpoint() {
+        double armExtension = getArmExtension();
+        return (armExtension <= prevSetpointClamped + Constants.ArmConstants.EXT_PID_TOLERANCE)
+                && (armExtension >= prevSetpointClamped - Constants.ArmConstants.EXT_PID_TOLERANCE);
     }
 
     @Override
@@ -167,7 +167,7 @@ public class ArmExtSubsystem extends SubsystemBase {
         }
         updateShuffleboardData();
 
-        SmartDashboard.putBoolean("Periodic Ext at setpoint", armExtensionAtSetpoint());
+        SmartDashboard.putBoolean("Periodic Ext at setpoint", atSetpoint());
     }
 
     public void toggleBrakeMode() {

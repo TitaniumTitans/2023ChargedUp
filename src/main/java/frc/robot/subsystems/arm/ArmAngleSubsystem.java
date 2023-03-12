@@ -1,13 +1,11 @@
 package frc.robot.subsystems.arm;
 
 
-import com.gos.lib.properties.PidProperty;
 import com.revrobotics.CANSparkMax;
 
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -29,7 +27,6 @@ public class ArmAngleSubsystem extends SubsystemBase {
     private final CANSparkMax m_armAngleFollower;
     private final DutyCycleEncoder m_encoderArmAngle;
     // Misc.
-//    private final ProfiledPIDController m_anglePID;
     private final PIDController m_anglePID;
     private final ArmAngleIOInputsAutoLogged m_inputs;
     // Logging variables
@@ -74,7 +71,6 @@ public class ArmAngleSubsystem extends SubsystemBase {
         m_encoderArmAngle.setDistancePerRotation(360);
         m_encoderArmAngle.setPositionOffset(0);
 
-//        m_anglePID = new ProfiledPIDController(ArmConstants.KP_ANGLE, ArmConstants.KI_ANGLE, 0.0, ArmConstants.ARM_CONSTRAINTS);
         m_anglePID = new PIDController(ArmConstants.KP_ANGLE, ArmConstants.KI_ANGLE, 0.0);
         m_anglePID.setTolerance(5);
 
@@ -87,7 +83,7 @@ public class ArmAngleSubsystem extends SubsystemBase {
     private void addShuffleboardData() {
         // Booleans
         // Misc.
-        armAngleAtSetpointEntry = armAngleTab.add("At setpoint", armAngleAtSetpoint()).getEntry();
+        armAngleAtSetpointEntry = armAngleTab.add("At setpoint", atSetpoint()).getEntry();
 
         // Limits
         armAngleAtUpperLimitEntry = armAngleTab.add("At upper limit", armAngleAtUpperLimit()).getEntry();
@@ -112,7 +108,7 @@ public class ArmAngleSubsystem extends SubsystemBase {
     private void updateShuffleboardData() {
         // Booleans
         // Misc.
-        armAngleAtSetpointEntry.setBoolean(armAngleAtSetpoint());
+        armAngleAtSetpointEntry.setBoolean(atSetpoint());
 
         // Motor inversions
         // Limits
@@ -146,7 +142,6 @@ public class ArmAngleSubsystem extends SubsystemBase {
         Logger.getInstance().processInputs("Arm Angle", m_inputs);
 
         updateShuffleboardData();
-        SmartDashboard.putBoolean("Periodic Angle At Setpoint", armAngleAtSetpoint());
     }
 
     public void updateInputs(ArmAngleIOInputsAutoLogged inputs){
@@ -197,7 +192,7 @@ public class ArmAngleSubsystem extends SubsystemBase {
         return m_encoderArmAngle.isConnected();
     }
 
-    public boolean armAngleAtSetpoint() {
+    public boolean atSetpoint() {
         return m_anglePID.atSetpoint();
     }
 

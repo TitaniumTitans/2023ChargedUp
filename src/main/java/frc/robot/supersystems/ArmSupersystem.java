@@ -1,8 +1,7 @@
 package frc.robot.supersystems;
 
-import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants.LimitConstants;
 import frc.robot.subsystems.arm.ArmAngleSubsystem;
 import frc.robot.subsystems.arm.ArmExtSubsystem;
@@ -65,15 +64,15 @@ public class ArmSupersystem {
         double extSetpoint = pose.extSetpoint;
 
         /* Wrist limits and output are calculated here */
-        wristSetpoint = MathUtil.clamp(wristSetpoint, armLimits.wristRange.getLeft(), armLimits.wristRange.getRight());
+        wristSetpoint = armLimits.wristRange.clamp(wristSetpoint);
         wristSubsystem.setWristAngle(wristSetpoint);
 
         /* Extension limits and outputs are calculated here */
-        extSetpoint = MathUtil.clamp(extSetpoint, armLimits.armExtRange.getLeft(), armLimits.armExtRange.getRight());
+        extSetpoint = armLimits.armExtRange.clamp(extSetpoint);
         extArmSubsystem.setArmExtension(extSetpoint);
 
         /* Angle limits and outputs are calculated here */
-        angleSetpoint = MathUtil.clamp(angleSetpoint, armLimits.armAngleRange.getLeft(), armLimits.armAngleRange.getRight());
+        angleSetpoint = armLimits.armAngleRange.clamp(angleSetpoint);
         angleArmSubsystem.setArmAngle(angleSetpoint);
     }
 
@@ -84,9 +83,13 @@ public class ArmSupersystem {
     }
 
     public boolean atSetpoint() {
-        SmartDashboard.putBoolean("Wrist at setpoint", wristSubsystem.wristAtSetpoint());
-        SmartDashboard.putBoolean("EXT at setpoint", extArmSubsystem.armExtensionAtSetpoint());
-        SmartDashboard.putBoolean("Angle at setpoint", angleArmSubsystem.armAngleAtSetpoint());
-        return (wristSubsystem.wristAtSetpoint() && angleArmSubsystem.armAngleAtSetpoint()) && extArmSubsystem.armExtensionAtSetpoint();
+        return wristSubsystem.atSetpoint() && extArmSubsystem.atSetpoint() && angleArmSubsystem.atSetpoint();
     }
+
+    public CommandBase runIntakeForTime(double seconds) {
+        return wristSubsystem.setIntakeSpeedFactory(1)
+                .andThen(new WaitCommand(seconds))
+                .andThen(wristSubsystem.setIntakeSpeedFactory(0));
+    }
+
 }

@@ -24,24 +24,80 @@
     },
     {
       "anchorPoint": {
-        "x": 6.326228686694178,
-        "y": 3.3391537253830568
+        "x": 4.826653596969166,
+        "y": 3.2883585485480835
       },
       "prevControl": {
-        "x": 4.988280104948227,
-        "y": 2.9846545285101977
+        "x": 3.7173254454363853,
+        "y": 3.2883585485480835
       },
       "nextControl": {
-        "x": 4.988280104948227,
-        "y": 2.9846545285101977
+        "x": 5.927567953802265,
+        "y": 3.2883585485480835
+      },
+      "holonomicAngle": 180.0,
+      "isReversal": false,
+      "velOverride": null,
+      "isLocked": false,
+      "isStopPoint": true,
+      "stopEvent": {
+        "names": [
+          "LowerIntake"
+        ],
+        "executionBehavior": "parallel",
+        "waitBehavior": "none",
+        "waitTime": 0
+      }
+    },
+    {
+      "anchorPoint": {
+        "x": 6.379097546927489,
+        "y": 3.373037309454901
+      },
+      "prevControl": {
+        "x": 4.642551988230171,
+        "y": 3.373037309454901
+      },
+      "nextControl": {
+        "x": 4.642551988230171,
+        "y": 3.373037309454901
       },
       "holonomicAngle": 0,
       "isReversal": true,
       "velOverride": null,
       "isLocked": false,
-      "isStopPoint": false,
+      "isStopPoint": true,
       "stopEvent": {
-        "names": [],
+        "names": [
+          "Pickup"
+        ],
+        "executionBehavior": "parallel",
+        "waitBehavior": "none",
+        "waitTime": 0
+      }
+    },
+    {
+      "anchorPoint": {
+        "x": 5.0,
+        "y": 3.08
+      },
+      "prevControl": {
+        "x": 5.111833593538449,
+        "y": 3.08
+      },
+      "nextControl": {
+        "x": 4.888166406461551,
+        "y": 3.08
+      },
+      "holonomicAngle": 180.0,
+      "isReversal": false,
+      "velOverride": null,
+      "isLocked": false,
+      "isStopPoint": true,
+      "stopEvent": {
+        "names": [
+          "ClearGround"
+        ],
         "executionBehavior": "parallel",
         "waitBehavior": "none",
         "waitTime": 0
@@ -63,7 +119,9 @@
       "isLocked": false,
       "isStopPoint": false,
       "stopEvent": {
-        "names": [],
+        "names": [
+          "Score"
+        ],
         "executionBehavior": "parallel",
         "waitBehavior": "none",
         "waitTime": 0
