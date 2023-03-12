@@ -6,6 +6,7 @@ import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.PathPoint;
 import com.pathplanner.lib.auto.SwerveAutoBuilder;
 import com.pathplanner.lib.commands.PPSwerveControllerCommand;
+import com.playingwithfusion.TimeOfFlight;
 import edu.wpi.first.math.MatBuilder;
 import edu.wpi.first.math.Nat;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
@@ -41,6 +42,7 @@ public class SwerveDrivetrain extends SubsystemBase {
     private final SwerveModNeo m_brMod;
 
     private final WPI_Pigeon2 m_gyro;
+    private final TimeOfFlight m_tofSensor;
 
     private final SwerveIOInputsAutoLogged m_inputs;
 
@@ -96,6 +98,9 @@ public class SwerveDrivetrain extends SubsystemBase {
         m_gyro = new WPI_Pigeon2(DriveConstants.GYRO_CAN);
         m_inputs = new SwerveIOInputsAutoLogged();
 
+        m_tofSensor = new TimeOfFlight(Constants.WristConstants.TOF_PORT);
+        m_tofSensor.setRangingMode(TimeOfFlight.RangingMode.Short, 10);
+
         m_field = new Field2d();
         SmartDashboard.putData("Field", m_field);
         m_poseEstimator = new SwerveDrivePoseEstimator(
@@ -135,6 +140,7 @@ public class SwerveDrivetrain extends SubsystemBase {
         SmartDashboard.putNumber("FR Cancoder", cancoderAngles[1].getDegrees());
         SmartDashboard.putNumber("BL Cancoder", cancoderAngles[2].getDegrees());
         SmartDashboard.putNumber("BR Cancoder", cancoderAngles[3].getDegrees());
+        SmartDashboard.putNumber("TOF Sensor Distance", getDetectionRange());
 
         m_field.setRobotPose(m_poseEstimator.getEstimatedPosition());
 
@@ -349,9 +355,18 @@ public class SwerveDrivetrain extends SubsystemBase {
                 translatedEnd = tagPose.transformBy(AutoConstants.CENTER_TRANSLATION).getTranslation();
         }
 
+        //translate to meters but agressive
+        //offset theh alignment by the pieces position in the intake
+        double tofOffset = (getDetectionRange() - 100) * 0.02;
+        translatedEnd.minus(new Translation2d(tofOffset, 0.0));
+
         translatedMiddle = tagPose.getRotation().getDegrees() == 180 ?
                 translatedEnd.minus(new Translation2d(0.25, 0)) :
                 translatedEnd.plus(new Translation2d(0.25, 0));
+
+        Translation2d translatedStart = tagPose.getRotation().getDegrees() == 180 ?
+                getPose().getTranslation().plus(new Translation2d(0.5, 0.0)) :
+                getPose().getTranslation().minus(new Translation2d(0.5, 0.0));
 
         Translation2d chassisSpeed = new Translation2d(
                 getChassisSpeed().vxMetersPerSecond,
@@ -359,10 +374,11 @@ public class SwerveDrivetrain extends SubsystemBase {
         );
 
 
+
         //generate a path based on the tag you see, flipped 180 from tag pose
         traj = PathPlanner.generatePath(
                 AutoUtils.getDefaultConstraints(),
-                new PathPoint(getPose().getTranslation(), new Rotation2d(), getPose().getRotation(), chassisSpeed.getNorm()),
+                new PathPoint(translatedStart, new Rotation2d(), getPose().getRotation(), chassisSpeed.getNorm()),
                 new PathPoint(translatedMiddle, new Rotation2d(), tagPose.getRotation().rotateBy(Rotation2d.fromDegrees(180))),
                 new PathPoint(translatedEnd, new Rotation2d(), tagPose.getRotation().rotateBy(Rotation2d.fromDegrees(180)))
         );
@@ -381,6 +397,10 @@ public class SwerveDrivetrain extends SubsystemBase {
 
     public ChassisSpeeds getChassisSpeed() {
         return DriveConstants.DRIVE_KINEMATICS.toChassisSpeeds(getModuleStates());
+    }
+
+    public double getDetectionRange() {
+        return m_tofSensor.getRange();
     }
 
     public SwerveAutoBuilder getAutoBuilder(Map<String, Command> eventMap) {

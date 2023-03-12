@@ -131,12 +131,12 @@ public final class Constants {
         public static final double MAX_ACCELERATION_PERCENT_OUTPUT = 1.5;
 
         public static final PIDController THETA_CONTROLLER =
-                new PIDController(1.5, 0.0, 0.0);
+                new PIDController(2.0, 0.0, 0.0);
 
         public static final PIDController CONTROLLER_X =
-            new PIDController(2.5, 0, 0);
+            new PIDController(2.75, 0, 0);
         public static final PIDController CONTROLLER_Y =
-            new PIDController(2.5, 0, 0);
+            new PIDController(2.75, 0, 0);
 
         public static final PIDConstants CONSTANTS_X =
                 new PIDConstants(2.5, 0, 0);
@@ -186,7 +186,7 @@ public final class Constants {
         public static final int ARM_ANGLE_ID_FOLLOWER = 17;
         public static final int LIMIT_SWITCH_PORT = 3;
 
-        public static final double KP_ANGLE = 0.33;
+        public static final double KP_ANGLE = 0.43;
         public static final double KI_ANGLE = 0.005;
         public static final double KD_ANGLE = 0.0075;
 

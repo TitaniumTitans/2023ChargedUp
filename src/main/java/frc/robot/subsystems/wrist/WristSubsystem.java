@@ -27,7 +27,6 @@ public class WristSubsystem extends SubsystemBase {
     private final DigitalInput m_wristZeroLimit;
     private final CANCoder m_wristEncoder;
     private final PIDController m_wristPID;
-    private final TimeOfFlight m_tofSensor;
     private final WristIOInputsAutoLogged m_input;
     // Logging variables
     private double prevSetpointRaw;
@@ -79,8 +78,7 @@ public class WristSubsystem extends SubsystemBase {
 
         m_wristZeroLimit = new DigitalInput(WristConstants.LIMIT_SWITCH_PORT);
 
-        m_tofSensor = new TimeOfFlight(WristConstants.TOF_PORT);
-        m_tofSensor.setRangingMode(RangingMode.Short, 10);
+
 
         m_wristPID = new PIDController(WristConstants.WRIST_KP, WristConstants.WRIST_KI, WristConstants.WRIST_KD);
         m_wristPID.setTolerance(5);
@@ -109,7 +107,6 @@ public class WristSubsystem extends SubsystemBase {
         wristSetpointClampedEntry = wristSubsystemTab.add("Clamped setpoint", prevSetpointClamped).getEntry();
         wristPIDOutputEntry = wristSubsystemTab.add("PID setpoint output", prevSetpointPID).getEntry();
         // Misc.
-        wristTOFSensorDistanceEntry = wristSubsystemTab.add("TOF detection range", getDetectionRange()).getEntry();
         wristMotorOutputEntry = wristSubsystemTab.add("Motor output", m_wristMotor.getAppliedOutput()).getEntry();
         intakeMotorOutputEntry = wristSubsystemTab.add("Intake motor output", m_intakeMotor.getAppliedOutput()).getEntry();
     }
@@ -133,7 +130,6 @@ public class WristSubsystem extends SubsystemBase {
         wristSetpointClampedEntry.setDouble(prevSetpointClamped);
         wristPIDOutputEntry.setDouble(prevSetpointPID);
         // Misc.
-        wristTOFSensorDistanceEntry.setDouble(getDetectionRange());
         wristMotorOutputEntry.setDouble(m_wristMotor.getAppliedOutput());
         intakeMotorOutputEntry.setDouble(m_intakeMotor.getAppliedOutput());
     }
@@ -250,9 +246,7 @@ public class WristSubsystem extends SubsystemBase {
         return m_intakeMotor.getFault(CANSparkMax.FaultID.kStall);
     }
 
-    public double getDetectionRange() {
-        return m_tofSensor.getRange();
-    }
+
 
     public boolean wristAtSetpoint() {
         return m_wristPID.atSetpoint();
