@@ -16,6 +16,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -25,6 +26,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.AutoConstants;
+import frc.robot.RobotContainer;
 import frc.robot.commands.autonomous.AutoUtils;
 import frc.robot.subsystems.swerve.module.SwerveModNeo;
 import frc.robot.subsystems.vision.CameraSubsystem;
@@ -56,6 +58,8 @@ public class SwerveDrivetrain extends SubsystemBase {
 
     private double m_currentPitch = 0;
     private double m_previousPitch = 0;
+    private double m_currentTime = 0;
+    private double m_prevTime = 0;
     private boolean slowmode = false;
 
     public enum AlignmentOptions {
@@ -147,6 +151,9 @@ public class SwerveDrivetrain extends SubsystemBase {
         m_previousPitch = m_currentPitch;
         m_currentPitch = getGyroPitch().getDegrees();
 
+        m_prevTime = m_currentTime;
+        m_currentTime = RobotController.getFPGATime();
+
         int temp = getFrontCamTagID();
     }
 
@@ -220,7 +227,8 @@ public class SwerveDrivetrain extends SubsystemBase {
     }
 
     public double getGyroPitchRate() {
-        return m_currentPitch - m_previousPitch;
+        double fpgaElapsedTime = RobotController.getFPGATime() - m_prevTime;
+        return (m_currentPitch - m_previousPitch) / RobotController.getFPGATime();
     }
 
     public void setAbsoluteAngles() {
