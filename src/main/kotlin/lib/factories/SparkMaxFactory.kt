@@ -20,16 +20,16 @@ class SparkMaxFactory {
      * @param currentLimit the max current draw allowed for the motor controller
      */
     data class SparkMaxConfig(
-            var frame0Rate: Int = 100,
-            var frame1Rate: Int = 200,
-            var frame2Rate: Int = 40,
-            var frame3Rate: Int = MAX_CAN_FRAME_PERIOD,
-            var frame4Rate: Int = MAX_CAN_FRAME_PERIOD,
-            var frame5Rate: Int = MAX_CAN_FRAME_PERIOD,
-            var frame6Rate: Int = MAX_CAN_FRAME_PERIOD,
-            var idleMode: CANSparkMax.IdleMode = CANSparkMax.IdleMode.kBrake,
-            var inverted: Boolean = false,
-            var currentLimit: Int = 30)
+        var frame0Rate: Int = 100,
+        var frame1Rate: Int = 200,
+        var frame2Rate: Int = 40,
+        var frame3Rate: Int = MAX_CAN_FRAME_PERIOD,
+        var frame4Rate: Int = MAX_CAN_FRAME_PERIOD,
+        var frame5Rate: Int = MAX_CAN_FRAME_PERIOD,
+        var frame6Rate: Int = MAX_CAN_FRAME_PERIOD,
+        var idleMode: CANSparkMax.IdleMode = CANSparkMax.IdleMode.kBrake,
+        var inverted: Boolean = false,
+        var currentLimit: Int = 30)
 
     /**
      * Creates a Spark Max to these settings:
@@ -41,13 +41,13 @@ class SparkMaxFactory {
      *  current limit: 30 amps
      * @return a spark max configured to the default settings
      */
-    data class SparkWithConfig(val spark:CANSparkMax, val config: SparkMaxConfig = SparkMaxConfig())
+    data class SparkWithConfig(val spark: CANSparkMax, val config: SparkMaxConfig = SparkMaxConfig())
 
     companion object {
-        const val MAX_CAN_FRAME_PERIOD = 65535;
+        const val MAX_CAN_FRAME_PERIOD = 65535
 
         // A list of all configured sparks linked to thier configs
-        val listOfAllSparksAndConfigs:MutableList<SparkWithConfig> = ArrayList();
+        val listOfAllSparksAndConfigs:MutableList<SparkWithConfig> = ArrayList()
         fun updateCanFramePeriods() {
             for (sparkAndConfig in listOfAllSparksAndConfigs) {
                 val spark = sparkAndConfig.spark
