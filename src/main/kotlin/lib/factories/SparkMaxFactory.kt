@@ -52,14 +52,14 @@ class SparkMaxFactory {
             for (sparkAndConfig in listOfAllSparksAndConfigs) {
                 val spark = sparkAndConfig.spark
                 val config = sparkAndConfig.config
-                if(spark.getStickyFault(CANSparkMax.FaultID.kHasReset)) {
-                    RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus0, config.frame0Rate)}
-                    RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus1, config.frame1Rate)}
-                    RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus2, config.frame2Rate)}
-                    RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus3, config.frame3Rate)}
-                    RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus4, config.frame4Rate)}
-                    RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus5, config.frame5Rate)}
-                    RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus6, config.frame6Rate)}
+                if (spark.getStickyFault(CANSparkMax.FaultID.kHasReset)) {
+                    RevUtil.autoRetry { spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus0, config.frame0Rate) }
+                    RevUtil.autoRetry { spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus1, config.frame1Rate) }
+                    RevUtil.autoRetry { spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus2, config.frame2Rate) }
+                    RevUtil.autoRetry { spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus3, config.frame3Rate) }
+                    RevUtil.autoRetry { spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus4, config.frame4Rate) }
+                    RevUtil.autoRetry { spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus5, config.frame5Rate) }
+                    RevUtil.autoRetry { spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus6, config.frame6Rate) }
                 }
             }
         }
@@ -69,17 +69,17 @@ class SparkMaxFactory {
                 val spark = sparkAndConfig.spark
                 val config = sparkAndConfig.config
 
-                RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus0, config.frame0Rate)}
-                RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus1, config.frame1Rate)}
-                RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus2, config.frame2Rate)}
-                RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus3, config.frame3Rate)}
-                RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus4, config.frame4Rate)}
-                RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus5, config.frame5Rate)}
-                RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus6, config.frame6Rate)}
+                RevUtil.autoRetry { spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus0, config.frame0Rate) }
+                RevUtil.autoRetry { spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus1, config.frame1Rate) }
+                RevUtil.autoRetry { spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus2, config.frame2Rate) }
+                RevUtil.autoRetry { spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus3, config.frame3Rate) }
+                RevUtil.autoRetry { spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus4, config.frame4Rate) }
+                RevUtil.autoRetry { spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus5, config.frame5Rate) }
+                RevUtil.autoRetry { spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus6, config.frame6Rate) }
 
-                RevUtil.autoRetry {spark.setIdleMode(config.idleMode)}
+                RevUtil.autoRetry { spark.setIdleMode(config.idleMode) }
                 spark.inverted = config.inverted
-                RevUtil.autoRetry {spark.setSmartCurrentLimit(config.currentLimit)}
+                RevUtil.autoRetry { spark.setSmartCurrentLimit(config.currentLimit) }
             }
         }
 
@@ -93,21 +93,21 @@ class SparkMaxFactory {
 
 
 
-            RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus0, config.frame0Rate)}
-            RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus1, config.frame1Rate)}
-            RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus2, config.frame2Rate)}
-            RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus3, config.frame3Rate)}
-            RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus4, config.frame4Rate)}
-            RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus5, config.frame5Rate)}
-            RevUtil.autoRetry {spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus6, config.frame6Rate)}
+            RevUtil.autoRetry { spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus0, config.frame0Rate) }
+            RevUtil.autoRetry { spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus1, config.frame1Rate) }
+            RevUtil.autoRetry { spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus2, config.frame2Rate) }
+            RevUtil.autoRetry { spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus3, config.frame3Rate) }
+            RevUtil.autoRetry { spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus4, config.frame4Rate) }
+            RevUtil.autoRetry { spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus5, config.frame5Rate) }
+            RevUtil.autoRetry { spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus6, config.frame6Rate) }
 
-            RevUtil.autoRetry {spark.setIdleMode(config.idleMode)}
+            RevUtil.autoRetry { spark.setIdleMode(config.idleMode) }
             spark.inverted = config.inverted
-            RevUtil.autoRetry {spark.setSmartCurrentLimit(config.currentLimit)}
+            RevUtil.autoRetry { spark.setSmartCurrentLimit(config.currentLimit) }
 
             listOfAllSparksAndConfigs.add(SparkWithConfig(spark, config.copy()))
 
-            spark.burnFlash();
+            spark.burnFlash()
 
             return spark
         }
