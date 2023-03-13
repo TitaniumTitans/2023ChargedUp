@@ -39,7 +39,7 @@ public class AutoUtils {
         AutoConstants.MAX_VELOCITY_PERCENT_OUTPUT, AutoConstants.MAX_ACCELERATION_PERCENT_OUTPUT);
         
 
-    private static final PathPlannerTrajectory m_defaultAutoGen = PathPlanner.loadPath("DefaultPath", m_defaultConfig);
+//    private static final PathPlannerTrajectory m_defaultAutoGen = PathPlanner.loadPath("DefaultPath", m_defaultConfig);
 
 //    private static final SwerveAutoBuilder defaultAutoFactory = new SwerveAutoBuilder(
 //
@@ -47,29 +47,6 @@ public class AutoUtils {
 
     public static PathConstraints getDefaultConstraints() {
         return m_defaultConfig;
-    }
-    //Default getters
-    public static Command getDefaultTrajectory(SwerveDrivetrain swerve) {
-        return new SequentialCommandGroup(
-            new InstantCommand(() -> swerve.resetPose(m_defaultAutoGen.getInitialHolonomicPose())),
-
-            new PPSwerveControllerCommand(m_defaultAutoGen, 
-            swerve::getPose, 
-            DriveConstants.DRIVE_KINEMATICS, 
-            AutoConstants.CONTROLLER_X, 
-            AutoConstants.CONTROLLER_Y, 
-            AutoConstants.THETA_CONTROLLER,
-            swerve::setModuleStates,
-            true,
-            swerve)
-        );
-    }
-
-    public static FollowPathWithEvents getPathWithEvents(SwerveDrivetrain swerve) {
-    HashMap<String, Command> defaultEventMap = new HashMap<>();
-    defaultEventMap.put("Event 1", new PrintCommand("Marker 1"));
-    defaultEventMap.put("event 2", new PrintCommand("Marker 2"));
-    return new FollowPathWithEvents(getDefaultTrajectory(swerve), m_defaultAutoGen.getMarkers(), defaultEventMap);
     }
 
     public static Command getAutoRoutine(PathPlannerTrajectory traj, SwerveDrivetrain swerve, boolean firstTrajectory){
