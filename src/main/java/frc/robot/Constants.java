@@ -29,7 +29,10 @@ import frc.robot.supersystems.ArmPose;
 public final class Constants {
 
     /*Constants for physical aspects of the modules, plus PID loops constants*/
-    public static final class ModuleConstants{
+    public static final class ModuleConstants {
+        private ModuleConstants() {
+            throw new IllegalStateException("Utility Class");
+        }
         // Physical wheel constants
         public static final double WHEEL_DIAMETER_METERS = Units.inchesToMeters(4.0);
         public static final double WHEEL_CIRCUMFERENCE_METERS = 2 * Math.PI * (WHEEL_DIAMETER_METERS / 2);
@@ -52,6 +55,9 @@ public final class Constants {
     }
 
     public static final class DriveConstants {
+        private DriveConstants() {
+            throw new IllegalStateException("Utility Class");
+        }
         // Can ID ports
         public static final int[] MOD_FR_CANS = {3, 4, 5};
         public static final int[] MOD_FL_CANS = {6, 7, 8};
@@ -81,8 +87,8 @@ public final class Constants {
 
         // Camera constants
         public static final Transform3d FRONT_CAM_POSE = new Transform3d(
-                new Translation3d(Units.inchesToMeters(15.0), Units.inchesToMeters(3.25), Units.inchesToMeters(9.25)),
-                new Rotation3d(0.0, Units.degreesToRadians(2.5), Units.degreesToRadians(-1.0)));
+                new Translation3d(Units.inchesToMeters(12.0), 0.0, Units.inchesToMeters(8.00)),
+                new Rotation3d(0.0, 0.0, 0.0));
         public static final Transform3d LEFT_CAM_POSE = new Transform3d(
                 new Translation3d(Units.inchesToMeters(4.0), Units.inchesToMeters(6.0), Units.inchesToMeters(25.0)),
                 new Rotation3d(Units.degreesToRadians(90.0), 0.0, Units.degreesToRadians(90.0)));
@@ -90,12 +96,16 @@ public final class Constants {
         public static final String LEFT_CAM_NAME = "LeftWebCam";
 
         public static final GosDoubleProperty CAM_AMBIGUITY_THRESHOLD
-                = new GosDoubleProperty(false, "Camera ambiguity threshold", 0.3);
+                = new GosDoubleProperty(false, "Camera ambiguity threshold", 0.2);
         public static final GosDoubleProperty CAM_DISTANCE_THRESHOLD
-                = new GosDoubleProperty(false, "Camera distance threshold", 7);
+                = new GosDoubleProperty(false, "Camera distance threshold", 4);
     }
 
     public static class WristConstants {
+        private WristConstants() {
+            throw new IllegalStateException("Utility Class");
+        }
+
         public static final int WRIST_ID = 20;
         public static final int INTAKE_ID = 19;
 
@@ -109,7 +119,7 @@ public final class Constants {
 
         public static final double WRIST_UPPER_LIMIT = 125.0;
         public static final int TOF_PORT = 23;
-        public static final double WRIST_KP = 0.05;
+        public static final double WRIST_KP = 0.04;
         public static final double WRIST_KI = 0.0;
         public static final double WRIST_KD = 0.0;
 
@@ -120,41 +130,56 @@ public final class Constants {
 
 
     public static class AutoConstants {
+        private AutoConstants() {
+            throw new IllegalStateException("Utility Class");
+        }
+
         //Trajectory following values
-        public static final double MAX_VELOCITY_PERCENT_OUTPUT = 2.0;
-        public static final double MAX_ACCELERATION_PERCENT_OUTPUT = 1.0;
+        public static final double MAX_VELOCITY_PERCENT_OUTPUT = 3.0;
+        public static final double MAX_ACCELERATION_PERCENT_OUTPUT = 1.5;
 
         public static final PIDController THETA_CONTROLLER =
-                new PIDController(1.0, 0.0, 0.0);
+                new PIDController(2.0, 0.0, 0.0);
 
         public static final PIDController CONTROLLER_X =
-            new PIDController(2.5, 0, 0);
+            new PIDController(2.75, 0, 0);
         public static final PIDController CONTROLLER_Y =
-            new PIDController(2.5, 0, 0);
+            new PIDController(2.75, 0, 0);
 
         public static final PIDConstants CONSTANTS_X =
-                new PIDConstants(2.5, 0, 0);
+                new PIDConstants(2.55, 0, 0);
 
         public static final PIDConstants THETA_CONSTANTS =
-                new PIDConstants(1.0, 0.0, 0.0);
+                new PIDConstants(2.0, 0.0, 0.0);
         
         //Auto balance constants
-        public static final double BALANCE_P = -0.2;
-        public static final double DESIRED_BALANCE_ANGLE = 1;
-        public static double Balance_D = 0.1;
+        public static final double BALANCE_P = -0.04;
+        public static final double DESIRED_BALANCE_ANGLE = 0;
+        public static final double ACCEPTABLE_BALANCE_ANGLE = 1.5;
+        public static final double BALANCE_D = 0.1;
 
         public static final Transform2d CENTER_TRANSLATION = new Transform2d(
-                new Translation2d(0.6, 0.0),
+                new Translation2d(0.75, 0.0),
                 new Rotation2d(0.0)
         );
 
         public static final Transform2d LEFT_TRANSLATION = new Transform2d(
-                new Translation2d(0.6, 0.6),
+                new Translation2d(0.75, 0.55),
+                new Rotation2d()
+        );
+
+        public static final Transform2d HUMAN_PLAYER_RIGHT_TRANSLATION = new Transform2d(
+                new Translation2d(0.6, 0.9),
+                new Rotation2d()
+        );
+
+        public static final Transform2d HUMAN_PLAYER_LEFT_TRANSLATION = new Transform2d(
+                new Translation2d(0.6, -0.9),
                 new Rotation2d()
         );
 
         public static final Transform2d RIGHT_TRANSLATION = new Transform2d(
-                new Translation2d(0.6, -0.6),
+                new Translation2d(0.75, -0.6),
                 new Rotation2d()
         );
     }
@@ -162,20 +187,24 @@ public final class Constants {
     public static final Mode CURRENT_MODE = Mode.HELIOS;
 
     public static class ArmConstants {
+        private ArmConstants() {
+            throw new IllegalStateException("Utility Class");
+        }
+
         public static final int ARM_EXTENSION_ID = 18;
         public static final int ARM_ANGLE_ID_MASTER = 16;
         public static final int ARM_ANGLE_ID_FOLLOWER = 17;
         public static final int LIMIT_SWITCH_PORT = 3;
 
-        public static final double KP_ANGLE = 0.23;
+        public static final double KP_ANGLE = 0.48;
         public static final double KI_ANGLE = 0.005;
         public static final double KD_ANGLE = 0.0075;
 
-        public static final GosDoubleProperty ARM_EXT_KP = new GosDoubleProperty(false, "Arm extension kP", 0.1);
+        public static final GosDoubleProperty ARM_EXT_KP = new GosDoubleProperty(false, "Arm extension kP", 0.2);
         public static final GosDoubleProperty ARM_EXT_KI = new GosDoubleProperty(false, "Arm extension kI", 0);
         public static final GosDoubleProperty ARM_EXT_KD = new GosDoubleProperty(false, "Arm extension kD", 0);
 
-        public static final double ARM_OFFSET = -37;
+        public static final double ARM_OFFSET = 165;
 
         public static final int ENCODER_PORT = 1;
 
@@ -183,14 +212,16 @@ public final class Constants {
         public static final double EXTENSION_RATIO = (1.0 / 25.0) * (SPROCKET_DIAMETER * Math.PI);
 
 
-        public static final double EXT_PID_TOLERANCE = 1;
+        public static final double EXT_PID_TOLERANCE = 1.0;
 
         // Used for dynamic limit calculations, unit is inches
         public static final double PIVOT_HIGHT = 5;
     }
 
     public static class LimitConstants {
-        private LimitConstants() {}
+        private LimitConstants() {
+            throw new IllegalStateException("Utility Class");
+        }
 
         // Arm Extension limits for Piecewise Function
         public static final GosDoubleProperty ARM_EXT_STOW =
@@ -218,7 +249,7 @@ public final class Constants {
         public static final GosDoubleProperty STOW_ZONE =
                 new GosDoubleProperty(false, "Stow Zone Lower Bound", 45);
         public static final GosDoubleProperty SCORE_ZONE =
-                new GosDoubleProperty(false, "Score Zone Lower Bound", 200);
+                new GosDoubleProperty(true, "Score Zone Lower Bound", 190);
 
         // Worry about ground at angle 302
         public static final GosDoubleProperty GROUND_ZONE =
@@ -229,17 +260,20 @@ public final class Constants {
                 new GosDoubleProperty(false, "Max Movement Bound", 325);
     }
 
-    public static class ArmSetpoints{
-        public static final ArmPose STOW_POSITION = new ArmPose(0.0, 18, 0.0);
+    public static class ArmSetpoints {
+        private ArmSetpoints() {
+            throw new IllegalStateException("Utility Class");
+        }
+        public static final ArmPose STOW_POSITION = new ArmPose(0.0, 30, 0.0);
         public static final ArmPose VERT_STOW_POSE = new ArmPose(0.0, 180, 0.0);
 
-        public static final ArmPose INTAKE_CUBE = new ArmPose(6.6, 325.1, 170.6);
-        public static final ArmPose INTAKE_CONE = new ArmPose(1.0, 328.0, 177.0);
-        public static final ArmPose HUMAN_PLAYER_STATION = new ArmPose(0.0, 237.6, 86.0);
+        public static final ArmPose INTAKE_CUBE = new ArmPose(6.6, 325.1, 165.6);
+        public static final ArmPose INTAKE_CONE = new ArmPose(1.0, 328.0, 170.0);
+        public static final ArmPose HUMAN_PLAYER_STATION = new ArmPose(0.0, 236.6, 80.0);
 
         public static final ArmPose MIDDLE_GOAL_NON_STOW = new ArmPose(0.0, 252.1, 99.7);
         public static final ArmPose MIDDLE_GOAL_STOW = new ArmPose(0.0, 0.0, 0.0);
-        public static final ArmPose HIGH_GOAL = new ArmPose(24.3, 247.0, 95.3);
+        public static final ArmPose HIGH_GOAL = new ArmPose(24.3, 242.0, 95.3);
     }
 
     public static final int DRIVER_PORT = 0;

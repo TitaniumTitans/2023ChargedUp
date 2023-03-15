@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.PowerDistribution;
 import lib.factories.SparkMaxFactory;
 import org.littletonrobotics.junction.*;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
@@ -24,6 +25,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 public class Robot extends LoggedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
+  private PowerDistribution m_pdh;
 
   private Timer m_timer;
   /**
@@ -37,26 +39,8 @@ public class Robot extends LoggedRobot {
     //Sets up a base logger for non-subsystem inputs
 
     Logger logger = Logger.getInstance();
-
-    /*
-    // Record metadata
-    logger.recordMetadata("ProjectName", BuildConstants.MAVEN_NAME);
-    logger.recordMetadata("BuildDate", BuildConstants.BUILD_DATE);
-    logger.recordMetadata("GitSHA", BuildConstants.GIT_SHA);
-    logger.recordMetadata("GitDate", BuildConstants.GIT_DATE);
-    logger.recordMetadata("GitBranch", BuildConstants.GIT_BRANCH);
-    switch (BuildConstants.DIRTY) {
-      case 0:
-        logger.recordMetadata("GitDirty", "All changes committed");
-        break;
-      case 1:
-        logger.recordMetadata("GitDirty", "Uncomitted changes");
-        break;
-      default:
-        logger.recordMetadata("GitDirty", "Unknown");
-        break;
-    }
-    */
+    m_pdh = new PowerDistribution(1, PowerDistribution.ModuleType.kRev);
+    m_pdh.setSwitchableChannel(false);
 
      // Set up data receivers & replay source
      switch (Constants.CURRENT_MODE) {
@@ -118,15 +102,22 @@ public class Robot extends LoggedRobot {
 
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+    // We don't have any init code
+    m_pdh.setSwitchableChannel(false);
+  }
 
   @Override
-  public void disabledPeriodic() {}
+  public void disabledPeriodic() {
+    // We don't have any periodic code
+  }
 
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+
+    m_pdh.setSwitchableChannel(true);
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
@@ -136,7 +127,9 @@ public class Robot extends LoggedRobot {
 
   /** This function is called periodically during autonomous. */
   @Override
-  public void autonomousPeriodic() {}
+  public void autonomousPeriodic() {
+    // We don't have any periodic code
+  }
 
   @Override
   public void teleopInit() {
@@ -149,11 +142,15 @@ public class Robot extends LoggedRobot {
     }
 
     SparkMaxFactory.Companion.rerunConfigs();
+    m_pdh.setSwitchableChannel(true);
   }
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    // We don't have any periodic code
+
+  }
 
   @Override
   public void testInit() {
@@ -163,13 +160,19 @@ public class Robot extends LoggedRobot {
 
   /** This function is called periodically during test mode. */
   @Override
-  public void testPeriodic() {}
+  public void testPeriodic() {
+    // We don't have any test periodic code
+  }
 
   /** This function is called once when the robot is first started up. */
   @Override
-  public void simulationInit() {}
+  public void simulationInit() {
+    // We don't have any init code
+  }
 
   /** This function is called periodically whilst in simulation. */
   @Override
-  public void simulationPeriodic() {}
+  public void simulationPeriodic() {
+    // We don't have any periodic code
+  }
 }

@@ -8,8 +8,6 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DigitalInput;
-import com.playingwithfusion.TimeOfFlight;
-import com.playingwithfusion.TimeOfFlight.RangingMode;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -27,7 +25,6 @@ public class WristSubsystem extends SubsystemBase {
     private final DigitalInput m_wristZeroLimit;
     private final CANCoder m_wristEncoder;
     private final PIDController m_wristPID;
-    private final TimeOfFlight m_tofSensor;
     private final WristIOInputsAutoLogged m_input;
     // Logging variables
     private double prevSetpointRaw;
@@ -35,7 +32,7 @@ public class WristSubsystem extends SubsystemBase {
     private double prevSetpointPID;
 
     //Shuffleboard data
-    private ShuffleboardTab wristSubsystemTab;
+    private final ShuffleboardTab wristSubsystemTab;
     private GenericEntry wristAtSetpointEntry;
     private GenericEntry pieceInsideEntry;
     private GenericEntry wristAtUpperLimit;
@@ -46,7 +43,6 @@ public class WristSubsystem extends SubsystemBase {
     private GenericEntry wristTargetEntry;
     private GenericEntry wristSetpointClampedEntry;
     private GenericEntry wristPIDOutputEntry;
-    private GenericEntry wristTOFSensorDistanceEntry;
     private GenericEntry wristMotorOutputEntry;
     private GenericEntry intakeMotorOutputEntry;
 
@@ -67,8 +63,9 @@ public class WristSubsystem extends SubsystemBase {
 
         m_wristMotor  = SparkMaxFactory.Companion.createSparkMax(WristConstants.WRIST_ID, config);
         // Current limit based off testing 2/28/2023 17:55
+        m_wristMotor.setOpenLoopRampRate(0.1);
 
-        config.setCurrentLimit(10);
+        config.setCurrentLimit(40);
         config.setInverted(false);
         m_intakeMotor  = SparkMaxFactory.Companion.createSparkMax(WristConstants.INTAKE_ID, config);
 
@@ -78,11 +75,10 @@ public class WristSubsystem extends SubsystemBase {
 
         m_wristZeroLimit = new DigitalInput(WristConstants.LIMIT_SWITCH_PORT);
 
-        m_tofSensor = new TimeOfFlight(WristConstants.TOF_PORT);
-        m_tofSensor.setRangingMode(RangingMode.Short, 10);
+
 
         m_wristPID = new PIDController(WristConstants.WRIST_KP, WristConstants.WRIST_KI, WristConstants.WRIST_KD);
-        m_wristPID.setTolerance(10);
+        m_wristPID.setTolerance(5);
 
         wristSubsystemTab = Shuffleboard.getTab("WristSubsystem");
 
@@ -92,7 +88,7 @@ public class WristSubsystem extends SubsystemBase {
     private void addShuffleboardData() {
         // Booleans
         // Misc.
-        wristAtSetpointEntry = wristSubsystemTab.add("At setpoint", wristAtSetpoint()).getEntry();
+        wristAtSetpointEntry = wristSubsystemTab.add("At setpoint", atSetpoint()).getEntry();
         pieceInsideEntry = wristSubsystemTab.add("Piece inside", pieceInside()).getEntry();
         // Limits
         wristAtUpperLimit = wristSubsystemTab.add("At upper limit", wristAtUpperLimit()).getEntry();
@@ -108,7 +104,6 @@ public class WristSubsystem extends SubsystemBase {
         wristSetpointClampedEntry = wristSubsystemTab.add("Clamped setpoint", prevSetpointClamped).getEntry();
         wristPIDOutputEntry = wristSubsystemTab.add("PID setpoint output", prevSetpointPID).getEntry();
         // Misc.
-        wristTOFSensorDistanceEntry = wristSubsystemTab.add("TOF detection range", getDetectionRange()).getEntry();
         wristMotorOutputEntry = wristSubsystemTab.add("Motor output", m_wristMotor.getAppliedOutput()).getEntry();
         intakeMotorOutputEntry = wristSubsystemTab.add("Intake motor output", m_intakeMotor.getAppliedOutput()).getEntry();
     }
@@ -116,7 +111,7 @@ public class WristSubsystem extends SubsystemBase {
     private void updateShuffleboardData() {
         // Booleans
         // Misc.
-        wristAtSetpointEntry.setBoolean(wristAtSetpoint());
+        wristAtSetpointEntry.setBoolean(atSetpoint());
         pieceInsideEntry.setBoolean(pieceInside());
         // Limits
         wristAtUpperLimit.setBoolean(wristAtUpperLimit());
@@ -132,7 +127,6 @@ public class WristSubsystem extends SubsystemBase {
         wristSetpointClampedEntry.setDouble(prevSetpointClamped);
         wristPIDOutputEntry.setDouble(prevSetpointPID);
         // Misc.
-        wristTOFSensorDistanceEntry.setDouble(getDetectionRange());
         wristMotorOutputEntry.setDouble(m_wristMotor.getAppliedOutput());
         intakeMotorOutputEntry.setDouble(m_intakeMotor.getAppliedOutput());
     }
@@ -151,7 +145,7 @@ public class WristSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("Wrist Current Draw", m_wristMotor.getOutputCurrent());
         SmartDashboard.putBoolean("Intake Stalling", m_intakeMotor.getFault(CANSparkMax.FaultID.kStall));
         SmartDashboard.putBoolean("Wrist stalling", m_wristMotor.getFault(CANSparkMax.FaultID.kStall));
-        SmartDashboard.putBoolean("Wrist at setpoint", wristAtSetpoint());
+        SmartDashboard.putBoolean("Periodic Wrist at setpoint", atSetpoint());
     }
 
     public void updateInputs(WristIOInputsAutoLogged inputs){
@@ -164,7 +158,7 @@ public class WristSubsystem extends SubsystemBase {
         double currentWristAngle = getWristAngle();
 
         double targetAngleClamped = MathUtil.clamp(targetAngleRaw, Constants.LimitConstants.WRIST_SCORE_LOWER.getValue(), Constants.LimitConstants.WRIST_SCORE_UPPER.getValue());
-        double targetAnglePID = MathUtil.clamp(m_wristPID.calculate(currentWristAngle, targetAngleClamped), -0.5, 0.5);
+        double targetAnglePID = MathUtil.clamp(m_wristPID.calculate(currentWristAngle, targetAngleClamped), -0.7, 0.7);
 
         // Dashboard variables
         prevSetpointRaw = targetAngleRaw;
@@ -174,17 +168,18 @@ public class WristSubsystem extends SubsystemBase {
         m_wristMotor.set(targetAnglePID);
     }
 
+    static final String HITTING_SOFT_LIMIT_STRING = "Wrist Hitting Soft Limit";
     public void setWristPower(double speed) {
 
         if (atLowerLimit() && speed <= 0){
             m_wristMotor.set(0.0);
-            SmartDashboard.putBoolean("Wrist Hitting Soft Limit", true);
+            SmartDashboard.putBoolean(HITTING_SOFT_LIMIT_STRING, true);
         } else if (getWristAngle() >= Constants.LimitConstants.WRIST_SCORE_UPPER.getValue() && speed >= 0) {
-            SmartDashboard.putBoolean("Wrist Hitting Soft Limit", true);
+            SmartDashboard.putBoolean(HITTING_SOFT_LIMIT_STRING, true);
             m_wristMotor.set(0.0);
         } else {
             m_wristMotor.set(speed);
-            SmartDashboard.putBoolean("Wrist Hitting Soft Limit", false);
+            SmartDashboard.putBoolean(HITTING_SOFT_LIMIT_STRING, false);
         }
     }
 
@@ -197,7 +192,11 @@ public class WristSubsystem extends SubsystemBase {
     }
 
     public void setIntakeSpeed(double speed) {
-        m_intakeMotor.set(speed);
+        if (speed == 0) {
+            m_intakeMotor.set(0.01);
+        } else {
+            m_intakeMotor.set(speed);
+        }
     }
 
     public Command setIntakeSpeedFactory(double speed) {
@@ -244,11 +243,12 @@ public class WristSubsystem extends SubsystemBase {
         return m_intakeMotor.getFault(CANSparkMax.FaultID.kStall);
     }
 
-    public double getDetectionRange() {
-        return m_tofSensor.getRange();
-    }
-
-    public boolean wristAtSetpoint() {
+    public boolean atSetpoint() {
         return m_wristPID.atSetpoint();
     }
+
+    public boolean isStalling() {
+        return m_intakeMotor.getFault(CANSparkMax.FaultID.kStall);
+    }
+
 }

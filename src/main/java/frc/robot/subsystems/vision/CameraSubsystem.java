@@ -6,6 +6,7 @@ import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Transform3d;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -28,22 +29,30 @@ public class CameraSubsystem implements Subsystem {
 
     private PhotonPoseEstimator m_photonPoseEstimator;
 
+    private DriverStation.Alliance m_prevAlliance;
     private AprilTagFieldLayout m_aprilTagFieldLayout;
 
     private int m_prevTag = 1;
 
     /**
      * Creates a new CameraSubsystem
+     *
      * @param camName Name of the camera in the system
-     * @param camPose 3d transform of the camera's position relative to the robot
+     * @param camPose Transform3d of the camera's position relative to the robot
      */
     public CameraSubsystem(String camName, Transform3d camPose) {
         m_camera = new PhotonCamera(camName);
+        m_prevAlliance = DriverStation.getAlliance();
 
         robotToCam = camPose;
         try {
             m_aprilTagFieldLayout =
                 AprilTagFieldLayout.loadFromResource(AprilTagFields.k2023ChargedUp.m_resourceFile);
+            if (DriverStation.getAlliance() == DriverStation.Alliance.Blue) {
+                m_aprilTagFieldLayout.setOrigin(AprilTagFieldLayout.OriginPosition.kBlueAllianceWallRightSide);
+            } else {
+                m_aprilTagFieldLayout.setOrigin(AprilTagFieldLayout.OriginPosition.kRedAllianceWallRightSide);
+            }
             m_photonPoseEstimator = new PhotonPoseEstimator
                 (m_aprilTagFieldLayout, PhotonPoseEstimator.PoseStrategy.CLOSEST_TO_REFERENCE_POSE, m_camera,
                     robotToCam);
@@ -55,10 +64,21 @@ public class CameraSubsystem implements Subsystem {
     /**
      * Gets optional estimatedRobotPose from AprilTag data
      * @param prevEstimatedRobotPose Pose 2d reference position for the Photon Vision pose estimator to work off of
-     * @return Optional estimatedRobotPose, a 3d pose and a timestamp in seconds
+     * @return Optional estimatedRobotPose, a Pose3d and a timestamp in seconds
      */
     public Optional<EstimatedRobotPose> getPose(Pose2d prevEstimatedRobotPose) {
         m_photonPoseEstimator.setReferencePose(prevEstimatedRobotPose);
+
+        if (DriverStation.getAlliance() != m_prevAlliance) {
+            m_prevAlliance = DriverStation.getAlliance();
+            if (DriverStation.getAlliance() == DriverStation.Alliance.Red) {
+                m_aprilTagFieldLayout.setOrigin(AprilTagFieldLayout.OriginPosition.kRedAllianceWallRightSide);
+
+            } else {
+                m_aprilTagFieldLayout.setOrigin(AprilTagFieldLayout.OriginPosition.kBlueAllianceWallRightSide);
+            }
+            m_photonPoseEstimator.setFieldTags(m_aprilTagFieldLayout);
+        }
 
         PhotonPipelineResult camResult = m_camera.getLatestResult();
 
@@ -171,6 +191,17 @@ public class CameraSubsystem implements Subsystem {
             return pose.get().toPose2d();
         } else {
             return new Pose2d();
+        }
+    }
+
+    public int getTagID() {
+        PhotonPipelineResult results = m_camera.getLatestResult();
+
+        if (results.hasTargets()) {
+            m_prevTag = results.getBestTarget().getFiducialId();
+            return results.getBestTarget().getFiducialId();
+        } else {
+            return m_prevTag;
         }
     }
 }

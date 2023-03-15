@@ -5,7 +5,6 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -40,6 +39,8 @@ public class ArmExtSubsystem extends SubsystemBase {
     private GenericEntry armExtSetpointClampedEntry;
     private GenericEntry armExtMotorOutputEntry;
 
+
+
     @AutoLog
     public static class ArmExtIOInputs {
         public double armExtension = 0.0;
@@ -49,6 +50,7 @@ public class ArmExtSubsystem extends SubsystemBase {
         SparkMaxFactory.SparkMaxConfig config = new SparkMaxFactory.SparkMaxConfig();
 
         m_armExt = SparkMaxFactory.Companion.createSparkMax(Constants.ArmConstants.ARM_EXTENSION_ID, config);
+        m_armExt.setClosedLoopRampRate(0.1);
 
         m_relativeEncoderArmEx = m_armExt.getEncoder();
         m_relativeEncoderArmEx.setPositionConversionFactor(Constants.ArmConstants.EXTENSION_RATIO);
@@ -57,6 +59,7 @@ public class ArmExtSubsystem extends SubsystemBase {
         m_extPID.setP(Constants.ArmConstants.ARM_EXT_KP.getValue());
         m_extPID.setI(Constants.ArmConstants.ARM_EXT_KI.getValue());
         m_extPID.setD(Constants.ArmConstants.ARM_EXT_KD.getValue());
+        m_extPID.setOutputRange(-2, 2);
 
 
         m_armLimitSwitch = new DigitalInput(Constants.ArmConstants.LIMIT_SWITCH_PORT);
@@ -67,7 +70,7 @@ public class ArmExtSubsystem extends SubsystemBase {
     private void addShuffleboardData() {
         // Booleans
         // Misc.
-        armExtAtSetpointEntry = armExtTab.add("At setpoint", armExtensionAtSetpoint()).getEntry();
+        armExtAtSetpointEntry = armExtTab.add("At setpoint", atSetpoint()).getEntry();
         // Limits
         armExtAtUpperLimitEntry = armExtTab.add("At upper limit", armAtUpperLimit()).getEntry();
         armExtAtLowerLimitEntry = armExtTab.add("Limit switch triggered", armAtLowerLimit()).getEntry();
@@ -86,7 +89,7 @@ public class ArmExtSubsystem extends SubsystemBase {
     private void updateShuffleboardData() {
         // Booleans
         // Misc.
-        armExtAtSetpointEntry.setBoolean(armExtensionAtSetpoint());
+        armExtAtSetpointEntry.setBoolean(atSetpoint());
         // Limits
         armExtAtUpperLimitEntry.setBoolean(armAtUpperLimit());
         armExtAtLowerLimitEntry.setBoolean(armAtLowerLimit());
@@ -148,9 +151,10 @@ public class ArmExtSubsystem extends SubsystemBase {
         m_relativeEncoderArmEx.setPosition(0.0);
     }
 
-    public boolean armExtensionAtSetpoint() {
-        return ((getArmExtension() <= prevSetpointClamped + Constants.ArmConstants.EXT_PID_TOLERANCE)
-                || (getArmExtension() >= prevSetpointClamped - Constants.ArmConstants.EXT_PID_TOLERANCE));
+    public boolean atSetpoint() {
+        double armExtension = getArmExtension();
+        return (armExtension <= prevSetpointClamped + Constants.ArmConstants.EXT_PID_TOLERANCE)
+                && (armExtension >= prevSetpointClamped - Constants.ArmConstants.EXT_PID_TOLERANCE);
     }
 
     @Override
@@ -163,7 +167,15 @@ public class ArmExtSubsystem extends SubsystemBase {
         }
         updateShuffleboardData();
 
-        SmartDashboard.putBoolean("Ext at setpoint", armExtensionAtSetpoint());
+        SmartDashboard.putBoolean("Periodic Ext at setpoint", atSetpoint());
+    }
+
+    public void toggleBrakeMode() {
+        if (m_armExt.getIdleMode() == CANSparkMax.IdleMode.kBrake) {
+            m_armExt.setIdleMode(CANSparkMax.IdleMode.kCoast);
+        } else {
+            m_armExt.setIdleMode(CANSparkMax.IdleMode.kBrake);
+        }
     }
 
     public void updateInputs(ArmExtIOInputsAutoLogged inputs) {

@@ -1,7 +1,7 @@
 package frc.robot.supersystems;
 
-import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants.LimitConstants;
 import frc.robot.subsystems.arm.ArmAngleSubsystem;
 import frc.robot.subsystems.arm.ArmExtSubsystem;
@@ -25,6 +25,9 @@ public class ArmSupersystem {
             new PiecewiseInterval<>(fullRangeZone, ignored -> new ArmLimits(LimitConstants.WRIST_SCORE_LOWER.getValue(), LimitConstants.WRIST_SCORE_UPPER.getValue(),
                                                                             LimitConstants.ARM_EXT_SCORE_LOWER.getValue(),LimitConstants.ARM_EXT_SCORE_UPPER.getValue(),
                                                                             LimitConstants.ARM_ANGLE_LOWER.getValue(), LimitConstants.ARM_ANGLE_UPPER.getValue())),
+            /**
+             * Extension upper not constant?
+             */
             new PiecewiseInterval<>(floorCollisionZone, ignored -> new ArmLimits(LimitConstants.WRIST_STOW.getValue(), LimitConstants.WRIST_SCORE_UPPER.getValue(),
                                                                                 LimitConstants.ARM_EXT_STOW.getValue(), 6.1,
                                                                                 LimitConstants.ARM_ANGLE_LOWER.getValue(), LimitConstants.ARM_ANGLE_UPPER.getValue()))
@@ -60,20 +63,38 @@ public class ArmSupersystem {
         double angleSetpoint = pose.angleSetpoint;
         double extSetpoint = pose.extSetpoint;
 
-        /** Wrist limits and output are calculated here */
-        wristSetpoint = MathUtil.clamp(wristSetpoint, armLimits.wristRange.getLeft(), armLimits.wristRange.getRight());
+        /* Wrist limits and output are calculated here */
+        wristSetpoint = armLimits.wristRange.clamp(wristSetpoint);
         wristSubsystem.setWristAngle(wristSetpoint);
 
-        /** Extension limits and outputs are calculated here */
-        extSetpoint = MathUtil.clamp(extSetpoint, armLimits.armExtRange.getLeft(), armLimits.armExtRange.getRight());
+        /* Extension limits and outputs are calculated here */
+        extSetpoint = armLimits.armExtRange.clamp(extSetpoint);
         extArmSubsystem.setArmExtension(extSetpoint);
 
-        /** Angle limits and outputs are calculated here */
-        angleSetpoint = MathUtil.clamp(angleSetpoint, armLimits.armAngleRange.getLeft(), armLimits.armAngleRange.getRight());
+        /* Angle limits and outputs are calculated here */
+        angleSetpoint = armLimits.armAngleRange.clamp(angleSetpoint);
         angleArmSubsystem.setArmAngle(angleSetpoint);
     }
 
-    public boolean atSetpoint() {
-        return wristSubsystem.wristAtSetpoint() && extArmSubsystem.armExtensionAtSetpoint() && angleArmSubsystem.armAngleAtSetpoint();
+    public void toggleAllBrakemode() {
+        angleArmSubsystem.toggleBrakeMode();
+        wristSubsystem.toggleBrakeMode();
+        extArmSubsystem.toggleBrakeMode();
     }
+
+    public boolean atSetpoint() {
+        return wristSubsystem.atSetpoint() && extArmSubsystem.atSetpoint() && angleArmSubsystem.atSetpoint();
+    }
+
+    public CommandBase runIntakeForTime(double seconds, double speed) {
+        return wristSubsystem.setIntakeSpeedFactory(speed)
+                .andThen(new WaitCommand(seconds))
+                .andThen(wristSubsystem.setIntakeSpeedFactory(0));
+    }
+
+    public CommandBase runIntake(double speed) {
+        return wristSubsystem.setIntakeSpeedFactory(speed)
+                .finallyDo((boolean interrupted) -> wristSubsystem.setIntakeSpeed(0.0));
+    }
+
 }
