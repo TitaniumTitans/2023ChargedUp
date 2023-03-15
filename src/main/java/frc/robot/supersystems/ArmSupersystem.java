@@ -92,4 +92,9 @@ public class ArmSupersystem {
                 .andThen(wristSubsystem.setIntakeSpeedFactory(0));
     }
 
+    public CommandBase runIntake(double speed) {
+        return wristSubsystem.setIntakeSpeedFactory(speed)
+                .finallyDo((boolean interrupted) -> wristSubsystem.setIntakeSpeed(0.0));
+    }
+
 }
