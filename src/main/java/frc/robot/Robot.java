@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.PowerDistribution;
 import lib.factories.SparkMaxFactory;
 import org.littletonrobotics.junction.*;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
@@ -24,6 +25,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 public class Robot extends LoggedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
+  private PowerDistribution m_pdh;
 
   private Timer m_timer;
   /**
@@ -37,6 +39,8 @@ public class Robot extends LoggedRobot {
     //Sets up a base logger for non-subsystem inputs
 
     Logger logger = Logger.getInstance();
+    m_pdh = new PowerDistribution(1, PowerDistribution.ModuleType.kRev);
+    m_pdh.setSwitchableChannel(false);
 
      // Set up data receivers & replay source
      switch (Constants.CURRENT_MODE) {
@@ -100,6 +104,7 @@ public class Robot extends LoggedRobot {
   @Override
   public void disabledInit() {
     // We don't have any init code
+    m_pdh.setSwitchableChannel(false);
   }
 
   @Override
@@ -111,6 +116,8 @@ public class Robot extends LoggedRobot {
   @Override
   public void autonomousInit() {
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+
+    m_pdh.setSwitchableChannel(true);
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
@@ -135,12 +142,14 @@ public class Robot extends LoggedRobot {
     }
 
     SparkMaxFactory.Companion.rerunConfigs();
+    m_pdh.setSwitchableChannel(true);
   }
 
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
     // We don't have any periodic code
+
   }
 
   @Override
