@@ -7,9 +7,10 @@ var searchData=
   ['armpose_5',['ArmPose',['../classfrc_1_1robot_1_1supersystems_1_1_arm_pose.html',1,'frc::robot::supersystems']]],
   ['armsupersystem_6',['ArmSupersystem',['../classfrc_1_1robot_1_1supersystems_1_1_arm_supersystem.html',1,'frc::robot::supersystems']]],
   ['autobalance_7',['AutoBalance',['../classfrc_1_1robot_1_1commands_1_1_auto_balance.html#a8c1cb1bc5699e6730606be0b9fcd5750',1,'frc.robot.commands.AutoBalance.AutoBalance()'],['../classfrc_1_1robot_1_1commands_1_1_auto_balance.html',1,'frc.robot.commands.AutoBalance']]],
-  ['autofactory_8',['AutoFactory',['../classfrc_1_1robot_1_1commands_1_1autonomous_1_1_auto_factory.html',1,'frc::robot::commands::autonomous']]],
-  ['automode_9',['AutoMode',['../enumfrc_1_1robot_1_1commands_1_1autonomous_1_1_auto_factory_1_1_auto_mode.html',1,'frc::robot::commands::autonomous::AutoFactory']]],
-  ['autonomousinit_10',['autonomousInit',['../classfrc_1_1robot_1_1_robot.html#a5b1c022cd3e2b9f6e5dde62571839173',1,'frc::robot::Robot']]],
-  ['autonomousperiodic_11',['autonomousPeriodic',['../classfrc_1_1robot_1_1_robot.html#a7dcfe7d0d65d1051eb095b8eb1aebd72',1,'frc::robot::Robot']]],
-  ['autoutils_12',['AutoUtils',['../classfrc_1_1robot_1_1commands_1_1autonomous_1_1_auto_utils.html',1,'frc::robot::commands::autonomous']]]
+  ['autobalancetranscommand_8',['AutoBalanceTransCommand',['../classfrc_1_1robot_1_1commands_1_1_auto_balance_trans_command.html',1,'frc::robot::commands']]],
+  ['autofactory_9',['AutoFactory',['../classfrc_1_1robot_1_1commands_1_1autonomous_1_1_auto_factory.html',1,'frc::robot::commands::autonomous']]],
+  ['automode_10',['AutoMode',['../enumfrc_1_1robot_1_1commands_1_1autonomous_1_1_auto_factory_1_1_auto_mode.html',1,'frc::robot::commands::autonomous::AutoFactory']]],
+  ['autonomousinit_11',['autonomousInit',['../classfrc_1_1robot_1_1_robot.html#a5b1c022cd3e2b9f6e5dde62571839173',1,'frc::robot::Robot']]],
+  ['autonomousperiodic_12',['autonomousPeriodic',['../classfrc_1_1robot_1_1_robot.html#a7dcfe7d0d65d1051eb095b8eb1aebd72',1,'frc::robot::Robot']]],
+  ['autoutils_13',['AutoUtils',['../classfrc_1_1robot_1_1commands_1_1autonomous_1_1_auto_utils.html',1,'frc::robot::commands::autonomous']]]
 ];

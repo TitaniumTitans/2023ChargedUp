@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['intakecontrolcommand_119',['IntakeControlCommand',['../classfrc_1_1robot_1_1commands_1_1_intake_control_command.html',1,'frc::robot::commands']]]
+  ['footpedal_127',['FootPedal',['../classlib_1_1controllers_1_1_foot_pedal.html',1,'lib::controllers']]]
 ];

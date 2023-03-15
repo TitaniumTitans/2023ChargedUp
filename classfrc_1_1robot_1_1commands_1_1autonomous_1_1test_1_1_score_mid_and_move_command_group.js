@@ -1,0 +1,4 @@
+var classfrc_1_1robot_1_1commands_1_1autonomous_1_1test_1_1_score_mid_and_move_command_group =
+[
+    [ "ScoreMidAndMoveCommandGroup", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1test_1_1_score_mid_and_move_command_group.html#ac8672889f0fe44fac953ff9b34e916bc", null ]
+];

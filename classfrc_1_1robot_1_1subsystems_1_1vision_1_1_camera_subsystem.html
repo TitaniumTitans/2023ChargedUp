@@ -108,6 +108,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a45c46c0e5d7ab0f98b7aede60a2b9b34"><td class="memItemLeft" align="right" valign="top"><a id="a45c46c0e5d7ab0f98b7aede60a2b9b34"></a>
 Pose2d&#160;</td><td class="memItemRight" valign="bottom"><b>getTagPose</b> ()</td></tr>
 <tr class="separator:a45c46c0e5d7ab0f98b7aede60a2b9b34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ec67daab0cd469b585cf61336e6cec4"><td class="memItemLeft" align="right" valign="top"><a id="a9ec67daab0cd469b585cf61336e6cec4"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>getTagID</b> ()</td></tr>
+<tr class="separator:a9ec67daab0cd469b585cf61336e6cec4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a12b1823e933431ce5620fb8c14d51b49"></a>
@@ -135,10 +138,11 @@ Pose2d&#160;</td><td class="memItemRight" valign="bottom"><b>getTagPose</b> ()</
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Creates a new <a class="el" href="classfrc_1_1robot_1_1subsystems_1_1vision_1_1_camera_subsystem.html">CameraSubsystem</a> </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Creates a new <a class="el" href="classfrc_1_1robot_1_1subsystems_1_1vision_1_1_camera_subsystem.html">CameraSubsystem</a></p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">camName</td><td>Name of the camera in the system </td></tr>
-    <tr><td class="paramname">camPose</td><td>3d transform of the camera's position relative to the robot </td></tr>
+    <tr><td class="paramname">camPose</td><td>Transform3d of the camera's position relative to the robot </td></tr>
   </table>
   </dd>
 </dl>
@@ -167,7 +171,7 @@ Pose2d&#160;</td><td class="memItemRight" valign="bottom"><b>getTagPose</b> ()</
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Optional estimatedRobotPose, a 3d pose and a timestamp in seconds </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Optional estimatedRobotPose, a Pose3d and a timestamp in seconds </dd></dl>
 <p>Get the current target position and check if it is a valid target.</p>
 <p>Calculate the position of the robot based on the best target result and alternate target result.</p>
 <p>Calculate the distance between the bestTagPose and the previous pose. And calculate the distance between the altTagPose and the previous pose.</p>
