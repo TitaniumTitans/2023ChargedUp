@@ -227,8 +227,13 @@ public class SwerveDrivetrain extends SubsystemBase {
     }
 
     public double getGyroPitchRate() {
+        //Account for initail boot time
+        if (m_prevTime == 0) {
+            m_prevTime = RobotController.getFPGATime();
+        }
+        // Return the rate of falling
         double fpgaElapsedTime = RobotController.getFPGATime() - m_prevTime;
-        return (m_currentPitch - m_previousPitch) / RobotController.getFPGATime();
+        return (m_currentPitch - m_previousPitch) / fpgaElapsedTime;
     }
 
     public void setAbsoluteAngles() {
