@@ -236,7 +236,7 @@ public class WristSubsystem extends SubsystemBase {
     }
 
     public boolean atLowerLimit() {
-        return m_wristZeroLimit.get();
+        return !m_wristZeroLimit.get();
     }
 
     public boolean pieceInside() {
