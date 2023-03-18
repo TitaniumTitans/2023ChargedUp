@@ -1,5 +1,6 @@
 package frc.robot.supersystems;
 
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants.LimitConstants;
@@ -92,9 +93,8 @@ public class ArmSupersystem {
                 .andThen(wristSubsystem.setIntakeSpeedFactory(0));
     }
 
-    public CommandBase runIntake(double speed) {
-        return wristSubsystem.setIntakeSpeedFactory(speed)
-                .finallyDo((boolean interrupted) -> wristSubsystem.setIntakeSpeed(0.0));
+    public Command runIntake(double speed) {
+        return wristSubsystem.setIntakeSpeedFactory(speed);
     }
 
 }

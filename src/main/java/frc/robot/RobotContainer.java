@@ -89,8 +89,8 @@ public class RobotContainer {
         m_driveController.button(7).onTrue(m_drive.resetGyroBase());
         m_driveController.start().onTrue(m_drive.toggleFieldRelative());
 
-        m_driveController.leftTrigger().whileTrue(m_super.runIntake(-0.4));
-        m_driveController.rightTrigger().whileTrue(m_super.runIntake(1.0));
+        m_driveController.leftTrigger().whileTrue(m_super.runIntake(-0.4)).whileFalse(m_super.runIntake(0.0));
+        m_driveController.rightTrigger().whileTrue(m_super.runIntake(1.0)).whileFalse(m_super.runIntake(0.0));
 
         m_driveController.x().whileTrue(
                 new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.INTAKE_CUBE)
@@ -170,6 +170,8 @@ public class RobotContainer {
      * @return the command to run in autonomous
      */
     public Command getAutonomousCommand() {
-        return m_autoFactory.getAutoRoutine();
+        return new InstantCommand(() -> 
+                m_drive.resetGyro(180))
+                .andThen(m_autoFactory.getAutoRoutine());       
     }
 }

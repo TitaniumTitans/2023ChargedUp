@@ -1,17 +1,18 @@
-package frc.robot.commands;
+package frc.robot.commands.autonomous;
 
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
-import frc.robot.commands.autonomous.AutoUtils;
-import frc.robot.commands.autonomous.BalanceCommandGroup;
+import frc.robot.commands.IntakeControlCommand;
+import frc.robot.commands.SupersystemToPoseAutoCommand;
 import frc.robot.subsystems.swerve.SwerveDrivetrain;
 import frc.robot.subsystems.wrist.WristSubsystem;
 import frc.robot.supersystems.ArmSupersystem;
 
 public class ScoreOneEngageCommandGroup extends SequentialCommandGroup {
     public ScoreOneEngageCommandGroup(SwerveDrivetrain m_swerve, ArmSupersystem m_super, WristSubsystem m_wrist, AutoUtils.StartingZones start, AutoUtils.ScoringHeights height) {
+        addCommands(m_super.runIntake(0.0));
         if (height == AutoUtils.ScoringHeights.HIGH) {
             addCommands(new SupersystemToPoseAutoCommand(m_super, Constants.ArmSetpoints.HIGH_GOAL));
         } else {

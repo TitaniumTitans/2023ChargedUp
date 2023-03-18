@@ -185,7 +185,7 @@ public class WristSubsystem extends SubsystemBase {
 
     public Command setWristPowerFactory(double speed) {
         if (speed == 0) {
-            return runOnce(() -> setWristPower(0.00));
+            return runOnce(() -> setWristPower(0.1));
         } else {
             return runOnce(() -> setWristPower(speed));
         }
@@ -193,7 +193,7 @@ public class WristSubsystem extends SubsystemBase {
 
     public void setIntakeSpeed(double speed) {
         if (speed == 0) {
-            m_intakeMotor.set(0.01);
+            m_intakeMotor.set(0.1);
         } else {
             m_intakeMotor.set(speed);
         }
@@ -236,7 +236,7 @@ public class WristSubsystem extends SubsystemBase {
     }
 
     public boolean atLowerLimit() {
-        return m_wristZeroLimit.get();
+        return !m_wristZeroLimit.get();
     }
 
     public boolean pieceInside() {

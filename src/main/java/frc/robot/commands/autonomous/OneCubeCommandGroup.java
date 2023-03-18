@@ -15,6 +15,7 @@ public class OneCubeCommandGroup extends SequentialCommandGroup {
     public OneCubeCommandGroup(ArmSupersystem m_super, SwerveDrivetrain m_swerve, WristSubsystem m_wrist, AutoUtils.StartingZones start, AutoUtils.ScoringHeights height) {
 //        addCommands(m_swerve.alignToTag(SwerveDrivetrain.AlignmentOptions.CENTER_ALIGN));
 
+        addCommands(m_super.runIntake(0.0));
         if (height == AutoUtils.ScoringHeights.HIGH) {
             addCommands(new SupersystemToPoseAutoCommand(m_super, Constants.ArmSetpoints.HIGH_GOAL));
         } else {

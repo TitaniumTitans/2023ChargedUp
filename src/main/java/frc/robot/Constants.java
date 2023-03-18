@@ -90,8 +90,8 @@ public final class Constants {
                 new Translation3d(Units.inchesToMeters(12.0), 0.0, Units.inchesToMeters(8.00)),
                 new Rotation3d(0.0, 0.0, 0.0));
         public static final Transform3d LEFT_CAM_POSE = new Transform3d(
-                new Translation3d(Units.inchesToMeters(4.0), Units.inchesToMeters(6.0), Units.inchesToMeters(25.0)),
-                new Rotation3d(Units.degreesToRadians(90.0), 0.0, Units.degreesToRadians(90.0)));
+                new Translation3d(Units.inchesToMeters(2.0), Units.inchesToMeters(6.0), Units.inchesToMeters(24.0)),
+                new Rotation3d(Units.degreesToRadians(180.0), 0.0, Units.degreesToRadians(90.0)));
         public static final String FRONT_CAM_NAME = "FrontPiCam";
         public static final String LEFT_CAM_NAME = "LeftWebCam";
 
@@ -135,19 +135,19 @@ public final class Constants {
         }
 
         //Trajectory following values
-        public static final double MAX_VELOCITY_PERCENT_OUTPUT = 3.0;
+        public static final double MAX_VELOCITY_PERCENT_OUTPUT = ModuleConstants.MAX_SPEED_MPS;
         public static final double MAX_ACCELERATION_PERCENT_OUTPUT = 1.5;
 
         public static final PIDController THETA_CONTROLLER =
                 new PIDController(2.0, 0.0, 0.0);
 
         public static final PIDController CONTROLLER_X =
-            new PIDController(2.75, 0, 0);
+            new PIDController(2, 0, 0);
         public static final PIDController CONTROLLER_Y =
-            new PIDController(2.75, 0, 0);
+            new PIDController(2, 0, 0);
 
         public static final PIDConstants CONSTANTS_X =
-                new PIDConstants(2.55, 0, 0);
+                new PIDConstants(2.0, 0, 0);
 
         public static final PIDConstants THETA_CONSTANTS =
                 new PIDConstants(2.0, 0.0, 0.0);
@@ -169,12 +169,12 @@ public final class Constants {
         );
 
         public static final Transform2d HUMAN_PLAYER_RIGHT_TRANSLATION = new Transform2d(
-                new Translation2d(0.6, 0.9),
+                new Translation2d(0.6, 0.6),
                 new Rotation2d()
         );
 
         public static final Transform2d HUMAN_PLAYER_LEFT_TRANSLATION = new Transform2d(
-                new Translation2d(0.6, -0.9),
+                new Translation2d(0.6, -0.6),
                 new Rotation2d()
         );
 
@@ -200,7 +200,7 @@ public final class Constants {
         public static final double KI_ANGLE = 0.005;
         public static final double KD_ANGLE = 0.0075;
 
-        public static final GosDoubleProperty ARM_EXT_KP = new GosDoubleProperty(false, "Arm extension kP", 0.2);
+        public static final GosDoubleProperty ARM_EXT_KP = new GosDoubleProperty(false, "Arm extension kP", 0.4);
         public static final GosDoubleProperty ARM_EXT_KI = new GosDoubleProperty(false, "Arm extension kI", 0);
         public static final GosDoubleProperty ARM_EXT_KD = new GosDoubleProperty(false, "Arm extension kD", 0);
 
@@ -209,7 +209,7 @@ public final class Constants {
         public static final int ENCODER_PORT = 1;
 
         public static final double SPROCKET_DIAMETER = 1.99;
-        public static final double EXTENSION_RATIO = (1.0 / 25.0) * (SPROCKET_DIAMETER * Math.PI);
+        public static final double EXTENSION_RATIO = (1.0 / 16.0) * (SPROCKET_DIAMETER * Math.PI);
 
 
         public static final double EXT_PID_TOLERANCE = 1.0;
@@ -229,7 +229,7 @@ public final class Constants {
         public static final GosDoubleProperty ARM_EXT_SCORE_LOWER =
                 new GosDoubleProperty(false, "Arm Extension Score Lower Limit", 0);
         public static final GosDoubleProperty ARM_EXT_SCORE_UPPER =
-                new GosDoubleProperty(false, "Arm Extension Score Upper Limit", 25);
+                new GosDoubleProperty(true, "Arm Extension Score Upper Limit", 15.1);
 
         // Arm Angle limits for Piecewise Function
         public static final GosDoubleProperty ARM_ANGLE_LOWER =
@@ -267,13 +267,13 @@ public final class Constants {
         public static final ArmPose STOW_POSITION = new ArmPose(0.0, 30, 0.0);
         public static final ArmPose VERT_STOW_POSE = new ArmPose(0.0, 180, 0.0);
 
-        public static final ArmPose INTAKE_CUBE = new ArmPose(6.6, 325.1, 165.6);
-        public static final ArmPose INTAKE_CONE = new ArmPose(1.0, 328.0, 170.0);
+        public static final ArmPose INTAKE_CUBE = new ArmPose(4.7, 325.1, 165.6);
+        public static final ArmPose INTAKE_CONE = new ArmPose(1.5, 328.0, 170.0);
         public static final ArmPose HUMAN_PLAYER_STATION = new ArmPose(0.0, 236.6, 80.0);
 
         public static final ArmPose MIDDLE_GOAL_NON_STOW = new ArmPose(0.0, 252.1, 99.7);
         public static final ArmPose MIDDLE_GOAL_STOW = new ArmPose(0.0, 0.0, 0.0);
-        public static final ArmPose HIGH_GOAL = new ArmPose(24.3, 242.0, 95.3);
+        public static final ArmPose HIGH_GOAL = new ArmPose(24.3, 247.0, 95.3);
     }
 
     public static final int DRIVER_PORT = 0;
