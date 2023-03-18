@@ -55,13 +55,13 @@ var hierarchy =
     ] ],
     [ "SequentialCommandGroup", null, [
       [ "frc.robot.commands.MaitnanceModeCommandGroup", "classfrc_1_1robot_1_1commands_1_1_maitnance_mode_command_group.html", null ],
-      [ "frc.robot.commands.ScoreMiddleCommandGroup", "classfrc_1_1robot_1_1commands_1_1_score_middle_command_group.html", null ],
-      [ "frc.robot.commands.ScoreOneEngageCommandGroup", "classfrc_1_1robot_1_1commands_1_1_score_one_engage_command_group.html", null ],
       [ "frc.robot.commands.autonomous.BalanceCommandGroup", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_balance_command_group.html", null ],
       [ "frc.robot.commands.autonomous.MobilityCommandGroup", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_mobility_command_group.html", null ],
       [ "frc.robot.commands.autonomous.OneConeCommandGroup", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_one_cone_command_group.html", null ],
       [ "frc.robot.commands.autonomous.OneCubeCommandGroup", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_one_cube_command_group.html", null ],
       [ "frc.robot.commands.autonomous.ScoreMiddleAndMobilityCommandGroup", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_score_middle_and_mobility_command_group.html", null ],
+      [ "frc.robot.commands.autonomous.ScoreMiddleCommandGroup", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_score_middle_command_group.html", null ],
+      [ "frc.robot.commands.autonomous.ScoreOneEngageCommandGroup", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_score_one_engage_command_group.html", null ],
       [ "frc.robot.commands.autonomous.ScoreTwoCommandGroup", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_score_two_command_group.html", null ],
       [ "frc.robot.commands.autonomous.test.ScoreMidAndMoveCommandGroup", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1test_1_1_score_mid_and_move_command_group.html", null ]
     ] ],

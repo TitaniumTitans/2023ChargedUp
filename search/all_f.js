@@ -2,8 +2,8 @@ var searchData=
 [
   ['scoremidandmovecommandgroup_67',['ScoreMidAndMoveCommandGroup',['../classfrc_1_1robot_1_1commands_1_1autonomous_1_1test_1_1_score_mid_and_move_command_group.html',1,'frc::robot::commands::autonomous::test']]],
   ['scoremiddleandmobilitycommandgroup_68',['ScoreMiddleAndMobilityCommandGroup',['../classfrc_1_1robot_1_1commands_1_1autonomous_1_1_score_middle_and_mobility_command_group.html',1,'frc::robot::commands::autonomous']]],
-  ['scoremiddlecommandgroup_69',['ScoreMiddleCommandGroup',['../classfrc_1_1robot_1_1commands_1_1_score_middle_command_group.html',1,'frc::robot::commands']]],
-  ['scoreoneengagecommandgroup_70',['ScoreOneEngageCommandGroup',['../classfrc_1_1robot_1_1commands_1_1_score_one_engage_command_group.html',1,'frc::robot::commands']]],
+  ['scoremiddlecommandgroup_69',['ScoreMiddleCommandGroup',['../classfrc_1_1robot_1_1commands_1_1autonomous_1_1_score_middle_command_group.html',1,'frc::robot::commands::autonomous']]],
+  ['scoreoneengagecommandgroup_70',['ScoreOneEngageCommandGroup',['../classfrc_1_1robot_1_1commands_1_1autonomous_1_1_score_one_engage_command_group.html',1,'frc::robot::commands::autonomous']]],
   ['scoretwocommandgroup_71',['ScoreTwoCommandGroup',['../classfrc_1_1robot_1_1commands_1_1autonomous_1_1_score_two_command_group.html',1,'frc::robot::commands::autonomous']]],
   ['scoringheights_72',['ScoringHeights',['../enumfrc_1_1robot_1_1commands_1_1autonomous_1_1_auto_utils_1_1_scoring_heights.html',1,'frc::robot::commands::autonomous::AutoUtils']]],
   ['set_73',['set',['../classlib_1_1utils_1_1drivers_1_1_talon_enhanced.html#a26de6444a77e5e6f0830516d50c7ec4d',1,'lib.utils.drivers.TalonEnhanced.set(ControlMode controlMode, double demand0, DemandType demandType, double demand1)'],['../classlib_1_1utils_1_1drivers_1_1_talon_enhanced.html#adc68a61b81d0efa952808133d74692de',1,'lib.utils.drivers.TalonEnhanced.set(ControlMode controlMode, double demand0)']]],

@@ -2,8 +2,8 @@ var searchData=
 [
   ['scoremidandmovecommandgroup_139',['ScoreMidAndMoveCommandGroup',['../classfrc_1_1robot_1_1commands_1_1autonomous_1_1test_1_1_score_mid_and_move_command_group.html',1,'frc::robot::commands::autonomous::test']]],
   ['scoremiddleandmobilitycommandgroup_140',['ScoreMiddleAndMobilityCommandGroup',['../classfrc_1_1robot_1_1commands_1_1autonomous_1_1_score_middle_and_mobility_command_group.html',1,'frc::robot::commands::autonomous']]],
-  ['scoremiddlecommandgroup_141',['ScoreMiddleCommandGroup',['../classfrc_1_1robot_1_1commands_1_1_score_middle_command_group.html',1,'frc::robot::commands']]],
-  ['scoreoneengagecommandgroup_142',['ScoreOneEngageCommandGroup',['../classfrc_1_1robot_1_1commands_1_1_score_one_engage_command_group.html',1,'frc::robot::commands']]],
+  ['scoremiddlecommandgroup_141',['ScoreMiddleCommandGroup',['../classfrc_1_1robot_1_1commands_1_1autonomous_1_1_score_middle_command_group.html',1,'frc::robot::commands::autonomous']]],
+  ['scoreoneengagecommandgroup_142',['ScoreOneEngageCommandGroup',['../classfrc_1_1robot_1_1commands_1_1autonomous_1_1_score_one_engage_command_group.html',1,'frc::robot::commands::autonomous']]],
   ['scoretwocommandgroup_143',['ScoreTwoCommandGroup',['../classfrc_1_1robot_1_1commands_1_1autonomous_1_1_score_two_command_group.html',1,'frc::robot::commands::autonomous']]],
   ['scoringheights_144',['ScoringHeights',['../enumfrc_1_1robot_1_1commands_1_1autonomous_1_1_auto_utils_1_1_scoring_heights.html',1,'frc::robot::commands::autonomous::AutoUtils']]],
   ['sparkmaxconfigs_145',['SparkMaxConfigs',['../classlib_1_1utils_1_1_rev_1_1_spark_max_configs.html',1,'lib::utils::Rev']]],
