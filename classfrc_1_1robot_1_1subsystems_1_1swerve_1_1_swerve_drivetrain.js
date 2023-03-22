@@ -2,6 +2,7 @@ var classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_drivetrain =
 [
     [ "AlignmentOptions", "enumfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_drivetrain_1_1_alignment_options.html", "enumfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_drivetrain_1_1_alignment_options" ],
     [ "SwerveDrivetrain", "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_drivetrain.html#a526386e418b871e4878d9b234ecf8f3f", null ],
+    [ "alignToAngle", "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_drivetrain.html#afab8a3c83009207bc233e2bb4e070742", null ],
     [ "alignToTag", "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_drivetrain.html#aa0e129315e842b5da54bcd9205ef3bb8", null ],
     [ "createPPSwerveController", "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_drivetrain.html#a49509c1f77ce9cf0da2aad871389d500", null ],
     [ "drive", "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_drivetrain.html#a2adf78f9fca45cb09272ea33bda27ae0", null ],

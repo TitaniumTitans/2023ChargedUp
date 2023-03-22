@@ -1,5 +1,6 @@
 var NAVTREEINDEX1 =
 {
+"classfrc_1_1robot_1_1supersystems_1_1_arm_pose.html#afe6a96e48bc6562f52ab84b218157399":[10,0,0,0,2,1,6],
 "classfrc_1_1robot_1_1supersystems_1_1_arm_supersystem.html":[10,0,0,0,2,2],
 "classfrc_1_1robot_1_1supersystems_1_1_arm_supersystem.html#a0367e254cf0028bb198ade1c5fd85219":[10,0,0,0,2,2,0],
 "classfrc_1_1robot_1_1supersystems_1_1_arm_supersystem.html#a381373b69068b95257004d2e578ea615":[10,0,0,0,2,2,4],
@@ -201,8 +202,8 @@ var NAVTREEINDEX1 =
 "functions_func.html":[10,3,1],
 "functions_vars.html":[10,3,2],
 "hierarchy.html":[10,2],
-"index.html":[],
 "index.html":[0],
+"index.html":[],
 "interfacelib_1_1utils_1_1drivers_1_1_c_t_r_e_util_1_1_config_call.html":[10,0,1,1,0,0,0],
 "interfacelib_1_1utils_1_1drivers_1_1_c_t_r_e_util_1_1_config_call.html#ae99ba3af196ee4e530dadfdaa7d9b594":[10,0,1,1,0,0,0,0],
 "interfacelib_1_1utils_1_1drivers_1_1_rev_util_1_1_config_call.html":[10,0,1,1,0,1,0],
