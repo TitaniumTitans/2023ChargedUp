@@ -51,7 +51,7 @@ public final class Constants {
         public static final double MODULE_KA = 0.0;
         public static final double MODULE_DRIVE_KP = 0.5;
 
-        public static final double MAX_SPEED_MPS = 3.048;
+        public static final double MAX_SPEED_MPS = 3.657;
     }
 
     public static final class DriveConstants {
@@ -88,7 +88,7 @@ public final class Constants {
         // Camera constants
         public static final Transform3d FRONT_CAM_POSE = new Transform3d(
                 new Translation3d(Units.inchesToMeters(12.0), 0.0, Units.inchesToMeters(8.00)),
-                new Rotation3d(0.0, 0.0, 0.0));
+                new Rotation3d(Units.degreesToRadians(1.0), 0.0, 0.0));
         public static final Transform3d LEFT_CAM_POSE = new Transform3d(
                 new Translation3d(Units.inchesToMeters(2.0), Units.inchesToMeters(6.0), Units.inchesToMeters(24.0)),
                 new Rotation3d(Units.degreesToRadians(180.0), 0.0, Units.degreesToRadians(90.0)));
@@ -139,7 +139,7 @@ public final class Constants {
         public static final double MAX_ACCELERATION_PERCENT_OUTPUT = 1.5;
 
         public static final PIDController THETA_CONTROLLER =
-                new PIDController(2.0, 0.0, 0.0);
+                new PIDController(2.5, 0.05, 0.0);
 
         public static final PIDController CONTROLLER_X =
             new PIDController(2, 0, 0);
@@ -150,7 +150,7 @@ public final class Constants {
                 new PIDConstants(2.0, 0, 0);
 
         public static final PIDConstants THETA_CONSTANTS =
-                new PIDConstants(2.0, 0.0, 0.0);
+                new PIDConstants(2.5, 0.05, 0.0);
         
         //Auto balance constants
         public static final double BALANCE_P = -0.04;
@@ -159,27 +159,27 @@ public final class Constants {
         public static final double BALANCE_D = 0.1;
 
         public static final Transform2d CENTER_TRANSLATION = new Transform2d(
-                new Translation2d(0.75, 0.0),
+                new Translation2d(0.65, 0.0),
                 new Rotation2d(0.0)
         );
 
         public static final Transform2d LEFT_TRANSLATION = new Transform2d(
-                new Translation2d(0.75, 0.55),
+                new Translation2d(0.65, 0.55),
                 new Rotation2d()
         );
 
         public static final Transform2d HUMAN_PLAYER_RIGHT_TRANSLATION = new Transform2d(
-                new Translation2d(0.6, 0.6),
+                new Translation2d(0.5, 0.75),
                 new Rotation2d()
         );
 
         public static final Transform2d HUMAN_PLAYER_LEFT_TRANSLATION = new Transform2d(
-                new Translation2d(0.6, -0.6),
+                new Translation2d(0.5, -0.75),
                 new Rotation2d()
         );
 
         public static final Transform2d RIGHT_TRANSLATION = new Transform2d(
-                new Translation2d(0.75, -0.6),
+                new Translation2d(0.65, -0.6),
                 new Rotation2d()
         );
     }

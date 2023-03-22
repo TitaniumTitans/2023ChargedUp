@@ -13,7 +13,8 @@ import frc.robot.subsystems.arm.ArmExtSubsystem;
 import frc.robot.supersystems.ArmPose;
 import frc.robot.supersystems.ArmSupersystem;
 import lib.controllers.FootPedal;
-
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -115,7 +116,7 @@ public class RobotContainer {
                 .whileTrue(m_drive.createPPSwerveController(SwerveDrivetrain.AlignmentOptions.RIGHT_ALIGN));
 
         m_driveController.povDown()
-                .whileTrue(m_drive.createPPSwerveController(SwerveDrivetrain.AlignmentOptions.HUMAN_PLAYER_ALIGN));
+                .whileTrue(new InstantCommand(() -> m_drive.resetPose(new Pose2d(10, 0, new Rotation2d()))));
 
         m_driveController.leftBumper().whileTrue(new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.HIGH_GOAL));
         m_driveController.rightBumper().whileTrue(new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.MIDDLE_GOAL_NON_STOW));
@@ -161,6 +162,8 @@ public class RobotContainer {
 
         testCommands.add("Auto Balance", new AutoBalanceTransCommand(m_drive));
         testCommands.add("Reset Pose", new InstantCommand(() -> m_drive.resetPoseBase())).withSize(2, 1);
+
+        testCommands.add("Align to Zero Degrees", m_drive.alignToAngle(0).asProxy());
 
     }
 

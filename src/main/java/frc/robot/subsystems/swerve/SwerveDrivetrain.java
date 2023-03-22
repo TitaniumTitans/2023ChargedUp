@@ -34,6 +34,7 @@ import org.littletonrobotics.junction.AutoLog;
 import org.littletonrobotics.junction.Logger;
 import org.photonvision.EstimatedRobotPose;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -114,7 +115,7 @@ public class SwerveDrivetrain extends SubsystemBase {
                 getModulePositions(),
                 new Pose2d(),
                 new MatBuilder<>(Nat.N3(), Nat.N1()).fill(0.1, 0.1, 0.1),
-                new MatBuilder<>(Nat.N3(), Nat.N1()).fill(0.5, 0.5, 0.5)
+                new MatBuilder<>(Nat.N3(), Nat.N1()).fill(0.5, 0.5, Math.PI)
         );
 
         m_frontCamSubsystem = new CameraSubsystem(DriveConstants.FRONT_CAM_NAME, DriveConstants.FRONT_CAM_POSE);
@@ -394,13 +395,13 @@ public class SwerveDrivetrain extends SubsystemBase {
         //generate a path based on the tag you see, flipped 180 from tag pose
         traj = PathPlanner.generatePath(
                 AutoUtils.getDefaultConstraints(),
-                new PathPoint(getPose().getTranslation(), new Rotation2d(), getPose().getRotation(), chassisSpeed.getNorm()),
+                new PathPoint(getPose().getTranslation(), new Rotation2d(), getPose().getRotation()),
                 new PathPoint(translatedMiddle, new Rotation2d(), tagPose.getRotation().rotateBy(Rotation2d.fromDegrees(180))),
                 new PathPoint(translatedEnd, new Rotation2d(), tagPose.getRotation().rotateBy(Rotation2d.fromDegrees(180)))
         );
 
         m_alignCount++;
-        Logger.getInstance().recordOutput("Trajectory " + m_alignCount, traj);
+        Logger.getInstance().recordOutput("Current Trajectory", traj);
 
         return new PPSwerveControllerCommand(
                 traj,
@@ -412,6 +413,15 @@ public class SwerveDrivetrain extends SubsystemBase {
                 this::setModuleStates,
                 this
         );
+    }
+
+    public Command alignToAngle(double angle) {
+        PathPlannerTrajectory traj = PathPlanner.generatePath(
+            AutoUtils.getDefaultConstraints(), 
+            new PathPoint(getPose().getTranslation(), new Rotation2d(), getPose().getRotation()),
+            new PathPoint(getPose().getTranslation(), new Rotation2d(), Rotation2d.fromDegrees(angle)));
+
+        return getAutoBuilder(new HashMap<>()).followPath(traj);
     }
 
     public ChassisSpeeds getChassisSpeed() {
