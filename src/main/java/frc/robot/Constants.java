@@ -15,6 +15,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
+import frc.robot.supersystems.ArmLimits;
 import frc.robot.supersystems.ArmPose;
 
 
@@ -258,6 +259,22 @@ public final class Constants {
         // Actual max limit is 324
         public static final GosDoubleProperty MAX_MOVEMENT =
                 new GosDoubleProperty(false, "Max Movement Bound", 325);
+
+        // ArmLimit objects kept as constants
+        public static final ArmLimits STOW_LIMIT = new ArmLimits(
+                WRIST_STOW.getValue(), WRIST_STOW.getValue(),
+                ARM_EXT_STOW.getValue(), ARM_EXT_STOW.getValue(),
+                ARM_ANGLE_LOWER.getValue(), ARM_ANGLE_UPPER.getValue());
+
+        public static final ArmLimits FULL_RANGE_ZONE = new ArmLimits(
+                WRIST_SCORE_LOWER.getValue(), WRIST_SCORE_UPPER.getValue(),
+                ARM_EXT_SCORE_LOWER.getValue(), ARM_EXT_SCORE_UPPER.getValue(),
+                ARM_ANGLE_LOWER.getValue(), ARM_ANGLE_UPPER.getValue());
+
+        public static final ArmLimits GROUND_LIMIT = new ArmLimits(
+                WRIST_SCORE_LOWER.getValue(), WRIST_SCORE_UPPER.getValue(),
+                ARM_EXT_SCORE_LOWER.getValue(), 6.1,
+                ARM_ANGLE_LOWER.getValue(), ARM_ANGLE_UPPER.getValue());
     }
 
     public static class ArmSetpoints {
