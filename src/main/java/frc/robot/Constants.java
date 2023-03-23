@@ -266,7 +266,7 @@ public final class Constants {
                 ARM_EXT_STOW.getValue(), ARM_EXT_STOW.getValue(),
                 ARM_ANGLE_LOWER.getValue(), ARM_ANGLE_UPPER.getValue());
 
-        public static final ArmLimits FULL_RANGE_ZONE = new ArmLimits(
+        public static final ArmLimits FULL_RANGE_LIMIT = new ArmLimits(
                 WRIST_SCORE_LOWER.getValue(), WRIST_SCORE_UPPER.getValue(),
                 ARM_EXT_SCORE_LOWER.getValue(), ARM_EXT_SCORE_UPPER.getValue(),
                 ARM_ANGLE_LOWER.getValue(), ARM_ANGLE_UPPER.getValue());
