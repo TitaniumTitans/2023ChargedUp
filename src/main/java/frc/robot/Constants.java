@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import com.ctre.phoenixpro.signals.InvertedValue;
 import com.gos.lib.properties.GosDoubleProperty;
 import com.pathplanner.lib.auto.PIDConstants;
 import edu.wpi.first.math.controller.PIDController;
@@ -42,16 +43,25 @@ public final class Constants {
         public static final double DRIVE_RATIO = (50.0 / 14.0) * (19.0 / 25.0) * (45.0 / 15.0);
 
         // PID constants
-        public static final double MODULE_KP = 0.26;
-        public static final double MODULE_KD = 3;
-        public static final double POSITION_CONVERSION_FACTOR = ((Math.PI * 2) / TURNING_RATIO);
+        public static final double MODULE_AZIMUTH_KP = 0.26;
+        public static final double MODULE_AZIMUTH_KD = 3;
+        public static final double POSITION_CONVERSION_FACTOR_RADIANS = ((Math.PI * 2) / TURNING_RATIO);
 
         public static final double MODULE_KS = 0.0;
         public static final double MODULE_KV = 1.75;
         public static final double MODULE_KA = 0.0;
         public static final double MODULE_DRIVE_KP = 0.5;
 
-        public static final double MAX_SPEED_MPS = 3.657;
+        public static final double MAX_SPEED_L1_MPS = 3.657;
+
+        /** Constants for the Phoenix Pro Modules using Falcon 500s **/
+        public static final double L3_GEAR_RATIO = (14.0 / 50.0) * (28.0 / 16.0) * (15.0 / 45.0);
+
+        public static final double FALCON_AZIMUTH_KP = 0.5;
+        public static final double FALCON_AZIMUTH_KI = 0.0;
+        public static final double FALCON_AZIMUTH_KD = 0.0;
+
+        public static final InvertedValue FALCON_AZIMUTH_INVERT = InvertedValue.Clockwise_Positive;
     }
 
     public static final class DriveConstants {
@@ -135,7 +145,7 @@ public final class Constants {
         }
 
         //Trajectory following values
-        public static final double MAX_VELOCITY_PERCENT_OUTPUT = ModuleConstants.MAX_SPEED_MPS;
+        public static final double MAX_VELOCITY_PERCENT_OUTPUT = ModuleConstants.MAX_SPEED_L1_MPS;
         public static final double MAX_ACCELERATION_PERCENT_OUTPUT = 1.5;
 
         public static final PIDController THETA_CONTROLLER =

@@ -73,7 +73,7 @@ public class SwerveModNeo {
 
     double speed = state.speedMetersPerSecond;
     if (isOpenLoop) {
-      m_driveMotor.set(speed / ModuleConstants.MAX_SPEED_MPS);
+      m_driveMotor.set(speed / ModuleConstants.MAX_SPEED_L1_MPS);
     } else {
       double speedff = m_driveFF.calculate(speed);
       m_drivePID.setReference(speed, CANSparkMax.ControlType.kVoltage, 0, speedff);
@@ -162,16 +162,16 @@ public class SwerveModNeo {
     autoRetry(() -> m_angleMotor.setIdleMode(IdleMode.kBrake));
     autoRetry(() -> m_angleMotor.setSmartCurrentLimit(40));
 
-    autoRetry(() -> m_anglePID.setP(ModuleConstants.MODULE_KP));
+    autoRetry(() -> m_anglePID.setP(ModuleConstants.MODULE_AZIMUTH_KP));
     autoRetry(() -> m_anglePID.setI(0.0));
-    autoRetry(() -> m_anglePID.setD(ModuleConstants.MODULE_KD));
+    autoRetry(() -> m_anglePID.setD(ModuleConstants.MODULE_AZIMUTH_KD));
     autoRetry(() -> m_anglePID.setFF(0.0));
 
     autoRetry(() -> m_anglePID.setPositionPIDWrappingEnabled(true));
     autoRetry(() -> m_anglePID.setPositionPIDWrappingMaxInput(2 * Math.PI));
     autoRetry(() -> m_anglePID.setPositionPIDWrappingMinInput(0));
 
-    autoRetry(() -> m_angleEncoder.setPositionConversionFactor(ModuleConstants.POSITION_CONVERSION_FACTOR));
+    autoRetry(() -> m_angleEncoder.setPositionConversionFactor(ModuleConstants.POSITION_CONVERSION_FACTOR_RADIANS));
     autoRetry(() -> m_angleEncoder.setPosition(Units.degreesToRadians(m_canCoder.getAbsolutePosition() - m_canCoderOffsetDegrees)));
     SparkMaxConfigs.configCanStatusFrames(m_angleMotor);
   }
