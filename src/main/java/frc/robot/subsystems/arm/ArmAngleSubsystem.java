@@ -63,11 +63,11 @@ public class ArmAngleSubsystem extends SubsystemBase {
         m_armAngleMaster.setOpenLoopRampRate(0.2);
 
         config.setFrame0Rate(SparkMaxFactory.MAX_CAN_FRAME_PERIOD);
+        config.setFollowingMotor(m_armAngleMaster);
+        config.setInverted(true);
+        // The SparkMaxFactory will set the motor to follow the given motor
         m_armAngleFollower = SparkMaxFactory.Companion.createSparkMax(ArmConstants.ARM_ANGLE_ID_FOLLOWER, config);
 
-        //TODO make sure the invertion value gets changed when going back to right angle gearboxes
-        m_armAngleFollower.follow(m_armAngleMaster, true);
-    
         m_encoderArmAngle = new DutyCycleEncoder(ArmConstants.ENCODER_PORT);
         m_encoderArmAngle.reset();
         m_encoderArmAngle.setDistancePerRotation(360);
