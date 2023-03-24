@@ -86,6 +86,7 @@ public class RobotContainer {
      */
     private void configureButtonBindings() {
         m_drive.setDefaultCommand(new SwerveTeleopDrive(m_drive, m_driveController));
+        m_arm.setDefaultCommand(new HoldArmAngleCommand(m_arm));
 
         m_driveController.button(7).onTrue(m_drive.resetGyroBase());
         m_driveController.start().onTrue(m_drive.toggleFieldRelative());

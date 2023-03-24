@@ -6,6 +6,7 @@ package frc.robot;
 
 import com.gos.lib.properties.GosDoubleProperty;
 import com.pathplanner.lib.auto.PIDConstants;
+import edu.wpi.first.cscore.CameraServerJNI;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.geometry.Rotation3d;
@@ -224,6 +225,8 @@ public final class Constants {
             throw new IllegalStateException("Utility Class");
         }
 
+
+
         // Arm Extension limits for Piecewise Function
         public static final GosDoubleProperty ARM_EXT_STOW =
                 new GosDoubleProperty(false, "Arm Extension Stow Limit", 0.5);
@@ -249,6 +252,8 @@ public final class Constants {
         //Arm angle zones for piecewise intervals
         public static final GosDoubleProperty STOW_ZONE =
                 new GosDoubleProperty(false, "Stow Zone Lower Bound", 45);
+        public static final GosDoubleProperty INTAKE_ZONE =
+                new GosDoubleProperty(true, "Intake Zone Lower Bound", 50);
         public static final GosDoubleProperty SCORE_ZONE =
                 new GosDoubleProperty(true, "Score Zone Lower Bound", 190);
 
@@ -265,6 +270,12 @@ public final class Constants {
                 WRIST_STOW.getValue(), WRIST_STOW.getValue(),
                 ARM_EXT_STOW.getValue(), ARM_EXT_STOW.getValue(),
                 ARM_ANGLE_LOWER.getValue(), ARM_ANGLE_UPPER.getValue());
+
+        public static final ArmLimits INTAKE_LIMIT = new ArmLimits(
+                WRIST_SCORE_LOWER.getValue(), WRIST_SCORE_UPPER.getValue(),
+                ARM_EXT_STOW.getValue(), ARM_EXT_STOW.getValue(),
+                ARM_ANGLE_LOWER.getValue(), ARM_ANGLE_UPPER.getValue()
+        );
 
         public static final ArmLimits FULL_RANGE_LIMIT = new ArmLimits(
                 WRIST_SCORE_LOWER.getValue(), WRIST_SCORE_UPPER.getValue(),
