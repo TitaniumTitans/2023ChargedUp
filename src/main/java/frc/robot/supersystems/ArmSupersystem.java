@@ -21,7 +21,8 @@ import java.util.List;
 public class ArmSupersystem {
     private static final Range fullArmRange = new Range(LimitConstants.STOW_ZONE.getValue(), true, LimitConstants.MAX_MOVEMENT.getValue(), false);
     private static final Range stowRange = new Range(LimitConstants.STOW_ZONE.getValue(), true, LimitConstants.INTAKE_ZONE.getValue(), false);
-    private static final Range intakeRange = new Range(LimitConstants.INTAKE_ZONE.getValue(), true, LimitConstants.SCORE_ZONE.getValue(), false);
+    private static final Range intakeRange = new Range(LimitConstants.INTAKE_ZONE.getValue(), true, LimitConstants.INTAKE_ZONE_UPPER.getValue(), false);
+    private static final Range highStowRange = new Range(LimitConstants.INTAKE_ZONE_UPPER.getValue(), true, LimitConstants.SCORE_ZONE.getValue(), false);
     private static final Range fullRangeZone = new Range(LimitConstants.SCORE_ZONE.getValue(), true, LimitConstants.GROUND_ZONE.getValue(), false);
     private static final Range floorCollisionZone = new Range(LimitConstants.GROUND_ZONE.getValue(), true, LimitConstants.MAX_MOVEMENT.getValue(), true);
 
@@ -29,6 +30,7 @@ public class ArmSupersystem {
             new PiecewiseInterval<>(stowRange, ignored -> LimitConstants.STOW_LIMIT),
             new PiecewiseInterval<>(fullRangeZone, ignored -> LimitConstants.FULL_RANGE_LIMIT),
             new PiecewiseInterval<>(intakeRange, ignored -> LimitConstants.INTAKE_LIMIT),
+            new PiecewiseInterval<>(highStowRange, ignored -> LimitConstants.STOW_LIMIT),
             /*
              * Extension upper not constant?
              */

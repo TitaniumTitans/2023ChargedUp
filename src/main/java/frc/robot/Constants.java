@@ -6,6 +6,7 @@ package frc.robot;
 
 import com.gos.lib.properties.GosDoubleProperty;
 import com.pathplanner.lib.auto.PIDConstants;
+import edu.wpi.first.cscore.CameraServerJNI;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.geometry.Rotation3d;
@@ -89,7 +90,7 @@ public final class Constants {
         // Camera constants
         public static final Transform3d FRONT_CAM_POSE = new Transform3d(
                 new Translation3d(Units.inchesToMeters(12.0), 0.0, Units.inchesToMeters(8.00)),
-                new Rotation3d(Units.degreesToRadians(1.0), 0.0, 0.0));
+                new Rotation3d(Units.degreesToRadians(-0.5), 0.0, 0.0));
         public static final Transform3d LEFT_CAM_POSE = new Transform3d(
                 new Translation3d(Units.inchesToMeters(2.0), Units.inchesToMeters(6.0), Units.inchesToMeters(24.0)),
                 new Rotation3d(Units.degreesToRadians(180.0), 0.0, Units.degreesToRadians(90.0)));
@@ -136,7 +137,7 @@ public final class Constants {
         }
 
         //Trajectory following values
-        public static final double MAX_VELOCITY_PERCENT_OUTPUT = ModuleConstants.MAX_SPEED_MPS;
+        public static final double MAX_VELOCITY_PERCENT_OUTPUT = ModuleConstants.MAX_SPEED_MPS / 2;
         public static final double MAX_ACCELERATION_PERCENT_OUTPUT = 1.5;
 
         public static final PIDController THETA_CONTROLLER =
@@ -225,6 +226,7 @@ public final class Constants {
 
 
 
+
         // Arm Extension limits for Piecewise Function
         public static final GosDoubleProperty ARM_EXT_STOW =
                 new GosDoubleProperty(false, "Arm Extension Stow Limit", 0.5);
@@ -252,8 +254,10 @@ public final class Constants {
                 new GosDoubleProperty(false, "Stow Zone Lower Bound", 45);
         public static final GosDoubleProperty INTAKE_ZONE =
                 new GosDoubleProperty(true, "Intake Zone Lower Bound", 50);
+        public static final GosDoubleProperty INTAKE_ZONE_UPPER =
+                new GosDoubleProperty(true, "Intake Upper Bound", 65);
         public static final GosDoubleProperty SCORE_ZONE =
-                new GosDoubleProperty(true, "Score Zone Lower Bound", 247);
+                new GosDoubleProperty(true, "Score Zone Lower Bound", 220);
 
         // Worry about ground at angle 302
         public static final GosDoubleProperty GROUND_ZONE =

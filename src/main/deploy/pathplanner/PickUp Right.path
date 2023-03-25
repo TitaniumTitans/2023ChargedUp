@@ -24,18 +24,18 @@
     },
     {
       "anchorPoint": {
-        "x": 6.37197051854874,
-        "y": 0.9034011791276062
+        "x": 6.6976229785792905,
+        "y": 0.821109558885786
       },
       "prevControl": {
-        "x": 4.6066779852857955,
-        "y": 0.8433039673096898
+        "x": 2.9400029633392606,
+        "y": 0.7515240030480084
       },
       "nextControl": {
-        "x": 4.6066779852857955,
-        "y": 0.8433039673096898
+        "x": 2.9400029633392606,
+        "y": 0.7515240030480084
       },
-      "holonomicAngle": 0,
+      "holonomicAngle": 180.0,
       "isReversal": true,
       "velOverride": null,
       "isLocked": false,
@@ -52,39 +52,12 @@
     },
     {
       "anchorPoint": {
-        "x": 5.0238181178116745,
-        "y": 0.8795770223119402
+        "x": 1.965805181610364,
+        "y": 1.0855346710693434
       },
       "prevControl": {
-        "x": 5.432805607086543,
-        "y": 0.8795770223119402
-      },
-      "nextControl": {
-        "x": 4.614830628536806,
-        "y": 0.8795770223119402
-      },
-      "holonomicAngle": -179.5103044068708,
-      "isReversal": false,
-      "velOverride": null,
-      "isLocked": false,
-      "isStopPoint": true,
-      "stopEvent": {
-        "names": [
-          "ClearGround"
-        ],
-        "executionBehavior": "parallel",
-        "waitBehavior": "none",
-        "waitTime": 0
-      }
-    },
-    {
-      "anchorPoint": {
-        "x": 1.9134036513687065,
-        "y": 0.9702596598175656
-      },
-      "prevControl": {
-        "x": 1.8771305963664557,
-        "y": 0.9702596598175656
+        "x": 1.9295321266081134,
+        "y": 1.0855346710693434
       },
       "nextControl": null,
       "holonomicAngle": 178.92917554521307,
@@ -104,9 +77,15 @@
   ],
   "markers": [
     {
-      "position": 0.86,
+      "position": 0.0,
       "names": [
-        "event"
+        "LowerIntake"
+      ]
+    },
+    {
+      "position": 1.4727272727272709,
+      "names": [
+        "Score"
       ]
     }
   ]
