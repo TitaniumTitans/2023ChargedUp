@@ -171,6 +171,9 @@ public class RobotContainer {
 
         testCommands.add("Align to Zero Degrees", m_drive.alignToAngle(0).asProxy());
         testCommands.add("SHOOT THE CUBE", m_super.runIntakeForTime(1, -1.0));
+        testCommands.add("Maybe Score High",
+                (new SupersystemToPoseAutoCommand(m_super, new ArmPose(0.0, 250, 200)))
+                        .andThen(m_super.runIntakeForTime(1, -1.0)));
     }
 
     /**
