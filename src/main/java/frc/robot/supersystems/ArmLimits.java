@@ -35,7 +35,6 @@ public class ArmLimits {
     public boolean withinAngleLimit(double inside) {
         return armAngleRange.withinRange(inside);
     }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

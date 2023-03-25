@@ -211,7 +211,7 @@ public final class Constants {
         public static final int ENCODER_PORT = 1;
 
         public static final double SPROCKET_DIAMETER = 1.99;
-        public static final double EXTENSION_RATIO = (1.0 / 16.0) * (SPROCKET_DIAMETER * Math.PI);
+        public static final double EXTENSION_RATIO = 0.3532;
 
 
         public static final double EXT_PID_TOLERANCE = 1.0;

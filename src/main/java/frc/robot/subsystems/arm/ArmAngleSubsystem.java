@@ -165,7 +165,7 @@ public class ArmAngleSubsystem extends SubsystemBase {
         return runOnce(() -> setAngleSpeed(speed));
     }
 
-    public void setArmAngle(double targetAngleRaw){
+    public void setArmAngle(double targetAngleRaw) {
         // Get angle
         double currentArmAngle = getArmAngle();
 

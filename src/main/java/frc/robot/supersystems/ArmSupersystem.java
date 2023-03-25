@@ -1,8 +1,11 @@
 package frc.robot.supersystems;
 
+import com.revrobotics.CANSparkMax;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.shim.Vector2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants.LimitConstants;
 import frc.robot.subsystems.arm.ArmAngleSubsystem;
@@ -25,13 +28,12 @@ public class ArmSupersystem {
             new PiecewiseInterval<>(stowRange, ignored -> LimitConstants.STOW_LIMIT),
             new PiecewiseInterval<>(fullRangeZone, ignored -> LimitConstants.FULL_RANGE_LIMIT),
             new PiecewiseInterval<>(intakeRange, ignored -> LimitConstants.INTAKE_LIMIT),
-            /**
+            /*
              * Extension upper not constant?
              */
             new PiecewiseInterval<>(floorCollisionZone, ignored -> LimitConstants.GROUND_LIMIT)
-
-
     );
+
     private static final RangedPiecewise<ArmLimits> limitPiecewise = new RangedPiecewise<>(fullArmRange, armRegion);
     private final ArmAngleSubsystem m_angle;
     private final ArmExtSubsystem m_ext;
@@ -58,35 +60,79 @@ public class ArmSupersystem {
      * @param pose An ArmPose object storing the desired pose
      */
     public void setToPose(ArmPose pose) {
-        setToPose(pose, false);
-    }
-    public void setToPose(ArmPose pose, boolean waitForAngle) {
         ArmLimits armLimits = limitPiecewise.calculate(m_angle.getArmAngle());
-        double wristSetpoint = pose.wristSetpoint;
-        double angleSetpoint = pose.angleSetpoint;
-        double extSetpoint = pose.extSetpoint;
+        double wristSetpoint = armLimits.wristRange.clamp(pose.wristSetpoint);
+        double angleSetpoint = armLimits.armAngleRange.clamp(pose.angleSetpoint);
+        double extSetpoint = armLimits.armExtRange.clamp(pose.extSetpoint);
 
         // Wrist limits and output are calculated here
-        wristSetpoint = armLimits.wristRange.clamp(wristSetpoint);
         m_wrist.setWristAngle(wristSetpoint);
 
         // Extension limits and outputs are calculated here
-        extSetpoint = armLimits.armExtRange.clamp(extSetpoint);
         m_ext.setArmExtension(extSetpoint);
 
         // Angle limits and outputs are calculated here
-        if (!waitForAngle || (m_ext.atSetpoint() && m_wrist.atSetpoint())) {
-            angleSetpoint = armLimits.armAngleRange.clamp(angleSetpoint);
-            m_angle.setArmAngle(angleSetpoint);
-        } else {
-            m_angle.setAngleSpeed(0.0);
+        m_angle.setArmAngle(calculateArmAngleLimit(angleSetpoint));
+    }
+
+    public double calculateArmAngleLimit(double desiredAngle) {
+        // Angle limits and outputs are calculated here
+        double currentArmAngle = m_angle.getArmAngle();
+        double currentArmExtension = m_ext.getArmExtension();
+        double currentWristAngle = m_wrist.getWristAngle();
+
+        // Added safety when on the battery side of the bot
+        if((desiredAngle < 75 || currentArmAngle < 75)  && (currentWristAngle > 10 || currentArmExtension > 0.6)) {
+            Translation2d physicalArmExtension = getPhysicalArmExtension();
+            // Limit the angle to 50 degrees or higher while the arm is extended and wrist out
+            /*
+                      / |
+ arm ext = 36" + ext /  |
+                 ---/   |   40in
+             wrist^     |
+              -----------  Robot base
+
+             */
+            final double PIVOT_HEIGHT = 33.0;
+            final double armPhysicalExtensionNormal = physicalArmExtension.getNorm();
+            double angleLimit;
+            if(armPhysicalExtensionNormal > PIVOT_HEIGHT) {
+                double angleAdjust = currentArmAngle - physicalArmExtension.getAngle().getDegrees();
+                angleLimit = Math.max(48, Math.toDegrees(Math.acos(PIVOT_HEIGHT / physicalArmExtension.getNorm())) + angleAdjust + 2);
+                SmartDashboard.putNumber("SuperAngleAdjust", angleAdjust);
+            } else {
+                angleLimit = 48;
+            }
+            SmartDashboard.putNumber("SuperAngleLimit", angleLimit);
+            desiredAngle = Math.max(desiredAngle, angleLimit);
+            SmartDashboard.putNumber("SuperCalcAngle", physicalArmExtension.getAngle().getDegrees());
+            SmartDashboard.putNumber("SuperCalcExt", physicalArmExtension.getNorm());
         }
+
+        SmartDashboard.putNumber("Previous Arm Angle Limit", desiredAngle);
+        SmartDashboard.putNumber("SuperArmAngle", currentArmAngle);
+        SmartDashboard.putNumber("SuperArmExt", currentArmExtension);
+        SmartDashboard.putNumber("SuperWristAngle", currentWristAngle);
+
+        return desiredAngle;
     }
 
     public void toggleAllBrakemode() {
         m_angle.toggleBrakeMode();
         m_wrist.toggleBrakeMode();
         m_ext.toggleBrakeMode();
+    }
+
+    public void enableAllBrakemode() {
+        m_angle.setBrakeMode(CANSparkMax.IdleMode.kBrake);
+        m_wrist.setBrakeMode(CANSparkMax.IdleMode.kBrake);
+        m_ext.setBrakeMode(CANSparkMax.IdleMode.kBrake);
+    }
+
+    public void disableAllBrakemode() {
+        m_angle.setBrakeMode(CANSparkMax.IdleMode.kCoast);
+        m_wrist.setBrakeMode(CANSparkMax.IdleMode.kCoast);
+        m_ext.setBrakeMode(CANSparkMax.IdleMode.kCoast);
     }
 
     public boolean atSetpoint() {
@@ -101,6 +147,22 @@ public class ArmSupersystem {
 
     public Command runIntake(double speed) {
         return m_wrist.setIntakeSpeedFactory(speed);
+    }
+
+    public Translation2d getPhysicalArmExtension() {
+        double currentArmAngleRadians = Math.toRadians(m_angle.getArmAngle());
+        double currentWristAngleRadians = Math.toRadians(m_wrist.getWristAngle());
+        double physicalExtension = m_ext.getPhysicalExtension();
+        double physicalX = Math.cos(currentArmAngleRadians) * physicalExtension;
+        double physicalY = Math.sin(currentArmAngleRadians) * physicalExtension;
+        Translation2d physicalVector = new Vector2d(physicalX, physicalY);
+        double wristRelativeAngle = currentWristAngleRadians - currentArmAngleRadians;
+        // Estimate the wrist extension into the ground
+        if (wristRelativeAngle > 0) {
+            final double physicalWristExt = 13;
+            return physicalVector.plus(new Translation2d(physicalWristExt * Math.sin(wristRelativeAngle), physicalWristExt * Math.cos(wristRelativeAngle)));
+        }
+        return physicalVector;
     }
 
 }

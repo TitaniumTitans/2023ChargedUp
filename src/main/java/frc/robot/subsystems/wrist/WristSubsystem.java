@@ -268,4 +268,8 @@ public class WristSubsystem extends SubsystemBase {
         }
     }
 
+    public void setBrakeMode(CANSparkMax.IdleMode brakeMode) {
+        m_wristMotor.setIdleMode(brakeMode);
+    }
+
 }

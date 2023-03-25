@@ -158,8 +158,10 @@ public class RobotContainer {
         testCommands.add("Human Player Station",
                 new SupersystemToPoseCommand(m_super, new ArmPose(0, 236, 86))).withSize(2, 1);
 
-        testCommands.add("Maintnance Mode",
+        testCommands.add("Maintenance Mode",
                 new MaitnanceModeCommandGroup(m_super).finallyDo((boolean isInterrupted) -> m_super.toggleAllBrakemode()));
+        testCommands.add("Disable All Brakes", new InstantCommand(() -> m_super.disableAllBrakemode()).ignoringDisable(true));
+        testCommands.add("Enable All Brakes", new InstantCommand(() -> m_super.enableAllBrakemode()).ignoringDisable(true));
 
         testCommands.add("Auto Balance", new AutoBalanceTransCommand(m_drive));
         testCommands.add("Reset Pose", new InstantCommand(() -> m_drive.resetPoseBase())).withSize(2, 1);
@@ -174,8 +176,13 @@ public class RobotContainer {
      * @return the command to run in autonomous
      */
     public Command getAutonomousCommand() {
-        return new InstantCommand(() -> 
+        return new InstantCommand(() ->
                 m_drive.resetGyro(180))
-                .andThen(m_autoFactory.getAutoRoutine());       
+                .andThen(m_autoFactory.getAutoRoutine());
     }
+
+    public ArmSupersystem getArmSupersystem() {
+        return m_super;
+    }
+
 }

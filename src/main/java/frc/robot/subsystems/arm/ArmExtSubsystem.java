@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import lib.factories.SparkMaxFactory;
+import lib.utils.drivers.RevUtil;
 import org.littletonrobotics.junction.AutoLog;
 import org.littletonrobotics.junction.Logger;
 
@@ -33,7 +34,6 @@ public class ArmExtSubsystem extends SubsystemBase {
     private GenericEntry armExtAtSetpointEntry;
     private GenericEntry armExtAtUpperLimitEntry;
     private GenericEntry armExtAtLowerLimitEntry;
-    private GenericEntry armExtEncoderLowerThanLimitEntry;
     private GenericEntry armExtConvertedEntry;
     private GenericEntry armExtTargetEntry;
     private GenericEntry armExtSetpointClampedEntry;
@@ -51,12 +51,13 @@ public class ArmExtSubsystem extends SubsystemBase {
     public ArmExtSubsystem() {
         SparkMaxFactory.SparkMaxConfig config = new SparkMaxFactory.SparkMaxConfig();
         config.setCurrentLimit(50);
+        config.setInverted(true);
 
         m_armExt = SparkMaxFactory.Companion.createSparkMax(Constants.ArmConstants.ARM_EXTENSION_ID, config);
         // m_armExt.setClosedLoopRampRate(0.1);
 
         m_relativeEncoderArmEx = m_armExt.getEncoder();
-        m_relativeEncoderArmEx.setPositionConversionFactor(Constants.ArmConstants.EXTENSION_RATIO);
+        RevUtil.autoRetry(() -> m_relativeEncoderArmEx.setPositionConversionFactor(Constants.ArmConstants.EXTENSION_RATIO));
 
         m_extPID = m_armExt.getPIDController();
         m_extPID.setP(Constants.ArmConstants.ARM_EXT_KP.getValue());
@@ -77,11 +78,10 @@ public class ArmExtSubsystem extends SubsystemBase {
         // Limits
         armExtAtUpperLimitEntry = armExtTab.add("At upper limit", armAtUpperLimit()).getEntry();
         armExtAtLowerLimitEntry = armExtTab.add("Limit switch triggered", armAtLowerLimit()).getEntry();
-        armExtEncoderLowerThanLimitEntry = armExtTab.add("Wrist encoder lower than limit", debugEncoderAtLowerLimit()).getEntry();
 
         // Doubles
         // Angles
-        armExtConvertedEntry = armExtTab.add("Angle converted", getArmExtension()).getEntry();
+        armExtConvertedEntry = armExtTab.add("Arm Extension", getArmExtension()).getEntry();
         // Targets
         armExtTargetEntry = armExtTab.add("Target", prevSetpointRaw).getEntry();
         armExtSetpointClampedEntry = armExtTab.add("Clamped setpoint", prevSetpointClamped).getEntry();
@@ -96,7 +96,6 @@ public class ArmExtSubsystem extends SubsystemBase {
         // Limits
         armExtAtUpperLimitEntry.setBoolean(armAtUpperLimit());
         armExtAtLowerLimitEntry.setBoolean(armAtLowerLimit());
-        armExtEncoderLowerThanLimitEntry.setBoolean(debugEncoderAtLowerLimit());
 
         // Doubles
         // Angles
@@ -197,9 +196,17 @@ public class ArmExtSubsystem extends SubsystemBase {
                 setArmSpeed(0);
                 m_hasArmHomed = true;
             } else {
-                m_armExt.set(0.2);
+                m_armExt.set(-0.2);
             }
         }
+    }
+
+    public double getPhysicalExtension() {
+        return getArmExtension() + 33;
+    }
+
+    public void setBrakeMode(CANSparkMax.IdleMode brakeMode) {
+        m_armExt.setIdleMode(brakeMode);
     }
 
 }

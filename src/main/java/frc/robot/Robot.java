@@ -4,9 +4,7 @@
 
 package frc.robot;
 
-import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.PowerDistribution;
-import frc.robot.subsystems.wrist.WristSubsystem;
 import lib.factories.SparkMaxFactory;
 import org.littletonrobotics.junction.*;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
@@ -27,6 +25,7 @@ public class Robot extends LoggedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
   private PowerDistribution m_pdh;
+
 
   private Timer m_timer;
   /**
@@ -94,17 +93,19 @@ public class Robot extends LoggedRobot {
 
     // Checks every 100 milliseconds (roughly 10 robot cycles) to see if any Spark Maxes have rebooted
     // if one has it will then rerun CAN ID configurations on it to stop CAN bus from overflowing
-
     if (m_timer.get() >= 5.0) {
       SparkMaxFactory.Companion.updateCanFramePeriods();
       m_timer.reset();
     }
+
+    // For testing purposes
+    m_robotContainer.getArmSupersystem().calculateArmAngleLimit(20);
+
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
   public void disabledInit() {
-    // We don't have any init code
     m_pdh.setSwitchableChannel(false);
   }
 
