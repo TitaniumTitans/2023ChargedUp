@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.Constants;
 import frc.robot.Constants.LimitConstants;
 import frc.robot.subsystems.arm.ArmAngleSubsystem;
 import frc.robot.subsystems.arm.ArmExtSubsystem;
@@ -93,12 +94,11 @@ public class ArmSupersystem {
               -----------  Robot base
 
              */
-            final double PIVOT_HEIGHT = 33.0;
             final double armPhysicalExtensionNormal = physicalArmExtension.getNorm();
             double angleLimit;
-            if(armPhysicalExtensionNormal > PIVOT_HEIGHT) {
+            if(armPhysicalExtensionNormal > Constants.ArmConstants.PIVOT_HEIGHT) {
                 double angleAdjust = currentArmAngle - physicalArmExtension.getAngle().getDegrees();
-                angleLimit = Math.max(48, Math.toDegrees(Math.acos(PIVOT_HEIGHT / physicalArmExtension.getNorm())) + angleAdjust + 2);
+                angleLimit = Math.max(48, Math.toDegrees(Math.acos(Constants.ArmConstants.PIVOT_HEIGHT / physicalArmExtension.getNorm())) + angleAdjust + 2);
                 SmartDashboard.putNumber("SuperAngleAdjust", angleAdjust);
             } else {
                 angleLimit = 48;

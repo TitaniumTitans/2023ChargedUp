@@ -6,7 +6,6 @@ package frc.robot;
 
 import com.gos.lib.properties.GosDoubleProperty;
 import com.pathplanner.lib.auto.PIDConstants;
-import edu.wpi.first.cscore.CameraServerJNI;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.geometry.Rotation3d;
@@ -213,11 +212,10 @@ public final class Constants {
         public static final double SPROCKET_DIAMETER = 1.99;
         public static final double EXTENSION_RATIO = 0.3532;
 
+        public static final double PIVOT_HEIGHT = 33.0;
+
 
         public static final double EXT_PID_TOLERANCE = 1.0;
-
-        // Used for dynamic limit calculations, unit is inches
-        public static final double PIVOT_HIGHT = 5;
     }
 
     public static class LimitConstants {

@@ -34,13 +34,13 @@ public class AutoFactory {
     private final SwerveDrivetrain m_swerve;
     private final ArmSupersystem m_super;
     private final WristSubsystem m_wrist;
-    private final ArmExtSubsystem m_ArmEx;
+    private final ArmExtSubsystem m_armEx;
 
-    public AutoFactory(ArmSupersystem m_super, SwerveDrivetrain m_drive, WristSubsystem m_wrist, ArmExtSubsystem m_armEx) {
-        this.m_super = m_super;
-        this.m_swerve = m_drive;
-        this.m_wrist = m_wrist;
-        this.m_ArmEx = m_armEx;
+    public AutoFactory(ArmSupersystem supersystem, SwerveDrivetrain drive, WristSubsystem wrist, ArmExtSubsystem armEx) {
+        this.m_super = supersystem;
+        this.m_swerve = drive;
+        this.m_wrist = wrist;
+        this.m_armEx = armEx;
         m_modeChooser = new LoggedDashboardChooser<>("Auto Mode");
         m_heightChooser = new LoggedDashboardChooser<>("Scoring Height");
         m_locationChooser = new LoggedDashboardChooser<>("Starting Location");
@@ -73,35 +73,37 @@ public class AutoFactory {
         StartingZones start = m_locationChooser.get();
         ScoringHeights height = m_heightChooser.get();
         AutoMode mode = m_modeChooser.get();
-        Command chosenMode = new InstantCommand();
+        Command chosenCommand;
         m_wrist.resetHomed();
-        m_ArmEx.resetHomed();
+        m_armEx.resetHomed();
 
-        Command homeChecker = new CheckHomedCommand(m_ArmEx, m_wrist);
+        Command homeChecker = new CheckHomedCommand(m_armEx, m_wrist);
 
         switch (mode) {
             case MOBILITY:
-                chosenMode = new MobilityCommandGroup(m_swerve, start);
+                chosenCommand = new MobilityCommandGroup(m_swerve, start);
                 break;
             case ENGAGE:
-                chosenMode = new BalanceCommandGroup(m_swerve, start);
+                chosenCommand = new BalanceCommandGroup(m_swerve, start);
                 break;
             case SINGLE_SCORE_CONE:
-                chosenMode = new OneConeCommandGroup(m_super, m_swerve, m_wrist, start, height);
+                chosenCommand = new OneConeCommandGroup(m_super, m_swerve, m_wrist, start, height);
                 break;
             case SINGE_SCORE_CUBE:
-                chosenMode = new OneCubeCommandGroup(m_super, m_swerve, m_wrist, start, height);
+                chosenCommand = new OneCubeCommandGroup(m_super, m_swerve, m_wrist, start, height);
                 break;
             case SINGLE_CONE_ENGAGE:
             case SINGLE_CUBE_ENGAGE:
-                chosenMode = new ScoreOneEngageCommandGroup(m_swerve, m_super, m_wrist, start, height);
+                chosenCommand = new ScoreOneEngageCommandGroup(m_swerve, m_super, m_wrist, start, height);
                 break;
             case DOUBLE_SCORE_CONE:
             case DOUBLE_SCORE_CUBE:
-                chosenMode = new ScoreTwoCommandGroup(m_swerve, m_super, height, start);
+                chosenCommand = new ScoreTwoCommandGroup(m_swerve, m_super, height, start);
                 break;
+            default:
+                chosenCommand = new InstantCommand();
         }
 
-        return homeChecker.andThen(chosenMode);
+        return homeChecker.andThen(chosenCommand);
     }
 }

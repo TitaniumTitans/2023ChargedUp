@@ -160,8 +160,10 @@ public class RobotContainer {
 
         testCommands.add("Maintenance Mode",
                 new MaitnanceModeCommandGroup(m_super).finallyDo((boolean isInterrupted) -> m_super.toggleAllBrakemode()));
-        testCommands.add("Disable All Brakes", new InstantCommand(() -> m_super.disableAllBrakemode()).ignoringDisable(true));
-        testCommands.add("Enable All Brakes", new InstantCommand(() -> m_super.enableAllBrakemode()).ignoringDisable(true));
+        testCommands.add("Disable All Brakes",
+                new InstantCommand(() -> m_super.disableAllBrakemode()).ignoringDisable(true));
+        testCommands.add("Enable All Brakes",
+                new InstantCommand(() -> m_super.enableAllBrakemode()).ignoringDisable(true));
 
         testCommands.add("Auto Balance", new AutoBalanceTransCommand(m_drive));
         testCommands.add("Reset Pose", new InstantCommand(() -> m_drive.resetPoseBase())).withSize(2, 1);
