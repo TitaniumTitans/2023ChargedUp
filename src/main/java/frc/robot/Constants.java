@@ -137,8 +137,8 @@ public final class Constants {
         }
 
         //Trajectory following values
-        public static final double MAX_VELOCITY_PERCENT_OUTPUT = ModuleConstants.MAX_SPEED_MPS / 2;
-        public static final double MAX_ACCELERATION_PERCENT_OUTPUT = 1.5;
+        public static final double MAX_VELOCITY_PERCENT_OUTPUT = ModuleConstants.MAX_SPEED_MPS;
+        public static final double MAX_ACCELERATION_PERCENT_OUTPUT = ModuleConstants.MAX_SPEED_MPS * 0.75;
 
         public static final PIDController THETA_CONTROLLER =
                 new PIDController(2.5, 0.05, 0.0);

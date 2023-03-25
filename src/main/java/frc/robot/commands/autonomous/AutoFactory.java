@@ -76,6 +76,7 @@ public class AutoFactory {
         Command chosenCommand;
         m_wrist.resetHomed();
         m_armEx.resetHomed();
+        m_wrist.setIntakeSpeed(0.0);
 
         Command homeChecker = new CheckHomedCommand(m_armEx, m_wrist);
 
@@ -99,6 +100,10 @@ public class AutoFactory {
             case DOUBLE_SCORE_CONE:
             case DOUBLE_SCORE_CUBE:
                 chosenCommand = new ScoreTwoCommandGroup(m_swerve, m_super, height, start);
+                break;
+            case DOUBLE_CONE_ENGAGE:
+            case DOUBLE_CUBE_ENGAGE:
+                chosenCommand = new ScoreTwoBalanceCommandGroup(m_swerve, m_super, height, start);
                 break;
             default:
                 chosenCommand = new InstantCommand();
