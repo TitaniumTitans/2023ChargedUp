@@ -10,6 +10,7 @@ public class CheckHomedCommand extends CommandBase {
     private final ArmExtSubsystem armExtSubsystem;
     private final WristSubsystem wristSubsystem;
     Timer timer = new Timer();
+    boolean flag = false;
     public CheckHomedCommand(ArmExtSubsystem armExtSubsystem, WristSubsystem wristSubsystem) {
         this.armExtSubsystem = armExtSubsystem;
         this.wristSubsystem = wristSubsystem;
@@ -32,11 +33,17 @@ public class CheckHomedCommand extends CommandBase {
         if(!armExtSubsystem.hasArmHomed()) {
             armExtSubsystem.goArmToHome();
         }
+
+        if(timer.hasElapsed(.75)) {
+            flag = true;
+            wristSubsystem.zeroWristAngle();
+            armExtSubsystem.resetExtensionEncoder();
+        }
     }
 
     @Override
     public boolean isFinished() {
-        return wristSubsystem.hasWristHomed() && armExtSubsystem.hasArmHomed() || timer.hasElapsed(.75);
+        return flag || (wristSubsystem.hasWristHomed() && armExtSubsystem.hasArmHomed());
     }
 
     @Override
