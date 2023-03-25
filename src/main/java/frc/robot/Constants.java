@@ -197,11 +197,11 @@ public final class Constants {
         public static final int ARM_ANGLE_ID_FOLLOWER = 17;
         public static final int LIMIT_SWITCH_PORT = 3;
 
-        public static final double KP_ANGLE = 0.48;
+        public static final double KP_ANGLE = 0.51;
         public static final double KI_ANGLE = 0.005;
         public static final double KD_ANGLE = 0.0075;
 
-        public static final GosDoubleProperty ARM_EXT_KP = new GosDoubleProperty(false, "Arm extension kP", 0.4);
+        public static final GosDoubleProperty ARM_EXT_KP = new GosDoubleProperty(true, "Arm extension kP", 0.5);
         public static final GosDoubleProperty ARM_EXT_KI = new GosDoubleProperty(false, "Arm extension kI", 0);
         public static final GosDoubleProperty ARM_EXT_KD = new GosDoubleProperty(false, "Arm extension kD", 0);
 
@@ -212,7 +212,7 @@ public final class Constants {
         public static final double SPROCKET_DIAMETER = 1.99;
         public static final double EXTENSION_RATIO = 0.3532;
 
-        public static final double PIVOT_HEIGHT = 33.0;
+        public static final double PIVOT_HEIGHT = 32.0;
 
 
         public static final double EXT_PID_TOLERANCE = 1.0;
@@ -231,7 +231,7 @@ public final class Constants {
         public static final GosDoubleProperty ARM_EXT_SCORE_LOWER =
                 new GosDoubleProperty(false, "Arm Extension Score Lower Limit", 0);
         public static final GosDoubleProperty ARM_EXT_SCORE_UPPER =
-                new GosDoubleProperty(true, "Arm Extension Score Upper Limit", 15.1);
+                new GosDoubleProperty(true, "Arm Extension Score Upper Limit", 15 * 1.4);
 
         // Arm Angle limits for Piecewise Function
         public static final GosDoubleProperty ARM_ANGLE_LOWER =
@@ -253,7 +253,7 @@ public final class Constants {
         public static final GosDoubleProperty INTAKE_ZONE =
                 new GosDoubleProperty(true, "Intake Zone Lower Bound", 50);
         public static final GosDoubleProperty SCORE_ZONE =
-                new GosDoubleProperty(true, "Score Zone Lower Bound", 190);
+                new GosDoubleProperty(true, "Score Zone Lower Bound", 247);
 
         // Worry about ground at angle 302
         public static final GosDoubleProperty GROUND_ZONE =
@@ -271,7 +271,7 @@ public final class Constants {
 
         public static final ArmLimits INTAKE_LIMIT = new ArmLimits(
                 WRIST_SCORE_LOWER.getValue(), WRIST_SCORE_UPPER.getValue(),
-                ARM_EXT_STOW.getValue(), ARM_EXT_STOW.getValue(),
+                ARM_EXT_STOW.getValue(), ARM_EXT_SCORE_UPPER.getValue(),
                 ARM_ANGLE_LOWER.getValue(), ARM_ANGLE_UPPER.getValue()
         );
 
@@ -295,6 +295,7 @@ public final class Constants {
 
         public static final ArmPose INTAKE_CUBE = new ArmPose(4.7, 325.1, 165.6);
         public static final ArmPose INTAKE_CONE = new ArmPose(1.5, 328.0, 170.0);
+        public static final ArmPose INTAKE_BATTERY = new ArmPose(8.4, 57.4, 127.0);
         public static final ArmPose HUMAN_PLAYER_STATION = new ArmPose(0.0, 236.6, 80.0);
 
         public static final ArmPose MIDDLE_GOAL_NON_STOW = new ArmPose(0.0, 252.1, 99.7);

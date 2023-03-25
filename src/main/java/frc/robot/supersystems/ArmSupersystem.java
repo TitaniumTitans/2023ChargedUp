@@ -83,7 +83,7 @@ public class ArmSupersystem {
         double currentWristAngle = m_wrist.getWristAngle();
 
         // Added safety when on the battery side of the bot
-        if((desiredAngle < 75 || currentArmAngle < 75)  && (currentWristAngle > 10 || currentArmExtension > 0.6)) {
+        if((currentArmAngle < 75)  && (currentWristAngle > 10 || currentArmExtension > 0.6)) {
             Translation2d physicalArmExtension = getPhysicalArmExtension();
             // Limit the angle to 50 degrees or higher while the arm is extended and wrist out
             /*
@@ -98,10 +98,10 @@ public class ArmSupersystem {
             double angleLimit;
             if(armPhysicalExtensionNormal > Constants.ArmConstants.PIVOT_HEIGHT) {
                 double angleAdjust = currentArmAngle - physicalArmExtension.getAngle().getDegrees();
-                angleLimit = Math.max(48, Math.toDegrees(Math.acos(Constants.ArmConstants.PIVOT_HEIGHT / physicalArmExtension.getNorm())) + angleAdjust + 2);
+                angleLimit = Math.max(48, Math.toDegrees(Math.acos(Constants.ArmConstants.PIVOT_HEIGHT / physicalArmExtension.getNorm())) + angleAdjust + 3);
                 SmartDashboard.putNumber("SuperAngleAdjust", angleAdjust);
             } else {
-                angleLimit = 48;
+                angleLimit = 50;
             }
             SmartDashboard.putNumber("SuperAngleLimit", angleLimit);
             desiredAngle = Math.max(desiredAngle, angleLimit);
@@ -159,7 +159,7 @@ public class ArmSupersystem {
         double wristRelativeAngle = currentWristAngleRadians - currentArmAngleRadians;
         // Estimate the wrist extension into the ground
         if (wristRelativeAngle > 0) {
-            final double physicalWristExt = 13;
+            final double physicalWristExt = 11;
             return physicalVector.plus(new Translation2d(physicalWristExt * Math.sin(wristRelativeAngle), physicalWristExt * Math.cos(wristRelativeAngle)));
         }
         return physicalVector;

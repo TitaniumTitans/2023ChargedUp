@@ -95,7 +95,7 @@ public class RobotContainer {
         m_driveController.rightTrigger().whileTrue(m_super.runIntake(1.0)).whileFalse(m_super.runIntake(0.0));
 
         m_driveController.x().whileTrue(
-                new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.INTAKE_CUBE)
+                new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.INTAKE_BATTERY)
                         .alongWith(new IntakeControlCommand(m_wrist, 1.0, m_driveController.getHID())));
         m_driveController.y().whileTrue(
                 new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.INTAKE_CONE)
@@ -144,7 +144,8 @@ public class RobotContainer {
                 new SupersystemToPoseCommand(m_super, new ArmPose(0.0, 45, 0.0))).withSize(2, 1);
         testCommands.add("Test pose",
                 new ArmPose(5, 90, 200)).withSize(2, 2);
-
+        testCommands.add("Battery Intake",
+                new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.INTAKE_BATTERY));
 
         // Arm Test Commands
         testCommands.add("Ground Intake Tipped Cone",

@@ -202,7 +202,7 @@ public class ArmExtSubsystem extends SubsystemBase {
     }
 
     public double getPhysicalExtension() {
-        return getArmExtension() + 33;
+        return getArmExtension() + 25.75;
     }
 
     public void setBrakeMode(CANSparkMax.IdleMode brakeMode) {
