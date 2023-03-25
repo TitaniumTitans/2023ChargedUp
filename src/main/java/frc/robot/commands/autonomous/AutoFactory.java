@@ -3,12 +3,16 @@ package frc.robot.commands.autonomous;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
+import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.commands.autonomous.AutoUtils.ScoringHeights;
 import frc.robot.commands.autonomous.AutoUtils.StartingZones;
+import frc.robot.subsystems.arm.ArmExtSubsystem;
 import frc.robot.subsystems.swerve.SwerveDrivetrain;
 import frc.robot.subsystems.wrist.WristSubsystem;
 import frc.robot.supersystems.ArmSupersystem;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
+
+import java.util.Set;
 
 
 public class AutoFactory {
@@ -70,23 +74,33 @@ public class AutoFactory {
         StartingZones start = m_locationChooser.get();
         ScoringHeights height = m_heightChooser.get();
         AutoMode mode = m_modeChooser.get();
+        Command ChosenMode = new InstantCommand();
+
+        Command homeChecker = new CheckHomedCommand(new ArmExtSubsystem(), new WristSubsystem());
+
         switch (mode) {
             case MOBILITY:
-                return new MobilityCommandGroup(m_swerve, start);
+                ChosenMode = new MobilityCommandGroup(m_swerve, start);
+                break;
             case ENGAGE:
-                return new BalanceCommandGroup(m_swerve, start);
+                ChosenMode = new BalanceCommandGroup(m_swerve, start);
+                break;
             case SINGLE_SCORE_CONE:
-                return new OneConeCommandGroup(m_super, m_swerve, m_wrist, start, height);
+                ChosenMode = new OneConeCommandGroup(m_super, m_swerve, m_wrist, start, height);
+                break;
             case SINGE_SCORE_CUBE:
-                return new OneCubeCommandGroup(m_super, m_swerve, m_wrist, start, height);
+                ChosenMode = new OneCubeCommandGroup(m_super, m_swerve, m_wrist, start, height);
+                break;
             case SINGLE_CONE_ENGAGE:
             case SINGLE_CUBE_ENGAGE:
-                return new ScoreOneEngageCommandGroup(m_swerve, m_super, m_wrist, start, height);
+                ChosenMode = new ScoreOneEngageCommandGroup(m_swerve, m_super, m_wrist, start, height);
+                break;
             case DOUBLE_SCORE_CONE:
             case DOUBLE_SCORE_CUBE:
-                return new ScoreTwoCommandGroup(m_swerve, m_super, height, start);
+                ChosenMode = new ScoreTwoCommandGroup(m_swerve, m_super, height, start);
+                break;
         }
 
-        return new InstantCommand();
+        return homeChecker.andThen(ChosenMode);
     }
 }

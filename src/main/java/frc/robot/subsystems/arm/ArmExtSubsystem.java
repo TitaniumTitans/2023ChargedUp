@@ -27,7 +27,7 @@ public class ArmExtSubsystem extends SubsystemBase {
     // Logging variables
     private double prevSetpointRaw;
     private double prevSetpointClamped;
-
+    public static boolean m_hasArmHomed = false;
     //Shuffleboard data
     private final ShuffleboardTab armExtTab;
     private GenericEntry armExtAtSetpointEntry;
@@ -38,6 +38,8 @@ public class ArmExtSubsystem extends SubsystemBase {
     private GenericEntry armExtTargetEntry;
     private GenericEntry armExtSetpointClampedEntry;
     private GenericEntry armExtMotorOutputEntry;
+
+
 
 
 
@@ -182,5 +184,16 @@ public class ArmExtSubsystem extends SubsystemBase {
     public void updateInputs(ArmExtIOInputsAutoLogged inputs) {
         inputs.armExtension = getArmExtension();
     }
+
+    public boolean hasArmHomed() { return m_hasArmHomed; }
+
+    public void goArmToHome() {
+        setArmSpeed(-0.1);
+        if(armAtLowerLimit()) {
+            setArmSpeed(0);
+            m_hasArmHomed = true;
+        }
+    }
+
 }
 

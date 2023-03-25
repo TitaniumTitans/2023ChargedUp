@@ -26,11 +26,12 @@ public class WristSubsystem extends SubsystemBase {
     private final CANCoder m_wristEncoder;
     private final PIDController m_wristPID;
     private final WristIOInputsAutoLogged m_input;
+
     // Logging variables
     private double prevSetpointRaw;
     private double prevSetpointClamped;
     private double prevSetpointPID;
-
+    public static boolean m_hasWristHomed = false;
     //Shuffleboard data
     private final ShuffleboardTab wristSubsystemTab;
     private GenericEntry wristAtSetpointEntry;
@@ -249,6 +250,16 @@ public class WristSubsystem extends SubsystemBase {
 
     public boolean isStalling() {
         return m_intakeMotor.getFault(CANSparkMax.FaultID.kStall);
+    }
+
+    public boolean hasWristHomed() { return m_hasWristHomed; }
+
+    public void goWristToHome() {
+        setWristPower(-0.1);
+        if(atLowerLimit()) {
+            setWristPower(0);
+            m_hasWristHomed = true;
+        }
     }
 
 }
