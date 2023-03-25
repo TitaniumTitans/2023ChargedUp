@@ -254,12 +254,16 @@ public class WristSubsystem extends SubsystemBase {
 
     public boolean hasWristHomed() { return m_hasWristHomed; }
 
+    public void resetHomed() {
+        m_hasWristHomed = false;
+    }
     public void goWristToHome() {
-        if(!m_hasWristHomed) {
-            setWristPower(-0.2);
+        if(!hasWristHomed()) {
             if(atLowerLimit()) {
                 setWristPower(0);
                 m_hasWristHomed = true;
+            } else {
+                m_wristMotor.set(-0.2);
             }
         }
     }

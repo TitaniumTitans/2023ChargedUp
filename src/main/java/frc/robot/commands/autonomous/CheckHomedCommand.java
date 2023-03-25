@@ -48,6 +48,7 @@ public class CheckHomedCommand extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-
+        armExtSubsystem.setArmSpeed(0);
+        wristSubsystem.setWristPower(0);
     }
 }
