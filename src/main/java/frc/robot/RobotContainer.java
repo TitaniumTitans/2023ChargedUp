@@ -170,7 +170,7 @@ public class RobotContainer {
         testCommands.add("Reset Pose", new InstantCommand(() -> m_drive.resetPoseBase())).withSize(2, 1);
 
         testCommands.add("Align to Zero Degrees", m_drive.alignToAngle(0).asProxy());
-
+        testCommands.add("SHOOT THE CUBE", m_super.runIntakeForTime(1, -1.0));
     }
 
     /**
