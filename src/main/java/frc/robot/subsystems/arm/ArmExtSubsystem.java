@@ -188,10 +188,12 @@ public class ArmExtSubsystem extends SubsystemBase {
     public boolean hasArmHomed() { return m_hasArmHomed; }
 
     public void goArmToHome() {
-        setArmSpeed(-0.1);
-        if(armAtLowerLimit()) {
-            setArmSpeed(0);
-            m_hasArmHomed = true;
+        if (!hasArmHomed()) {
+            setArmSpeed(-0.6);
+            if (armAtLowerLimit()) {
+                setArmSpeed(0);
+                m_hasArmHomed = true;
+            }
         }
     }
 

@@ -71,7 +71,7 @@ public class RobotContainer {
 
         LiveWindow.disableAllTelemetry();
 
-        m_autoFactory = new AutoFactory(m_super, m_drive, m_wrist);
+        m_autoFactory = new AutoFactory(m_super, m_drive, m_wrist, m_ext);
 
         // Configure the button bindings
         configureButtonBindings();

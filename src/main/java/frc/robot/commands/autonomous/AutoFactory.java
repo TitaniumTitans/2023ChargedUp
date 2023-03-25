@@ -37,11 +37,13 @@ public class AutoFactory {
     private final SwerveDrivetrain m_swerve;
     private final ArmSupersystem m_super;
     private final WristSubsystem m_wrist;
+    private final ArmExtSubsystem m_ArmEx;
 
-    public AutoFactory(ArmSupersystem m_super, SwerveDrivetrain m_drive, WristSubsystem m_wrist) {
+    public AutoFactory(ArmSupersystem m_super, SwerveDrivetrain m_drive, WristSubsystem m_wrist, ArmExtSubsystem m_armEx) {
         this.m_super = m_super;
         this.m_swerve = m_drive;
         this.m_wrist = m_wrist;
+        this.m_ArmEx = m_armEx;
         m_modeChooser = new LoggedDashboardChooser<>("Auto Mode");
         m_heightChooser = new LoggedDashboardChooser<>("Scoring Height");
         m_locationChooser = new LoggedDashboardChooser<>("Starting Location");
@@ -76,7 +78,7 @@ public class AutoFactory {
         AutoMode mode = m_modeChooser.get();
         Command ChosenMode = new InstantCommand();
 
-        Command homeChecker = new CheckHomedCommand(new ArmExtSubsystem(), new WristSubsystem());
+        Command homeChecker = new CheckHomedCommand(m_ArmEx, m_wrist);
 
         switch (mode) {
             case MOBILITY:
@@ -101,6 +103,6 @@ public class AutoFactory {
                 break;
         }
 
-        return homeChecker.andThen(ChosenMode);
+        return homeChecker;
     }
 }

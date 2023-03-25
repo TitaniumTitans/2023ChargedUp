@@ -255,10 +255,12 @@ public class WristSubsystem extends SubsystemBase {
     public boolean hasWristHomed() { return m_hasWristHomed; }
 
     public void goWristToHome() {
-        setWristPower(-0.1);
-        if(atLowerLimit()) {
-            setWristPower(0);
-            m_hasWristHomed = true;
+        if(!m_hasWristHomed) {
+            setWristPower(-0.2);
+            if(atLowerLimit()) {
+                setWristPower(0);
+                m_hasWristHomed = true;
+            }
         }
     }
 
