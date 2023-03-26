@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
+import frc.robot.Constants.ArmSetpoints;
 import frc.robot.commands.AutoBalanceTransCommand;
 import frc.robot.commands.SupersystemToPoseAutoCommand;
 import frc.robot.subsystems.swerve.SwerveDrivetrain;
@@ -26,7 +27,7 @@ public class ScoreTwoBalanceCommandGroup extends SequentialCommandGroup {
         if (scoreHeight == AutoUtils.ScoringHeights.HIGH) {
             addCommands(new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.HIGH_GOAL));
         } else {
-            addCommands(new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.MIDDLE_GOAL_NON_STOW));
+            addCommands(new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.MIDDLE_GOAL));
         }
 
         PathPlannerTrajectory trajectory;
@@ -43,7 +44,7 @@ public class ScoreTwoBalanceCommandGroup extends SequentialCommandGroup {
 
         // We don't score low (for now at least)
         if (scoreHeight == AutoUtils.ScoringHeights.MIDDLE) {
-            armScoringPose = Constants.ArmSetpoints.MIDDLE_GOAL_NON_STOW;
+            armScoringPose = Constants.ArmSetpoints.MIDDLE_GOAL;
         } else {
             armScoringPose = Constants.ArmSetpoints.HIGH_GOAL;
         }
@@ -52,11 +53,13 @@ public class ScoreTwoBalanceCommandGroup extends SequentialCommandGroup {
         autoEvents.put("LowerIntake", (new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.INTAKE_BATTERY))
                 .andThen(m_armSupersystem.runIntakeForTime(3, 1.0))
                 .andThen(new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.STOW_POSITION)));
-        autoEvents.put("Pickup", m_armSupersystem.runIntakeForTime(5, 1));
-        autoEvents.put("ClearGround", new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.STOW_POSITION));
-        autoEvents.put("Score", (new SupersystemToPoseAutoCommand(m_armSupersystem, armScoringPose))
-                .andThen(m_armSupersystem.runIntakeForTime(0.2, -0.1))
+        autoEvents.put("ClearGround", (new SupersystemToPoseAutoCommand(m_armSupersystem, armScoringPose))
+                .andThen(m_armSupersystem.runIntakeForTime(0, 0)));
+        autoEvents.put("Score", 
+                m_armSupersystem.runIntakeForTime(0.75, -0.4)
                 .andThen(new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.STOW_POSITION)));
+        // autoEvents.put("Stow", m_armSupersystem.runIntakeForTime(0.1, 0.0)
+                // .andThen(new SupersystemToPoseAutoCommand(m_armSupersystem, ArmSetpoints.STOW_POSITION)));
 
         addCommands(new SupersystemToPoseAutoCommand(m_armSupersystem, armScoringPose));
         addCommands(m_armSupersystem.runIntakeForTime(0.3, -0.4));

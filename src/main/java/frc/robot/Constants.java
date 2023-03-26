@@ -44,8 +44,8 @@ public final class Constants {
         public static final double DRIVE_RATIO = (50.0 / 14.0) * (19.0 / 25.0) * (45.0 / 15.0);
 
         // PID constants
-        public static final double MODULE_KP = 0.26;
-        public static final double MODULE_KD = 3;
+        public static final double MODULE_KP = 0.8;
+        public static final double MODULE_KD = 0;
         public static final double POSITION_CONVERSION_FACTOR = ((Math.PI * 2) / TURNING_RATIO);
 
         public static final double MODULE_KS = 0.0;
@@ -68,10 +68,10 @@ public final class Constants {
         public static final int GYRO_CAN = 15;
 
         //Thanos Offsets
-        public static final double MOD_FR_OFFSET = 110.8;
-        public static final double MOD_FL_OFFSET = 173.6 ;
-        public static final double MOD_BR_OFFSET = -163.0;
-        public static final double MOD_BL_OFFSET = 0.610;
+        public static final double MOD_FR_OFFSET = 115.5;
+        public static final double MOD_FL_OFFSET = -6.7 + 180;
+        public static final double MOD_BR_OFFSET = 18.63 + 180;
+        public static final double MOD_BL_OFFSET = -178.9 + 180;
         // Competition Offset
 
         // Kinematics
@@ -138,21 +138,21 @@ public final class Constants {
 
         //Trajectory following values
         public static final double MAX_VELOCITY_PERCENT_OUTPUT = ModuleConstants.MAX_SPEED_MPS;
-        public static final double MAX_ACCELERATION_PERCENT_OUTPUT = ModuleConstants.MAX_SPEED_MPS * 0.75;
+        public static final double MAX_ACCELERATION_PERCENT_OUTPUT = ModuleConstants.MAX_SPEED_MPS / 2;
 
         public static final PIDController THETA_CONTROLLER =
-                new PIDController(2.5, 0.05, 0.0);
+                new PIDController(3.5, 0.05, 0.0);
 
         public static final PIDController CONTROLLER_X =
-            new PIDController(2, 0, 0);
+            new PIDController(3, 0, 0);
         public static final PIDController CONTROLLER_Y =
-            new PIDController(2, 0, 0);
+            new PIDController(3, 0, 0);
 
         public static final PIDConstants CONSTANTS_X =
-                new PIDConstants(2.0, 0, 0);
+                new PIDConstants(4.0, 0, 0);
 
         public static final PIDConstants THETA_CONSTANTS =
-                new PIDConstants(2.5, 0.05, 0.0);
+                new PIDConstants(3.5, 0.05, 0.0);
         
         //Auto balance constants
         public static final double BALANCE_P = -0.04;
@@ -257,7 +257,7 @@ public final class Constants {
         public static final GosDoubleProperty INTAKE_ZONE_UPPER =
                 new GosDoubleProperty(true, "Intake Upper Bound", 65);
         public static final GosDoubleProperty SCORE_ZONE =
-                new GosDoubleProperty(true, "Score Zone Lower Bound", 220);
+                new GosDoubleProperty(true, "Score Zone Lower Bound", 190);
 
         // Worry about ground at angle 302
         public static final GosDoubleProperty GROUND_ZONE =
@@ -299,12 +299,11 @@ public final class Constants {
 
         public static final ArmPose INTAKE_CUBE = new ArmPose(4.7, 325.1, 165.6);
         public static final ArmPose INTAKE_CONE = new ArmPose(1.5, 328.0, 170.0);
-        public static final ArmPose INTAKE_BATTERY = new ArmPose(8.4, 57.4, 135.0);
+        public static final ArmPose INTAKE_BATTERY = new ArmPose(8.4, 57.0, 145.0);
         public static final ArmPose HUMAN_PLAYER_STATION = new ArmPose(0.0, 236.6, 80.0);
 
-        public static final ArmPose MIDDLE_GOAL_NON_STOW = new ArmPose(0.0, 252.1, 99.7);
-        public static final ArmPose MIDDLE_GOAL_STOW = new ArmPose(0.0, 0.0, 0.0);
-        public static final ArmPose HIGH_GOAL = new ArmPose(24.3, 247.0, 95.3);
+        public static final ArmPose MIDDLE_GOAL = new ArmPose(0.0, 252.1, 99.7);
+        public static final ArmPose HIGH_GOAL = new ArmPose(20, 247.0, 95.3);
     }
 
     public static final int DRIVER_PORT = 0;

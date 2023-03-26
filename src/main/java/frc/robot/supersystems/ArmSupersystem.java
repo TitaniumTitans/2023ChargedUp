@@ -102,7 +102,7 @@ public class ArmSupersystem {
             double angleLimit;
             if(armPhysicalExtensionNormal > Constants.ArmConstants.PIVOT_HEIGHT) {
                 double angleAdjust = currentArmAngle - physicalArmExtension.getAngle().getDegrees();
-                angleLimit = Math.max(48, Math.toDegrees(Math.acos(Constants.ArmConstants.PIVOT_HEIGHT / physicalArmExtension.getNorm())) + angleAdjust + 3);
+                angleLimit = Math.max(48, Math.toDegrees(Math.acos(Constants.ArmConstants.PIVOT_HEIGHT / physicalArmExtension.getNorm())) + angleAdjust);
                 SmartDashboard.putNumber("SuperAngleAdjust", angleAdjust);
             } else {
                 angleLimit = 50;

@@ -83,7 +83,7 @@ public class AutoFactory {
             case ENGAGE:
                 chosenCommand = new BalanceCommandGroup(m_swerve, start);
                 break;
-            ntake secase SINGE_SCORE:
+            case SINGE_SCORE:
                 chosenCommand = new OneCubeCommandGroup(m_super, m_swerve, m_wrist, start, height);
                 break;
             case SINGLE_ENGAGE:
@@ -94,6 +94,9 @@ public class AutoFactory {
                 break;
             case DOUBLE_ENGAGE:
                 chosenCommand = new ScoreTwoBalanceCommandGroup(m_swerve, m_super, height, start);
+                break;
+            case TRIPLE_CONE:
+                chosenCommand = new ScoreThreeCommandGroup(m_swerve, m_super, height, start);
                 break;
             default:
                 chosenCommand = new InstantCommand();

@@ -27,7 +27,7 @@ public class ScoreTwoCommandGroup extends SequentialCommandGroup {
         if (scoreHeight == AutoUtils.ScoringHeights.HIGH) {
             addCommands(new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.HIGH_GOAL));
         } else {
-            addCommands(new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.MIDDLE_GOAL_NON_STOW));
+            addCommands(new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.MIDDLE_GOAL));
         }
 
         PathPlannerTrajectory trajectory;
@@ -44,19 +44,18 @@ public class ScoreTwoCommandGroup extends SequentialCommandGroup {
 
         // We don't score low (for now at least)
         if (scoreHeight == AutoUtils.ScoringHeights.MIDDLE) {
-            armScoringPose = Constants.ArmSetpoints.MIDDLE_GOAL_NON_STOW;
+            armScoringPose = Constants.ArmSetpoints.MIDDLE_GOAL;
         } else {
             armScoringPose = Constants.ArmSetpoints.HIGH_GOAL;
         }
 
         HashMap<String, Command> autoEvents = new HashMap<>();
         autoEvents.put("LowerIntake", (new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.INTAKE_BATTERY))
-                .andThen(m_armSupersystem.runIntakeForTime(3, 1.0))
+                .andThen(m_armSupersystem.runIntakeForTime(1, 1.0))
                 .andThen(new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.STOW_POSITION)));
-        autoEvents.put("Pickup", m_armSupersystem.runIntakeForTime(5, 1));
-        autoEvents.put("ClearGround", new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.STOW_POSITION));
+        autoEvents.put("ClearGround", new SupersystemToPoseAutoCommand(m_armSupersystem, armScoringPose));
         autoEvents.put("Score", (new SupersystemToPoseAutoCommand(m_armSupersystem, armScoringPose))
-                .andThen(m_armSupersystem.runIntakeForTime(0.25, -0.1))
+                .andThen(m_armSupersystem.runIntakeForTime(0.25, -0.05))
                 .andThen(new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.STOW_POSITION)));
 
         addCommands(new SupersystemToPoseAutoCommand(m_armSupersystem, armScoringPose));
