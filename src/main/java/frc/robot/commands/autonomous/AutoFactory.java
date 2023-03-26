@@ -20,14 +20,10 @@ public class AutoFactory {
     public enum AutoMode {
         MOBILITY,
         ENGAGE,
-        SINGLE_SCORE_CONE,
-        SINGE_SCORE_CUBE,
-        DOUBLE_SCORE_CONE,
-        DOUBLE_SCORE_CUBE,
-        SINGLE_CONE_ENGAGE,
-        SINGLE_CUBE_ENGAGE,
-        DOUBLE_CONE_ENGAGE,
-        DOUBLE_CUBE_ENGAGE,
+        SINGE_SCORE,
+        DOUBLE_SCORE,
+        SINGLE_ENGAGE,
+        DOUBLE_ENGAGE,
         TRIPLE_CONE
     }
 
@@ -87,22 +83,16 @@ public class AutoFactory {
             case ENGAGE:
                 chosenCommand = new BalanceCommandGroup(m_swerve, start);
                 break;
-            case SINGLE_SCORE_CONE:
-                chosenCommand = new OneConeCommandGroup(m_super, m_swerve, m_wrist, start, height);
-                break;
-            case SINGE_SCORE_CUBE:
+            ntake secase SINGE_SCORE:
                 chosenCommand = new OneCubeCommandGroup(m_super, m_swerve, m_wrist, start, height);
                 break;
-            case SINGLE_CONE_ENGAGE:
-            case SINGLE_CUBE_ENGAGE:
+            case SINGLE_ENGAGE:
                 chosenCommand = new ScoreOneEngageCommandGroup(m_swerve, m_super, m_wrist, start, height);
                 break;
-            case DOUBLE_SCORE_CONE:
-            case DOUBLE_SCORE_CUBE:
+            case DOUBLE_SCORE:
                 chosenCommand = new ScoreTwoCommandGroup(m_swerve, m_super, height, start);
                 break;
-            case DOUBLE_CONE_ENGAGE:
-            case DOUBLE_CUBE_ENGAGE:
+            case DOUBLE_ENGAGE:
                 chosenCommand = new ScoreTwoBalanceCommandGroup(m_swerve, m_super, height, start);
                 break;
             default:
