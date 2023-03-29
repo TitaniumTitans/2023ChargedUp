@@ -24,7 +24,8 @@ public class AutoFactory {
         DOUBLE_SCORE,
         SINGLE_ENGAGE,
         DOUBLE_ENGAGE,
-        TRIPLE_CONE
+        TRIPLE_CONE,
+        SINGLE_SCORE_ONLY
     }
 
     private final SwerveDrivetrain m_swerve;
@@ -97,6 +98,9 @@ public class AutoFactory {
                 break;
             case TRIPLE_CONE:
                 chosenCommand = new ScoreThreeCommandGroup(m_swerve, m_super, height, start);
+                break;
+            case SINGLE_SCORE_ONLY:
+                chosenCommand = new ScoreOneOnlyCommandGroup(m_super, m_wrist, height);
                 break;
             default:
                 chosenCommand = new InstantCommand();
