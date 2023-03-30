@@ -24,12 +24,10 @@ public class SwerveModFalcon {
 
     // Variables stored in code
     private double m_lastAngle;
-    public final int m_moduleNumber;
     public final double m_magnetOffset;
 
-    public SwerveModFalcon(int moduleNumber, double magnetOffset, int[] canIds) {
+    public SwerveModFalcon(double magnetOffset, int[] canIds) {
         this.m_magnetOffset = magnetOffset;
-        this.m_moduleNumber = moduleNumber;
 
         m_driveFx = new TalonFX(canIds[0]);
         m_azimuthFx = new TalonFX(canIds[1]);
@@ -42,8 +40,8 @@ public class SwerveModFalcon {
 
         // Azimuth/turning motor config
         m_azimuthFx.configFactoryDefault();
-        m_azimuthFx.config_kP(0, ModuleConstants.MODULE_KP);
-        m_azimuthFx.config_kD(0, ModuleConstants.MODULE_KD);
+        m_azimuthFx.config_kP(0, ModuleConstants.MODULE_AZIMUTH_KP);
+        m_azimuthFx.config_kD(0, ModuleConstants.MODULE_AZIMUTH_KD);
         m_azimuthFx.setNeutralMode(NeutralMode.Brake);
         m_azimuthFx.setInverted(false);
         m_azimuthFx.setSensorPhase(false);

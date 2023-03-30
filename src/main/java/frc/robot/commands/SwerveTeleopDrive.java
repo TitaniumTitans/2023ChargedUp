@@ -50,9 +50,9 @@ public class SwerveTeleopDrive extends CommandBase {
     y = Utils.deadBand(y);
     z = Utils.deadBand(z);
 
-    x = x * Constants.ModuleConstants.MAX_SPEED_MPS;
-    y = y * Constants.ModuleConstants.MAX_SPEED_MPS;
-    z = z * Constants.ModuleConstants.MAX_SPEED_MPS;
+    x = x * Constants.ModuleConstants.MAX_SPEED_L1_MPS;
+    y = y * Constants.ModuleConstants.MAX_SPEED_L1_MPS;
+    z = z * Constants.ModuleConstants.MAX_SPEED_L1_MPS;
     m_drive.drive(x, y, z);
   }
 
