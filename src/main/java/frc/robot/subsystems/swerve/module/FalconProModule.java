@@ -16,7 +16,7 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import frc.robot.Constants.ModuleConstants;
 
-public class FalconProModule {
+public class FalconProModule implements SwerveModuleInterface{
 
     private final TalonFX m_driveMotor;
     private final TalonFX m_azimuthMotor;
@@ -118,7 +118,7 @@ public class FalconProModule {
      * Update the position offsets of the azimuth motor off the absolute
      * encoder values
      */
-    private void setMagnetOffset() {
+    public void setMagnetOffset() {
         m_azimuthMotor.setRotorPosition(m_encoder.getPosition().getValue());
     }
     private void configureDevices() {
@@ -138,6 +138,9 @@ public class FalconProModule {
         driveConfiguration.MotorOutput.NeutralMode = NeutralModeValue.Brake;
         driveConfiguration.MotorOutput.DutyCycleNeutralDeadband = 0.01;
         driveConfiguration.Feedback.SensorToMechanismRatio = ModuleConstants.L3_GEAR_RATIO;
+        driveConfiguration.Slot0.kS = ModuleConstants.FALCON_DRIVE_KS;
+        driveConfiguration.Slot0.kV = ModuleConstants.FALCON_DRIVE_KV;
+        driveConfiguration.Slot0.kP = ModuleConstants.FALCON_DRIVE_KP;
 
         // repeat config until it succeeds
         StatusCode returnCode;

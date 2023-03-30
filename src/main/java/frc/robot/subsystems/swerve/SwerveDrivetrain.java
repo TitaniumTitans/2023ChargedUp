@@ -28,7 +28,9 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.RobotContainer;
 import frc.robot.commands.autonomous.AutoUtils;
+import frc.robot.subsystems.swerve.module.FalconProModule;
 import frc.robot.subsystems.swerve.module.SwerveModNeo;
+import frc.robot.subsystems.swerve.module.SwerveModuleInterface;
 import frc.robot.subsystems.vision.CameraSubsystem;
 import org.littletonrobotics.junction.AutoLog;
 import org.littletonrobotics.junction.Logger;
@@ -39,10 +41,10 @@ import java.util.Map;
 import java.util.Optional;
 
 public class SwerveDrivetrain extends SubsystemBase {
-    private final SwerveModNeo m_frMod;
-    private final SwerveModNeo m_flMod;
-    private final SwerveModNeo m_blMod;
-    private final SwerveModNeo m_brMod;
+    private final SwerveModuleInterface m_frMod;
+    private final SwerveModuleInterface m_flMod;
+    private final SwerveModuleInterface m_blMod;
+    private final SwerveModuleInterface m_brMod;
 
     private final WPI_Pigeon2 m_gyro;
     private final TimeOfFlight m_tofSensor;
@@ -96,10 +98,17 @@ public class SwerveDrivetrain extends SubsystemBase {
     }
 
     public SwerveDrivetrain() {
-        m_flMod = new SwerveModNeo(0, DriveConstants.MOD_FL_OFFSET, DriveConstants.MOD_FL_CANS, false);
-        m_frMod = new SwerveModNeo(1, DriveConstants.MOD_FR_OFFSET, DriveConstants.MOD_FR_CANS, false);
-        m_blMod = new SwerveModNeo(2, DriveConstants.MOD_BL_OFFSET, DriveConstants.MOD_BL_CANS, false);
-        m_brMod = new SwerveModNeo(3, DriveConstants.MOD_BR_OFFSET, DriveConstants.MOD_BR_CANS, false);
+        if (Constants.CURRENT_MODE == Constants.Mode.HELIOS_V1) {
+            m_flMod = new SwerveModNeo(0, DriveConstants.MOD_FL_OFFSET, DriveConstants.MOD_FL_CANS, false);
+            m_frMod = new SwerveModNeo(1, DriveConstants.MOD_FR_OFFSET, DriveConstants.MOD_FR_CANS, false);
+            m_blMod = new SwerveModNeo(2, DriveConstants.MOD_BL_OFFSET, DriveConstants.MOD_BL_CANS, false);
+            m_brMod = new SwerveModNeo(3, DriveConstants.MOD_BR_OFFSET, DriveConstants.MOD_BR_CANS, false);
+        } else {
+            m_flMod = new FalconProModule(DriveConstants.MOD_FL_OFFSET_V2, DriveConstants.MOD_FL_CANS);
+            m_frMod = new FalconProModule(DriveConstants.MOD_FR_OFFSET_V2, DriveConstants.MOD_FR_CANS);
+            m_blMod = new FalconProModule(DriveConstants.MOD_BL_OFFSET_V2, DriveConstants.MOD_BL_CANS);
+            m_brMod = new FalconProModule(DriveConstants.MOD_BR_OFFSET_V2, DriveConstants.MOD_BR_CANS);
+        }
 
         m_gyro = new WPI_Pigeon2(DriveConstants.GYRO_CAN);
         m_inputs = new SwerveIOInputsAutoLogged();
@@ -164,10 +173,10 @@ public class SwerveDrivetrain extends SubsystemBase {
     public SwerveModulePosition[] getModulePositions() {
         SwerveModulePosition[] modPos = new SwerveModulePosition[4];
 
-        modPos[0] = m_flMod.getPosition();
-        modPos[1] = m_frMod.getPosition();
-        modPos[2] = m_blMod.getPosition();
-        modPos[3] = m_brMod.getPosition();
+        modPos[0] = m_flMod.getModulePosition();
+        modPos[1] = m_frMod.getModulePosition();
+        modPos[2] = m_blMod.getModulePosition();
+        modPos[3] = m_brMod.getModulePosition();
 
         return modPos;
     }
@@ -176,10 +185,10 @@ public class SwerveDrivetrain extends SubsystemBase {
     public SwerveModuleState[] getModuleStates() {
         SwerveModuleState[] states = new SwerveModuleState[4];
 
-        states[0] = m_flMod.getState();
-        states[1] = m_frMod.getState();
-        states[2] = m_blMod.getState();
-        states[3] = m_brMod.getState();
+        states[0] = m_flMod.getModuleState();
+        states[1] = m_frMod.getModuleState();
+        states[2] = m_blMod.getModuleState();
+        states[3] = m_brMod.getModuleState();
 
         return states;
     }
@@ -240,24 +249,24 @@ public class SwerveDrivetrain extends SubsystemBase {
     }
 
     public void setAbsoluteAngles() {
-        m_flMod.resetToAbsolute();
-        m_frMod.resetToAbsolute();
-        m_blMod.resetToAbsolute();
-        m_brMod.resetToAbsolute();
+        m_flMod.setMagnetOffset();
+        m_frMod.setMagnetOffset();
+        m_blMod.setMagnetOffset();
+        m_brMod.setMagnetOffset();
     }
 
     public void updateInputs() {
-        m_inputs.flAngleDeg = m_flMod.getState().angle.getDegrees();
-        m_inputs.flDriveSpeedMPS = m_flMod.getState().speedMetersPerSecond;
+        m_inputs.flAngleDeg = m_flMod.getModuleState().angle.getDegrees();
+        m_inputs.flDriveSpeedMPS = m_flMod.getModuleState().speedMetersPerSecond;
 
-        m_inputs.frAngleDeg = m_frMod.getState().angle.getDegrees();
-        m_inputs.frDriveSpeedMPS = m_frMod.getState().speedMetersPerSecond;
+        m_inputs.frAngleDeg = m_frMod.getModuleState().angle.getDegrees();
+        m_inputs.frDriveSpeedMPS = m_frMod.getModuleState().speedMetersPerSecond;
 
-        m_inputs.blAngleDeg = m_blMod.getState().angle.getDegrees();
-        m_inputs.blDriveSpeedMPS = m_blMod.getState().speedMetersPerSecond;
+        m_inputs.blAngleDeg = m_blMod.getModuleState().angle.getDegrees();
+        m_inputs.blDriveSpeedMPS = m_blMod.getModuleState().speedMetersPerSecond;
 
-        m_inputs.brAngleDeg = m_brMod.getState().angle.getDegrees();
-        m_inputs.brDriveSpeedMPS = m_brMod.getState().speedMetersPerSecond;
+        m_inputs.brAngleDeg = m_brMod.getModuleState().angle.getDegrees();
+        m_inputs.brDriveSpeedMPS = m_brMod.getModuleState().speedMetersPerSecond;
 
         m_inputs.gyroPitchDeg = m_gyro.getPitch();
         m_inputs.gyroYawDeg = m_gyro.getYaw();
@@ -324,19 +333,19 @@ public class SwerveDrivetrain extends SubsystemBase {
 
     public double[] getAngles() {
         return new double[] {
-                m_flMod.getAngle(),
-                m_frMod.getAngle(),
-                m_blMod.getAngle(),
-                m_brMod.getAngle()
+                m_flMod.getModuleAngle().getDegrees(),
+                m_frMod.getModuleAngle().getDegrees(),
+                m_blMod.getModuleAngle().getDegrees(),
+                m_brMod.getModuleAngle().getDegrees()
         };
     }
 
     public Rotation2d[] getCancoderAngles() {
         return new Rotation2d[] {
-                m_flMod.getCanCoder(),
-                m_frMod.getCanCoder(),
-                m_blMod.getCanCoder(),
-                m_brMod.getCanCoder(),
+                m_flMod.getAbsoluteAngle(),
+                m_frMod.getAbsoluteAngle(),
+                m_blMod.getAbsoluteAngle(),
+                m_brMod.getAbsoluteAngle(),
         };
     }
 
@@ -395,7 +404,7 @@ public class SwerveDrivetrain extends SubsystemBase {
         //generate a path based on the tag you see, flipped 180 from tag pose
         traj = PathPlanner.generatePath(
                 AutoUtils.getDefaultConstraints(),
-                new PathPoint(getPose().getTranslation(), new Rotation2d(), getPose().getRotation()),
+                new PathPoint(getPose().getTranslation(), new Rotation2d(), getPose().getRotation(), chassisSpeed.getNorm()),
                 new PathPoint(translatedMiddle, new Rotation2d(), tagPose.getRotation().rotateBy(Rotation2d.fromDegrees(180))),
                 new PathPoint(translatedEnd, new Rotation2d(), tagPose.getRotation().rotateBy(Rotation2d.fromDegrees(180)))
         );
