@@ -52,8 +52,8 @@ public class RobotContainer {
     public RobotContainer() {
         switch (Constants.CURRENT_MODE) {
             // Beta robot hardware implementation
-            case THANOS:
-            case HELIOS:
+            case HELIOS_V2:
+            case HELIOS_V1:
                 m_drive = new SwerveDrivetrain();
                 m_wrist = new WristSubsystem();
                 m_arm = new ArmAngleSubsystem();

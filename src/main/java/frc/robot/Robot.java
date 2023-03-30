@@ -4,7 +4,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import lib.factories.SparkMaxFactory;
 import org.littletonrobotics.junction.*;
@@ -45,9 +44,9 @@ public class Robot extends LoggedRobot {
      // Set up data receivers & replay source
      switch (Constants.CURRENT_MODE) {
       // Running on a real robot, log to a USB stick
-      case THANOS:
+      case HELIOS_V2:
       case SIM:
-      case HELIOS:
+      case HELIOS_V1:
       logger.addDataReceiver(new WPILOGWriter("/media/sda1/helios"));
       logger.addDataReceiver(new NT4Publisher());
       break;

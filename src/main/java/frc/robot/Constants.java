@@ -184,9 +184,8 @@ public final class Constants {
         );
     }
 
-    public static final Mode CURRENT_MODE = Mode.HELIOS;
-
     public static class ArmConstants {
+
         private ArmConstants() {
             throw new IllegalStateException("Utility Class");
         }
@@ -217,8 +216,8 @@ public final class Constants {
         // Used for dynamic limit calculations, unit is inches
         public static final double PIVOT_HIGHT = 5;
     }
-
     public static class LimitConstants {
+
         private LimitConstants() {
             throw new IllegalStateException("Utility Class");
         }
@@ -259,8 +258,8 @@ public final class Constants {
         public static final GosDoubleProperty MAX_MOVEMENT =
                 new GosDoubleProperty(false, "Max Movement Bound", 325);
     }
-
     public static class ArmSetpoints {
+
         private ArmSetpoints() {
             throw new IllegalStateException("Utility Class");
         }
@@ -277,18 +276,20 @@ public final class Constants {
     }
 
     public static final int DRIVER_PORT = 0;
+    public static final Mode CURRENT_MODE = Mode.HELIOS_V1;
+
 
     public enum Mode {
         /** Running on the test bot */
-        THANOS,
+        HELIOS_V2,
 
         /**Running on the competition bot */
-        HELIOS,
+        HELIOS_V1,
 
         /** Running a physics simulator */
         SIM,
 
         /**Replaying from a log file */
-        REPLAY
+        REPLAY;
     }
 }
