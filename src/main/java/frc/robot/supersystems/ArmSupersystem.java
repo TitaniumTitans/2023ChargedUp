@@ -1,6 +1,7 @@
 package frc.robot.supersystems;
 
 import com.revrobotics.CANSparkMax;
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.shim.Vector2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -167,6 +168,18 @@ public class ArmSupersystem {
             return physicalVector.plus(new Translation2d(physicalWristExt * Math.sin(wristRelativeAngle), physicalWristExt * Math.cos(wristRelativeAngle)));
         }
         return physicalVector;
+    }
+
+    public double clampArmExt (double setpoint, double startZone) {
+    return setpoint * (Math.pow(0.1, Constants.ArmConstants.EXT_AGRESSION))
+                * Math.pow(MathUtil.clamp(Math.abs(m_angle.getError()), 0.0, startZone) - startZone,
+                Constants.ArmConstants.EXT_AGRESSION);
+    }
+
+    public double clampArmAngle () {
+        return Constants.ArmConstants.MAX_ANGLE_SPEED
+                * Math.pow((m_ext.getArmExtension()/Constants.ArmConstants.ANGLE_AGRESSION) - 1,
+                Constants.ArmConstants.ANGLE_AGRESSION);
     }
 
 }

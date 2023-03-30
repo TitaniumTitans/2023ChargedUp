@@ -197,6 +197,7 @@ public class ArmAngleSubsystem extends SubsystemBase {
     public boolean atSetpoint() {
         return m_anglePID.atSetpoint();
     }
+    public double getError() { return m_anglePID.getPositionError();}
 
     public boolean armAngleAtUpperLimit(){
         return (getArmAngle() >= LimitConstants.ARM_ANGLE_UPPER.getValue());

@@ -217,6 +217,11 @@ public final class Constants {
 
 
         public static final double EXT_PID_TOLERANCE = 1.0;
+
+        public static final double EXT_AGRESSION = 12.0;
+        public static final double ANGLE_AGRESSION = 20.0;
+        public static final double MAX_ANGLE_SPEED = 1.0;
+        public static final double MAX_EXT = 1.0;
     }
 
     public static class LimitConstants {
