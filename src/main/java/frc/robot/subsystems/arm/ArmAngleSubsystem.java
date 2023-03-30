@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Constants.LimitConstants;
 import frc.robot.Constants.ArmConstants;
 import lib.factories.SparkMaxFactory;
@@ -65,6 +66,7 @@ public class ArmAngleSubsystem extends SubsystemBase {
         config.setFrame0Rate(SparkMaxFactory.MAX_CAN_FRAME_PERIOD);
         m_armAngleFollower = SparkMaxFactory.Companion.createSparkMax(ArmConstants.ARM_ANGLE_ID_FOLLOWER, config);
 
+        config.setInverted(Constants.CURRENT_MODE == Constants.Mode.HELIOS_V1);
         m_armAngleFollower.follow(m_armAngleMaster);
     
         m_encoderArmAngle = new DutyCycleEncoder(ArmConstants.ENCODER_PORT);

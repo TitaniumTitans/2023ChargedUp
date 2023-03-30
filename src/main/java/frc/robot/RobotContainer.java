@@ -4,6 +4,9 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.led.CANdle;
+import com.ctre.phoenix.led.ColorFlowAnimation;
+import com.ctre.phoenix.led.RgbFadeAnimation;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
@@ -39,6 +42,7 @@ public class RobotContainer {
     private ArmExtSubsystem m_ext;
     private ArmSupersystem m_super;
     private FootPedal m_foot;
+    private CANdle m_candle;
 
     //Controllers
     private final CommandXboxController m_driveController = new CommandXboxController(Constants.DRIVER_PORT);
@@ -53,6 +57,7 @@ public class RobotContainer {
         switch (Constants.CURRENT_MODE) {
             // Beta robot hardware implementation
             case HELIOS_V2:
+                m_candle = new CANdle(22);
             case HELIOS_V1:
                 m_drive = new SwerveDrivetrain();
                 m_wrist = new WristSubsystem();
@@ -73,6 +78,9 @@ public class RobotContainer {
 
         m_autoFactory = new AutoFactory(m_super, m_drive, m_wrist);
 
+        if (m_candle != null) {
+            m_candle.animate(new ColorFlowAnimation(200, 25, 42, 0, 1.0, 400, ColorFlowAnimation.Direction.Forward));
+        }
         // Configure the button bindings
         configureButtonBindings();
         configDashboard();
