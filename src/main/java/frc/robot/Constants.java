@@ -29,6 +29,8 @@ import frc.robot.supersystems.ArmPose;
  */
 public final class Constants {
 
+    public static final Mode CURRENT_MODE = Mode.HELIOS_V2;
+
     /*Constants for physical aspects of the modules, plus PID loops constants*/
     public static final class ModuleConstants {
         private ModuleConstants() {
@@ -57,9 +59,9 @@ public final class Constants {
         /** Constants for the Phoenix Pro Modules using Falcon 500s **/
         public static final double L3_GEAR_RATIO = 6.12;
 
-        public static final double FALCON_AZIMUTH_KP = 0.2;
-        public static final double FALCON_AZIMUTH_KI = 0.0;
-        public static final double FALCON_AZIMUTH_KD = 0.0;
+        public static final double FALCON_AZIMUTH_KP = 2.75;
+        public static final double FALCON_AZIMUTH_KI = 0.03;
+        public static final double FALCON_AZIMUTH_KD = 0.09;
 
         public static final double FALCON_DRIVE_KV = 0.0;
         public static final double FALCON_DRIVE_KS = 0.0;
@@ -74,10 +76,10 @@ public final class Constants {
             throw new IllegalStateException("Utility Class");
         }
         // Can ID ports
-        public static final int[] MOD_FR_CANS = {3, 4, 5};
-        public static final int[] MOD_FL_CANS = {6, 7, 8};
-        public static final int[] MOD_BL_CANS = {9, 10, 11};
-        public static final int[] MOD_BR_CANS = {12, 13, 14};
+        public static final int[] MOD_FR_CANS = CURRENT_MODE == Mode.HELIOS_V1 ? new int[]{3, 4, 5} : new int[]{6, 7, 8};
+        public static final int[] MOD_FL_CANS = CURRENT_MODE == Mode.HELIOS_V1 ? new int[]{6, 7, 8} : new int[]{3, 4, 5};
+        public static final int[] MOD_BL_CANS = CURRENT_MODE == Mode.HELIOS_V1 ? new int[]{9, 10, 11} : new int[]{12, 13, 14};
+        public static final int[] MOD_BR_CANS = CURRENT_MODE == Mode.HELIOS_V1 ? new int[]{12, 13, 14} : new int[]{9, 10, 11};
         public static final int GYRO_CAN = 15;
 
         //Thanos Offsets
@@ -86,10 +88,10 @@ public final class Constants {
         public static final double MOD_BR_OFFSET = -163.0;
         public static final double MOD_BL_OFFSET = 0.610;
         // Competition Offset
-        public static final double MOD_FL_OFFSET_V2 = 71.45;
-        public static final double MOD_FR_OFFSET_V2 = 75.58;
-        public static final double MOD_BL_OFFSET_V2 = 354.99;
-        public static final double MOD_BR_OFFSET_V2 = 348.22;
+        public static final double MOD_FL_OFFSET_V2 = 263.4 + 180;
+        public static final double MOD_FR_OFFSET_V2 = 75.1;
+        public static final double MOD_BL_OFFSET_V2 = 356.2;
+        public static final double MOD_BR_OFFSET_V2 = 350.1;
 
         // Kinematics
         // Distance between centers of right and left wheels on robot
@@ -295,7 +297,6 @@ public final class Constants {
     }
 
     public static final int DRIVER_PORT = 0;
-    public static final Mode CURRENT_MODE = Mode.HELIOS_V2;
 
 
     public enum Mode {

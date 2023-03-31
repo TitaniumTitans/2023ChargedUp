@@ -158,6 +158,11 @@ public class SwerveDrivetrain extends SubsystemBase {
         SmartDashboard.putNumber("BR Cancoder", cancoderAngles[3].getDegrees());
         SmartDashboard.putNumber("TOF Sensor Distance", getDetectionRange());
 
+        SmartDashboard.putNumber("FL Actual Speed", m_flMod.getModuleState().speedMetersPerSecond);
+        SmartDashboard.putNumber("FR Actual Speed", m_frMod.getModuleState().speedMetersPerSecond);
+        SmartDashboard.putNumber("BL Actual Speed", m_blMod.getModuleState().speedMetersPerSecond);
+        SmartDashboard.putNumber("BR Actual Speed", m_blMod.getModuleState().speedMetersPerSecond);
+
         m_field.setRobotPose(m_poseEstimator.getEstimatedPosition());
 
         m_previousPitch = m_currentPitch;
@@ -225,7 +230,10 @@ public class SwerveDrivetrain extends SubsystemBase {
         m_blMod.setDesiredState(states[2]);
         m_brMod.setDesiredState(states[3]);
 
-        SmartDashboard.putNumber("Desired angle FL", states[0].angle.getDegrees());
+        SmartDashboard.putNumber("FL Desired Speed", states[0].speedMetersPerSecond);
+        SmartDashboard.putNumber("FR Desired Speed", states[1].speedMetersPerSecond);
+        SmartDashboard.putNumber("BL Desired Speed", states[2].speedMetersPerSecond);
+        SmartDashboard.putNumber("BR Desired Speed", states[3].speedMetersPerSecond);
     }
 
     public void resetGyro(double heading) {

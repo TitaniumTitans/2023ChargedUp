@@ -24,6 +24,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.ModuleConstants;
 import lib.utils.Swerve.CTREModuleState;
 import lib.utils.Swerve.FalconProConfigFactory;
+import lib.utils.Utils;
 
 import static com.ctre.phoenix.motorcontrol.TalonFXControlMode.Velocity;
 
@@ -57,22 +58,22 @@ public class FalconProModule implements SwerveModuleInterface {
     /**
      * Set the module to a desired state given by the swerve module kinematics
      *
-     * @param moduleState the desired state of the module
+     * @param state the desired state of the module
      */
-    public void setDesiredState(SwerveModuleState moduleState) {
+    public void setDesiredState(SwerveModuleState state) {
         //Optimize the state so the module doesn't rotate more than 90 degrees
-        SwerveModuleState state = SwerveModuleState.optimize(moduleState, getAbsoluteAngle());
+        state = CTREModuleState.optimize(state, getModuleAngle());
 
         // Check to see if there is actual input, if not don't move the azimuth motor
-        if (state.speedMetersPerSecond > 0.1) {
-            m_azimuthControl.Position = moduleState.angle.getRotations();
-        }
+//        if (Math.abs(state.speedMetersPerSecond) > 0.1) {
+            m_azimuthControl.Position = state.angle.getRotations();
+//        }
 
-        m_driveControl.Velocity = calculateRPSForMPS(moduleState.speedMetersPerSecond);
+        m_driveControl.Velocity = calculateRPSForMPS(state.speedMetersPerSecond);
 
-        SmartDashboard.putNumber("Desired Angle", moduleState.angle.getRotations());
-        SmartDashboard.putNumber("Desired Speed MPS", moduleState.speedMetersPerSecond);
-        SmartDashboard.putNumber("Calculated speed RPS", calculateRPSForMPS(moduleState.speedMetersPerSecond));
+        SmartDashboard.putNumber("Desired Angle", state.angle.getRotations());
+        SmartDashboard.putNumber("Desired Speed MPS", state.speedMetersPerSecond);
+        SmartDashboard.putNumber("Calculated speed RPS", calculateRPSForMPS(state.speedMetersPerSecond));
 
         // Set the motor outputs
         m_driveMotor.setControl(m_driveControl);
@@ -96,7 +97,7 @@ public class FalconProModule implements SwerveModuleInterface {
 
     public SwerveModulePosition getModulePosition() {
         return new SwerveModulePosition(
-                m_driveMotor.getDutyCycle().getValue(),
+                m_driveMotor.getPosition().getValue(),
                 getModuleAngle()
         );
     }
@@ -114,7 +115,7 @@ public class FalconProModule implements SwerveModuleInterface {
     }
 
     public double calculateMPSForRPS(double rotationsPerSecond) {
-        return (rotationsPerSecond * (Math.PI / ModuleConstants.WHEEL_DIAMETER_METERS)) / ModuleConstants.L3_GEAR_RATIO;
+        return (rotationsPerSecond * (Math.PI * ModuleConstants.WHEEL_DIAMETER_METERS)) / ModuleConstants.L3_GEAR_RATIO;
     }
 
     /**
@@ -132,7 +133,7 @@ public class FalconProModule implements SwerveModuleInterface {
      * @return the read value from the azimuth motor
      */
     public Rotation2d getModuleAngle() {
-        return Rotation2d.fromDegrees(m_driveMotor.getDutyCycle().getValue());
+        return Rotation2d.fromDegrees(Utils.normalize(Units.rotationsToDegrees(m_azimuthMotor.getPosition().getValue())));
     }
 
     /**
@@ -154,8 +155,8 @@ public class FalconProModule implements SwerveModuleInterface {
 
         // Create and apply a configuration for the drive motor
         var driveConfiguration = new TalonFXConfiguration();
-        driveConfiguration.ClosedLoopRamps.DutyCycleClosedLoopRampPeriod = 1;
-        driveConfiguration.OpenLoopRamps.DutyCycleOpenLoopRampPeriod = 1;
+        driveConfiguration.ClosedLoopRamps.DutyCycleClosedLoopRampPeriod = 0.5;
+        driveConfiguration.OpenLoopRamps.DutyCycleOpenLoopRampPeriod = 0.5;
         driveConfiguration.MotorOutput.NeutralMode = NeutralModeValue.Brake;
         driveConfiguration.MotorOutput.DutyCycleNeutralDeadband = 0.01;
         driveConfiguration.Feedback.SensorToMechanismRatio = ModuleConstants.L3_GEAR_RATIO;
@@ -192,6 +193,7 @@ public class FalconProModule implements SwerveModuleInterface {
         azimuthConfiguration.MotorOutput.DutyCycleNeutralDeadband = 0.01;
         azimuthConfiguration.Feedback.SensorToMechanismRatio = ModuleConstants.TURNING_RATIO;
         azimuthConfiguration.ClosedLoopGeneral.ContinuousWrap = true;
+        azimuthConfigurator.setRotorPosition(Units.degreesToRotations(m_encoder.getAbsolutePosition() - m_magnetOffset));
 
         //repeat config until it succeeds
         do {
