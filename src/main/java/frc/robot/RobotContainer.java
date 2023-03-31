@@ -48,7 +48,7 @@ public class RobotContainer {
     private final CommandXboxController m_driveController = new CommandXboxController(Constants.DRIVER_PORT);
 
     //Logged chooser for auto
-//    private final AutoFactory m_autoFactory;
+    private final AutoFactory m_autoFactory;
 
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -62,10 +62,10 @@ public class RobotContainer {
 //                break;
             case HELIOS_V1:
                 m_drive = new SwerveDrivetrain();
-//                m_wrist = new WristSubsystem();
-//                m_arm = new ArmAngleSubsystem();
-//                m_ext = new ArmExtSubsystem();
-//                m_super = new ArmSupersystem(m_arm, m_ext, m_wrist);
+                m_wrist = new WristSubsystem();
+                m_arm = new ArmAngleSubsystem();
+                m_ext = new ArmExtSubsystem();
+                m_super = new ArmSupersystem(m_arm, m_ext, m_wrist);
                 m_foot = new FootPedal(1);
                 break;
 
@@ -78,14 +78,14 @@ public class RobotContainer {
 
         LiveWindow.disableAllTelemetry();
 
-//        m_autoFactory = new AutoFactory(m_super, m_drive, m_wrist);
+        m_autoFactory = new AutoFactory(m_super, m_drive, m_wrist);
 
         if (m_candle != null) {
             m_candle.animate(new ColorFlowAnimation(255, 0, 0, 0, 0.25, 400, ColorFlowAnimation.Direction.Forward));
         }
         // Configure the button bindings
         configureButtonBindings();
-//        configDashboard();
+        configDashboard();
     }
 
     /**
@@ -97,7 +97,7 @@ public class RobotContainer {
     private void configureButtonBindings() {
         m_drive.setDefaultCommand(new SwerveTeleopDrive(m_drive, m_driveController));
 
-        /*
+
         m_driveController.button(7).onTrue(m_drive.resetGyroBase());
         m_driveController.start().onTrue(m_drive.toggleFieldRelative());
 
@@ -136,7 +136,7 @@ public class RobotContainer {
 
         m_foot.middlePedal().onTrue(new PrintCommand("Middle Pedal Pressed"));
         m_foot.rightPedal().onTrue(new PrintCommand("Right Pedal Pressed"));
-         */
+
     }
 
     /**

@@ -224,7 +224,7 @@ public final class Constants {
         public static final GosDoubleProperty ARM_EXT_KI = new GosDoubleProperty(false, "Arm extension kI", 0);
         public static final GosDoubleProperty ARM_EXT_KD = new GosDoubleProperty(false, "Arm extension kD", 0);
 
-        public static final double ARM_OFFSET = CURRENT_MODE == Mode.HELIOS_V1 ? 165.0 : 0.0;
+        public static final double ARM_OFFSET = CURRENT_MODE == Mode.HELIOS_V1 ? 165.0 : 294;
 
         public static final int ENCODER_PORT = 4;
 

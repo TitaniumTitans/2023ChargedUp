@@ -71,11 +71,9 @@ public class WristSubsystem extends SubsystemBase {
 
         m_wristEncoder = new CANCoder(WristConstants.WRIST_ANGLE_PORT);
         m_wristEncoder.configSensorInitializationStrategy(SensorInitializationStrategy.BootToZero);
-        m_wristEncoder.configSensorDirection(Constants.CURRENT_MODE == Constants.Mode.HELIOS_V1);
+        m_wristEncoder.configSensorDirection(Constants.CURRENT_MODE == Constants.Mode.HELIOS_V2);
 
         m_wristZeroLimit = new DigitalInput(WristConstants.LIMIT_SWITCH_PORT);
-
-
 
         m_wristPID = new PIDController(WristConstants.WRIST_KP, WristConstants.WRIST_KI, WristConstants.WRIST_KD);
         m_wristPID.setTolerance(5);
