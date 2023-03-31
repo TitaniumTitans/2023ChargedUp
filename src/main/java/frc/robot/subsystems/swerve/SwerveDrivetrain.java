@@ -163,10 +163,16 @@ public class SwerveDrivetrain extends SubsystemBase {
         m_previousPitch = m_currentPitch;
         m_currentPitch = getGyroPitch().getDegrees();
 
+        SmartDashboard.putNumber("Calculated speed for 2 mps", calculateRPSForMPS(2));
+
         m_prevTime = m_currentTime;
         m_currentTime = RobotController.getFPGATime();
 
         int temp = getFrontCamTagID();
+    }
+
+    public double calculateRPSForMPS(double metersPerSecond) {
+        return (metersPerSecond / (Math.PI * Constants.ModuleConstants.WHEEL_DIAMETER_METERS)) * Constants.ModuleConstants.L3_GEAR_RATIO;
     }
 
     // Getters

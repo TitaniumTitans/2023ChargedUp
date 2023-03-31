@@ -55,16 +55,16 @@ public final class Constants {
         public static final double MAX_SPEED_L1_MPS = 3.657;
 
         /** Constants for the Phoenix Pro Modules using Falcon 500s **/
-        public static final double L3_GEAR_RATIO = (14.0 / 50.0) * (28.0 / 16.0) * (15.0 / 45.0);
+        public static final double L3_GEAR_RATIO = 6.12;
 
-        public static final double FALCON_AZIMUTH_KP = 0.5;
+        public static final double FALCON_AZIMUTH_KP = 0.2;
         public static final double FALCON_AZIMUTH_KI = 0.0;
         public static final double FALCON_AZIMUTH_KD = 0.0;
 
         public static final double FALCON_DRIVE_KV = 0.0;
         public static final double FALCON_DRIVE_KS = 0.0;
         public static final double FALCON_DRIVE_KA = 0.0;
-        public static final double FALCON_DRIVE_KP = 0.5;
+        public static final double FALCON_DRIVE_KP = 0.01;
 
         public static final InvertedValue FALCON_AZIMUTH_INVERT = InvertedValue.Clockwise_Positive;
     }
@@ -86,10 +86,10 @@ public final class Constants {
         public static final double MOD_BR_OFFSET = -163.0;
         public static final double MOD_BL_OFFSET = 0.610;
         // Competition Offset
-        public static final double MOD_FL_OFFSET_V2 = 0.0;
-        public static final double MOD_FR_OFFSET_V2 = 0.0;
-        public static final double MOD_BL_OFFSET_V2 = 0.0;
-        public static final double MOD_BR_OFFSET_V2 = 0.0;
+        public static final double MOD_FL_OFFSET_V2 = 71.45;
+        public static final double MOD_FR_OFFSET_V2 = 75.58;
+        public static final double MOD_BL_OFFSET_V2 = 354.99;
+        public static final double MOD_BR_OFFSET_V2 = 348.22;
 
         // Kinematics
         // Distance between centers of right and left wheels on robot
@@ -222,9 +222,9 @@ public final class Constants {
         public static final GosDoubleProperty ARM_EXT_KI = new GosDoubleProperty(false, "Arm extension kI", 0);
         public static final GosDoubleProperty ARM_EXT_KD = new GosDoubleProperty(false, "Arm extension kD", 0);
 
-        public static final double ARM_OFFSET = 165;
+        public static final double ARM_OFFSET = CURRENT_MODE == Mode.HELIOS_V1 ? 165.0 : 0.0;
 
-        public static final int ENCODER_PORT = 1;
+        public static final int ENCODER_PORT = 4;
 
         public static final double SPROCKET_DIAMETER = 1.99;
         public static final double EXTENSION_RATIO = (1.0 / 16.0) * (SPROCKET_DIAMETER * Math.PI);
@@ -295,7 +295,7 @@ public final class Constants {
     }
 
     public static final int DRIVER_PORT = 0;
-    public static final Mode CURRENT_MODE = Mode.HELIOS_V1;
+    public static final Mode CURRENT_MODE = Mode.HELIOS_V2;
 
 
     public enum Mode {

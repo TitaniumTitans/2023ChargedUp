@@ -144,6 +144,7 @@ public class ArmAngleSubsystem extends SubsystemBase {
         updateInputs(m_inputs);
         Logger.getInstance().processInputs("Arm Angle", m_inputs);
 
+        SmartDashboard.putBoolean("Through Bore Connected", m_encoderArmAngle.isConnected());
         updateShuffleboardData();
     }
 
