@@ -23,6 +23,7 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.ModuleConstants;
 import lib.utils.Swerve.CTREModuleState;
+import lib.utils.Swerve.FalconProConfigFactory;
 
 import static com.ctre.phoenix.motorcontrol.TalonFXControlMode.Velocity;
 
@@ -166,11 +167,14 @@ public class FalconProModule implements SwerveModuleInterface {
         driveConfiguration.Audio.BeepOnBoot = true;
 
         // Set CAN frame limits
-        m_driveMotor.getSupplyVoltage().setUpdateFrequency(500);
-        m_driveMotor.getFault_BootDuringEnable().setUpdateFrequency(1000);
-        m_driveMotor.getFault_DeviceTemp().setUpdateFrequency(500);
-        m_driveMotor.getFault_OverSupplyV().setUpdateFrequency(100);
-        m_driveMotor.getFault_ReverseHardLimit().setUpdateFrequency(100);
+//        m_driveMotor.getSupplyVoltage().setUpdateFrequency(500);
+//        m_driveMotor.getFault_BootDuringEnable().setUpdateFrequency(1000);
+//        m_driveMotor.getFault_DeviceTemp().setUpdateFrequency(500);
+//        m_driveMotor.getFault_OverSupplyV().setUpdateFrequency(100);
+//        m_driveMotor.getFault_ReverseHardLimit().setUpdateFrequency(100);
+
+        FalconProConfigFactory.setStatusFrames(m_driveMotor);
+        FalconProConfigFactory.setStatusFrames(m_azimuthMotor);
 
         // repeat config until it succeeds
         StatusCode returnCode;
@@ -201,7 +205,7 @@ public class FalconProModule implements SwerveModuleInterface {
         m_encoder.configSensorDirection(false);
         m_encoder.configAbsoluteSensorRange(AbsoluteSensorRange.Unsigned_0_to_360);
         m_encoder.configSensorInitializationStrategy(SensorInitializationStrategy.BootToAbsolutePosition);
-        m_encoder.setStatusFramePeriod(CANCoderStatusFrame.SensorData, 4);
+        m_encoder.setStatusFramePeriod(CANCoderStatusFrame.SensorData, 20);
 
     }
 }
