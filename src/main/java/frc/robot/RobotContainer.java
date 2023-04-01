@@ -4,10 +4,7 @@
 
 package frc.robot;
 
-import com.ctre.phoenix.led.CANdle;
-import com.ctre.phoenix.led.ColorFlowAnimation;
-import com.ctre.phoenix.led.FireAnimation;
-import com.ctre.phoenix.led.RgbFadeAnimation;
+import com.ctre.phoenix.led.*;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
@@ -83,7 +80,7 @@ public class RobotContainer {
         m_autoFactory = new AutoFactory(m_super, m_drive, m_wrist);
 
         if (m_candle != null) {
-            m_candle.animate(new FireAnimation(1, 0.5, 800, 0.5, 0.5, false, 8));
+            m_candle.animate(new LarsonAnimation(255, 0, 0));
         }
         // Configure the button bindings
         configureButtonBindings();
@@ -183,8 +180,8 @@ public class RobotContainer {
 
         testCommands.add("Align to Zero Degrees", m_drive.alignToAngle(0).asProxy());
 
-        testCommands.add("EXT to 10", new InstantCommand(() -> m_ext.setArmExtension(10))).withSize(2, 1);
-        testCommands.add("EXT to 0", new InstantCommand(() -> m_ext.setArmExtension(0))).withSize(2, 1);
+        testCommands.add("EXT to 10", new InstantCommand(() -> m_ext.setArmExtension(1), m_ext)).withSize(2, 1);
+        testCommands.add("EXT to 0", new InstantCommand(() -> m_ext.setArmExtension(0), m_ext)).withSize(2, 1);
     }
 
     /**

@@ -53,7 +53,7 @@ public class ArmExtSubsystem extends SubsystemBase {
         config.setCurrentLimit(50);
 
         m_armExt = SparkMaxFactory.Companion.createSparkMax(Constants.ArmConstants.ARM_EXTENSION_ID, config);
-        // m_armExt.setClosedLoopRampRate(0.1);
+        m_armExt.setClosedLoopRampRate(0.1);
 
         m_relativeEncoderArmEx = m_armExt.getEncoder();
         m_relativeEncoderArmEx.setPositionConversionFactor(Constants.ArmConstants.EXTENSION_RATIO);
