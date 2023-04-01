@@ -6,6 +6,7 @@ package frc.robot;
 
 import com.ctre.phoenix.led.CANdle;
 import com.ctre.phoenix.led.ColorFlowAnimation;
+import com.ctre.phoenix.led.FireAnimation;
 import com.ctre.phoenix.led.RgbFadeAnimation;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -46,6 +47,7 @@ public class RobotContainer {
 
     //Controllers
     private final CommandXboxController m_driveController = new CommandXboxController(Constants.DRIVER_PORT);
+    private final CommandXboxController m_testController = new CommandXboxController(2);
 
     //Logged chooser for auto
     private final AutoFactory m_autoFactory;
@@ -81,7 +83,7 @@ public class RobotContainer {
         m_autoFactory = new AutoFactory(m_super, m_drive, m_wrist);
 
         if (m_candle != null) {
-            m_candle.animate(new ColorFlowAnimation(255, 0, 0, 0, 0.25, 400, ColorFlowAnimation.Direction.Forward));
+            m_candle.animate(new FireAnimation(1, 0.5, 800, 0.5, 0.5, false, 8));
         }
         // Configure the button bindings
         configureButtonBindings();
@@ -95,48 +97,52 @@ public class RobotContainer {
      * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
      */
     private void configureButtonBindings() {
-        m_drive.setDefaultCommand(new SwerveTeleopDrive(m_drive, m_driveController));
+        if (m_driveController != null) {
+            m_drive.setDefaultCommand(new SwerveTeleopDrive(m_drive, m_driveController));
 
 
-        m_driveController.button(7).onTrue(m_drive.resetGyroBase());
-        m_driveController.start().onTrue(m_drive.toggleFieldRelative());
+            m_driveController.button(7).onTrue(m_drive.resetGyroBase());
+            m_driveController.start().onTrue(m_drive.toggleFieldRelative());
 
-        m_driveController.leftTrigger().whileTrue(m_super.runIntake(-0.4)).whileFalse(m_super.runIntake(0.0));
-        m_driveController.rightTrigger().whileTrue(m_super.runIntake(1.0)).whileFalse(m_super.runIntake(0.0));
+            m_driveController.leftTrigger().whileTrue(m_super.runIntake(-0.4)).whileFalse(m_super.runIntake(0.0));
+            m_driveController.rightTrigger().whileTrue(m_super.runIntake(1.0)).whileFalse(m_super.runIntake(0.0));
 
-        m_driveController.x().whileTrue(
-                new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.INTAKE_CUBE)
-                        .alongWith(new IntakeControlCommand(m_wrist, 1.0, m_driveController.getHID())));
-        m_driveController.y().whileTrue(
-                new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.INTAKE_CONE)
-                        .alongWith(new IntakeControlCommand(m_wrist, 1.0, m_driveController.getHID())));
+            m_driveController.x().whileTrue(
+                    new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.INTAKE_CUBE)
+                            .alongWith(new IntakeControlCommand(m_wrist, 1.0, m_driveController.getHID())));
+            m_driveController.y().whileTrue(
+                    new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.INTAKE_CONE)
+                            .alongWith(new IntakeControlCommand(m_wrist, 1.0, m_driveController.getHID())));
 
-        m_driveController.a().whileTrue(new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.STOW_POSITION));
-        m_driveController.b().whileTrue(
-                new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.HUMAN_PLAYER_STATION)
-                        .alongWith(new IntakeControlCommand(m_wrist, 1.0, m_driveController.getHID())));
+            m_driveController.a().whileTrue(new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.STOW_POSITION));
+            m_driveController.b().whileTrue(
+                    new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.HUMAN_PLAYER_STATION)
+                            .alongWith(new IntakeControlCommand(m_wrist, 1.0, m_driveController.getHID())));
 
-        //Auto Align with rumble for driving
-        m_driveController.povLeft()
-                .whileTrue(m_drive.createPPSwerveController(SwerveDrivetrain.AlignmentOptions.LEFT_ALIGN));
+            //Auto Align with rumble for driving
+            m_driveController.povLeft()
+                    .whileTrue(m_drive.createPPSwerveController(SwerveDrivetrain.AlignmentOptions.LEFT_ALIGN));
 
-        m_driveController.povUp()
-                .whileTrue(m_drive.createPPSwerveController(SwerveDrivetrain.AlignmentOptions.CENTER_ALIGN));
+            m_driveController.povUp()
+                    .whileTrue(m_drive.createPPSwerveController(SwerveDrivetrain.AlignmentOptions.CENTER_ALIGN));
 
-        m_driveController.povRight()
-                .whileTrue(m_drive.createPPSwerveController(SwerveDrivetrain.AlignmentOptions.RIGHT_ALIGN));
+            m_driveController.povRight()
+                    .whileTrue(m_drive.createPPSwerveController(SwerveDrivetrain.AlignmentOptions.RIGHT_ALIGN));
 
-        m_driveController.povDown()
-                .whileTrue(new InstantCommand(() -> m_drive.resetPose(new Pose2d(10, 0, new Rotation2d()))));
+            m_driveController.povDown()
+                    .whileTrue(new InstantCommand(() -> m_drive.resetPose(new Pose2d(10, 0, new Rotation2d()))));
 
-        m_driveController.leftBumper().whileTrue(new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.HIGH_GOAL));
-        m_driveController.rightBumper().whileTrue(new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.MIDDLE_GOAL_NON_STOW));
+            m_driveController.leftBumper().whileTrue(new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.HIGH_GOAL));
+            m_driveController.rightBumper().whileTrue(new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.MIDDLE_GOAL_NON_STOW));
 
-        m_foot.leftPedal().whileTrue(m_drive.setSlowmodeFactory()).whileFalse(m_drive.setSlowmodeFactory());
+            m_foot.leftPedal().whileTrue(m_drive.setSlowmodeFactory()).whileFalse(m_drive.setSlowmodeFactory());
 
-        m_foot.middlePedal().onTrue(new PrintCommand("Middle Pedal Pressed"));
-        m_foot.rightPedal().onTrue(new PrintCommand("Right Pedal Pressed"));
-
+            m_foot.middlePedal().onTrue(new PrintCommand("Middle Pedal Pressed"));
+            m_foot.rightPedal().onTrue(new PrintCommand("Right Pedal Pressed"));
+        } else {
+            m_testController.a().whileTrue(m_ext.setArmSpeedFactory(0.25)).whileFalse(m_ext.setArmSpeedFactory(0.0));
+            m_testController.b().whileTrue(m_ext.setArmSpeedFactory(-0.25)).whileTrue(m_ext.setArmSpeedFactory(0.0));
+        }
     }
 
     /**
@@ -177,6 +183,8 @@ public class RobotContainer {
 
         testCommands.add("Align to Zero Degrees", m_drive.alignToAngle(0).asProxy());
 
+        testCommands.add("EXT to 10", new InstantCommand(() -> m_ext.setArmExtension(10))).withSize(2, 1);
+        testCommands.add("EXT to 0", new InstantCommand(() -> m_ext.setArmExtension(0))).withSize(2, 1);
     }
 
     /**

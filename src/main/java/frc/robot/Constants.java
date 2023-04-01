@@ -55,6 +55,7 @@ public final class Constants {
         public static final double MODULE_DRIVE_KP = 0.5;
 
         public static final double MAX_SPEED_L1_MPS = 3.657;
+        public static final double MAX_SPEED_L3_MPS = 5.48;
 
         /** Constants for the Phoenix Pro Modules using Falcon 500s **/
         public static final double L3_GEAR_RATIO = 6.12;
@@ -63,8 +64,8 @@ public final class Constants {
         public static final double FALCON_AZIMUTH_KI = 0.03;
         public static final double FALCON_AZIMUTH_KD = 0.09;
 
-        public static final double FALCON_DRIVE_KV = 0.0;
-        public static final double FALCON_DRIVE_KS = 0.0;
+        public static final double FALCON_DRIVE_KV = 0.75;
+        public static final double FALCON_DRIVE_KS = 0.1;
         public static final double FALCON_DRIVE_KA = 0.0;
         public static final double FALCON_DRIVE_KP = 0.01;
 

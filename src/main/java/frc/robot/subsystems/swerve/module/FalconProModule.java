@@ -38,7 +38,7 @@ public class FalconProModule implements SwerveModuleInterface {
     private double m_magnetOffset;
 
     private final PositionDutyCycle m_azimuthControl = new PositionDutyCycle(0);
-    private final VelocityDutyCycle m_driveControl = new VelocityDutyCycle(0);
+    private final VelocityVoltage m_driveControl = new VelocityVoltage(0);
 
     public FalconProModule(double angleOffset, int[] moduleIds) {
         m_driveMotor = new TalonFX(moduleIds[0]);
@@ -77,7 +77,7 @@ public class FalconProModule implements SwerveModuleInterface {
 
         // Set the motor outputs
         m_driveMotor.setControl(m_driveControl);
-//        m_driveMotor.setControl(new DutyCycleOut(moduleState.speedMetersPerSecond / ModuleConstants.MAX_SPEED_L1_MPS));
+//        m_driveMotor.setControl(new DutyCycleOut(state.speedMetersPerSecond / ModuleConstants.MAX_SPEED_L1_MPS));
         m_azimuthMotor.setControl(m_azimuthControl);
     }
 
@@ -97,7 +97,7 @@ public class FalconProModule implements SwerveModuleInterface {
 
     public SwerveModulePosition getModulePosition() {
         return new SwerveModulePosition(
-                m_driveMotor.getPosition().getValue(),
+                calculateMPSForRPS(m_driveMotor.getPosition().getValue()),
                 getModuleAngle()
         );
     }
@@ -111,11 +111,12 @@ public class FalconProModule implements SwerveModuleInterface {
      * @return converted output speed in rotations per second
      */
     public double calculateRPSForMPS(double metersPerSecond) {
-        return (metersPerSecond / (Math.PI * ModuleConstants.WHEEL_DIAMETER_METERS)) * ModuleConstants.L3_GEAR_RATIO;
+        return (metersPerSecond / (Math.PI * ModuleConstants.WHEEL_DIAMETER_METERS));
+
     }
 
     public double calculateMPSForRPS(double rotationsPerSecond) {
-        return (rotationsPerSecond * (Math.PI * ModuleConstants.WHEEL_DIAMETER_METERS)) / ModuleConstants.L3_GEAR_RATIO;
+        return (rotationsPerSecond * (Math.PI * ModuleConstants.WHEEL_DIAMETER_METERS));
     }
 
     /**
@@ -155,8 +156,9 @@ public class FalconProModule implements SwerveModuleInterface {
 
         // Create and apply a configuration for the drive motor
         var driveConfiguration = new TalonFXConfiguration();
-        driveConfiguration.ClosedLoopRamps.DutyCycleClosedLoopRampPeriod = 0.5;
-        driveConfiguration.OpenLoopRamps.DutyCycleOpenLoopRampPeriod = 0.5;
+        driveConfiguration.ClosedLoopRamps.DutyCycleClosedLoopRampPeriod = 0.7;
+        driveConfiguration.OpenLoopRamps.DutyCycleOpenLoopRampPeriod = 0.7;
+        driveConfiguration.ClosedLoopRamps.VoltageClosedLoopRampPeriod = 0.7;
         driveConfiguration.MotorOutput.NeutralMode = NeutralModeValue.Brake;
         driveConfiguration.MotorOutput.DutyCycleNeutralDeadband = 0.01;
         driveConfiguration.Feedback.SensorToMechanismRatio = ModuleConstants.L3_GEAR_RATIO;

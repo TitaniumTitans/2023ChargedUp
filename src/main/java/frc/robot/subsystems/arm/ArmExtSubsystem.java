@@ -5,6 +5,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -21,6 +22,7 @@ public class ArmExtSubsystem extends SubsystemBase {
     private final CANSparkMax m_armExt;
     private final RelativeEncoder m_relativeEncoderArmEx;
     private final SparkMaxPIDController m_extPID;
+//    private final PIDController m_extPID;
     private final DigitalInput m_armLimitSwitch;
 
     private final ArmExtIOInputsAutoLogged m_inputs = new ArmExtIOInputsAutoLogged();
@@ -63,6 +65,12 @@ public class ArmExtSubsystem extends SubsystemBase {
         m_extPID.setOutputRange(-2, 2);
         m_extPID.setOutputRange(-0.25, 0.25);
 
+//        m_extPID = new PIDController(
+//                Constants.ArmConstants.ARM_EXT_KP.getValue(),
+//                Constants.ArmConstants.ARM_EXT_KI.getValue(),
+//                Constants.ArmConstants.ARM_EXT_KD.getValue());
+//        m_extPID.setTolerance(0.5);
+//        m_extPID.disableContinuousInput();
 
         m_armLimitSwitch = new DigitalInput(Constants.ArmConstants.LIMIT_SWITCH_PORT);
 
@@ -123,12 +131,14 @@ public class ArmExtSubsystem extends SubsystemBase {
     public void setArmExtension(double targetExtRaw) {
         double targetExtClamped = MathUtil.clamp(targetExtRaw, Constants.LimitConstants.ARM_EXT_SCORE_LOWER.getValue(), Constants.LimitConstants.ARM_EXT_SCORE_UPPER.getValue());
 
+//        double pidOutput = MathUtil.clamp(m_extPID.calculate(m_relativeEncoderArmEx.getPosition(), targetExtClamped), -0.25, 0.25);
         prevSetpointRaw = targetExtRaw;
         prevSetpointClamped = targetExtClamped;
 
         if(armAtLowerLimit() && targetExtClamped <= 0) {
             m_armExt.set(0);
         } else {
+//            setArmSpeed(pidOutput);
             m_extPID.setReference(targetExtClamped, CANSparkMax.ControlType.kPosition);
         }
     }
