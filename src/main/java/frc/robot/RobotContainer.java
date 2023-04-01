@@ -80,7 +80,7 @@ public class RobotContainer {
         m_autoFactory = new AutoFactory(m_super, m_drive, m_wrist, m_ext);
 
         if (m_candle != null) {
-            m_candle.animate(new LarsonAnimation(255, 0, 0));
+            m_candle.animate(new RainbowAnimation(1.0, 0.75, 400));
         }
         // Configure the button bindings
         configureButtonBindings();
