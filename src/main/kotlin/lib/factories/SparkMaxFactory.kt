@@ -29,7 +29,8 @@ class SparkMaxFactory {
         var frame6Rate: Int = MAX_CAN_FRAME_PERIOD,
         var idleMode: CANSparkMax.IdleMode = CANSparkMax.IdleMode.kBrake,
         var inverted: Boolean = false,
-        var currentLimit: Int = 30
+        var currentLimit: Int = 30,
+        var followingMotor: CANSparkMax? = null
     )
 
     /**
@@ -101,7 +102,11 @@ class SparkMaxFactory {
             RevUtil.autoRetry { spark.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus6, config.frame6Rate) }
 
             RevUtil.autoRetry { spark.setIdleMode(config.idleMode) }
-            spark.inverted = config.inverted
+            if(config.followingMotor != null) {
+                RevUtil.autoRetry { spark.follow(config.followingMotor, config.inverted) }
+            } else {
+                spark.inverted = config.inverted
+            }
             RevUtil.autoRetry { spark.setSmartCurrentLimit(config.currentLimit) }
 
             listOfAllSparksAndConfigs.add(SparkWithConfig(spark, config.copy()))

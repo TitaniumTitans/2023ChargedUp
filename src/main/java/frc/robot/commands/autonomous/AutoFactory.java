@@ -2,13 +2,14 @@ package frc.robot.commands.autonomous;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.PrintCommand;
 import frc.robot.commands.autonomous.AutoUtils.ScoringHeights;
 import frc.robot.commands.autonomous.AutoUtils.StartingZones;
+import frc.robot.subsystems.arm.ArmExtSubsystem;
 import frc.robot.subsystems.swerve.SwerveDrivetrain;
 import frc.robot.subsystems.wrist.WristSubsystem;
 import frc.robot.supersystems.ArmSupersystem;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
+
 
 
 public class AutoFactory {
@@ -19,25 +20,24 @@ public class AutoFactory {
     public enum AutoMode {
         MOBILITY,
         ENGAGE,
-        SINGLE_SCORE_CONE,
-        SINGE_SCORE_CUBE,
-        DOUBLE_SCORE_CONE,
-        DOUBLE_SCORE_CUBE,
-        SINGLE_CONE_ENGAGE,
-        SINGLE_CUBE_ENGAGE,
-        DOUBLE_CONE_ENGAGE,
-        DOUBLE_CUBE_ENGAGE,
-        TRIPLE_CONE
+        SINGE_SCORE,
+        DOUBLE_SCORE,
+        SINGLE_ENGAGE,
+        DOUBLE_ENGAGE,
+        TRIPLE_CONE,
+        SINGLE_SCORE_ONLY
     }
 
     private final SwerveDrivetrain m_swerve;
     private final ArmSupersystem m_super;
     private final WristSubsystem m_wrist;
+    private final ArmExtSubsystem m_armEx;
 
-    public AutoFactory(ArmSupersystem m_super, SwerveDrivetrain m_drive, WristSubsystem m_wrist) {
-        this.m_super = m_super;
-        this.m_swerve = m_drive;
-        this.m_wrist = m_wrist;
+    public AutoFactory(ArmSupersystem supersystem, SwerveDrivetrain drive, WristSubsystem wrist, ArmExtSubsystem armEx) {
+        this.m_super = supersystem;
+        this.m_swerve = drive;
+        this.m_wrist = wrist;
+        this.m_armEx = armEx;
         m_modeChooser = new LoggedDashboardChooser<>("Auto Mode");
         m_heightChooser = new LoggedDashboardChooser<>("Scoring Height");
         m_locationChooser = new LoggedDashboardChooser<>("Starting Location");
@@ -70,23 +70,42 @@ public class AutoFactory {
         StartingZones start = m_locationChooser.get();
         ScoringHeights height = m_heightChooser.get();
         AutoMode mode = m_modeChooser.get();
+        Command chosenCommand;
+        m_wrist.resetHomed();
+        m_armEx.resetHomed();
+        m_wrist.setIntakeSpeed(0.0);
+
+        Command homeChecker = new CheckHomedCommand(m_armEx, m_wrist);
+
         switch (mode) {
             case MOBILITY:
-                return new MobilityCommandGroup(m_swerve, start);
+                chosenCommand = new MobilityCommandGroup(m_swerve, start);
+                break;
             case ENGAGE:
-                return new BalanceCommandGroup(m_swerve, start);
-            case SINGLE_SCORE_CONE:
-                return new OneConeCommandGroup(m_super, m_swerve, m_wrist, start, height);
-            case SINGE_SCORE_CUBE:
-                return new OneCubeCommandGroup(m_super, m_swerve, m_wrist, start, height);
-            case SINGLE_CONE_ENGAGE:
-            case SINGLE_CUBE_ENGAGE:
-                return new ScoreOneEngageCommandGroup(m_swerve, m_super, m_wrist, start, height);
-            case DOUBLE_SCORE_CONE:
-            case DOUBLE_SCORE_CUBE:
-                return new ScoreTwoCommandGroup(m_swerve, m_super, height, start);
+                chosenCommand = new BalanceCommandGroup(m_swerve, start);
+                break;
+            case SINGE_SCORE:
+                chosenCommand = new OneCubeCommandGroup(m_super, m_swerve, m_wrist, start, height);
+                break;
+            case SINGLE_ENGAGE:
+                chosenCommand = new ScoreOneEngageCommandGroup(m_swerve, m_super, m_wrist, start, height);
+                break;
+            case DOUBLE_SCORE:
+                chosenCommand = new ScoreTwoCommandGroup(m_swerve, m_super, height, start);
+                break;
+            case DOUBLE_ENGAGE:
+                chosenCommand = new ScoreTwoBalanceCommandGroup(m_swerve, m_super, height, start);
+                break;
+            case TRIPLE_CONE:
+                chosenCommand = new ScoreThreeCommandGroup(m_swerve, m_super, height, start);
+                break;
+            case SINGLE_SCORE_ONLY:
+                chosenCommand = new ScoreOneOnlyCommandGroup(m_super, m_wrist, height);
+                break;
+            default:
+                chosenCommand = new InstantCommand();
         }
 
-        return new InstantCommand();
+        return homeChecker.andThen(chosenCommand);
     }
 }

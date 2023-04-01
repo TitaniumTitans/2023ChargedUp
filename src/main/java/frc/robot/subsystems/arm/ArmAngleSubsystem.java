@@ -64,11 +64,11 @@ public class ArmAngleSubsystem extends SubsystemBase {
         m_armAngleMaster.setOpenLoopRampRate(0.2);
 
         config.setFrame0Rate(SparkMaxFactory.MAX_CAN_FRAME_PERIOD);
+        config.setFollowingMotor(m_armAngleMaster);
+        config.setInverted(Constants.CURRENT_MODE = Constants.Mode.HELIOS_V1);
+        // The SparkMaxFactory will set the motor to follow the given motor
         m_armAngleFollower = SparkMaxFactory.Companion.createSparkMax(ArmConstants.ARM_ANGLE_ID_FOLLOWER, config);
 
-        config.setInverted(Constants.CURRENT_MODE == Constants.Mode.HELIOS_V1);
-        m_armAngleFollower.follow(m_armAngleMaster);
-    
         m_encoderArmAngle = new DutyCycleEncoder(ArmConstants.ENCODER_PORT);
         m_encoderArmAngle.reset();
         m_encoderArmAngle.setDistancePerRotation(360);
@@ -144,7 +144,6 @@ public class ArmAngleSubsystem extends SubsystemBase {
         updateInputs(m_inputs);
         Logger.getInstance().processInputs("Arm Angle", m_inputs);
 
-        SmartDashboard.putBoolean("Through Bore Connected", m_encoderArmAngle.isConnected());
         updateShuffleboardData();
     }
 
@@ -167,7 +166,7 @@ public class ArmAngleSubsystem extends SubsystemBase {
         return runOnce(() -> setAngleSpeed(speed));
     }
 
-    public void setArmAngle(double targetAngleRaw){
+    public void setArmAngle(double targetAngleRaw) {
         // Get angle
         double currentArmAngle = getArmAngle();
 
@@ -199,6 +198,7 @@ public class ArmAngleSubsystem extends SubsystemBase {
     public boolean atSetpoint() {
         return m_anglePID.atSetpoint();
     }
+    public double getError() { return m_anglePID.getPositionError();}
 
     public boolean armAngleAtUpperLimit(){
         return (getArmAngle() >= LimitConstants.ARM_ANGLE_UPPER.getValue());

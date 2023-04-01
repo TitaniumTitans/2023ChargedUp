@@ -16,6 +16,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -26,7 +27,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.AutoConstants;
-import frc.robot.RobotContainer;
 import frc.robot.commands.autonomous.AutoUtils;
 import frc.robot.subsystems.swerve.module.FalconProModule;
 import frc.robot.subsystems.swerve.module.SwerveModNeo;
@@ -124,11 +124,11 @@ public class SwerveDrivetrain extends SubsystemBase {
                 getModulePositions(),
                 new Pose2d(),
                 new MatBuilder<>(Nat.N3(), Nat.N1()).fill(0.1, 0.1, 0.1),
-                new MatBuilder<>(Nat.N3(), Nat.N1()).fill(0.5, 0.5, Math.PI)
+                new MatBuilder<>(Nat.N3(), Nat.N1()).fill(0.9, 0.9, Units.degreesToRadians(0.9))
         );
 
         m_frontCamSubsystem = new CameraSubsystem(DriveConstants.FRONT_CAM_NAME, DriveConstants.FRONT_CAM_POSE);
-       m_leftCamSubsystem = new CameraSubsystem(DriveConstants.LEFT_CAM_NAME, DriveConstants.LEFT_CAM_POSE);
+        m_leftCamSubsystem = new CameraSubsystem(DriveConstants.LEFT_CAM_NAME, DriveConstants.LEFT_CAM_POSE);
 
         SmartDashboard.putData("Field", m_field);
         resetGyro();
@@ -218,7 +218,7 @@ public class SwerveDrivetrain extends SubsystemBase {
                         zRotation,
                         getGyroYaw()
                 )
-                : new ChassisSpeeds(xTranslation, yTranslation, zRotation)
+                        : new ChassisSpeeds(xTranslation, yTranslation, zRotation)
         );
 
         setModuleStates(states);
@@ -297,11 +297,11 @@ public class SwerveDrivetrain extends SubsystemBase {
          */
         Optional<EstimatedRobotPose> frontCamEstimatePose =
                 m_frontCamSubsystem.getPose(getPose());
-       Optional<EstimatedRobotPose> leftCamEstimatePose =
-               m_leftCamSubsystem.getPose(getPose());
+        Optional<EstimatedRobotPose> leftCamEstimatePose =
+                m_leftCamSubsystem.getPose(getPose());
 
         SmartDashboard.putBoolean("FC pose present", frontCamEstimatePose.isPresent());
-       SmartDashboard.putBoolean("LC pose present", leftCamEstimatePose.isPresent());
+        SmartDashboard.putBoolean("LC pose present", leftCamEstimatePose.isPresent());
 
         /*
          * Add each vision measurement to the pose estimator if it exists for each camera
@@ -315,14 +315,14 @@ public class SwerveDrivetrain extends SubsystemBase {
             m_poseEstimator.addVisionMeasurement(frontCamPose.estimatedPose.toPose2d(), frontCamPose.timestampSeconds);
         }
 
-       if(leftCamEstimatePose.isPresent()) {
-           EstimatedRobotPose leftCamPose = leftCamEstimatePose.get();
+        if (leftCamEstimatePose.isPresent()) {
+            EstimatedRobotPose leftCamPose = leftCamEstimatePose.get();
 
-           SmartDashboard.putNumber("LC pose X", leftCamPose.estimatedPose.getX());
-           SmartDashboard.putNumber("LC pose Y", leftCamPose.estimatedPose.getY());
+            SmartDashboard.putNumber("LC pose X", leftCamPose.estimatedPose.getX());
+            SmartDashboard.putNumber("LC pose Y", leftCamPose.estimatedPose.getY());
 
-           m_poseEstimator.addVisionMeasurement(leftCamPose.estimatedPose.toPose2d(), leftCamPose.timestampSeconds);
-       }
+            m_poseEstimator.addVisionMeasurement(leftCamPose.estimatedPose.toPose2d(), leftCamPose.timestampSeconds);
+        }
     }
 
     public Pose2d getFrontCamTagPose() {
@@ -414,7 +414,6 @@ public class SwerveDrivetrain extends SubsystemBase {
         );
 
 
-
         //generate a path based on the tag you see, flipped 180 from tag pose
         traj = PathPlanner.generatePath(
                 AutoUtils.getDefaultConstraints(),
@@ -440,9 +439,9 @@ public class SwerveDrivetrain extends SubsystemBase {
 
     public Command alignToAngle(double angle) {
         PathPlannerTrajectory traj = PathPlanner.generatePath(
-            AutoUtils.getDefaultConstraints(), 
-            new PathPoint(getPose().getTranslation(), new Rotation2d(), getPose().getRotation()),
-            new PathPoint(getPose().getTranslation(), new Rotation2d(), Rotation2d.fromDegrees(angle)));
+                AutoUtils.getDefaultConstraints(),
+                new PathPoint(getPose().getTranslation(), new Rotation2d(), getPose().getRotation()),
+                new PathPoint(getPose().getTranslation(), new Rotation2d(), Rotation2d.fromDegrees(angle)));
 
         return getAutoBuilder(new HashMap<>()).followPath(traj);
     }

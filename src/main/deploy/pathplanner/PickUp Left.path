@@ -2,13 +2,13 @@
   "waypoints": [
     {
       "anchorPoint": {
-        "x": 1.904335387618144,
-        "y": 3.863035796247031
+        "x": 1.8861988601170188,
+        "y": 4.751725643802166
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.0584958713777075,
-        "y": 5.377435842590985
+        "x": 3.273643213953095,
+        "y": 4.606633423793164
       },
       "holonomicAngle": -180.42,
       "isReversal": false,
@@ -24,49 +24,22 @@
     },
     {
       "anchorPoint": {
-        "x": 4.579473194034107,
-        "y": 4.869613072559479
+        "x": 6.574491219157877,
+        "y": 4.570360368790913
       },
       "prevControl": {
-        "x": 4.570404930283545,
-        "y": 4.869613072559479
+        "x": 5.112020123181823,
+        "y": 4.642616511250993
       },
       "nextControl": {
-        "x": 4.570404930283545,
-        "y": 4.869613072559479
+        "x": 5.112020123181823,
+        "y": 4.642616511250993
       },
       "holonomicAngle": 180.0,
       "isReversal": true,
       "velOverride": null,
       "isLocked": false,
-      "isStopPoint": true,
-      "stopEvent": {
-        "names": [
-          "LowerIntake"
-        ],
-        "executionBehavior": "parallel",
-        "waitBehavior": "none",
-        "waitTime": 0
-      }
-    },
-    {
-      "anchorPoint": {
-        "x": 6.223309565021413,
-        "y": 4.688537765092648
-      },
-      "prevControl": {
-        "x": 5.091199226620992,
-        "y": 4.562747727492601
-      },
-      "nextControl": {
-        "x": 5.091199226620992,
-        "y": 4.562747727492601
-      },
-      "holonomicAngle": 0,
-      "isReversal": true,
-      "velOverride": null,
-      "isLocked": false,
-      "isStopPoint": true,
+      "isStopPoint": false,
       "stopEvent": {
         "names": [
           "Pickup",
@@ -79,15 +52,15 @@
     },
     {
       "anchorPoint": {
-        "x": 1.9406084426203942,
-        "y": 4.4071316212807865
+        "x": 1.9315401788698316,
+        "y": 4.316448983775161
       },
       "prevControl": {
-        "x": 2.2579976738900847,
-        "y": 4.860544808808916
+        "x": 2.248929410139522,
+        "y": 4.7698621713032905
       },
       "nextControl": null,
-      "holonomicAngle": 179.45434240658426,
+      "holonomicAngle": -177.61405596961114,
       "isReversal": false,
       "velOverride": null,
       "isLocked": false,
@@ -102,5 +75,18 @@
       }
     }
   ],
-  "markers": []
+  "markers": [
+    {
+      "position": 0.0,
+      "names": [
+        "LowerIntake"
+      ]
+    },
+    {
+      "position": 1.1090909090909107,
+      "names": [
+        "ClearGround"
+      ]
+    }
+  ]
 }
