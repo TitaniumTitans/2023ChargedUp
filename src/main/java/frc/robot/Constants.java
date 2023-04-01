@@ -149,7 +149,7 @@ public final class Constants {
 
         public static final double WRIST_UPPER_LIMIT = 125.0;
         public static final int TOF_PORT = 23;
-        public static final double WRIST_KP = 0.04;
+        public static final double WRIST_KP = 0.05;
         public static final double WRIST_KI = 0.0;
         public static final double WRIST_KD = 0.0;
 
@@ -225,7 +225,7 @@ public final class Constants {
         public static final int ARM_ANGLE_ID_FOLLOWER = 17;
         public static final int LIMIT_SWITCH_PORT = 3;
 
-        public static final double KP_ANGLE = 0.51;
+        public static final double KP_ANGLE = 0.59;
         public static final double KI_ANGLE = 0.005;
         public static final double KD_ANGLE = 0.0075;
 
@@ -240,7 +240,7 @@ public final class Constants {
         public static final double SPROCKET_DIAMETER = 1.99;
         public static final double EXTENSION_RATIO = 0.3532;
 
-        public static final double PIVOT_HEIGHT = 32.0;
+        public static final double PIVOT_HEIGHT = CURRENT_MODE == Mode.HELIOS_V1 ? 32.0 : 33.0;
 
 
         public static final double EXT_PID_TOLERANCE = 1.0;
@@ -337,12 +337,12 @@ public final class Constants {
 
         private static final PiecewiseInterval<Double> BACK_SPEED = new PiecewiseInterval<>(
                 BACK_RANGE,
-                angle -> (MathUtil.clamp(((1- ((angle - STOW_ZONE.getValue()) / 180)) * 1.25), 0.2, 1)
+                angle -> (MathUtil.clamp(((1- ((angle - STOW_ZONE.getValue()) / 180)) * 1.0), 0.5, 1)
         ));
 
         private static final PiecewiseInterval<Double> FORWARD_SPEED = new PiecewiseInterval<>(
                 FORWARD_RANGE,
-                angle -> (MathUtil.clamp(1 - ((angle - (360 - (180 + STOW_ZONE.getValue()))) * 1.25), 0.2, 1))
+                angle -> (MathUtil.clamp(1 - ((angle - (360 - (180 + STOW_ZONE.getValue()))) * 1.0), 0.5, 1))
         );
 
         public static final RangedPiecewise<Double> DRIVE_SPEED_PIECEWISE = new RangedPiecewise<>(
@@ -363,7 +363,7 @@ public final class Constants {
 
         public static final ArmPose INTAKE_CUBE = new ArmPose(4.7, 325.1, 165.6);
         public static final ArmPose INTAKE_CONE = new ArmPose(1.5, 328.0, 170.0);
-        public static final ArmPose INTAKE_BATTERY = new ArmPose(8.4, 57.0, 145.0);
+        public static final ArmPose INTAKE_BATTERY = new ArmPose(11.9, 53.0, 145.0);
         public static final ArmPose HUMAN_PLAYER_STATION = new ArmPose(0.0, 236.6, 80.0);
 
         public static final ArmPose MIDDLE_GOAL = new ArmPose(0.0, 252.1, 99.7);

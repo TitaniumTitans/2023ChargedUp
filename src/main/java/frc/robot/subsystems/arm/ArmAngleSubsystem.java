@@ -65,7 +65,7 @@ public class ArmAngleSubsystem extends SubsystemBase {
 
         config.setFrame0Rate(SparkMaxFactory.MAX_CAN_FRAME_PERIOD);
         config.setFollowingMotor(m_armAngleMaster);
-        config.setInverted(Constants.CURRENT_MODE = Constants.Mode.HELIOS_V1);
+        config.setInverted(Constants.CURRENT_MODE == Constants.Mode.HELIOS_V1);
         // The SparkMaxFactory will set the motor to follow the given motor
         m_armAngleFollower = SparkMaxFactory.Companion.createSparkMax(ArmConstants.ARM_ANGLE_ID_FOLLOWER, config);
 
@@ -172,7 +172,7 @@ public class ArmAngleSubsystem extends SubsystemBase {
 
         // Clamp target
         double targetAngleClamped = MathUtil.clamp(targetAngleRaw, LimitConstants.ARM_ANGLE_LOWER.getValue(), LimitConstants.ARM_ANGLE_UPPER.getValue());
-        double targetAnglePID = MathUtil.clamp(m_anglePID.calculate(currentArmAngle, targetAngleClamped), -5, 5);
+        double targetAnglePID = MathUtil.clamp(m_anglePID.calculate(currentArmAngle, targetAngleClamped), -6, 6);
 
         // Update dashboard variables
         prevSetpointRaw = targetAngleRaw;

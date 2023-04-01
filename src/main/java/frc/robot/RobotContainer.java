@@ -64,7 +64,7 @@ public class RobotContainer {
                 m_wrist = new WristSubsystem();
                 m_arm = new ArmAngleSubsystem();
                 m_ext = new ArmExtSubsystem();
-                m_super = new ArmSupersystem(m_arm, m_ext, m_wrist);
+                m_super = new ArmSupersystem(m_arm, m_ext, m_wrist, m_drive);
                 m_foot = new FootPedal(1);
                 break;
 

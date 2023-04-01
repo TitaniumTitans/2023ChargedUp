@@ -167,7 +167,7 @@ public class ArmSupersystem {
         double wristRelativeAngle = currentWristAngleRadians - currentArmAngleRadians;
         // Estimate the wrist extension into the ground
         if (wristRelativeAngle > 0) {
-            final double physicalWristExt = 11;
+            final double physicalWristExt = 10;
             return physicalVector.plus(new Translation2d(physicalWristExt * Math.sin(wristRelativeAngle), physicalWristExt * Math.cos(wristRelativeAngle)));
         }
         return physicalVector;

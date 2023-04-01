@@ -53,7 +53,7 @@ public class ArmExtSubsystem extends SubsystemBase {
     public ArmExtSubsystem() {
         SparkMaxFactory.SparkMaxConfig config = new SparkMaxFactory.SparkMaxConfig();
         config.setCurrentLimit(50);
-        config.setInverted(true);
+        config.setInverted(false);
 
         m_armExt = SparkMaxFactory.Companion.createSparkMax(Constants.ArmConstants.ARM_EXTENSION_ID, config);
         m_armExt.setClosedLoopRampRate(0.1);
@@ -66,7 +66,7 @@ public class ArmExtSubsystem extends SubsystemBase {
         m_extPID.setI(Constants.ArmConstants.ARM_EXT_KI.getValue());
         m_extPID.setD(Constants.ArmConstants.ARM_EXT_KD.getValue());
         m_extPID.setOutputRange(-2, 2);
-        m_extPID.setOutputRange(-0.25, 0.25);
+        m_extPID.setOutputRange(-0.5, 0.5);
 
 //        m_extPID = new PIDController(
 //                Constants.ArmConstants.ARM_EXT_KP.getValue(),
@@ -213,7 +213,7 @@ public class ArmExtSubsystem extends SubsystemBase {
     }
 
     public double getPhysicalExtension() {
-        return getArmExtension() + 25.75;
+        return getArmExtension() + 24;
     }
 
     public void setBrakeMode(CANSparkMax.IdleMode brakeMode) {

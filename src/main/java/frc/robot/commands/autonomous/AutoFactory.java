@@ -96,9 +96,9 @@ public class AutoFactory {
             case DOUBLE_ENGAGE:
                 chosenCommand = new ScoreTwoBalanceCommandGroup(m_swerve, m_super, height, start);
                 break;
-            case TRIPLE_CONE:
-                chosenCommand = new ScoreThreeCommandGroup(m_swerve, m_super, height, start);
-                break;
+            // case TRIPLE_CONE:
+                // chosenCommand = new ScoreThreeCommandGroup(m_swerve, m_super, height, start);
+                // break;
             case SINGLE_SCORE_ONLY:
                 chosenCommand = new ScoreOneOnlyCommandGroup(m_super, m_wrist, height);
                 break;

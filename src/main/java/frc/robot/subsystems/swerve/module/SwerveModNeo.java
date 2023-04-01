@@ -158,16 +158,16 @@ public class SwerveModNeo implements SwerveModuleInterface{
     autoRetry(() -> m_angleMotor.setIdleMode(IdleMode.kBrake));
     autoRetry(() -> m_angleMotor.setSmartCurrentLimit(40));
 
-    autoRetry(() -> m_anglePID.setP(ModuleConstants.MODULE_AZIMUTH_KP));
+    autoRetry(() -> m_anglePID.setP(ModuleConstants.MODULE_KP));
     autoRetry(() -> m_anglePID.setI(0.0));
-    autoRetry(() -> m_anglePID.setD(ModuleConstants.MODULE_AZIMUTH_KD));
+    autoRetry(() -> m_anglePID.setD(ModuleConstants.MODULE_KD));
     autoRetry(() -> m_anglePID.setFF(0.0));
 
     autoRetry(() -> m_anglePID.setPositionPIDWrappingEnabled(true));
     autoRetry(() -> m_anglePID.setPositionPIDWrappingMaxInput(2 * Math.PI));
     autoRetry(() -> m_anglePID.setPositionPIDWrappingMinInput(0));
 
-    autoRetry(() -> m_angleEncoder.setPositionConversionFactor(ModuleConstants.POSITION_CONVERSION_FACTOR_RADIANS));
+    autoRetry(() -> m_angleEncoder.setPositionConversionFactor(ModuleConstants.POSITION_CONVERSION_FACTOR));
     autoRetry(() -> m_angleEncoder.setPosition(Units.degreesToRadians(m_canCoder.getAbsolutePosition() - m_canCoderOffsetDegrees)));
     SparkMaxConfigs.configCanStatusFrames(m_angleMotor);
   }
