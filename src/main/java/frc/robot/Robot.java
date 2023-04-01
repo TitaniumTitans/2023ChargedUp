@@ -100,6 +100,7 @@ public class Robot extends LoggedRobot {
 
     // For testing purposes
     m_robotContainer.getArmSupersystem().calculateArmAngleLimit(20);
+    m_robotContainer.getArmSupersystem().getDriveSpeed();
 
   }
 

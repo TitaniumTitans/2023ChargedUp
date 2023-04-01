@@ -22,6 +22,9 @@ import frc.robot.supersystems.ArmLimits;
 import frc.robot.supersystems.ArmPose;
 import lib.utils.piecewise.PiecewiseInterval;
 import lib.utils.piecewise.Range;
+import lib.utils.piecewise.RangedPiecewise;
+
+import java.util.List;
 
 
 /**
@@ -318,26 +321,37 @@ public final class Constants {
                 ARM_ANGLE_LOWER.getValue(), ARM_ANGLE_UPPER.getValue());
 
         // Piecewise function for limiting drive speed based off arm angle
-        private final Range BACK_RANGE = new Range(
+        private static final Range BACK_RANGE = new Range(
                 STOW_ZONE.getValue(),
                 true,
                 360 - (180 + STOW_ZONE.getValue()),
                 false
         );
 
-        private final Range FORWARD_RANGE = new Range(
+        private static final Range FORWARD_RANGE = new Range(
                 360 - (180 + STOW_ZONE.getValue()),
                 true,
                 MAX_MOVEMENT.getValue(),
                 false
         );
 
-        private final PiecewiseInterval<Double> BACK_SPEED = new PiecewiseInterval<>(
+        private static final PiecewiseInterval<Double> BACK_SPEED = new PiecewiseInterval<>(
                 BACK_RANGE,
                 angle -> (MathUtil.clamp(((1- ((angle - STOW_ZONE.getValue()) / 180)) * 1.25), 0.2, 1)
         ));
 
-        private final PiecewiseInterval<Double> FORWARD_SPEED
+        private static final PiecewiseInterval<Double> FORWARD_SPEED = new PiecewiseInterval<>(
+                FORWARD_RANGE,
+                angle -> (MathUtil.clamp(1 - ((angle - (360 - (180 + STOW_ZONE.getValue()))) * 1.25), 0.2, 1))
+        );
+
+        public static final RangedPiecewise<Double> DRIVE_SPEED_PIECEWISE = new RangedPiecewise<>(
+                new Range(STOW_ZONE.getValue(), true, MAX_MOVEMENT.getValue(), false),
+                List.of(
+                        BACK_SPEED,
+                        FORWARD_SPEED
+                )
+        );
     }
     public static class ArmSetpoints {
 

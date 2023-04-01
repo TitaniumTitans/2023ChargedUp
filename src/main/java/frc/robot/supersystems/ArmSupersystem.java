@@ -12,6 +12,7 @@ import frc.robot.Constants;
 import frc.robot.Constants.LimitConstants;
 import frc.robot.subsystems.arm.ArmAngleSubsystem;
 import frc.robot.subsystems.arm.ArmExtSubsystem;
+import frc.robot.subsystems.swerve.SwerveDrivetrain;
 import frc.robot.subsystems.wrist.WristSubsystem;
 import lib.utils.piecewise.PiecewiseInterval;
 import lib.utils.piecewise.Range;
@@ -42,11 +43,13 @@ public class ArmSupersystem {
     private final ArmAngleSubsystem m_angle;
     private final ArmExtSubsystem m_ext;
     private final WristSubsystem m_wrist;
+    private final SwerveDrivetrain m_swerve;
 
-    public ArmSupersystem(ArmAngleSubsystem armSubsystem, ArmExtSubsystem m_ext, WristSubsystem m_wrist) {
+    public ArmSupersystem(ArmAngleSubsystem armSubsystem, ArmExtSubsystem m_ext, WristSubsystem m_wrist, SwerveDrivetrain m_swerve) {
         this.m_angle = armSubsystem;
         this.m_ext = m_ext;
         this.m_wrist = m_wrist;
+        this.m_swerve = m_swerve;
     }
 
     public void addRequirements(CommandBase command) {
@@ -180,6 +183,11 @@ public class ArmSupersystem {
         return Constants.ArmConstants.MAX_ANGLE_SPEED
                 * Math.pow((m_ext.getArmExtension()/Constants.ArmConstants.ANGLE_AGRESSION) - 1,
                 Constants.ArmConstants.ANGLE_AGRESSION);
+    }
+
+    public void getDriveSpeed () {
+        Double range = LimitConstants.DRIVE_SPEED_PIECEWISE.calculate(m_angle.getArmAngle());
+        m_swerve.m_speedMult = range.doubleValue();
     }
 
 }

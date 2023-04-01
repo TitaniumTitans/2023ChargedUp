@@ -65,6 +65,7 @@ public class SwerveDrivetrain extends SubsystemBase {
     private double m_prevTime = 0;
     private int m_alignCount = 0;
     private boolean slowmode = false;
+    public double m_speedMult = 1;
 
     public enum AlignmentOptions {
         LEFT_ALIGN,
@@ -211,6 +212,9 @@ public class SwerveDrivetrain extends SubsystemBase {
 
     // Setters
     public void drive(double xTranslation, double yTranslation, double zRotation) {
+        xTranslation *= m_speedMult;
+        yTranslation *= m_speedMult;
+        zRotation *= m_speedMult;
         SwerveModuleState[] states = DriveConstants.DRIVE_KINEMATICS.toSwerveModuleStates(
                 fieldOriented ? ChassisSpeeds.fromFieldRelativeSpeeds(
                         xTranslation,
