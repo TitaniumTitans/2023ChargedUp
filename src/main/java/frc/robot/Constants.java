@@ -7,6 +7,7 @@ package frc.robot;
 import com.gos.lib.properties.GosDoubleProperty;
 import com.pathplanner.lib.auto.PIDConstants;
 import edu.wpi.first.cscore.CameraServerJNI;
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.geometry.Rotation3d;
@@ -18,6 +19,8 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
 import frc.robot.supersystems.ArmLimits;
 import frc.robot.supersystems.ArmPose;
+import lib.utils.piecewise.PiecewiseInterval;
+import lib.utils.piecewise.Range;
 
 
 /**
@@ -231,7 +234,6 @@ public final class Constants {
 
 
 
-
         // Arm Extension limits for Piecewise Function
         public static final GosDoubleProperty ARM_EXT_STOW =
                 new GosDoubleProperty(false, "Arm Extension Stow Limit", 0.5);
@@ -293,6 +295,28 @@ public final class Constants {
                 WRIST_SCORE_LOWER.getValue(), WRIST_SCORE_UPPER.getValue(),
                 ARM_EXT_SCORE_LOWER.getValue(), 6.1,
                 ARM_ANGLE_LOWER.getValue(), ARM_ANGLE_UPPER.getValue());
+
+        // Piecewise function for limiting drive speed based off arm angle
+        private final Range BACK_RANGE = new Range(
+                STOW_ZONE.getValue(),
+                true,
+                360 - (180 + STOW_ZONE.getValue()),
+                false
+        );
+
+        private final Range FORWARD_RANGE = new Range(
+                360 - (180 + STOW_ZONE.getValue()),
+                true,
+                MAX_MOVEMENT.getValue(),
+                false
+        );
+
+        private final PiecewiseInterval<Double> BACK_SPEED = new PiecewiseInterval<>(
+                BACK_RANGE,
+                angle -> (MathUtil.clamp(((1- ((angle - STOW_ZONE.getValue()) / 180)) * 1.25), 0.2, 1)
+        ));
+
+        private final PiecewiseInterval<Double> FORWARD_SPEED
     }
 
     public static class ArmSetpoints {
