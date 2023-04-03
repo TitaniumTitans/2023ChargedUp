@@ -164,22 +164,22 @@ public final class Constants {
         }
 
         //Trajectory following values
-        public static final double MAX_VELOCITY_PERCENT_OUTPUT = ModuleConstants.MAX_SPEED_L2_MPS;
-        public static final double MAX_ACCELERATION_PERCENT_OUTPUT = 1.5;
+        public static final double MAX_VELOCITY_MPS_AUTO = Units.feetToMeters(16);
+        public static final double MAX_ACCELERATION_MPS_AUTO = MAX_VELOCITY_MPS_AUTO / 2;
 
         public static final PIDController THETA_CONTROLLER =
-                new PIDController(3.5, 0.05, 0.0);
+                new PIDController(3.25, 0.1, 0.3);
 
         public static final PIDController CONTROLLER_X =
-            new PIDController(3, 0, 0);
+            new PIDController(3.2, 0.03, 0.3);
         public static final PIDController CONTROLLER_Y =
-            new PIDController(3, 0, 0);
+            new PIDController(3.2, 0.03, 0.3);
 
         public static final PIDConstants CONSTANTS_X =
-                new PIDConstants(4.0, 0, 0);
+                new PIDConstants(3.5, 0.0, 0.0);
 
         public static final PIDConstants THETA_CONSTANTS =
-                new PIDConstants(3.5, 0.05, 0.0);
+                new PIDConstants(3.25, 0.0, 0.0);
         
         //Auto balance constants
         public static final double BALANCE_P = -0.04;
@@ -193,7 +193,12 @@ public final class Constants {
         );
 
         public static final Transform2d LEFT_TRANSLATION = new Transform2d(
-                new Translation2d(0.65, 0.55),
+                new Translation2d(0.65, 0.525),
+                new Rotation2d()
+        );
+
+        public static final Transform2d RIGHT_TRANSLATION = new Transform2d(
+                new Translation2d(0.65, -0.525),
                 new Rotation2d()
         );
 
@@ -207,10 +212,7 @@ public final class Constants {
                 new Rotation2d()
         );
 
-        public static final Transform2d RIGHT_TRANSLATION = new Transform2d(
-                new Translation2d(0.65, -0.6),
-                new Rotation2d()
-        );
+
     }
 
     public static class ArmConstants {
@@ -224,15 +226,15 @@ public final class Constants {
         public static final int ARM_ANGLE_ID_FOLLOWER = 17;
         public static final int LIMIT_SWITCH_PORT = 3;
 
-        public static final double KP_ANGLE = 0.53;
+        public static final double KP_ANGLE = CURRENT_MODE == Mode.HELIOS_V1 ? 0.53 : 0.225;
         public static final double KI_ANGLE = 0.005;
-        public static final double KD_ANGLE = 0.0075;
+        public static final double KD_ANGLE = 0.08;
 
         public static final GosDoubleProperty ARM_EXT_KP = new GosDoubleProperty(true, "Arm extension kP", 0.5);
         public static final GosDoubleProperty ARM_EXT_KI = new GosDoubleProperty(false, "Arm extension kI", 0);
         public static final GosDoubleProperty ARM_EXT_KD = new GosDoubleProperty(false, "Arm extension kD", 0);
 
-        public static final double ARM_OFFSET = CURRENT_MODE == Mode.HELIOS_V1 ? 165.0 : 294;
+        public static final double ARM_OFFSET = CURRENT_MODE == Mode.HELIOS_V1 ? 165.0 : 294  - 180;
 
         public static final int ENCODER_PORT = 4;
 
@@ -267,7 +269,7 @@ public final class Constants {
 
         // Arm Angle limits for Piecewise Function
         public static final GosDoubleProperty ARM_ANGLE_LOWER =
-                new GosDoubleProperty(false, "Arm Angle Lower Limit", 13);
+                new GosDoubleProperty(true, "Arm Angle Lower Limit", 45);
         public static final GosDoubleProperty ARM_ANGLE_UPPER =
                 new GosDoubleProperty(false, "Arm Angle Upper Limit", 325);
 
@@ -277,7 +279,7 @@ public final class Constants {
         public static final GosDoubleProperty WRIST_SCORE_LOWER =
                 new GosDoubleProperty(false, "Wrist Score Lower Limit", 0);
         public static final GosDoubleProperty WRIST_SCORE_UPPER =
-                new GosDoubleProperty(false, "Wrist Score Upper Limit", 200);
+                new GosDoubleProperty(true, "Wrist Score Upper Limit", 130);
 
         //Arm angle zones for piecewise intervals
         public static final GosDoubleProperty STOW_ZONE =
@@ -287,7 +289,7 @@ public final class Constants {
         public static final GosDoubleProperty INTAKE_ZONE_UPPER =
                 new GosDoubleProperty(true, "Intake Upper Bound", 65);
         public static final GosDoubleProperty SCORE_ZONE =
-                new GosDoubleProperty(true, "Score Zone Lower Bound", 190);
+                new GosDoubleProperty(true, "Score Zone Lower Bound", 180);
 
         // Worry about ground at angle 302
         public static final GosDoubleProperty GROUND_ZONE =
@@ -357,16 +359,16 @@ public final class Constants {
         private ArmSetpoints() {
             throw new IllegalStateException("Utility Class");
         }
-        public static final ArmPose STOW_POSITION = new ArmPose(0.0, 30, 0.0);
+        public static final ArmPose STOW_POSITION = new ArmPose(0.0, 60, 0.0);
         public static final ArmPose VERT_STOW_POSE = new ArmPose(0.0, 180, 0.0);
 
         public static final ArmPose INTAKE_CUBE = new ArmPose(4.7, 325.1, 165.6);
         public static final ArmPose INTAKE_CONE = new ArmPose(1.5, 328.0, 170.0);
-        public static final ArmPose INTAKE_BATTERY = new ArmPose(12.9, 57.0, 145.0);
+        public static final ArmPose INTAKE_BATTERY = new ArmPose(12.6, 55.0, 145.0);
         public static final ArmPose HUMAN_PLAYER_STATION = new ArmPose(0.0, 236.6, 80.0);
 
         public static final ArmPose MIDDLE_GOAL = new ArmPose(0.0, 252.1, 99.7);
-        public static final ArmPose HIGH_GOAL = new ArmPose(20, 247.0, 95.3);
+        public static final ArmPose HIGH_GOAL = new ArmPose(20, 240.0, 95.3);
     }
 
     public static final int DRIVER_PORT = 0;

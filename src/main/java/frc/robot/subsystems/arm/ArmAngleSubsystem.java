@@ -1,6 +1,7 @@
 package frc.robot.subsystems.arm;
 
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.revrobotics.CANSparkMax;
 
 
@@ -59,7 +60,7 @@ public class ArmAngleSubsystem extends SubsystemBase {
     public ArmAngleSubsystem() {
         SparkMaxFactory.SparkMaxConfig config = new SparkMaxFactory.SparkMaxConfig();
         config.setFrame0Rate(10);
-        config.setCurrentLimit(50);
+        config.setCurrentLimit(40);
         m_armAngleMaster = SparkMaxFactory.Companion.createSparkMax(ArmConstants.ARM_ANGLE_ID_MASTER, config);
         m_armAngleMaster.setOpenLoopRampRate(0.2);
         m_armAngleMaster.enableVoltageCompensation(12);

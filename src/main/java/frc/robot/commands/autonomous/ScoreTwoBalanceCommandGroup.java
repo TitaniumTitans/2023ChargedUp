@@ -25,9 +25,9 @@ public class ScoreTwoBalanceCommandGroup extends SequentialCommandGroup {
         DriverStation.Alliance alliance = DriverStation.getAlliance();
 
         if (scoreHeight == AutoUtils.ScoringHeights.HIGH) {
-            addCommands(new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.HIGH_GOAL));
+            // addCommands(new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.HIGH_GOAL));
         } else {
-            addCommands(new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.MIDDLE_GOAL));
+            // addCommands(new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.MIDDLE_GOAL));
         }
 
         PathPlannerTrajectory trajectory;
@@ -61,9 +61,9 @@ public class ScoreTwoBalanceCommandGroup extends SequentialCommandGroup {
         // autoEvents.put("Stow", m_armSupersystem.runIntakeForTime(0.1, 0.0)
                 // .andThen(new SupersystemToPoseAutoCommand(m_armSupersystem, ArmSetpoints.STOW_POSITION)));
 
-        addCommands(new SupersystemToPoseAutoCommand(m_armSupersystem, armScoringPose));
-        addCommands(m_armSupersystem.runIntakeForTime(0.3, -0.4));
-        addCommands(m_swerve.getAutoBuilder(autoEvents).fullAuto(trajectory).andThen(new AutoBalanceTransCommand(m_swerve)));
+        // addCommands(new SupersystemToPoseAutoCommand(m_armSupersystem, armScoringPose));
+        // addCommands(m_armSupersystem.runIntakeForTime(0.3, -0.4));
+        addCommands(m_swerve.getAutoBuilder(new HashMap() /*autoEvents*/).fullAuto(trajectory).andThen(new AutoBalanceTransCommand(m_swerve)));
     }
 
 
