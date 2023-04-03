@@ -105,9 +105,11 @@ public class RobotContainer {
             m_driveController.leftTrigger().whileTrue(m_super.runIntake(-0.4)).whileFalse(m_super.runIntake(0.0));
             m_driveController.rightTrigger().whileTrue(m_super.runIntake(1.0)).whileFalse(m_super.runIntake(0.0));
 
-            m_driveController.x().whileTrue(
-                new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.INTAKE_BATTERY)
-                        .alongWith(new IntakeControlCommand(m_wrist, 1.0, m_driveController.getHID())));
+            if (Constants.CURRENT_MODE != Constants.Mode.HELIOS_V1) {
+                m_driveController.x().whileTrue(
+                        new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.INTAKE_BATTERY)
+                                .alongWith(new IntakeControlCommand(m_wrist, 1.0, m_driveController.getHID())));
+            }
             m_driveController.y().whileTrue(
                 new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.INTAKE_CONE)
                         .alongWith(new IntakeControlCommand(m_wrist, 1.0, m_driveController.getHID())));

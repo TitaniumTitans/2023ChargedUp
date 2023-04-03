@@ -7,7 +7,6 @@ package frc.robot;
 import com.ctre.phoenixpro.signals.InvertedValue;
 import com.gos.lib.properties.GosDoubleProperty;
 import com.pathplanner.lib.auto.PIDConstants;
-import edu.wpi.first.cscore.CameraServerJNI;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation3d;
@@ -37,7 +36,7 @@ import java.util.List;
  */
 public final class Constants {
 
-    public static final Mode CURRENT_MODE = Mode.HELIOS_V2;
+    public static final Mode CURRENT_MODE = Mode.HELIOS_V1;
 
     /*Constants for physical aspects of the modules, plus PID loops constants*/
     public static final class ModuleConstants {
@@ -62,7 +61,7 @@ public final class Constants {
         public static final double MODULE_KA = 0.0;
         public static final double MODULE_DRIVE_KP = 0.5;
 
-        public static final double MAX_SPEED_L1_MPS = 3.657;
+        public static final double MAX_SPEED_L2_MPS = 3.657;
         public static final double MAX_SPEED_L3_MPS = 5.48;
 
         /** Constants for the Phoenix Pro Modules using Falcon 500s **/
@@ -92,10 +91,10 @@ public final class Constants {
         public static final int GYRO_CAN = 15;
 
         //Thanos Offsets
-        public static final double MOD_FR_OFFSET = 115.5;
-        public static final double MOD_FL_OFFSET = -6.7 + 180;
-        public static final double MOD_BR_OFFSET = 18.63 + 180;
-        public static final double MOD_BL_OFFSET = -178.9 + 180;
+        public static final double MOD_FR_OFFSET = 141.35 + 180;
+        public static final double MOD_FL_OFFSET = -23.555 + 180;
+        public static final double MOD_BR_OFFSET = -142.207 + 180;
+        public static final double MOD_BL_OFFSET = 140.625;
         // Competition Offset
         public static final double MOD_FL_OFFSET_V2 = 263.4 + 180;
         public static final double MOD_FR_OFFSET_V2 = 75.1;
@@ -165,7 +164,7 @@ public final class Constants {
         }
 
         //Trajectory following values
-        public static final double MAX_VELOCITY_PERCENT_OUTPUT = ModuleConstants.MAX_SPEED_L1_MPS;
+        public static final double MAX_VELOCITY_PERCENT_OUTPUT = ModuleConstants.MAX_SPEED_L2_MPS;
         public static final double MAX_ACCELERATION_PERCENT_OUTPUT = 1.5;
 
         public static final PIDController THETA_CONTROLLER =
@@ -240,7 +239,7 @@ public final class Constants {
         public static final double SPROCKET_DIAMETER = 1.99;
         public static final double EXTENSION_RATIO = 0.3532;
 
-        public static final double PIVOT_HEIGHT = CURRENT_MODE == Mode.HELIOS_V1 ? 32.0 : 33.0;
+        public static final double PIVOT_HEIGHT = CURRENT_MODE == Mode.HELIOS_V1 ? 33.0 : 33.0;
 
 
         public static final double EXT_PID_TOLERANCE = 1.0;
@@ -363,7 +362,7 @@ public final class Constants {
 
         public static final ArmPose INTAKE_CUBE = new ArmPose(4.7, 325.1, 165.6);
         public static final ArmPose INTAKE_CONE = new ArmPose(1.5, 328.0, 170.0);
-        public static final ArmPose INTAKE_BATTERY = new ArmPose(12.9, 55.0, 145.0);
+        public static final ArmPose INTAKE_BATTERY = new ArmPose(12.9, 57.0, 145.0);
         public static final ArmPose HUMAN_PLAYER_STATION = new ArmPose(0.0, 236.6, 80.0);
 
         public static final ArmPose MIDDLE_GOAL = new ArmPose(0.0, 252.1, 99.7);
