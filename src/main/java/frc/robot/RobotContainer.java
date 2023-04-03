@@ -109,7 +109,7 @@ public class RobotContainer {
                 new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.INTAKE_BATTERY)
                         .alongWith(new IntakeControlCommand(m_wrist, 1.0, m_driveController.getHID())));
             m_driveController.y().whileTrue(
-                new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.INTAKE_CONE)
+                new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.INTAKE_BATTERY)
                         .alongWith(new IntakeControlCommand(m_wrist, 1.0, m_driveController.getHID())));
 
             m_driveController.a().whileTrue(new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.STOW_POSITION));

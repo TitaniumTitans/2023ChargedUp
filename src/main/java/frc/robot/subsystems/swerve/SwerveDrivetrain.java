@@ -212,9 +212,9 @@ public class SwerveDrivetrain extends SubsystemBase {
 
     // Setters
     public void drive(double xTranslation, double yTranslation, double zRotation) {
-        xTranslation *= m_speedMult;
-        yTranslation *= m_speedMult;
-        zRotation *= m_speedMult;
+        // xTranslation *= m_speedMult;
+        // yTranslation *= m_speedMult;
+        // zRotation *= m_speedMult;
         SwerveModuleState[] states = DriveConstants.DRIVE_KINEMATICS.toSwerveModuleStates(
                 fieldOriented ? ChassisSpeeds.fromFieldRelativeSpeeds(
                         xTranslation,
@@ -229,6 +229,10 @@ public class SwerveDrivetrain extends SubsystemBase {
     }
 
     public void setModuleStates(SwerveModuleState[] states) {
+        for (SwerveModuleState state : states) {
+            state.speedMetersPerSecond *= m_speedMult;
+        }
+
         m_flMod.setDesiredState(states[0]);
         m_frMod.setDesiredState(states[1]);
         m_blMod.setDesiredState(states[2]);
