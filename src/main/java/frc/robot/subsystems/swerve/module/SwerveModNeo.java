@@ -73,7 +73,7 @@ public class SwerveModNeo implements SwerveModuleInterface{
 
     double speed = state.speedMetersPerSecond;
     if (isOpenLoop) {
-      m_driveMotor.set(speed / ModuleConstants.MAX_SPEED_L1_MPS);
+      m_driveMotor.set(speed / ModuleConstants.MAX_SPEED_L2_MPS);
     } else {
       double speedff = m_driveFF.calculate(speed);
       m_drivePID.setReference(speed, CANSparkMax.ControlType.kVoltage, 0, speedff);

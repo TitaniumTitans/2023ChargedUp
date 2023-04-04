@@ -63,12 +63,14 @@ public class ArmAngleSubsystem extends SubsystemBase {
         config.setCurrentLimit(40);
         m_armAngleMaster = SparkMaxFactory.Companion.createSparkMax(ArmConstants.ARM_ANGLE_ID_MASTER, config);
         m_armAngleMaster.setOpenLoopRampRate(0.2);
+        m_armAngleMaster.enableVoltageCompensation(12);
 
         config.setFrame0Rate(SparkMaxFactory.MAX_CAN_FRAME_PERIOD);
         config.setFollowingMotor(m_armAngleMaster);
         config.setInverted(Constants.CURRENT_MODE == Constants.Mode.HELIOS_V1);
         // The SparkMaxFactory will set the motor to follow the given motor
         m_armAngleFollower = SparkMaxFactory.Companion.createSparkMax(ArmConstants.ARM_ANGLE_ID_FOLLOWER, config);
+        m_armAngleFollower.enableVoltageCompensation(12);
 
         m_encoderArmAngle = new DutyCycleEncoder(ArmConstants.ENCODER_PORT);
         m_encoderArmAngle.reset();
