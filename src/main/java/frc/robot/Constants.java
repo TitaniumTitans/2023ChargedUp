@@ -36,7 +36,7 @@ import java.util.List;
  */
 public final class Constants {
 
-    public static final Mode CURRENT_MODE = Mode.HELIOS_V1;
+    public static final Mode CURRENT_MODE = Mode.HELIOS_V2;
 
     /*Constants for physical aspects of the modules, plus PID loops constants*/
     public static final class ModuleConstants {
@@ -179,7 +179,7 @@ public final class Constants {
                 new PIDConstants(3.5, 0.0, 0.0);
 
         public static final PIDConstants THETA_CONSTANTS =
-                new PIDConstants(3.25, 0.0, 0.0);
+                new PIDConstants(3.5, 0.0, 0.0);
         
         //Auto balance constants
         public static final double BALANCE_P = -0.04;
@@ -364,7 +364,7 @@ public final class Constants {
 
         public static final ArmPose INTAKE_CUBE = new ArmPose(4.7, 325.1, 165.6);
         public static final ArmPose INTAKE_CONE = new ArmPose(1.5, 328.0, 170.0);
-        public static final ArmPose INTAKE_BATTERY = new ArmPose(12.6, 55.0, 145.0);
+        public static final ArmPose INTAKE_BATTERY = new ArmPose(12.1, 55.0, 145.0);
         public static final ArmPose HUMAN_PLAYER_STATION = new ArmPose(0.0, 236.6, 80.0);
 
         public static final ArmPose MIDDLE_GOAL = new ArmPose(0.0, 252.1, 99.7);

@@ -25,9 +25,9 @@ public class ScoreTwoBalanceCommandGroup extends SequentialCommandGroup {
         DriverStation.Alliance alliance = DriverStation.getAlliance();
 
         if (scoreHeight == AutoUtils.ScoringHeights.HIGH) {
-            // addCommands(new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.HIGH_GOAL));
+            addCommands(new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.HIGH_GOAL));
         } else {
-            // addCommands(new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.MIDDLE_GOAL));
+            addCommands(new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.MIDDLE_GOAL));
         }
 
         PathPlannerTrajectory trajectory;
@@ -51,19 +51,19 @@ public class ScoreTwoBalanceCommandGroup extends SequentialCommandGroup {
 
         HashMap<String, Command> autoEvents = new HashMap<>();
         autoEvents.put("LowerIntake", (new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.INTAKE_BATTERY))
-                .andThen(m_armSupersystem.runIntakeForTime(3, 1.0))
+                .andThen(m_armSupersystem.runIntakeForTime(0.75, 1.0))
                 .andThen(new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.STOW_POSITION)));
-        autoEvents.put("ClearGround", (new SupersystemToPoseAutoCommand(m_armSupersystem, armScoringPose))
-                .andThen(m_armSupersystem.runIntakeForTime(0, 0)));
+        autoEvents.put("ClearGround", (new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.STOW_POSITION)));
         autoEvents.put("Score", 
-                m_armSupersystem.runIntakeForTime(0.75, -0.4)
+                (new SupersystemToPoseAutoCommand(m_armSupersystem, armScoringPose))
+                .andThen(m_armSupersystem.runIntakeForTime(0.25, -0.4))
                 .andThen(new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.STOW_POSITION)));
         // autoEvents.put("Stow", m_armSupersystem.runIntakeForTime(0.1, 0.0)
                 // .andThen(new SupersystemToPoseAutoCommand(m_armSupersystem, ArmSetpoints.STOW_POSITION)));
 
         // addCommands(new SupersystemToPoseAutoCommand(m_armSupersystem, armScoringPose));
-        // addCommands(m_armSupersystem.runIntakeForTime(0.3, -0.4));
-        addCommands(m_swerve.getAutoBuilder(new HashMap() /*autoEvents*/).fullAuto(trajectory).andThen(new AutoBalanceTransCommand(m_swerve)));
+        addCommands(m_armSupersystem.runIntakeForTime(0.3, -0.4));
+        addCommands(m_swerve.getAutoBuilder(autoEvents).fullAuto(trajectory).andThen(new AutoBalanceTransCommand(m_swerve)));
     }
 
 
