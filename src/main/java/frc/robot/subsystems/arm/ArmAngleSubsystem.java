@@ -76,7 +76,7 @@ public class ArmAngleSubsystem extends SubsystemBase {
         m_encoderArmAngle.setPositionOffset(0);
 
         m_anglePID = new PIDController(ArmConstants.KP_ANGLE, ArmConstants.KI_ANGLE, 0.0);
-        m_anglePID.setTolerance(5);
+        m_anglePID.setTolerance(9);
 
         m_inputs = new ArmAngleIOInputsAutoLogged();
 

@@ -5,6 +5,7 @@ import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 import frc.robot.commands.IntakeControlCommand;
@@ -25,9 +26,9 @@ public class ScoreTwoCommandGroup extends SequentialCommandGroup {
         DriverStation.Alliance alliance = DriverStation.getAlliance();
 
         if (scoreHeight == AutoUtils.ScoringHeights.HIGH) {
-            // addCommands(new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.HIGH_GOAL));
+            addCommands(new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.HIGH_GOAL));
         } else {
-            // addCommands(new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.MIDDLE_GOAL));
+            addCommands(new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.MIDDLE_GOAL));
         }
 
         PathPlannerTrajectory trajectory;
@@ -51,16 +52,17 @@ public class ScoreTwoCommandGroup extends SequentialCommandGroup {
 
         HashMap<String, Command> autoEvents = new HashMap<>();
         autoEvents.put("LowerIntake", (new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.INTAKE_BATTERY))
+                .andThen(new PrintCommand("Running Intake"))
                 .andThen(m_armSupersystem.runIntakeForTime(1, 1.0))
                 .andThen(new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.STOW_POSITION)));
-        autoEvents.put("ClearGround", new SupersystemToPoseAutoCommand(m_armSupersystem, armScoringPose));
+        autoEvents.put("ClearGround", new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.STOW_POSITION));
         autoEvents.put("Score", (new SupersystemToPoseAutoCommand(m_armSupersystem, armScoringPose))
-                .andThen(m_armSupersystem.runIntakeForTime(0.25, -0.05))
+                .andThen(m_armSupersystem.runIntakeForTime(1, -0.1))
                 .andThen(new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.STOW_POSITION)));
 
-        // addCommands(new SupersystemToPoseAutoCommand(m_armSupersystem, armScoringPose));
-        // addCommands(m_armSupersystem.runIntakeForTime(0.3, -0.4));
-        addCommands(m_swerve.getAutoBuilder(new HashMap() /*autoEvents*/).fullAuto(trajectory));
+        addCommands(new SupersystemToPoseAutoCommand(m_armSupersystem, armScoringPose));
+        addCommands(m_armSupersystem.runIntakeForTime(0.4, -0.4));
+        addCommands(m_swerve.getAutoBuilder(autoEvents).fullAuto(trajectory));
     }
 
 

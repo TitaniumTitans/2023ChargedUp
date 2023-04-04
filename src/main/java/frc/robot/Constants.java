@@ -166,7 +166,7 @@ public final class Constants {
 
         //Trajectory following values
         public static final double MAX_VELOCITY_MPS_AUTO = Units.feetToMeters(16);
-        public static final double MAX_ACCELERATION_MPS_AUTO = MAX_VELOCITY_MPS_AUTO / 2;
+        public static final double MAX_ACCELERATION_MPS_AUTO = MAX_VELOCITY_MPS_AUTO / 4;
 
         public static final PIDController THETA_CONTROLLER =
                 new PIDController(3.25, 0.1, 0.3);
@@ -177,7 +177,7 @@ public final class Constants {
             new PIDController(3.2, 0.03, 0.3);
 
         public static final PIDConstants CONSTANTS_X =
-                new PIDConstants(3.5, 0.0, 0.0);
+                new PIDConstants(3.0, 0.0, 0.0);
 
         public static final PIDConstants THETA_CONSTANTS =
                 new PIDConstants(3.25, 0.0, 0.0);
@@ -228,7 +228,7 @@ public final class Constants {
         public static final int LIMIT_SWITCH_PORT = 3;
 
         public static final double KP_ANGLE = 0.225;
-        public static final double KI_ANGLE = 0.005;
+        public static final double KI_ANGLE = 0.04;
         public static final double KD_ANGLE = 0.08;
 
         public static final GosDoubleProperty ARM_EXT_KP = new GosDoubleProperty(true, "Arm extension kP", 0.5);
@@ -270,7 +270,7 @@ public final class Constants {
 
         // Arm Angle limits for Piecewise Function
         public static final GosDoubleProperty ARM_ANGLE_LOWER =
-                new GosDoubleProperty(true, "Arm Angle Lower Limit", 45);
+                new GosDoubleProperty(true, "Arm Angle Lower Limit", 50);
         public static final GosDoubleProperty ARM_ANGLE_UPPER =
                 new GosDoubleProperty(false, "Arm Angle Upper Limit", 325);
 
@@ -311,6 +311,11 @@ public final class Constants {
                 ARM_EXT_STOW.getValue(), ARM_EXT_SCORE_UPPER.getValue(),
                 ARM_ANGLE_LOWER.getValue(), ARM_ANGLE_UPPER.getValue()
         );
+
+        public static final ArmLimits NO_EXTENTION = new ArmLimits(
+                WRIST_STOW.getValue(), WRIST_SCORE_UPPER.getValue(), 
+                ARM_EXT_STOW.getValue(), ARM_EXT_STOW.getValue(), 
+                ARM_ANGLE_LOWER.getValue(), ARM_ANGLE_UPPER.getValue());
 
         public static final ArmLimits FULL_RANGE_LIMIT = new ArmLimits(
                 WRIST_SCORE_LOWER.getValue(), WRIST_SCORE_UPPER.getValue(),
@@ -365,8 +370,9 @@ public final class Constants {
 
         public static final ArmPose INTAKE_CUBE = new ArmPose(4.7, 325.1, 165.6);
         public static final ArmPose INTAKE_CONE = new ArmPose(1.5, 328.0, 170.0);
-        public static final ArmPose INTAKE_BATTERY = new ArmPose(12.6, 55.0, 145.0);
+        public static final ArmPose INTAKE_BATTERY = new ArmPose(12.1, 55.0, 145.0);
         public static final ArmPose HUMAN_PLAYER_STATION = new ArmPose(0.0, 236.6, 80.0);
+        public static final ArmPose SINGLE_PLAYER_STATION = new ArmPose(0.0, 95, 160);
 
         public static final ArmPose MIDDLE_GOAL = new ArmPose(0.0, 252.1, 99.7);
         public static final ArmPose HIGH_GOAL = new ArmPose(20, 240.0, 95.3);
