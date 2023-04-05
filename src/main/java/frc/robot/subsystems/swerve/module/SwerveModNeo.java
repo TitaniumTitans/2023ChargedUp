@@ -22,7 +22,7 @@ import lib.utils.Rev.SparkMaxConfigs;
 import lib.utils.drivers.CTREUtil;
 import lib.utils.drivers.RevUtil;
 
-public class SwerveModNeo {
+public class SwerveModNeo implements SwerveModuleInterface{
   public final int moduleNumber;
   private static final int TIMEOUT_MILLISECONDS = 600;
 
@@ -73,7 +73,7 @@ public class SwerveModNeo {
 
     double speed = state.speedMetersPerSecond;
     if (isOpenLoop) {
-      m_driveMotor.set(speed / ModuleConstants.MAX_SPEED_MPS);
+      m_driveMotor.set(speed / ModuleConstants.MAX_SPEED_L2_MPS);
     } else {
       double speedff = m_driveFF.calculate(speed);
       m_drivePID.setReference(speed, CANSparkMax.ControlType.kVoltage, 0, speedff);
@@ -106,11 +106,7 @@ public class SwerveModNeo {
     return Rotation2d.fromDegrees(m_canCoder.getAbsolutePosition());
   }
 
-  public double getTargetAngle(){
-    return m_lastAngle;
-  }
-
-  public void resetToAbsolute(){
+  public void setMagnetOffset(){
     autoRetry(() -> m_angleEncoder.setPosition(Units.degreesToRadians(getCanCoder().getDegrees() - m_canCoderOffsetDegrees)));
   }
 

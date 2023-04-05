@@ -36,7 +36,7 @@ public class AutoUtils {
 
     // Default Constants
     private static final PathConstraints m_defaultConfig = new PathConstraints(
-        AutoConstants.MAX_VELOCITY_PERCENT_OUTPUT, AutoConstants.MAX_ACCELERATION_PERCENT_OUTPUT);
+        AutoConstants.MAX_VELOCITY_MPS_AUTO, AutoConstants.MAX_ACCELERATION_MPS_AUTO);
         
 
 //    private static final PathPlannerTrajectory m_defaultAutoGen = PathPlanner.loadPath("DefaultPath", m_defaultConfig);

@@ -19,7 +19,7 @@ public class ScoreMidAndMoveCommandGroup extends SequentialCommandGroup {
         // TODO: Add your sequential commands in the super() call, e.g.
         //           super(new OpenClawCommand(), new MoveArmCommand());
         super(
-                new SupersystemToPoseAutoCommand(m_super, Constants.ArmSetpoints.MIDDLE_GOAL_NON_STOW)
+                new SupersystemToPoseAutoCommand(m_super, Constants.ArmSetpoints.MIDDLE_GOAL)
                         .alongWith(new WaitCommand(5).andThen(new IntakeControlCommand(m_wrist, -1.0)))
                         .raceWith(new WaitCommand(6)),
                 new SupersystemToPoseAutoCommand(m_super, Constants.ArmSetpoints.STOW_POSITION)

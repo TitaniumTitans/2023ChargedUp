@@ -5,6 +5,7 @@ import lib.utils.Utils;
 import lib.utils.Swerve.CTREModuleState;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.sensors.AbsoluteSensorRange;
@@ -24,12 +25,10 @@ public class SwerveModFalcon {
 
     // Variables stored in code
     private double m_lastAngle;
-    public final int m_moduleNumber;
     public final double m_magnetOffset;
 
-    public SwerveModFalcon(int moduleNumber, double magnetOffset, int[] canIds) {
+    public SwerveModFalcon(double magnetOffset, int[] canIds) {
         this.m_magnetOffset = magnetOffset;
-        this.m_moduleNumber = moduleNumber;
 
         m_driveFx = new TalonFX(canIds[0]);
         m_azimuthFx = new TalonFX(canIds[1]);

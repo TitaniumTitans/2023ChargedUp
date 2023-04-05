@@ -1,6 +1,7 @@
 package frc.robot.subsystems.arm;
 
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.revrobotics.CANSparkMax;
 
 
@@ -13,6 +14,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Constants.LimitConstants;
 import frc.robot.Constants.ArmConstants;
 import lib.factories.SparkMaxFactory;
@@ -58,22 +60,25 @@ public class ArmAngleSubsystem extends SubsystemBase {
     public ArmAngleSubsystem() {
         SparkMaxFactory.SparkMaxConfig config = new SparkMaxFactory.SparkMaxConfig();
         config.setFrame0Rate(10);
-        config.setCurrentLimit(50);
+        config.setCurrentLimit(40);
         m_armAngleMaster = SparkMaxFactory.Companion.createSparkMax(ArmConstants.ARM_ANGLE_ID_MASTER, config);
         m_armAngleMaster.setOpenLoopRampRate(0.2);
+        m_armAngleMaster.enableVoltageCompensation(12);
 
         config.setFrame0Rate(SparkMaxFactory.MAX_CAN_FRAME_PERIOD);
+        config.setFollowingMotor(m_armAngleMaster);
+        config.setInverted(Constants.CURRENT_MODE == Constants.Mode.HELIOS_V1);
+        // The SparkMaxFactory will set the motor to follow the given motor
         m_armAngleFollower = SparkMaxFactory.Companion.createSparkMax(ArmConstants.ARM_ANGLE_ID_FOLLOWER, config);
+        m_armAngleFollower.enableVoltageCompensation(12);
 
-        m_armAngleFollower.follow(m_armAngleMaster);
-    
         m_encoderArmAngle = new DutyCycleEncoder(ArmConstants.ENCODER_PORT);
         m_encoderArmAngle.reset();
         m_encoderArmAngle.setDistancePerRotation(360);
         m_encoderArmAngle.setPositionOffset(0);
 
         m_anglePID = new PIDController(ArmConstants.KP_ANGLE, ArmConstants.KI_ANGLE, 0.0);
-        m_anglePID.setTolerance(5);
+        m_anglePID.setTolerance(9);
 
         m_inputs = new ArmAngleIOInputsAutoLogged();
 
@@ -164,7 +169,7 @@ public class ArmAngleSubsystem extends SubsystemBase {
         return runOnce(() -> setAngleSpeed(speed));
     }
 
-    public void setArmAngle(double targetAngleRaw){
+    public void setArmAngle(double targetAngleRaw) {
         // Get angle
         double currentArmAngle = getArmAngle();
 
@@ -196,6 +201,7 @@ public class ArmAngleSubsystem extends SubsystemBase {
     public boolean atSetpoint() {
         return m_anglePID.atSetpoint();
     }
+    public double getError() { return m_anglePID.getPositionError();}
 
     public boolean armAngleAtUpperLimit(){
         return (getArmAngle() >= LimitConstants.ARM_ANGLE_UPPER.getValue());

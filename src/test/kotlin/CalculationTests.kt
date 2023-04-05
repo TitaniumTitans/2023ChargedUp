@@ -1,10 +1,9 @@
-import edu.wpi.first.math.util.Units
 import org.junit.jupiter.api.Test
 import kotlin.math.asin
 import kotlin.math.sin
 import kotlin.test.assertEquals
 
-class WristLimitCalculationTest {
+class CalculationTests {
     @Test
     fun testBasicCalc() {
         // Test to see if we can calculate an angle based on its sine value
