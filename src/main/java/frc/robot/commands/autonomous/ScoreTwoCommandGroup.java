@@ -3,6 +3,8 @@ package frc.robot.commands.autonomous;
 import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
+
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -21,7 +23,7 @@ public class ScoreTwoCommandGroup extends SequentialCommandGroup {
         addRequirements(m_swerve);
         m_armSupersystem.addRequirements(this);
 
-        PathConstraints constraints = AutoUtils.getDefaultConstraints();
+        PathConstraints constraints;
         DriverStation.Alliance alliance = DriverStation.getAlliance();
 
         if (scoreHeight == AutoUtils.ScoringHeights.HIGH) {
@@ -33,11 +35,11 @@ public class ScoreTwoCommandGroup extends SequentialCommandGroup {
         PathPlannerTrajectory trajectory;
 
         if((start == AutoUtils.StartingZones.LEFT && alliance == DriverStation.Alliance.Blue) || (start == AutoUtils.StartingZones.RIGHT && alliance == DriverStation.Alliance.Red)) {
+            constraints = new PathConstraints(Units.feetToMeters(14), Units.feetToMeters(14) / 3);
             trajectory = PathPlanner.loadPath("PickUp Left", constraints);
-        } else if ((start == AutoUtils.StartingZones.RIGHT && alliance == DriverStation.Alliance.Blue) || (start == AutoUtils.StartingZones.LEFT && alliance == DriverStation.Alliance.Red)) {
+        } else {//if ((start == AutoUtils.StartingZones.RIGHT && alliance == DriverStation.Alliance.Blue) || (start == AutoUtils.StartingZones.LEFT && alliance == DriverStation.Alliance.Red)) {
+            constraints = AutoUtils.getDefaultConstraints();
             trajectory = PathPlanner.loadPath("PickUp Right", constraints);
-        } else {
-            trajectory = PathPlanner.loadPath("PickUp Middle", constraints);
         }
 
         ArmPose armScoringPose;

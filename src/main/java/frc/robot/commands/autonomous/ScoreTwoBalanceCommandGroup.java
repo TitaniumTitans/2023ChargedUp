@@ -56,7 +56,7 @@ public class ScoreTwoBalanceCommandGroup extends SequentialCommandGroup {
         autoEvents.put("ClearGround", (new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.STOW_POSITION)));
         autoEvents.put("Score", 
                 (new SupersystemToPoseAutoCommand(m_armSupersystem, armScoringPose))
-                .andThen(m_armSupersystem.runIntakeForTime(0.25, -0.4))
+                .andThen(m_armSupersystem.runIntakeForTime(0.25,-0.4))
                 .andThen(new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.STOW_POSITION)));
         // autoEvents.put("Stow", m_armSupersystem.runIntakeForTime(0.1, 0.0)
                 // .andThen(new SupersystemToPoseAutoCommand(m_armSupersystem, ArmSetpoints.STOW_POSITION)));
