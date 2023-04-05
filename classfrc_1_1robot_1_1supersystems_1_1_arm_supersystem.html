@@ -95,9 +95,9 @@ $(document).ready(function(){initNavTree('classfrc_1_1robot_1_1supersystems_1_1_
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a0367e254cf0028bb198ade1c5fd85219"><td class="memItemLeft" align="right" valign="top"><a id="a0367e254cf0028bb198ade1c5fd85219"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>ArmSupersystem</b> (<a class="el" href="classfrc_1_1robot_1_1subsystems_1_1arm_1_1_arm_angle_subsystem.html">ArmAngleSubsystem</a> armSubsystem, <a class="el" href="classfrc_1_1robot_1_1subsystems_1_1arm_1_1_arm_ext_subsystem.html">ArmExtSubsystem</a> extArmSubsystem, <a class="el" href="classfrc_1_1robot_1_1subsystems_1_1wrist_1_1_wrist_subsystem.html">WristSubsystem</a> wristSubsystem)</td></tr>
-<tr class="separator:a0367e254cf0028bb198ade1c5fd85219"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92a23e0e89d5494631cb51520c30de61"><td class="memItemLeft" align="right" valign="top"><a id="a92a23e0e89d5494631cb51520c30de61"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>ArmSupersystem</b> (<a class="el" href="classfrc_1_1robot_1_1subsystems_1_1arm_1_1_arm_angle_subsystem.html">ArmAngleSubsystem</a> armSubsystem, <a class="el" href="classfrc_1_1robot_1_1subsystems_1_1arm_1_1_arm_ext_subsystem.html">ArmExtSubsystem</a> m_ext, <a class="el" href="classfrc_1_1robot_1_1subsystems_1_1wrist_1_1_wrist_subsystem.html">WristSubsystem</a> m_wrist, <a class="el" href="classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_drivetrain.html">SwerveDrivetrain</a> m_swerve)</td></tr>
+<tr class="separator:a92a23e0e89d5494631cb51520c30de61"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3b41c5922bf35356970d6bec33d7acae"><td class="memItemLeft" align="right" valign="top"><a id="a3b41c5922bf35356970d6bec33d7acae"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>addRequirements</b> (CommandBase command)</td></tr>
 <tr class="separator:a3b41c5922bf35356970d6bec33d7acae"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -106,9 +106,18 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>stopSpeed</b> ()</td>
 <tr class="separator:afb22dfbf2822c10b9848296504c2ec13"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9010189461d5680f1d96871693ef18d6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfrc_1_1robot_1_1supersystems_1_1_arm_supersystem.html#a9010189461d5680f1d96871693ef18d6">setToPose</a> (<a class="el" href="classfrc_1_1robot_1_1supersystems_1_1_arm_pose.html">ArmPose</a> pose)</td></tr>
 <tr class="separator:a9010189461d5680f1d96871693ef18d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf93f5e6a443c36cfc60e9cd4b51c4c9"><td class="memItemLeft" align="right" valign="top"><a id="adf93f5e6a443c36cfc60e9cd4b51c4c9"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>calculateArmAngleLimit</b> (double desiredAngle)</td></tr>
+<tr class="separator:adf93f5e6a443c36cfc60e9cd4b51c4c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ada4ea1f25dec4159dd9c3f3cd8bba5bc"><td class="memItemLeft" align="right" valign="top"><a id="ada4ea1f25dec4159dd9c3f3cd8bba5bc"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>toggleAllBrakemode</b> ()</td></tr>
 <tr class="separator:ada4ea1f25dec4159dd9c3f3cd8bba5bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a647a245a910add29eb6aa3761929336b"><td class="memItemLeft" align="right" valign="top"><a id="a647a245a910add29eb6aa3761929336b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>enableAllBrakemode</b> ()</td></tr>
+<tr class="separator:a647a245a910add29eb6aa3761929336b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9681ce7e3b8b56dea4c23e99e15e1bb3"><td class="memItemLeft" align="right" valign="top"><a id="a9681ce7e3b8b56dea4c23e99e15e1bb3"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>disableAllBrakemode</b> ()</td></tr>
+<tr class="separator:a9681ce7e3b8b56dea4c23e99e15e1bb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5470a945b3b935c29084eba83b5b1b2c"><td class="memItemLeft" align="right" valign="top"><a id="a5470a945b3b935c29084eba83b5b1b2c"></a>
 boolean&#160;</td><td class="memItemRight" valign="bottom"><b>atSetpoint</b> ()</td></tr>
 <tr class="separator:a5470a945b3b935c29084eba83b5b1b2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -118,6 +127,18 @@ CommandBase&#160;</td><td class="memItemRight" valign="bottom"><b>runIntakeForTi
 <tr class="memitem:abc8ae3f6776c884fc960e8a6183a4b94"><td class="memItemLeft" align="right" valign="top"><a id="abc8ae3f6776c884fc960e8a6183a4b94"></a>
 Command&#160;</td><td class="memItemRight" valign="bottom"><b>runIntake</b> (double speed)</td></tr>
 <tr class="separator:abc8ae3f6776c884fc960e8a6183a4b94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a902f7bc622dc392ea68c36f2aaa6d9d0"><td class="memItemLeft" align="right" valign="top"><a id="a902f7bc622dc392ea68c36f2aaa6d9d0"></a>
+Translation2d&#160;</td><td class="memItemRight" valign="bottom"><b>getPhysicalArmExtension</b> ()</td></tr>
+<tr class="separator:a902f7bc622dc392ea68c36f2aaa6d9d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a285ac92b73b1277315d8bc1b6d63a72f"><td class="memItemLeft" align="right" valign="top"><a id="a285ac92b73b1277315d8bc1b6d63a72f"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>clampArmExt</b> (double setpoint, double startZone)</td></tr>
+<tr class="separator:a285ac92b73b1277315d8bc1b6d63a72f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a943fd4d38beed5946ad1b0f9b65faac1"><td class="memItemLeft" align="right" valign="top"><a id="a943fd4d38beed5946ad1b0f9b65faac1"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>clampArmAngle</b> ()</td></tr>
+<tr class="separator:a943fd4d38beed5946ad1b0f9b65faac1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62f20c03f2d89af073542e9af0310a57"><td class="memItemLeft" align="right" valign="top"><a id="a62f20c03f2d89af073542e9af0310a57"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>getDriveSpeed</b> ()</td></tr>
+<tr class="separator:a62f20c03f2d89af073542e9af0310a57"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="a9010189461d5680f1d96871693ef18d6"></a>

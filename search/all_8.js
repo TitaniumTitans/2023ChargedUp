@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['helios_45',['HELIOS',['../enumfrc_1_1robot_1_1_constants_1_1_mode.html#a0cd25a5f4218f831505b7035f2b48341',1,'frc::robot::Constants::Mode']]]
+  ['helios_5fv1_52',['HELIOS_V1',['../enumfrc_1_1robot_1_1_constants_1_1_mode.html#a6d94c83fd745cbc979fe08b976844b87',1,'frc::robot::Constants::Mode']]],
+  ['helios_5fv2_53',['HELIOS_V2',['../enumfrc_1_1robot_1_1_constants_1_1_mode.html#a14eb96ab7461df9324f12c9d9c5d5bbf',1,'frc::robot::Constants::Mode']]],
+  ['holdarmanglecommand_54',['HoldArmAngleCommand',['../classfrc_1_1robot_1_1commands_1_1_hold_arm_angle_command.html',1,'frc::robot::commands']]]
 ];

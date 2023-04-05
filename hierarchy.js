@@ -16,6 +16,7 @@ var hierarchy =
     [ "MyLibrary::Example", "class_my_library_1_1_example.html", [
       [ "MyLibrary::SubclassExample< TemplatedClass >", "class_my_library_1_1_subclass_example.html", null ]
     ] ],
+    [ "lib.utils.Swerve.FalconProConfigFactory", "classlib_1_1utils_1_1_swerve_1_1_falcon_pro_config_factory.html", null ],
     [ "LoggedRobot", null, [
       [ "frc.robot.Robot", "classfrc_1_1robot_1_1_robot.html", null ]
     ] ],
@@ -30,18 +31,23 @@ var hierarchy =
     [ "frc.robot.commands.autonomous.AutoUtils.StartingZones", "enumfrc_1_1robot_1_1commands_1_1autonomous_1_1_auto_utils_1_1_starting_zones.html", null ],
     [ "lib.utils.Swerve.SwerveAzimuthFactoy", "classlib_1_1utils_1_1_swerve_1_1_swerve_azimuth_factoy.html", null ],
     [ "frc.robot.subsystems.swerve.module.SwerveModFalcon", "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1module_1_1_swerve_mod_falcon.html", null ],
-    [ "frc.robot.subsystems.swerve.module.SwerveModNeo", "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1module_1_1_swerve_mod_neo.html", null ],
+    [ "frc.robot.subsystems.swerve.module.SwerveModuleInterface", "interfacefrc_1_1robot_1_1subsystems_1_1swerve_1_1module_1_1_swerve_module_interface.html", [
+      [ "frc.robot.subsystems.swerve.module.FalconProModule", "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1module_1_1_falcon_pro_module.html", null ],
+      [ "frc.robot.subsystems.swerve.module.SwerveModNeo", "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1module_1_1_swerve_mod_neo.html", null ]
+    ] ],
     [ "lib.utils.drivers.TalonEnhanced", "classlib_1_1utils_1_1drivers_1_1_talon_enhanced.html", null ],
     [ "frc.robot.commands.autonomous.test.TestAutoWithArm", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1test_1_1_test_auto_with_arm.html", null ],
     [ "lib.utils.Utils", "classlib_1_1utils_1_1_utils.html", null ],
     [ "CommandBase", null, [
       [ "frc.robot.commands.AutoBalance", "classfrc_1_1robot_1_1commands_1_1_auto_balance.html", null ],
       [ "frc.robot.commands.AutoBalanceTransCommand", "classfrc_1_1robot_1_1commands_1_1_auto_balance_trans_command.html", null ],
+      [ "frc.robot.commands.HoldArmAngleCommand", "classfrc_1_1robot_1_1commands_1_1_hold_arm_angle_command.html", null ],
       [ "frc.robot.commands.IntakeControlCommand", "classfrc_1_1robot_1_1commands_1_1_intake_control_command.html", null ],
       [ "frc.robot.commands.SupersystemToPoseAutoCommand", "classfrc_1_1robot_1_1commands_1_1_supersystem_to_pose_auto_command.html", null ],
       [ "frc.robot.commands.SupersystemToPoseCommand", "classfrc_1_1robot_1_1commands_1_1_supersystem_to_pose_command.html", null ],
       [ "frc.robot.commands.SwerveTeleopDrive", "classfrc_1_1robot_1_1commands_1_1_swerve_teleop_drive.html", null ],
       [ "frc.robot.commands.ToggleArmBrakeModeCommand", "classfrc_1_1robot_1_1commands_1_1_toggle_arm_brake_mode_command.html", null ],
+      [ "frc.robot.commands.autonomous.CheckHomedCommand", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_check_homed_command.html", null ],
       [ "frc.robot.commands.autonomous.TimerForwardAutoCommand", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_timer_forward_auto_command.html", null ],
       [ "frc.robot.commands.test.TestModuleCommand", "classfrc_1_1robot_1_1commands_1_1test_1_1_test_module_command.html", null ],
       [ "frc.robot.commands.test.TestSwerveCommand", "classfrc_1_1robot_1_1commands_1_1test_1_1_test_swerve_command.html", null ],
@@ -62,6 +68,8 @@ var hierarchy =
       [ "frc.robot.commands.autonomous.ScoreMiddleAndMobilityCommandGroup", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_score_middle_and_mobility_command_group.html", null ],
       [ "frc.robot.commands.autonomous.ScoreMiddleCommandGroup", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_score_middle_command_group.html", null ],
       [ "frc.robot.commands.autonomous.ScoreOneEngageCommandGroup", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_score_one_engage_command_group.html", null ],
+      [ "frc.robot.commands.autonomous.ScoreOneOnlyCommandGroup", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_score_one_only_command_group.html", null ],
+      [ "frc.robot.commands.autonomous.ScoreTwoBalanceCommandGroup", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_score_two_balance_command_group.html", null ],
       [ "frc.robot.commands.autonomous.ScoreTwoCommandGroup", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_score_two_command_group.html", null ],
       [ "frc.robot.commands.autonomous.test.ScoreMidAndMoveCommandGroup", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1test_1_1_score_mid_and_move_command_group.html", null ]
     ] ],

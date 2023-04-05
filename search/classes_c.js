@@ -1,10 +1,23 @@
 var searchData=
 [
-  ['talonenhanced_156',['TalonEnhanced',['../classlib_1_1utils_1_1drivers_1_1_talon_enhanced.html',1,'lib::utils::drivers']]],
-  ['testautowitharm_157',['TestAutoWithArm',['../classfrc_1_1robot_1_1commands_1_1autonomous_1_1test_1_1_test_auto_with_arm.html',1,'frc::robot::commands::autonomous::test']]],
-  ['testmodulecommand_158',['TestModuleCommand',['../classfrc_1_1robot_1_1commands_1_1test_1_1_test_module_command.html',1,'frc::robot::commands::test']]],
-  ['testswervecommand_159',['TestSwerveCommand',['../classfrc_1_1robot_1_1commands_1_1test_1_1_test_swerve_command.html',1,'frc::robot::commands::test']]],
-  ['testswerverotationcommand_160',['TestSwerveRotationCommand',['../classfrc_1_1robot_1_1commands_1_1test_1_1_test_swerve_rotation_command.html',1,'frc::robot::commands::test']]],
-  ['timerforwardautocommand_161',['TimerForwardAutoCommand',['../classfrc_1_1robot_1_1commands_1_1autonomous_1_1_timer_forward_auto_command.html',1,'frc::robot::commands::autonomous']]],
-  ['togglearmbrakemodecommand_162',['ToggleArmBrakeModeCommand',['../classfrc_1_1robot_1_1commands_1_1_toggle_arm_brake_mode_command.html',1,'frc::robot::commands']]]
+  ['scoremidandmovecommandgroup_155',['ScoreMidAndMoveCommandGroup',['../classfrc_1_1robot_1_1commands_1_1autonomous_1_1test_1_1_score_mid_and_move_command_group.html',1,'frc::robot::commands::autonomous::test']]],
+  ['scoremiddleandmobilitycommandgroup_156',['ScoreMiddleAndMobilityCommandGroup',['../classfrc_1_1robot_1_1commands_1_1autonomous_1_1_score_middle_and_mobility_command_group.html',1,'frc::robot::commands::autonomous']]],
+  ['scoremiddlecommandgroup_157',['ScoreMiddleCommandGroup',['../classfrc_1_1robot_1_1commands_1_1autonomous_1_1_score_middle_command_group.html',1,'frc::robot::commands::autonomous']]],
+  ['scoreoneengagecommandgroup_158',['ScoreOneEngageCommandGroup',['../classfrc_1_1robot_1_1commands_1_1autonomous_1_1_score_one_engage_command_group.html',1,'frc::robot::commands::autonomous']]],
+  ['scoreoneonlycommandgroup_159',['ScoreOneOnlyCommandGroup',['../classfrc_1_1robot_1_1commands_1_1autonomous_1_1_score_one_only_command_group.html',1,'frc::robot::commands::autonomous']]],
+  ['scoretwobalancecommandgroup_160',['ScoreTwoBalanceCommandGroup',['../classfrc_1_1robot_1_1commands_1_1autonomous_1_1_score_two_balance_command_group.html',1,'frc::robot::commands::autonomous']]],
+  ['scoretwocommandgroup_161',['ScoreTwoCommandGroup',['../classfrc_1_1robot_1_1commands_1_1autonomous_1_1_score_two_command_group.html',1,'frc::robot::commands::autonomous']]],
+  ['scoringheights_162',['ScoringHeights',['../enumfrc_1_1robot_1_1commands_1_1autonomous_1_1_auto_utils_1_1_scoring_heights.html',1,'frc::robot::commands::autonomous::AutoUtils']]],
+  ['sparkmaxconfigs_163',['SparkMaxConfigs',['../classlib_1_1utils_1_1_rev_1_1_spark_max_configs.html',1,'lib::utils::Rev']]],
+  ['sparkmaxwrapper_164',['SparkMaxWrapper',['../classlib_1_1utils_1_1_rev_1_1_spark_max_wrapper.html',1,'lib::utils::Rev']]],
+  ['startingzones_165',['StartingZones',['../enumfrc_1_1robot_1_1commands_1_1autonomous_1_1_auto_utils_1_1_starting_zones.html',1,'frc::robot::commands::autonomous::AutoUtils']]],
+  ['subclassexample_166',['SubclassExample',['../class_my_library_1_1_subclass_example.html',1,'MyLibrary']]],
+  ['supersystemtoposeautocommand_167',['SupersystemToPoseAutoCommand',['../classfrc_1_1robot_1_1commands_1_1_supersystem_to_pose_auto_command.html',1,'frc::robot::commands']]],
+  ['supersystemtoposecommand_168',['SupersystemToPoseCommand',['../classfrc_1_1robot_1_1commands_1_1_supersystem_to_pose_command.html',1,'frc::robot::commands']]],
+  ['swerveazimuthfactoy_169',['SwerveAzimuthFactoy',['../classlib_1_1utils_1_1_swerve_1_1_swerve_azimuth_factoy.html',1,'lib::utils::Swerve']]],
+  ['swervedrivetrain_170',['SwerveDrivetrain',['../classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_drivetrain.html',1,'frc::robot::subsystems::swerve']]],
+  ['swervemodfalcon_171',['SwerveModFalcon',['../classfrc_1_1robot_1_1subsystems_1_1swerve_1_1module_1_1_swerve_mod_falcon.html',1,'frc::robot::subsystems::swerve::module']]],
+  ['swervemodneo_172',['SwerveModNeo',['../classfrc_1_1robot_1_1subsystems_1_1swerve_1_1module_1_1_swerve_mod_neo.html',1,'frc::robot::subsystems::swerve::module']]],
+  ['swervemoduleinterface_173',['SwerveModuleInterface',['../interfacefrc_1_1robot_1_1subsystems_1_1swerve_1_1module_1_1_swerve_module_interface.html',1,'frc::robot::subsystems::swerve::module']]],
+  ['swerveteleopdrive_174',['SwerveTeleopDrive',['../classfrc_1_1robot_1_1commands_1_1_swerve_teleop_drive.html',1,'frc::robot::commands']]]
 ];

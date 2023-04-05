@@ -8,6 +8,7 @@ var classfrc_1_1robot_1_1subsystems_1_1arm_1_1_arm_angle_subsystem =
     [ "enableBrakeMode", "classfrc_1_1robot_1_1subsystems_1_1arm_1_1_arm_angle_subsystem.html#a04c80a19631fc896e697349833dd3d8a", null ],
     [ "encoderConnected", "classfrc_1_1robot_1_1subsystems_1_1arm_1_1_arm_angle_subsystem.html#ab595476bb1ad418e865baaa3dfe11bf3", null ],
     [ "getArmAngle", "classfrc_1_1robot_1_1subsystems_1_1arm_1_1_arm_angle_subsystem.html#a610600ec8ef579bf70bc4c0c35375143", null ],
+    [ "getError", "classfrc_1_1robot_1_1subsystems_1_1arm_1_1_arm_angle_subsystem.html#a745a3ae7ea2cb9f41b715a88d2ec837a", null ],
     [ "periodic", "classfrc_1_1robot_1_1subsystems_1_1arm_1_1_arm_angle_subsystem.html#a9ec4a40b8152c73fdacf52cb0a9863a8", null ],
     [ "setAngleSpeed", "classfrc_1_1robot_1_1subsystems_1_1arm_1_1_arm_angle_subsystem.html#a1aebd2709da09f2f24f21386c1f0f9d3", null ],
     [ "setAngleSpeedFactory", "classfrc_1_1robot_1_1subsystems_1_1arm_1_1_arm_angle_subsystem.html#a09dbed79e197c2c6defcb126061ef82b", null ],
