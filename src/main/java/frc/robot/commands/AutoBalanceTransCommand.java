@@ -17,7 +17,7 @@ public class AutoBalanceTransCommand extends CommandBase {
         // each subsystem used by the command must be passed into the
         // addRequirements() method (which takes a vararg of Subsystem)
         m_swerve = swerve;
-        m_pid = new PIDController(0.005, 0.0, 0.0);
+        m_pid = new PIDController(0.0035, 0.0, 0.0);
         m_timer = new Timer();
         addRequirements(swerve);
     }
@@ -26,6 +26,7 @@ public class AutoBalanceTransCommand extends CommandBase {
     public void initialize() {
         m_pid.setSetpoint(0.0);
         m_swerve.setFieldRelative(false);
+        m_swerve.drive(-1, 0, 0);
     }
 
     @Override

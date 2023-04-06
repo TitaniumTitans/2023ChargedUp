@@ -158,7 +158,7 @@ public class FalconProModule implements SwerveModuleInterface {
         var driveConfiguration = new TalonFXConfiguration();
         driveConfiguration.ClosedLoopRamps.DutyCycleClosedLoopRampPeriod = 0.7;
         driveConfiguration.OpenLoopRamps.DutyCycleOpenLoopRampPeriod = 0.7;
-        driveConfiguration.ClosedLoopRamps.VoltageClosedLoopRampPeriod = 0.6;
+        driveConfiguration.ClosedLoopRamps.VoltageClosedLoopRampPeriod = 0.4;
         driveConfiguration.MotorOutput.NeutralMode = NeutralModeValue.Brake;
         driveConfiguration.MotorOutput.DutyCycleNeutralDeadband = 0.01;
         driveConfiguration.Feedback.SensorToMechanismRatio = ModuleConstants.L3_GEAR_RATIO;

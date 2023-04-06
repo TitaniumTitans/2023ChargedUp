@@ -67,9 +67,9 @@ public final class Constants {
         /** Constants for the Phoenix Pro Modules using Falcon 500s **/
         public static final double L3_GEAR_RATIO = 6.12;
 
-        public static final double FALCON_AZIMUTH_KP = 2.75;
-        public static final double FALCON_AZIMUTH_KI = 0.03;
-        public static final double FALCON_AZIMUTH_KD = 0.09;
+        public static final double FALCON_AZIMUTH_KP = 3.50;
+        public static final double FALCON_AZIMUTH_KI = 0.05;
+        public static final double FALCON_AZIMUTH_KD = 0.00;
 
         public static final double FALCON_DRIVE_KV = 0.75;
         public static final double FALCON_DRIVE_KS = 0.1;
@@ -96,10 +96,10 @@ public final class Constants {
         public static final double MOD_BR_OFFSET = -142.207 + 180;
         public static final double MOD_BL_OFFSET = 140.625;
         // Competition Offset
-        public static final double MOD_FL_OFFSET_V2 = 263.4 + 180;
-        public static final double MOD_FR_OFFSET_V2 = 75.1;
-        public static final double MOD_BL_OFFSET_V2 = 356.2;
-        public static final double MOD_BR_OFFSET_V2 = 350.1;
+        public static final double MOD_FL_OFFSET_V2 = 262.8 + 180;
+        public static final double MOD_FR_OFFSET_V2 = 255.893 + 180;
+        public static final double MOD_BL_OFFSET_V2 = 173.4 + 180;
+        public static final double MOD_BR_OFFSET_V2 = 169.4 + 180;
 
         // Kinematics
         // Distance between centers of right and left wheels on robot
@@ -164,8 +164,8 @@ public final class Constants {
         }
 
         //Trajectory following values
-        public static final double MAX_VELOCITY_MPS_AUTO = Units.feetToMeters(14);
-        public static final double MAX_ACCELERATION_MPS_AUTO = MAX_VELOCITY_MPS_AUTO / 2;
+        public static final double MAX_VELOCITY_MPS_AUTO = Units.feetToMeters(16);
+        public static final double MAX_ACCELERATION_MPS_AUTO = MAX_VELOCITY_MPS_AUTO / 2.0;
 
         public static final PIDController THETA_CONTROLLER =
                 new PIDController(3.25, 0.1, 0.3);
@@ -176,10 +176,10 @@ public final class Constants {
             new PIDController(3.2, 0.03, 0.3);
 
         public static final PIDConstants CONSTANTS_X =
-                new PIDConstants(3.5, 0.0, 0.0);
+                new PIDConstants(3.2, 0.0, 0.0);
 
         public static final PIDConstants THETA_CONSTANTS =
-                new PIDConstants(3.5, 0.0, 0.0);
+                new PIDConstants(3.2, 0.0, 0.0);
         
         //Auto balance constants
         public static final double BALANCE_P = -0.04;
@@ -269,7 +269,7 @@ public final class Constants {
 
         // Arm Angle limits for Piecewise Function
         public static final GosDoubleProperty ARM_ANGLE_LOWER =
-                new GosDoubleProperty(true, "Arm Angle Lower Limit", 45);
+                new GosDoubleProperty(true, "Arm Angle Lower Limit", 40);
         public static final GosDoubleProperty ARM_ANGLE_UPPER =
                 new GosDoubleProperty(false, "Arm Angle Upper Limit", 325);
 
@@ -338,12 +338,12 @@ public final class Constants {
 
         private static final PiecewiseInterval<Double> BACK_SPEED = new PiecewiseInterval<>(
                 BACK_RANGE,
-                angle -> (MathUtil.clamp(((1- ((angle - STOW_ZONE.getValue()) / 180)) * 1.0), 0.6, 1)
+                angle -> (MathUtil.clamp(((1- ((angle - STOW_ZONE.getValue()) / 180)) * 3.5), 0.5, 1)
         ));
 
         private static final PiecewiseInterval<Double> FORWARD_SPEED = new PiecewiseInterval<>(
                 FORWARD_RANGE,
-                angle -> (MathUtil.clamp(1 - ((angle - (360 - (180 + STOW_ZONE.getValue()))) * 1.0), 0.6, 1))
+                angle -> (MathUtil.clamp(1 - ((angle - (360 - (180 + STOW_ZONE.getValue()))) * 3.5), 0.5, 1))
         );
 
         public static final RangedPiecewise<Double> DRIVE_SPEED_PIECEWISE = new RangedPiecewise<>(
@@ -359,15 +359,15 @@ public final class Constants {
         private ArmSetpoints() {
             throw new IllegalStateException("Utility Class");
         }
-        public static final ArmPose STOW_POSITION = new ArmPose(0.0, 60, 0.0);
+        public static final ArmPose STOW_POSITION = new ArmPose(0.0, 40, 0.0);
         public static final ArmPose VERT_STOW_POSE = new ArmPose(0.0, 180, 0.0);
 
         public static final ArmPose INTAKE_CUBE = new ArmPose(4.7, 325.1, 165.6);
         public static final ArmPose INTAKE_CONE = new ArmPose(1.5, 328.0, 170.0);
-        public static final ArmPose INTAKE_BATTERY = new ArmPose(12.1, 55.0, 145.0);
-        public static final ArmPose HUMAN_PLAYER_STATION = new ArmPose(0.0, 236.6, 80.0);
+        public static final ArmPose INTAKE_BATTERY = new ArmPose(11.9, 58.0, 145.0);
+        public static final ArmPose HUMAN_PLAYER_STATION = new ArmPose(0.0, 238.6, 92.5);
 
-        public static final ArmPose MIDDLE_GOAL = new ArmPose(0.0, 252.1, 99.7);
+        public static final ArmPose MIDDLE_GOAL = new ArmPose(0.0, 257.1, 99.7);
         public static final ArmPose HIGH_GOAL = new ArmPose(20, 240.0, 95.3);
     }
 

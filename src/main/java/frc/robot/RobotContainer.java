@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import frc.robot.commands.*;
 import frc.robot.commands.autonomous.AutoFactory;
+import frc.robot.commands.autonomous.Balance;
 import frc.robot.subsystems.arm.ArmExtSubsystem;
 import frc.robot.supersystems.ArmPose;
 import frc.robot.supersystems.ArmSupersystem;
@@ -100,7 +101,7 @@ public class RobotContainer {
 
 
             m_driveController.button(7).onTrue(m_drive.resetGyroBase());
-            m_driveController.start().onTrue(m_drive.toggleFieldRelative());
+        //     m_driveController.start().onTrue(m_drive.toggleFieldRelative());
 
             m_driveController.leftTrigger().whileTrue(m_super.runIntake(-0.4)).whileFalse(m_super.runIntake(0.0));
             m_driveController.rightTrigger().whileTrue(m_super.runIntake(1.0)).whileFalse(m_super.runIntake(0.0));
@@ -150,6 +151,8 @@ public class RobotContainer {
      */
     public void configDashboard() {
         ShuffleboardTab testCommands = Shuffleboard.getTab("Commands");
+
+        testCommands.add("balance", new Balance(m_drive));
 
         testCommands.add("Toggle Angle Brake Mode", new ToggleArmBrakeModeCommand(m_arm)).withSize(2, 1);
         testCommands.add("Toggle Wrist Brake Mode", new InstantCommand(() -> m_wrist.toggleBrakeMode()).runsWhenDisabled());

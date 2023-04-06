@@ -3,6 +3,8 @@ package frc.robot.commands.autonomous;
 import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
+
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -13,8 +15,10 @@ import frc.robot.commands.SupersystemToPoseAutoCommand;
 import frc.robot.subsystems.swerve.SwerveDrivetrain;
 import frc.robot.supersystems.ArmPose;
 import frc.robot.supersystems.ArmSupersystem;
+import kotlin.Unit;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class ScoreTwoBalanceCommandGroup extends SequentialCommandGroup {
     public ScoreTwoBalanceCommandGroup(SwerveDrivetrain m_swerve, ArmSupersystem m_armSupersystem, AutoUtils.ScoringHeights scoreHeight, AutoUtils.StartingZones start) {
@@ -30,14 +34,14 @@ public class ScoreTwoBalanceCommandGroup extends SequentialCommandGroup {
             addCommands(new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.MIDDLE_GOAL));
         }
 
-        PathPlannerTrajectory trajectory;
+        List<PathPlannerTrajectory> trajectory;
 
         if((start == AutoUtils.StartingZones.LEFT && alliance == DriverStation.Alliance.Blue) || (start == AutoUtils.StartingZones.RIGHT && alliance == DriverStation.Alliance.Red)) {
-            trajectory = PathPlanner.loadPath("PickUp Left Engage", constraints);
+            trajectory = PathPlanner.loadPathGroup("PickUp Left Engage", constraints);
         } else if ((start == AutoUtils.StartingZones.RIGHT && alliance == DriverStation.Alliance.Blue) || (start == AutoUtils.StartingZones.LEFT && alliance == DriverStation.Alliance.Red)) {
-            trajectory = PathPlanner.loadPath("PickUp Right Engage", constraints);
+            trajectory = PathPlanner.loadPathGroup("PickUp Right Engage", constraints);
         } else {
-            trajectory = PathPlanner.loadPath("PickUp Middle Engage", constraints);
+            trajectory = PathPlanner.loadPathGroup("PickUp Middle Engage", constraints);
         }
 
         ArmPose armScoringPose;
@@ -56,8 +60,10 @@ public class ScoreTwoBalanceCommandGroup extends SequentialCommandGroup {
         autoEvents.put("ClearGround", (new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.STOW_POSITION)));
         autoEvents.put("Score", 
                 (new SupersystemToPoseAutoCommand(m_armSupersystem, armScoringPose))
-                .andThen(m_armSupersystem.runIntakeForTime(0.25,-0.4))
-                .andThen(new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.STOW_POSITION)));
+                .andThen(m_armSupersystem.runIntakeForTime(0.1,-0.4)));
+                // .andThen(new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.MIDDLE_GOAL)));
+        autoEvents.put("RaiseArm", 
+            new SupersystemToPoseAutoCommand(m_armSupersystem, armScoringPose));
         // autoEvents.put("Stow", m_armSupersystem.runIntakeForTime(0.1, 0.0)
                 // .andThen(new SupersystemToPoseAutoCommand(m_armSupersystem, ArmSetpoints.STOW_POSITION)));
 
