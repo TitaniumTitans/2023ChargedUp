@@ -157,6 +157,12 @@
       "names": [
         "RaiseArm"
       ]
+    },
+    {
+      "position": 3.054545454545449,
+      "names": [
+        "ClearGround"
+      ]
     }
   ]
 }
