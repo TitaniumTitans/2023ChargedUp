@@ -365,7 +365,7 @@ public final class Constants {
         public static final ArmPose INTAKE_CUBE = new ArmPose(4.7, 325.1, 165.6);
         public static final ArmPose INTAKE_CONE = new ArmPose(1.5, 328.0, 170.0);
         public static final ArmPose INTAKE_BATTERY = new ArmPose(11.9, 58.0, 145.0);
-        public static final ArmPose HUMAN_PLAYER_STATION = new ArmPose(0.0, 238.6, 92.5);
+        public static final ArmPose HUMAN_PLAYER_STATION = new ArmPose(0.0, 238.6, 94.5);
 
         public static final ArmPose MIDDLE_GOAL = new ArmPose(0.0, 257.1, 99.7);
         public static final ArmPose HIGH_GOAL = new ArmPose(20, 240.0, 95.3);
