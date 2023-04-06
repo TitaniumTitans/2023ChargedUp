@@ -69,6 +69,7 @@ public class SwerveDrivetrain extends SubsystemBase {
     private int m_alignCount = 0;
     private boolean slowmode = false;
     public double m_speedMult = 1;
+    public double m_rotationMult = 1;
 
     public enum AlignmentOptions {
         LEFT_ALIGN,
@@ -222,7 +223,7 @@ public class SwerveDrivetrain extends SubsystemBase {
                 fieldOriented ? ChassisSpeeds.fromFieldRelativeSpeeds(
                         xTranslation,
                         yTranslation,
-                        zRotation,
+                        zRotation *= m_rotationMult,
                         getGyroYaw()
                 )
                         : new ChassisSpeeds(xTranslation, yTranslation, zRotation)

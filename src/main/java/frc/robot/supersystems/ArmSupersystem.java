@@ -188,6 +188,12 @@ public class ArmSupersystem {
     public void getDriveSpeed () {
         Double range = LimitConstants.DRIVE_SPEED_PIECEWISE.calculate(m_angle.getArmAngle());
         m_swerve.m_speedMult = range.doubleValue();
+
+        if (m_ext.getArmExtension() > 5) {
+            m_swerve.m_rotationMult = 0.5;
+        } else {
+            m_swerve.m_rotationMult = 1;
+        }
     }
 
 }

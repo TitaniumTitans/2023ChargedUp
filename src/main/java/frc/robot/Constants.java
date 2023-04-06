@@ -62,7 +62,8 @@ public final class Constants {
         public static final double MODULE_DRIVE_KP = 0.5;
 
         public static final double MAX_SPEED_L2_MPS = 3.657;
-        public static final double MAX_SPEED_L3_MPS = Units.feetToMeters(16);
+        public static final GosDoubleProperty MAX_SPEED_FPS = new GosDoubleProperty(false, "Max Drive Speed", 16);
+        public static final double MAX_SPEED_L3_MPS = Units.feetToMeters(MAX_SPEED_FPS.getValue());
 
         /** Constants for the Phoenix Pro Modules using Falcon 500s **/
         public static final double L3_GEAR_RATIO = 6.12;
