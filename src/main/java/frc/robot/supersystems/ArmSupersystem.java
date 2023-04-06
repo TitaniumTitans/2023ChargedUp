@@ -76,7 +76,7 @@ public class ArmSupersystem {
         m_wrist.setWristAngle(wristSetpoint);
 
         // Extension limits and outputs are calculated here
-        if (extSetpoint < 5 || Math.abs(m_angle.getError()) < 9) {
+        if (extSetpoint < 5 || Math.abs(m_angle.getError()) < 15) {
             m_ext.setArmExtension(extSetpoint);
         }
 
