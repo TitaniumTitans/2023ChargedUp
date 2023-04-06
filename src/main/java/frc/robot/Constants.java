@@ -337,14 +337,17 @@ public final class Constants {
                 false
         );
 
+        public static final GosDoubleProperty speedRamp = new GosDoubleProperty(false, "Speed Limit Ramp", 3.5);
+        public static final GosDoubleProperty speedCap = new GosDoubleProperty(false, "Speed Limit Cap", 0.5);
+
         private static final PiecewiseInterval<Double> BACK_SPEED = new PiecewiseInterval<>(
                 BACK_RANGE,
-                angle -> (MathUtil.clamp(((1- ((angle - STOW_ZONE.getValue()) / 180)) * 3.5), 0.5, 1)
+                angle -> (MathUtil.clamp(((1- ((angle - STOW_ZONE.getValue()) / 180)) * speedRamp.getValue()), speedCap.getValue(), 1)
         ));
 
         private static final PiecewiseInterval<Double> FORWARD_SPEED = new PiecewiseInterval<>(
                 FORWARD_RANGE,
-                angle -> (MathUtil.clamp(1 - ((angle - (360 - (180 + STOW_ZONE.getValue()))) * 3.5), 0.5, 1))
+                angle -> (MathUtil.clamp(1 - ((angle - (360 - (180 + STOW_ZONE.getValue()))) * speedRamp.getValue()), speedCap.getValue(), 1))
         );
 
         public static final RangedPiecewise<Double> DRIVE_SPEED_PIECEWISE = new RangedPiecewise<>(
