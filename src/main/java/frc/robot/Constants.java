@@ -62,7 +62,7 @@ public final class Constants {
         public static final double MODULE_DRIVE_KP = 0.5;
 
         public static final double MAX_SPEED_L2_MPS = 3.657;
-        public static final double MAX_SPEED_L3_MPS = 5.48;
+        public static final double MAX_SPEED_L3_MPS = Units.feetToMeters(16);
 
         /** Constants for the Phoenix Pro Modules using Falcon 500s **/
         public static final double L3_GEAR_RATIO = 6.12;
@@ -234,7 +234,7 @@ public final class Constants {
         public static final GosDoubleProperty ARM_EXT_KI = new GosDoubleProperty(false, "Arm extension kI", 0);
         public static final GosDoubleProperty ARM_EXT_KD = new GosDoubleProperty(false, "Arm extension kD", 0);
 
-        public static final double ARM_OFFSET = CURRENT_MODE == Mode.HELIOS_V1 ? 165.0 : 294  - 180;
+        public static final double ARM_OFFSET = CURRENT_MODE == Mode.HELIOS_V1 ? 165.0 : 294;
 
         public static final int ENCODER_PORT = 4;
 
@@ -359,15 +359,18 @@ public final class Constants {
         private ArmSetpoints() {
             throw new IllegalStateException("Utility Class");
         }
+
+        public static final GosDoubleProperty HUMAN_HEIGHT = new GosDoubleProperty(false, "HUMAN HIEGHT", 233.6);
+
         public static final ArmPose STOW_POSITION = new ArmPose(0.0, 40, 0.0);
         public static final ArmPose VERT_STOW_POSE = new ArmPose(0.0, 180, 0.0);
 
         public static final ArmPose INTAKE_CUBE = new ArmPose(4.7, 325.1, 165.6);
         public static final ArmPose INTAKE_CONE = new ArmPose(1.5, 328.0, 170.0);
         public static final ArmPose INTAKE_BATTERY = new ArmPose(11.9, 58.0, 145.0);
-        public static final ArmPose HUMAN_PLAYER_STATION = new ArmPose(0.0, 236.6, 80.0);
+        public static final ArmPose HUMAN_PLAYER_STATION = new ArmPose(0.0, 230.6, 80.0);
 
-        public static final ArmPose MIDDLE_GOAL = new ArmPose(0.0, 257.1, 99.7);
+        public static final ArmPose MIDDLE_GOAL = new ArmPose(0.0, 252.1, 99.7);
         public static final ArmPose HIGH_GOAL = new ArmPose(20, 240.0, 95.3);
     }
 

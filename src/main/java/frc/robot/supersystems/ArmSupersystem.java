@@ -69,7 +69,7 @@ public class ArmSupersystem {
     public void setToPose(ArmPose pose) {
         ArmLimits armLimits = limitPiecewise.calculate(m_angle.getArmAngle());
         double wristSetpoint = armLimits.wristRange.clamp(pose.wristSetpoint);
-        double angleSetpoint = armLimits.armAngleRange.clamp(pose.angleSetpoint);
+        double angleSetpoint = armLimits.armAngleRange.clamp(pose.getAngleSetpoint());
         double extSetpoint = armLimits.armExtRange.clamp(pose.extSetpoint);
 
         // Wrist limits and output are calculated here

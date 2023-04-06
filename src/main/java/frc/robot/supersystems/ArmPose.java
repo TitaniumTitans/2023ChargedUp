@@ -4,23 +4,28 @@ import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.util.sendable.SendableBuilder;
 
 import java.util.function.DoubleConsumer;
+import java.util.function.DoubleSupplier;
 
 public class ArmPose implements Sendable {
     public final double extSetpoint;
-    public final double angleSetpoint;
+    public final DoubleSupplier angleSetpointSupplier;
     public final double wristSetpoint;
 
     public ArmPose(double ext, double angle, double wrist) {
-        if (ext < 0.0 || angle < 0.0 || wrist < 0.0) {
+        this(ext, () -> angle, wrist);
+    }
+
+    public ArmPose(double ext, DoubleSupplier angleSupplier, double wrist) {
+        if (ext < 0.0 || angleSupplier.getAsDouble() < 0.0 || wrist < 0.0) {
             throw new IllegalStateException("Not a valid ArmPose parameter");
         }
         extSetpoint = ext;
-        angleSetpoint = angle;
+        angleSetpointSupplier = angleSupplier;
         wristSetpoint = wrist;
     }
 
     public double getAngleSetpoint() {
-        return angleSetpoint;
+        return angleSetpointSupplier.getAsDouble();
     }
 
     public double getWristSetpoint() {
