@@ -60,7 +60,7 @@ public class ScoreTwoBalanceCommandGroup extends SequentialCommandGroup {
         autoEvents.put("ClearGround", (new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.STOW_POSITION)));
         autoEvents.put("Score", 
                 (new SupersystemToPoseAutoCommand(m_armSupersystem, armScoringPose))
-                .andThen(m_armSupersystem.runIntakeForTime(0.1,-0.4)));
+                .andThen(m_armSupersystem.runIntakeForTime(0.09,-0.6)));
                 // .andThen(new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.MIDDLE_GOAL)));
         autoEvents.put("RaiseArm", 
             new SupersystemToPoseAutoCommand(m_armSupersystem, armScoringPose));
@@ -68,7 +68,7 @@ public class ScoreTwoBalanceCommandGroup extends SequentialCommandGroup {
                 // .andThen(new SupersystemToPoseAutoCommand(m_armSupersystem, ArmSetpoints.STOW_POSITION)));
 
         // addCommands(new SupersystemToPoseAutoCommand(m_armSupersystem, armScoringPose));
-        addCommands(m_armSupersystem.runIntakeForTime(0.3, -0.4));
+        addCommands(m_armSupersystem.runIntakeForTime(0.15, -0.6));
         addCommands(m_swerve.getAutoBuilder(autoEvents).fullAuto(trajectory).andThen(new AutoBalanceTransCommand(m_swerve)));
     }
 
