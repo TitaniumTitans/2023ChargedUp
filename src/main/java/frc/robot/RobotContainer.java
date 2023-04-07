@@ -17,8 +17,10 @@ import frc.robot.supersystems.ArmSupersystem;
 import lib.controllers.FootPedal;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import frc.robot.subsystems.arm.ArmAngleSubsystem;
@@ -80,9 +82,7 @@ public class RobotContainer {
 
         m_autoFactory = new AutoFactory(m_super, m_drive, m_wrist, m_ext);
 
-        if (m_candle != null) {
-            m_candle.animate(new RainbowAnimation(1.0, 0.75, 400));
-        }
+        
         // Configure the button bindings
         configureButtonBindings();
         configDashboard();
@@ -95,6 +95,14 @@ public class RobotContainer {
      * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
      */
     private void configureButtonBindings() {
+        if (m_candle != null) {
+                if (DriverStation.getAlliance() == Alliance.Red) {
+                    m_candle.animate(new ColorFlowAnimation(255, 0, 0));
+                } else {
+                    m_candle.animate(new ColorFlowAnimation(0, 0, 255));
+                }
+        }
+
         if (m_driveController != null) {
             m_drive.setDefaultCommand(new SwerveTeleopDrive(m_drive, m_driveController));
             m_arm.setDefaultCommand(new HoldArmAngleCommand(m_arm));
@@ -103,8 +111,8 @@ public class RobotContainer {
             m_driveController.button(7).onTrue(m_drive.resetGyroBase());
         //     m_driveController.start().onTrue(m_drive.toggleFieldRelative());
 
-            m_driveController.leftTrigger().whileTrue(m_super.runIntake(-0.4)).whileFalse(m_super.runIntake(0.0));
-            m_driveController.rightTrigger().whileTrue(m_super.runIntake(1.0)).whileFalse(m_super.runIntake(0.0));
+            m_driveController.leftTrigger().whileTrue(new IntakeControlCommand(m_wrist, -0.5));
+            m_driveController.rightTrigger().whileTrue(new IntakeControlCommand(m_wrist, 1.0));
 
             if (Constants.CURRENT_MODE != Constants.Mode.HELIOS_V1) {
                 m_driveController.x().whileTrue(
