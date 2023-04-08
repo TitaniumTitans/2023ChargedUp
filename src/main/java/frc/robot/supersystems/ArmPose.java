@@ -9,14 +9,14 @@ import java.util.function.DoubleSupplier;
 public class ArmPose implements Sendable {
     public final double extSetpoint;
     public final DoubleSupplier angleSetpointSupplier;
-    public final double wristSetpoint;
+    public final DoubleSupplier wristSetpoint;
 
     public ArmPose(double ext, double angle, double wrist) {
-        this(ext, () -> angle, wrist);
+        this(ext, () -> angle, () -> wrist);
     }
 
-    public ArmPose(double ext, DoubleSupplier angleSupplier, double wrist) {
-        if (ext < 0.0 || angleSupplier.getAsDouble() < 0.0 || wrist < 0.0) {
+    public ArmPose(double ext, DoubleSupplier angleSupplier, DoubleSupplier wrist) {
+        if (ext < 0.0 || angleSupplier.getAsDouble() < 0.0 || wrist.getAsDouble() < 0.0) {
             throw new IllegalStateException("Not a valid ArmPose parameter");
         }
         extSetpoint = ext;
@@ -29,7 +29,7 @@ public class ArmPose implements Sendable {
     }
 
     public double getWristSetpoint() {
-        return wristSetpoint;
+        return wristSetpoint.getAsDouble();
     }
 
     public double getExtSetpoint() {

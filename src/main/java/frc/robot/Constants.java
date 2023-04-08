@@ -338,7 +338,7 @@ public final class Constants {
         );
 
         public static final GosDoubleProperty speedRamp = new GosDoubleProperty(false, "Speed Limit Ramp", 3.5);
-        public static final GosDoubleProperty speedCap = new GosDoubleProperty(false, "Speed Limit Cap", 0.5);
+        public static final GosDoubleProperty speedCap = new GosDoubleProperty(false, "Speed Limit Cap", 0.65);
 
         private static final PiecewiseInterval<Double> BACK_SPEED = new PiecewiseInterval<>(
                 BACK_RANGE,
@@ -365,6 +365,7 @@ public final class Constants {
         }
 
         public static final GosDoubleProperty HUMAN_HEIGHT = new GosDoubleProperty(false, "HUMAN HIEGHT", 233.6);
+        public static final GosDoubleProperty HUMAN_WRIST = new GosDoubleProperty(false, "HUMAN WRIST", 78.0);
 
         public static final ArmPose STOW_POSITION = new ArmPose(0.0, 40, 0.0);
         public static final ArmPose VERT_STOW_POSE = new ArmPose(0.0, 180, 0.0);
@@ -372,7 +373,7 @@ public final class Constants {
         public static final ArmPose INTAKE_CUBE = new ArmPose(4.7, 325.1, 165.6);
         public static final ArmPose INTAKE_CONE = new ArmPose(1.5, 328.0, 170.0);
         public static final ArmPose INTAKE_BATTERY = new ArmPose(11.9, 58.0, 145.0);
-        public static final ArmPose HUMAN_PLAYER_STATION = new ArmPose(0.0, 230.6, 80.0);
+        public static final ArmPose HUMAN_PLAYER_STATION = new ArmPose(0.0, 230.6, 78.0);
 
         public static final ArmPose MIDDLE_GOAL = new ArmPose(0.0, 252.1, 99.7);
         public static final ArmPose HIGH_GOAL = new ArmPose(20, 240.0, 95.3);
