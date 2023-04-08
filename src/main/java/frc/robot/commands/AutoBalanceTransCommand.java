@@ -17,7 +17,7 @@ public class AutoBalanceTransCommand extends CommandBase {
         // each subsystem used by the command must be passed into the
         // addRequirements() method (which takes a vararg of Subsystem)
         m_swerve = swerve;
-        m_pid = new PIDController(0.00368, 0.0, 0.0);
+        m_pid = new PIDController(0.00372, 0.0, 0.0);
         m_timer = new Timer();
         addRequirements(swerve);
     }
