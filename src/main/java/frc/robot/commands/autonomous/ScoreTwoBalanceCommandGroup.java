@@ -4,18 +4,15 @@ import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
 
-import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
-import frc.robot.Constants.ArmSetpoints;
 import frc.robot.commands.AutoBalanceTransCommand;
 import frc.robot.commands.SupersystemToPoseAutoCommand;
 import frc.robot.subsystems.swerve.SwerveDrivetrain;
 import frc.robot.supersystems.ArmPose;
 import frc.robot.supersystems.ArmSupersystem;
-import kotlin.Unit;
 
 import java.util.HashMap;
 import java.util.List;
@@ -60,14 +57,11 @@ public class ScoreTwoBalanceCommandGroup extends SequentialCommandGroup {
         autoEvents.put("ClearGround", (new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.STOW_POSITION)));
         autoEvents.put("Score", 
                 (new SupersystemToPoseAutoCommand(m_armSupersystem, armScoringPose))
-                .andThen(m_armSupersystem.runIntakeForTime(0.09,-0.6)));
-                // .andThen(new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.MIDDLE_GOAL)));
-        autoEvents.put("RaiseArm", 
+                .andThen(m_armSupersystem.runIntakeForTime(0.09, -0.6)));
+        autoEvents.put("RaiseArm",
             new SupersystemToPoseAutoCommand(m_armSupersystem, armScoringPose));
-        // autoEvents.put("Stow", m_armSupersystem.runIntakeForTime(0.1, 0.0)
-                // .andThen(new SupersystemToPoseAutoCommand(m_armSupersystem, ArmSetpoints.STOW_POSITION)));
 
-        // addCommands(new SupersystemToPoseAutoCommand(m_armSupersystem, armScoringPose));
+        addCommands(new SupersystemToPoseAutoCommand(m_armSupersystem, armScoringPose));
         addCommands(m_armSupersystem.runIntakeForTime(0.15, -0.6));
         addCommands(m_swerve.getAutoBuilder(autoEvents).fullAuto(trajectory).andThen(new AutoBalanceTransCommand(m_swerve)));
     }
