@@ -7,6 +7,7 @@ import com.pathplanner.lib.PathPlannerTrajectory;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 import frc.robot.commands.IntakeControlCommand;
@@ -60,8 +61,9 @@ public class ScoreTwoCommandGroup extends SequentialCommandGroup {
                 .andThen(m_armSupersystem.runIntakeForTime(0.25, -0.05))
                 .andThen(new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.STOW_POSITION)));
 
-        addCommands(m_armSupersystem.runIntakeForTime(0.3, -0.4));
-        addCommands(m_swerve.getAutoBuilder(autoEvents).fullAuto(trajectory));
+        // addCommands(new SupersystemToPoseAutoCommand(m_armSupersystem, armScoringPose));
+        // addCommands(m_armSupersystem.runIntakeForTime(0.3, -0.4));
+        addCommands(m_swerve.getAutoBuilder(new HashMap() /*autoEvents*/).fullAuto(trajectory));
     }
 
 
