@@ -4,7 +4,6 @@
 
 package frc.robot.commands.autonomous;
 
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -17,11 +16,11 @@ import frc.robot.subsystems.swerve.SwerveDrivetrain;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class Balance extends SequentialCommandGroup {
   /** Creates a new Balance. */
-  public Balance(SwerveDrivetrain m_swerve) {
+  public Balance(SwerveDrivetrain mSwerve) {
     // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new RunCommand(() -> {m_swerve.drive(Constants.AutoConstants.MAX_VELOCITY_MPS_AUTO, 0.0, 0.0);}, m_swerve)
+    addCommands(new RunCommand(() ->
+            mSwerve.drive(Constants.AutoConstants.MAX_VELOCITY_MPS_AUTO, 0.0, 0.0), mSwerve)
       .raceWith(new WaitCommand(1.0)));
-    addCommands(new AutoBalanceTransCommand(m_swerve));
+    addCommands(new AutoBalanceTransCommand(mSwerve));
   }
 }
