@@ -7,16 +7,13 @@ import com.pathplanner.lib.PathPlannerTrajectory;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
-import frc.robot.commands.IntakeControlCommand;
 import frc.robot.commands.SupersystemToPoseAutoCommand;
 import frc.robot.subsystems.swerve.SwerveDrivetrain;
 import frc.robot.supersystems.ArmPose;
 import frc.robot.supersystems.ArmSupersystem;
 
-import java.sql.Driver;
 import java.util.HashMap;
 
 public class ScoreTwoCommandGroup extends SequentialCommandGroup {
@@ -38,7 +35,7 @@ public class ScoreTwoCommandGroup extends SequentialCommandGroup {
         if((start == AutoUtils.StartingZones.LEFT && alliance == DriverStation.Alliance.Blue) || (start == AutoUtils.StartingZones.RIGHT && alliance == DriverStation.Alliance.Red)) {
             constraints = new PathConstraints(Units.feetToMeters(14), Units.feetToMeters(14) / 3);
             trajectory = PathPlanner.loadPath("PickUp Left", constraints);
-        } else {//if ((start == AutoUtils.StartingZones.RIGHT && alliance == DriverStation.Alliance.Blue) || (start == AutoUtils.StartingZones.LEFT && alliance == DriverStation.Alliance.Red)) {
+        } else {
             constraints = AutoUtils.getDefaultConstraints();
             trajectory = PathPlanner.loadPath("PickUp Right", constraints);
         }
@@ -61,9 +58,9 @@ public class ScoreTwoCommandGroup extends SequentialCommandGroup {
                 .andThen(m_armSupersystem.runIntakeForTime(0.25, -0.05))
                 .andThen(new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.STOW_POSITION)));
 
-        // addCommands(new SupersystemToPoseAutoCommand(m_armSupersystem, armScoringPose));
-        // addCommands(m_armSupersystem.runIntakeForTime(0.3, -0.4));
-        addCommands(m_swerve.getAutoBuilder(new HashMap() /*autoEvents*/).fullAuto(trajectory));
+         addCommands(new SupersystemToPoseAutoCommand(m_armSupersystem, armScoringPose));
+         addCommands(m_armSupersystem.runIntakeForTime(0.3, -0.4));
+        addCommands(m_swerve.getAutoBuilder(autoEvents).fullAuto(trajectory));
     }
 
 
