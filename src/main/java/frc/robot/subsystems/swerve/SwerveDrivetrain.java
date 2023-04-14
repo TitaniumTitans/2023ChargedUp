@@ -174,7 +174,7 @@ public class SwerveDrivetrain extends SubsystemBase {
         m_prevTime = m_currentTime;
         m_currentTime = RobotController.getFPGATime();
 
-        int temp = getFrontCamTagID();
+        getFrontCamTagID();
     }
 
     public double calculateRPSForMPS(double metersPerSecond) {
@@ -407,10 +407,6 @@ public class SwerveDrivetrain extends SubsystemBase {
                 translatedEnd.minus(new Translation2d(0.25, 0)) :
                 translatedEnd.plus(new Translation2d(0.25, 0));
 
-//        Translation2d translatedStart = tagPose.getRotation().getDegrees() == 180 ?
-//                getPose().getTranslation().minus(new Translation2d(0.05 0.0)) :
-//                getPose().getTranslation().plus(new Translation2d(0.05, 0.0));
-
         Translation2d chassisSpeed = new Translation2d(
                 getChassisSpeed().vxMetersPerSecond,
                 getChassisSpeed().vyMetersPerSecond
@@ -425,7 +421,6 @@ public class SwerveDrivetrain extends SubsystemBase {
                 new PathPoint(translatedEnd, new Rotation2d(), tagPose.getRotation().rotateBy(Rotation2d.fromDegrees(180)))
         );
 
-        m_alignCount++;
         Logger.getInstance().recordOutput("Current Trajectory", traj);
 
         return new PPSwerveControllerCommand(
@@ -496,9 +491,7 @@ public class SwerveDrivetrain extends SubsystemBase {
     }
 
     public CommandBase setSlowmodeFactory() {
-        return runOnce(() -> {
-            setSlowmode();
-        });
+        return runOnce(this::setSlowmode);
     }
 
     public CommandBase createPPSwerveController(AlignmentOptions align) {
