@@ -32,7 +32,7 @@ public class ArmSupersystem {
             new PiecewiseInterval<>(stowRange, ignored -> LimitConstants.STOW_LIMIT),
             new PiecewiseInterval<>(fullRangeZone, ignored -> LimitConstants.FULL_RANGE_LIMIT),
             new PiecewiseInterval<>(intakeRange, ignored -> LimitConstants.INTAKE_LIMIT),
-            new PiecewiseInterval<>(highStowRange, ignored -> LimitConstants.STOW_LIMIT),
+            new PiecewiseInterval<>(highStowRange, ignored -> LimitConstants.NO_EXTENTION),
             /*
              * Extension upper not constant?
              */
@@ -106,7 +106,7 @@ public class ArmSupersystem {
             double angleLimit;
             if(armPhysicalExtensionNormal > Constants.ArmConstants.PIVOT_HEIGHT) {
                 double angleAdjust = currentArmAngle - physicalArmExtension.getAngle().getDegrees();
-                angleLimit = Math.max(48, Math.toDegrees(Math.acos(Constants.ArmConstants.PIVOT_HEIGHT / physicalArmExtension.getNorm())) + angleAdjust);
+                angleLimit = Math.max(48, Math.toDegrees(Math.acos(Constants.ArmConstants.PIVOT_HEIGHT / physicalArmExtension.getNorm())) + angleAdjust + 2);
                 SmartDashboard.putNumber("SuperAngleAdjust", angleAdjust);
             } else {
                 angleLimit = 50;
@@ -187,12 +187,12 @@ public class ArmSupersystem {
 
     public void getDriveSpeed () {
         Double range = LimitConstants.DRIVE_SPEED_PIECEWISE.calculate(m_angle.getArmAngle());
-        m_swerve.m_speedMult = range.doubleValue();
+        m_swerve.setSpeedMult(range.doubleValue());
 
         if (m_ext.getArmExtension() > 5) {
-            m_swerve.m_rotationMult = 0.95;
+            m_swerve.setRotationMult(0.5);
         } else {
-            m_swerve.m_rotationMult = 1;
+            m_swerve.setRotationMult(1);
         }
     }
 
