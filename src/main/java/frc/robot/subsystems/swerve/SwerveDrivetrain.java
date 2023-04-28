@@ -236,6 +236,7 @@ public class SwerveDrivetrain extends SubsystemBase {
     public void setModuleStates(SwerveModuleState[] states) {
         for (SwerveModuleState state : states) {
             state.speedMetersPerSecond *= m_speedMult;
+            state.speedMetersPerSecond *= 0.2;
         }
 
         m_flMod.setDesiredState(states[0]);

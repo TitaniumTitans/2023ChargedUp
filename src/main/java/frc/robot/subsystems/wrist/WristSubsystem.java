@@ -194,7 +194,7 @@ public class WristSubsystem extends SubsystemBase {
         if (speed == 0) {
             m_intakeMotor.set(0.1);
         } else {
-            m_intakeMotor.set(speed);
+            m_intakeMotor.set(speed * 0.2);
         }
     }
 

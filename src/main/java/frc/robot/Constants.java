@@ -177,7 +177,7 @@ public final class Constants {
             new PIDController(3.2, 0.03, 0.3);
 
         public static final PIDConstants CONSTANTS_X =
-                new PIDConstants(3.2, 0.0, 0.0);
+                new PIDConstants(4.0, 0.005, 0.0);
 
         public static final PIDConstants THETA_CONSTANTS =
                 new PIDConstants(3.2, 0.0, 0.0);
@@ -262,7 +262,7 @@ public final class Constants {
 
         // Arm Extension limits for Piecewise Function
         public static final GosDoubleProperty ARM_EXT_STOW =
-                new GosDoubleProperty(false, "Arm Extension Stow Limit", 0.5);
+                new GosDoubleProperty(false, "Arm Extension Stow Limit", 0.0);
         public static final GosDoubleProperty ARM_EXT_SCORE_LOWER =
                 new GosDoubleProperty(false, "Arm Extension Score Lower Limit", 0);
         public static final GosDoubleProperty ARM_EXT_SCORE_UPPER =
