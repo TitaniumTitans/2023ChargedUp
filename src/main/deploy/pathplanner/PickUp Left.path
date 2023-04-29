@@ -7,8 +7,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.273643213953095,
-        "y": 4.606633423793164
+        "x": 3.1920288401980312,
+        "y": 4.48874599503585
       },
       "holonomicAngle": -180.42,
       "isReversal": false,
@@ -24,16 +24,16 @@
     },
     {
       "anchorPoint": {
-        "x": 6.574491219157877,
-        "y": 4.570360368790913
+        "x": 6.72,
+        "y": 4.6
       },
       "prevControl": {
-        "x": 5.112020123181823,
-        "y": 4.642616511250993
+        "x": 3.0382849172715884,
+        "y": 4.6725461100045
       },
       "nextControl": {
-        "x": 5.112020123181823,
-        "y": 4.642616511250993
+        "x": 3.0382849172715884,
+        "y": 4.6725461100045
       },
       "holonomicAngle": 180.0,
       "isReversal": true,
@@ -56,11 +56,14 @@
         "y": 4.316448983775161
       },
       "prevControl": {
-        "x": 2.248929410139522,
-        "y": 4.7698621713032905
+        "x": 2.475636003903587,
+        "y": 4.515950786287538
       },
-      "nextControl": null,
-      "holonomicAngle": -177.61405596961114,
+      "nextControl": {
+        "x": 1.3874443538360763,
+        "y": 4.116947181262784
+      },
+      "holonomicAngle": -180.61,
       "isReversal": false,
       "velOverride": null,
       "isLocked": false,
@@ -73,19 +76,53 @@
         "waitBehavior": "none",
         "waitTime": 0
       }
+    },
+    {
+      "anchorPoint": {
+        "x": 6.610764274160127,
+        "y": 3.8539675324964686
+      },
+      "prevControl": {
+        "x": 5.549777415344305,
+        "y": 6.302398745148367
+      },
+      "nextControl": null,
+      "holonomicAngle": 178.65211271980135,
+      "isReversal": false,
+      "velOverride": null,
+      "isLocked": false,
+      "isStopPoint": false,
+      "stopEvent": {
+        "names": [],
+        "executionBehavior": "parallel",
+        "waitBehavior": "none",
+        "waitTime": 0
+      }
     }
   ],
   "markers": [
     {
       "position": 0.0,
       "names": [
+        "ClearGround"
+      ]
+    },
+    {
+      "position": 1.1090909090909087,
+      "names": [
+        "ClearGround"
+      ]
+    },
+    {
+      "position": 0.6545454545454547,
+      "names": [
         "LowerIntake"
       ]
     },
     {
-      "position": 1.1090909090909107,
+      "position": 1.4727272727272744,
       "names": [
-        "ClearGround"
+        "Score"
       ]
     }
   ]

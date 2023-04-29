@@ -20,7 +20,7 @@ public class ScoreOneEngageCommandGroup extends SequentialCommandGroup {
         }
 
         addCommands(new IntakeControlCommand(m_wrist, -0.3)
-                .raceWith(new WaitCommand(0.5)));
+                .raceWith(new WaitCommand(0.25)));
         addCommands(new IntakeControlCommand(m_wrist, 0.0)
                 .raceWith(new WaitCommand(0.0)));
 

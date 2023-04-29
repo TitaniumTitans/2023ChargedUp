@@ -68,15 +68,15 @@ public class ArmSupersystem {
      */
     public void setToPose(ArmPose pose) {
         ArmLimits armLimits = limitPiecewise.calculate(m_angle.getArmAngle());
-        double wristSetpoint = armLimits.wristRange.clamp(pose.wristSetpoint);
-        double angleSetpoint = armLimits.armAngleRange.clamp(pose.angleSetpoint);
+        double wristSetpoint = armLimits.wristRange.clamp(pose.getWristSetpoint());
+        double angleSetpoint = armLimits.armAngleRange.clamp(pose.getAngleSetpoint());
         double extSetpoint = armLimits.armExtRange.clamp(pose.extSetpoint);
 
         // Wrist limits and output are calculated here
         m_wrist.setWristAngle(wristSetpoint);
 
         // Extension limits and outputs are calculated here
-        if (extSetpoint < 5 || Math.abs(m_angle.getError()) < 10) {
+        if (extSetpoint < 5 || Math.abs(m_angle.getError()) < 15) {
             m_ext.setArmExtension(extSetpoint);
         }
 
@@ -187,7 +187,13 @@ public class ArmSupersystem {
 
     public void getDriveSpeed () {
         Double range = LimitConstants.DRIVE_SPEED_PIECEWISE.calculate(m_angle.getArmAngle());
-        m_swerve.m_speedMult = range.doubleValue();
+        m_swerve.setSpeedMult(range.doubleValue());
+
+        if (m_ext.getArmExtension() > 5) {
+            m_swerve.setRotationMult(0.5);
+        } else {
+            m_swerve.setRotationMult(1);
+        }
     }
 
 }

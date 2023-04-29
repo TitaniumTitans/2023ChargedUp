@@ -10,14 +10,17 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import frc.robot.commands.*;
 import frc.robot.commands.autonomous.AutoFactory;
+import frc.robot.commands.autonomous.Balance;
 import frc.robot.subsystems.arm.ArmExtSubsystem;
 import frc.robot.supersystems.ArmPose;
 import frc.robot.supersystems.ArmSupersystem;
 import lib.controllers.FootPedal;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import frc.robot.subsystems.arm.ArmAngleSubsystem;
@@ -79,9 +82,7 @@ public class RobotContainer {
 
         m_autoFactory = new AutoFactory(m_super, m_drive, m_wrist, m_ext);
 
-        if (m_candle != null) {
-            m_candle.animate(new RainbowAnimation(1.0, 0.75, 400));
-        }
+        
         // Configure the button bindings
         configureButtonBindings();
         configDashboard();
@@ -94,16 +95,23 @@ public class RobotContainer {
      * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
      */
     private void configureButtonBindings() {
+        if (m_candle != null) {
+                if (DriverStation.getAlliance() == Alliance.Red) {
+                    m_candle.animate(new ColorFlowAnimation(255, 0, 0));
+                } else {
+                    m_candle.animate(new ColorFlowAnimation(0, 0, 255));
+                }
+        }
+
         if (m_driveController != null) {
             m_drive.setDefaultCommand(new SwerveTeleopDrive(m_drive, m_driveController));
             m_arm.setDefaultCommand(new HoldArmAngleCommand(m_arm));
 
 
             m_driveController.button(7).onTrue(m_drive.resetGyroBase());
-            m_driveController.start().onTrue(m_drive.toggleFieldRelative());
 
-            m_driveController.leftTrigger().whileTrue(m_super.runIntake(-0.4)).whileFalse(m_super.runIntake(0.0));
-            m_driveController.rightTrigger().whileTrue(m_super.runIntake(1.0)).whileFalse(m_super.runIntake(0.0));
+            m_driveController.leftTrigger().whileTrue(new IntakeControlCommand(m_wrist, -0.5));
+            m_driveController.rightTrigger().whileTrue(new IntakeControlCommand(m_wrist, 1.0));
 
             if (Constants.CURRENT_MODE != Constants.Mode.HELIOS_V1) {
                 m_driveController.x().whileTrue(
@@ -116,7 +124,7 @@ public class RobotContainer {
 
             m_driveController.a().whileTrue(new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.STOW_POSITION));
             m_driveController.b().whileTrue(
-                    new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.HUMAN_PLAYER_STATION)
+                    new SupersystemToPoseCommand(m_super, new ArmPose(0.0, () -> Constants.ArmSetpoints.HUMAN_HEIGHT.getValue(), () -> Constants.ArmSetpoints.HUMAN_WRIST.getValue()))
                             .alongWith(new IntakeControlCommand(m_wrist, 1.0, m_driveController.getHID())));
 
             //Auto Align with rumble for driving
@@ -150,6 +158,8 @@ public class RobotContainer {
      */
     public void configDashboard() {
         ShuffleboardTab testCommands = Shuffleboard.getTab("Commands");
+
+        testCommands.add("balance", new Balance(m_drive));
 
         testCommands.add("Toggle Angle Brake Mode", new ToggleArmBrakeModeCommand(m_arm)).withSize(2, 1);
         testCommands.add("Toggle Wrist Brake Mode", new InstantCommand(() -> m_wrist.toggleBrakeMode()).runsWhenDisabled());

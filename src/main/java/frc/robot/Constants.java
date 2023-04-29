@@ -36,7 +36,7 @@ import java.util.List;
  */
 public final class Constants {
 
-    public static final Mode CURRENT_MODE = Mode.HELIOS_V1;
+    public static final Mode CURRENT_MODE = Mode.HELIOS_V2;
 
     /*Constants for physical aspects of the modules, plus PID loops constants*/
     public static final class ModuleConstants {
@@ -62,14 +62,15 @@ public final class Constants {
         public static final double MODULE_DRIVE_KP = 0.5;
 
         public static final double MAX_SPEED_L2_MPS = 3.657;
-        public static final double MAX_SPEED_L3_MPS = 5.48;
+        public static final GosDoubleProperty MAX_SPEED_FPS = new GosDoubleProperty(false, "Max Drive Speed", 17);
+        public static final double MAX_SPEED_L3_MPS = Units.feetToMeters(MAX_SPEED_FPS.getValue());
 
         /** Constants for the Phoenix Pro Modules using Falcon 500s **/
         public static final double L3_GEAR_RATIO = 6.12;
 
-        public static final double FALCON_AZIMUTH_KP = 2.75;
-        public static final double FALCON_AZIMUTH_KI = 0.03;
-        public static final double FALCON_AZIMUTH_KD = 0.09;
+        public static final double FALCON_AZIMUTH_KP = 3.50;
+        public static final double FALCON_AZIMUTH_KI = 0.05;
+        public static final double FALCON_AZIMUTH_KD = 0.00;
 
         public static final double FALCON_DRIVE_KV = 0.75;
         public static final double FALCON_DRIVE_KS = 0.1;
@@ -96,10 +97,10 @@ public final class Constants {
         public static final double MOD_BR_OFFSET = -142.207 + 180;
         public static final double MOD_BL_OFFSET = 140.625;
         // Competition Offset
-        public static final double MOD_FL_OFFSET_V2 = 263.4 + 180;
-        public static final double MOD_FR_OFFSET_V2 = 75.1;
-        public static final double MOD_BL_OFFSET_V2 = 356.2;
-        public static final double MOD_BR_OFFSET_V2 = 350.1;
+        public static final double MOD_FL_OFFSET_V2 = 262.8 + 180;
+        public static final double MOD_FR_OFFSET_V2 = 255.893 + 180;
+        public static final double MOD_BL_OFFSET_V2 = 173.4 + 180;
+        public static final double MOD_BR_OFFSET_V2 = 169.4 + 180;
 
         // Kinematics
         // Distance between centers of right and left wheels on robot
@@ -117,7 +118,7 @@ public final class Constants {
         // Camera constants
         public static final Transform3d FRONT_CAM_POSE = new Transform3d(
                 new Translation3d(Units.inchesToMeters(12.0), 0.0, Units.inchesToMeters(8.00)),
-                new Rotation3d(Units.degreesToRadians(-0.5), 0.0, 0.0));
+                new Rotation3d(Units.degreesToRadians(-2.2), 0.0, 0.0));
         public static final Transform3d LEFT_CAM_POSE = new Transform3d(
                 new Translation3d(Units.inchesToMeters(2.0), Units.inchesToMeters(6.0), Units.inchesToMeters(24.0)),
                 new Rotation3d(Units.degreesToRadians(180.0), 0.0, Units.degreesToRadians(90.0)));
@@ -165,7 +166,7 @@ public final class Constants {
 
         //Trajectory following values
         public static final double MAX_VELOCITY_MPS_AUTO = Units.feetToMeters(16);
-        public static final double MAX_ACCELERATION_MPS_AUTO = MAX_VELOCITY_MPS_AUTO / 4;
+        public static final double MAX_ACCELERATION_MPS_AUTO = MAX_VELOCITY_MPS_AUTO / 2.0;
 
         public static final PIDController THETA_CONTROLLER =
                 new PIDController(3.25, 0.1, 0.3);
@@ -176,10 +177,10 @@ public final class Constants {
             new PIDController(3.2, 0.03, 0.3);
 
         public static final PIDConstants CONSTANTS_X =
-                new PIDConstants(3.0, 0.0, 0.0);
+                new PIDConstants(4.0, 0.005, 0.0);
 
         public static final PIDConstants THETA_CONSTANTS =
-                new PIDConstants(3.25, 0.0, 0.0);
+                new PIDConstants(3.2, 0.0, 0.0);
         
         //Auto balance constants
         public static final double BALANCE_P = -0.04;
@@ -226,15 +227,15 @@ public final class Constants {
         public static final int ARM_ANGLE_ID_FOLLOWER = 17;
         public static final int LIMIT_SWITCH_PORT = 3;
 
-        public static final double KP_ANGLE = CURRENT_MODE == Mode.HELIOS_V1 ? 0.53 : 0.225;
-        public static final double KI_ANGLE = 0.005;
+        public static final double KP_ANGLE = CURRENT_MODE == Mode.HELIOS_V1 ? 0.53 : 0.227;
+        public static final double KI_ANGLE = 0.007;
         public static final double KD_ANGLE = 0.08;
 
         public static final GosDoubleProperty ARM_EXT_KP = new GosDoubleProperty(true, "Arm extension kP", 0.5);
         public static final GosDoubleProperty ARM_EXT_KI = new GosDoubleProperty(false, "Arm extension kI", 0);
         public static final GosDoubleProperty ARM_EXT_KD = new GosDoubleProperty(false, "Arm extension kD", 0);
 
-        public static final double ARM_OFFSET = CURRENT_MODE == Mode.HELIOS_V1 ? 165.0 : 294  - 180;
+        public static final double ARM_OFFSET = CURRENT_MODE == Mode.HELIOS_V1 ? 165.0 : 294;
 
         public static final int ENCODER_PORT = 4;
 
@@ -261,7 +262,7 @@ public final class Constants {
 
         // Arm Extension limits for Piecewise Function
         public static final GosDoubleProperty ARM_EXT_STOW =
-                new GosDoubleProperty(false, "Arm Extension Stow Limit", 0.5);
+                new GosDoubleProperty(false, "Arm Extension Stow Limit", 0.0);
         public static final GosDoubleProperty ARM_EXT_SCORE_LOWER =
                 new GosDoubleProperty(false, "Arm Extension Score Lower Limit", 0);
         public static final GosDoubleProperty ARM_EXT_SCORE_UPPER =
@@ -269,7 +270,7 @@ public final class Constants {
 
         // Arm Angle limits for Piecewise Function
         public static final GosDoubleProperty ARM_ANGLE_LOWER =
-                new GosDoubleProperty(true, "Arm Angle Lower Limit", 50);
+                new GosDoubleProperty(true, "Arm Angle Lower Limit", 40);
         public static final GosDoubleProperty ARM_ANGLE_UPPER =
                 new GosDoubleProperty(false, "Arm Angle Upper Limit", 325);
 
@@ -312,8 +313,8 @@ public final class Constants {
         );
 
         public static final ArmLimits NO_EXTENTION = new ArmLimits(
-                WRIST_STOW.getValue(), WRIST_SCORE_UPPER.getValue(), 
-                ARM_EXT_STOW.getValue(), ARM_EXT_STOW.getValue(), 
+                WRIST_STOW.getValue(), WRIST_SCORE_UPPER.getValue(),
+                ARM_EXT_STOW.getValue(), ARM_EXT_STOW.getValue(),
                 ARM_ANGLE_LOWER.getValue(), ARM_ANGLE_UPPER.getValue());
 
         public static final ArmLimits FULL_RANGE_LIMIT = new ArmLimits(
@@ -341,14 +342,24 @@ public final class Constants {
                 false
         );
 
+        public static final GosDoubleProperty SPEED_LIMIT_RAMP = new GosDoubleProperty(false, "Speed Limit Ramp", 3.5);
+        public static final GosDoubleProperty SPEED_LIMIT_CAP = new GosDoubleProperty(false, "Speed Limit Cap", 0.5);
+
         private static final PiecewiseInterval<Double> BACK_SPEED = new PiecewiseInterval<>(
                 BACK_RANGE,
-                angle -> (MathUtil.clamp(((1- ((angle - STOW_ZONE.getValue()) / 180)) * 1.0), 0.6, 1)
+                angle ->
+                        (MathUtil.clamp(
+                                ((1 - ((angle - STOW_ZONE.getValue()) / 180)) * SPEED_LIMIT_RAMP.getValue()),
+                                SPEED_LIMIT_CAP.getValue(),
+                                1)
         ));
 
         private static final PiecewiseInterval<Double> FORWARD_SPEED = new PiecewiseInterval<>(
                 FORWARD_RANGE,
-                angle -> (MathUtil.clamp(1 - ((angle - (360 - (180 + STOW_ZONE.getValue()))) * 1.0), 0.6, 1))
+                angle -> (MathUtil.clamp(
+                        1 - ((angle - (360 - (180 + STOW_ZONE.getValue()))) * SPEED_LIMIT_RAMP.getValue()),
+                        SPEED_LIMIT_CAP.getValue(),
+                        1))
         );
 
         public static final RangedPiecewise<Double> DRIVE_SPEED_PIECEWISE = new RangedPiecewise<>(
@@ -364,14 +375,17 @@ public final class Constants {
         private ArmSetpoints() {
             throw new IllegalStateException("Utility Class");
         }
-        public static final ArmPose STOW_POSITION = new ArmPose(0.0, 60, 0.0);
+
+        public static final GosDoubleProperty HUMAN_HEIGHT = new GosDoubleProperty(false, "HUMAN HIEGHT", 233.6);
+        public static final GosDoubleProperty HUMAN_WRIST = new GosDoubleProperty(false, "HUMAN WRIST", 78.0);
+
+        public static final ArmPose STOW_POSITION = new ArmPose(0.0, 40, 0.0);
         public static final ArmPose VERT_STOW_POSE = new ArmPose(0.0, 180, 0.0);
 
         public static final ArmPose INTAKE_CUBE = new ArmPose(4.7, 325.1, 165.6);
         public static final ArmPose INTAKE_CONE = new ArmPose(1.5, 328.0, 170.0);
-        public static final ArmPose INTAKE_BATTERY = new ArmPose(12.1, 55.0, 145.0);
-        public static final ArmPose HUMAN_PLAYER_STATION = new ArmPose(0.0, 236.6, 80.0);
-        public static final ArmPose SINGLE_PLAYER_STATION = new ArmPose(0.0, 95, 160);
+        public static final ArmPose INTAKE_BATTERY = new ArmPose(11.9, 58.0, 145.0);
+        public static final ArmPose HUMAN_PLAYER_STATION = new ArmPose(0.0, 230.6, 78.0);
 
         public static final ArmPose MIDDLE_GOAL = new ArmPose(0.0, 252.1, 99.7);
         public static final ArmPose HIGH_GOAL = new ArmPose(20, 240.0, 95.3);

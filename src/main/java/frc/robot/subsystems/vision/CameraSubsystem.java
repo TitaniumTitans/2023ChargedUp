@@ -54,7 +54,7 @@ public class CameraSubsystem implements Subsystem {
                 m_aprilTagFieldLayout.setOrigin(AprilTagFieldLayout.OriginPosition.kRedAllianceWallRightSide);
             }
             m_photonPoseEstimator = new PhotonPoseEstimator
-                (m_aprilTagFieldLayout, PhotonPoseEstimator.PoseStrategy.CLOSEST_TO_REFERENCE_POSE, m_camera,
+                (m_aprilTagFieldLayout, PhotonPoseEstimator.PoseStrategy.MULTI_TAG_PNP, m_camera,
                     robotToCam);
         } catch (IOException e) {
             throw new IllegalStateException(e);

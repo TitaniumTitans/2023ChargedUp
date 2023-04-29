@@ -63,9 +63,9 @@ public class SwerveDrivetrain extends SubsystemBase {
     private double m_previousPitch = 0;
     private double m_currentTime = 0;
     private double m_prevTime = 0;
-    private int m_alignCount = 0;
     private boolean slowmode = false;
-    public double m_speedMult = 1;
+    private double m_speedMult = 1;
+    private double m_rotationMult = 1;
 
     public enum AlignmentOptions {
         LEFT_ALIGN,
@@ -125,7 +125,7 @@ public class SwerveDrivetrain extends SubsystemBase {
                 getModulePositions(),
                 new Pose2d(),
                 new MatBuilder<>(Nat.N3(), Nat.N1()).fill(0.1, 0.1, 0.1),
-                new MatBuilder<>(Nat.N3(), Nat.N1()).fill(0.9, 0.9, Units.degreesToRadians(0.9))
+                new MatBuilder<>(Nat.N3(), Nat.N1()).fill(1.25, 1.25, Units.degreesToRadians(2.9))
         );
 
         m_frontCamSubsystem = new CameraSubsystem(DriveConstants.FRONT_CAM_NAME, DriveConstants.FRONT_CAM_POSE);
@@ -174,7 +174,7 @@ public class SwerveDrivetrain extends SubsystemBase {
         m_prevTime = m_currentTime;
         m_currentTime = RobotController.getFPGATime();
 
-        int temp = getFrontCamTagID();
+        getFrontCamTagID();
     }
 
     public double calculateRPSForMPS(double metersPerSecond) {
@@ -212,18 +212,16 @@ public class SwerveDrivetrain extends SubsystemBase {
 
     // Setters
     public void drive(double xTranslation, double yTranslation, double zRotation) {
-        // xTranslation *= m_speedMult;
-        // yTranslation *= m_speedMult;
-        // zRotation *= m_speedMult;
         SwerveModuleState[] states = DriveConstants.DRIVE_KINEMATICS.toSwerveModuleStates(
                 fieldOriented ? ChassisSpeeds.fromFieldRelativeSpeeds(
                         xTranslation,
                         yTranslation,
-                        zRotation,
+                        zRotation * m_rotationMult,
                         getGyroYaw()
                 )
                         : new ChassisSpeeds(xTranslation, yTranslation, zRotation)
         );
+
 
         setModuleStates(states);
     }
@@ -231,6 +229,7 @@ public class SwerveDrivetrain extends SubsystemBase {
     public void setModuleStates(SwerveModuleState[] states) {
         for (SwerveModuleState state : states) {
             state.speedMetersPerSecond *= m_speedMult;
+            state.speedMetersPerSecond *= 0.2;
         }
 
         m_flMod.setDesiredState(states[0]);
@@ -314,6 +313,7 @@ public class SwerveDrivetrain extends SubsystemBase {
         /*
          * Add each vision measurement to the pose estimator if it exists for each camera
          */
+
         if (frontCamEstimatePose.isPresent()) {
             EstimatedRobotPose frontCamPose = frontCamEstimatePose.get();
 
@@ -346,10 +346,6 @@ public class SwerveDrivetrain extends SubsystemBase {
     }
 
     public Pose2d getPose() {
-//        double estPoseX = m_poseEstimator.getEstimatedPosition().getX();
-//        double estPoseY = m_poseEstimator.getEstimatedPosition().getY();
-
-//        return new Pose2d(estPoseX, estPoseY * -1, new Rotation2d());
         return m_poseEstimator.getEstimatedPosition();
     }
 
@@ -412,10 +408,6 @@ public class SwerveDrivetrain extends SubsystemBase {
                 translatedEnd.minus(new Translation2d(0.25, 0)) :
                 translatedEnd.plus(new Translation2d(0.25, 0));
 
-//        Translation2d translatedStart = tagPose.getRotation().getDegrees() == 180 ?
-//                getPose().getTranslation().minus(new Translation2d(0.05 0.0)) :
-//                getPose().getTranslation().plus(new Translation2d(0.05, 0.0));
-
         Translation2d chassisSpeed = new Translation2d(
                 getChassisSpeed().vxMetersPerSecond,
                 getChassisSpeed().vyMetersPerSecond
@@ -430,7 +422,6 @@ public class SwerveDrivetrain extends SubsystemBase {
                 new PathPoint(translatedEnd, new Rotation2d(), tagPose.getRotation().rotateBy(Rotation2d.fromDegrees(180)))
         );
 
-        m_alignCount++;
         Logger.getInstance().recordOutput("Current Trajectory", traj);
 
         return new PPSwerveControllerCommand(
@@ -501,12 +492,18 @@ public class SwerveDrivetrain extends SubsystemBase {
     }
 
     public CommandBase setSlowmodeFactory() {
-        return runOnce(() -> {
-            setSlowmode();
-        });
+        return runOnce(this::setSlowmode);
     }
 
     public CommandBase createPPSwerveController(AlignmentOptions align) {
         return new ProxyCommand(() -> alignToTag(align));
+    }
+
+    public void setSpeedMult(double mult) {
+        m_speedMult = mult;
+    }
+
+    public void setRotationMult(double mult) {
+        m_rotationMult = mult;
     }
 }
