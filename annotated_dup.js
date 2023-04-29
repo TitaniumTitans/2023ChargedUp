@@ -10,6 +10,7 @@ var annotated_dup =
             ] ],
             [ "AutoFactory", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_auto_factory.html", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_auto_factory" ],
             [ "AutoUtils", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_auto_utils.html", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_auto_utils" ],
+            [ "Balance", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_balance.html", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_balance" ],
             [ "BalanceCommandGroup", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_balance_command_group.html", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_balance_command_group" ],
             [ "CheckHomedCommand", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_check_homed_command.html", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_check_homed_command" ],
             [ "MobilityCommandGroup", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_mobility_command_group.html", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_mobility_command_group" ],

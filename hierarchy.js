@@ -61,6 +61,7 @@ var hierarchy =
     ] ],
     [ "SequentialCommandGroup", null, [
       [ "frc.robot.commands.MaitnanceModeCommandGroup", "classfrc_1_1robot_1_1commands_1_1_maitnance_mode_command_group.html", null ],
+      [ "frc.robot.commands.autonomous.Balance", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_balance.html", null ],
       [ "frc.robot.commands.autonomous.BalanceCommandGroup", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_balance_command_group.html", null ],
       [ "frc.robot.commands.autonomous.MobilityCommandGroup", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_mobility_command_group.html", null ],
       [ "frc.robot.commands.autonomous.OneConeCommandGroup", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_one_cone_command_group.html", null ],

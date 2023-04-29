@@ -31,10 +31,11 @@ var classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_drivetrain =
     [ "setAbsoluteAngles", "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_drivetrain.html#a5aa5981a383fb4cae1f8d34e1cee90f8", null ],
     [ "setFieldRelative", "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_drivetrain.html#ab2ea05d722c8df2cfceb8ef302831715", null ],
     [ "setModuleStates", "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_drivetrain.html#a5d09481a4c744832079ad327fedf8c5d", null ],
+    [ "setRotationMult", "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_drivetrain.html#a30ed9a507ca57e4562b14b70c57956b5", null ],
     [ "setSlowmode", "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_drivetrain.html#a0035bfc5aa7bef2762da110db745a79b", null ],
     [ "setSlowmodeFactory", "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_drivetrain.html#aa7ef73cc61c665bb2f3f94049fb46372", null ],
+    [ "setSpeedMult", "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_drivetrain.html#a144c32d3721edc8171d330392b12120a", null ],
     [ "toggleFieldRelative", "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_drivetrain.html#aac42a2102bf994f4a1bba12c85954d93", null ],
     [ "updateInputs", "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_drivetrain.html#a8c5b830508fa31cbb560246cc6eb37fc", null ],
-    [ "updatePoseEstimator", "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_drivetrain.html#a3c480436deb2f8df78a6076f71cbc9f5", null ],
-    [ "m_speedMult", "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_drivetrain.html#a2aa2387dc1c42bb9ed4d62290d463625", null ]
+    [ "updatePoseEstimator", "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_drivetrain.html#a3c480436deb2f8df78a6076f71cbc9f5", null ]
 ];
