@@ -3,9 +3,7 @@ package frc.robot.subsystems.vision;
 
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Pose3d;
-import edu.wpi.first.math.geometry.Transform3d;
+import edu.wpi.first.math.geometry.*;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -191,6 +189,17 @@ public class CameraSubsystem implements Subsystem {
             return pose.get().toPose2d();
         } else {
             return new Pose2d();
+        }
+    }
+
+    public Transform3d robotToTag() {
+        PhotonPipelineResult result = m_camera.getLatestResult();
+
+        if (result.hasTargets()) {
+            PhotonTrackedTarget target = result.getBestTarget();
+            return target.getBestCameraToTarget().plus(robotToCam.inverse());
+        } else {
+            return new Transform3d();
         }
     }
 

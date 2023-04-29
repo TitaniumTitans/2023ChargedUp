@@ -9,6 +9,7 @@ import com.gos.lib.properties.GosDoubleProperty;
 import com.pathplanner.lib.auto.PIDConstants;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
@@ -16,6 +17,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 import frc.robot.supersystems.ArmLimits;
 import frc.robot.supersystems.ArmPose;
@@ -64,6 +66,8 @@ public final class Constants {
         public static final double MAX_SPEED_L2_MPS = 3.657;
         public static final GosDoubleProperty MAX_SPEED_FPS = new GosDoubleProperty(false, "Max Drive Speed", 17);
         public static final double MAX_SPEED_L3_MPS = Units.feetToMeters(MAX_SPEED_FPS.getValue());
+
+
 
         /** Constants for the Phoenix Pro Modules using Falcon 500s **/
         public static final double L3_GEAR_RATIO = 6.12;
@@ -129,6 +133,36 @@ public final class Constants {
                 = new GosDoubleProperty(false, "Camera ambiguity threshold", 0.2);
         public static final GosDoubleProperty CAM_DISTANCE_THRESHOLD
                 = new GosDoubleProperty(false, "Camera distance threshold", 4);
+
+        public static final ProfiledPIDController FOLLOW_CONTROLLER_X = new ProfiledPIDController(
+                4.0,
+                0.0,
+                0.0,
+                new TrapezoidProfile.Constraints(
+                        AutoConstants.MAX_VELOCITY_MPS_AUTO,
+                        AutoConstants.MAX_ACCELERATION_MPS_AUTO
+                )
+        );
+
+        public static final ProfiledPIDController FOLLOW_CONTROLLER_Y = new ProfiledPIDController(
+                4.0,
+                0.0,
+                0.0,
+                new TrapezoidProfile.Constraints(
+                        AutoConstants.MAX_VELOCITY_MPS_AUTO,
+                        AutoConstants.MAX_ACCELERATION_MPS_AUTO
+                )
+        );
+
+        public static final ProfiledPIDController FOLLOW_CONTROLLER_THETA = new ProfiledPIDController(
+                4.0,
+                0.0,
+                0.0,
+                new TrapezoidProfile.Constraints(
+                        AutoConstants.MAX_VELOCITY_MPS_AUTO,
+                        AutoConstants.MAX_ACCELERATION_MPS_AUTO
+                )
+        );
     }
 
     public static class WristConstants {

@@ -8,11 +8,10 @@ import com.pathplanner.lib.auto.SwerveAutoBuilder;
 import com.pathplanner.lib.commands.PPSwerveControllerCommand;
 import com.playingwithfusion.TimeOfFlight;
 import edu.wpi.first.math.MatBuilder;
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.Nat;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.geometry.*;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
@@ -367,6 +366,10 @@ public class SwerveDrivetrain extends SubsystemBase {
         };
     }
 
+    /**
+     * Align the robot to a desired tag using PathPlanner and trajectory generation
+     * @param align weather to align left, right, or center to the tag
+     */
     @SuppressWarnings("PMD.AvoidReassigningParameters")
     public Command alignToTag(AlignmentOptions align) {
         // Figure out what pose the robot should be
@@ -443,6 +446,18 @@ public class SwerveDrivetrain extends SubsystemBase {
                 new PathPoint(getPose().getTranslation(), new Rotation2d(), Rotation2d.fromDegrees(angle)));
 
         return getAutoBuilder(new HashMap<>()).followPath(traj);
+    }
+
+    public void followTag(Translation2d offset) {
+        // Determine the "end point" for the follow
+        Transform3d tagToRobot = m_frontCamSubsystem.robotToTag();
+        tagToRobot.plus(new Transform3d(new Translation3d(offset.getX(), offset.getY(), 0.0), new Rotation3d()));
+
+        double xOut = MathUtil.clamp(DriveConstants.FOLLOW_CONTROLLER_X.calculate(getPose().getX(), tagToRobot.getX()), -1.0, 1.0);
+        double yOut = MathUtil.clamp(DriveConstants.FOLLOW_CONTROLLER_Y.calculate(getPose().getY(), tagToRobot.getY()), -1.0, 1.0);
+        double zOut = MathUtil.clamp(DriveConstants.FOLLOW_CONTROLLER_THETA.calculate(getPose().getRotation().getDegrees(), tagToRobot.getRotation().toRotation2d().getDegrees()), -1.0, 1.0);
+
+        drive(xOut, yOut, zOut);
     }
 
     public ChassisSpeeds getChassisSpeed() {
