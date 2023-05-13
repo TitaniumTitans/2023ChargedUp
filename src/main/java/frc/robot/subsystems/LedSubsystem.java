@@ -1,3 +1,5 @@
+package frc.robot.subsystems;
+
 import com.ctre.phoenix.led.Animation;
 import com.ctre.phoenix.led.CANdle;
 import com.ctre.phoenix.led.ColorFlowAnimation;
@@ -11,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class LedSubsystem extends SubsystemBase {
     private final CANdle m_candle;
-    private final int m_numLED;
+    private final int m_numLED = 400;
     private Animations m_currentAnimation = Animations.RAINBOW;
 
     private final Animation m_rainbow = new RainbowAnimation(1.0, 0.5, m_numLED);
