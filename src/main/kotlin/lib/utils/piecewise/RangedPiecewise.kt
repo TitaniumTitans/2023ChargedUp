@@ -37,4 +37,9 @@ class RangedPiecewise<T>(
         return intervalList.find { interval -> interval.isInRange(clampedInput) }?.calculate(clampedInput)
             ?: throw RuntimeException("An interval should have been found. Please report this issue.")
     }
+
+    fun clamp(input: Double): Double {
+        return piecewiseRange.clamp(input)
+    }
+
 }

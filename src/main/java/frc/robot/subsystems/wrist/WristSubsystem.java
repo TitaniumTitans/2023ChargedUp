@@ -26,11 +26,12 @@ public class WristSubsystem extends SubsystemBase {
     private final CANCoder m_wristEncoder;
     private final PIDController m_wristPID;
     private final WristIOInputsAutoLogged m_input;
+
     // Logging variables
     private double prevSetpointRaw;
     private double prevSetpointClamped;
     private double prevSetpointPID;
-
+    public static boolean m_hasWristHomed = false;
     //Shuffleboard data
     private final ShuffleboardTab wristSubsystemTab;
     private GenericEntry wristAtSetpointEntry;
@@ -74,8 +75,6 @@ public class WristSubsystem extends SubsystemBase {
         m_wristEncoder.configSensorDirection(true);
 
         m_wristZeroLimit = new DigitalInput(WristConstants.LIMIT_SWITCH_PORT);
-
-
 
         m_wristPID = new PIDController(WristConstants.WRIST_KP, WristConstants.WRIST_KI, WristConstants.WRIST_KD);
         m_wristPID.setTolerance(5);
@@ -195,7 +194,7 @@ public class WristSubsystem extends SubsystemBase {
         if (speed == 0) {
             m_intakeMotor.set(0.1);
         } else {
-            m_intakeMotor.set(speed);
+            m_intakeMotor.set(speed * 0.2);
         }
     }
 
@@ -249,6 +248,26 @@ public class WristSubsystem extends SubsystemBase {
 
     public boolean isStalling() {
         return m_intakeMotor.getFault(CANSparkMax.FaultID.kStall);
+    }
+
+    public boolean hasWristHomed() { return m_hasWristHomed; }
+
+    public void resetHomed() {
+        m_hasWristHomed = false;
+    }
+    public void goWristToHome() {
+        if(!hasWristHomed()) {
+            if(atLowerLimit()) {
+                setWristPower(0);
+                m_hasWristHomed = true;
+            } else {
+                m_wristMotor.set(-0.2);
+            }
+        }
+    }
+
+    public void setBrakeMode(CANSparkMax.IdleMode brakeMode) {
+        m_wristMotor.setIdleMode(brakeMode);
     }
 
 }

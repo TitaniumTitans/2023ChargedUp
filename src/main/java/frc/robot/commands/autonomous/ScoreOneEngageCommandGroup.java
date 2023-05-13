@@ -16,11 +16,11 @@ public class ScoreOneEngageCommandGroup extends SequentialCommandGroup {
         if (height == AutoUtils.ScoringHeights.HIGH) {
             addCommands(new SupersystemToPoseAutoCommand(m_super, Constants.ArmSetpoints.HIGH_GOAL));
         } else {
-            addCommands(new SupersystemToPoseAutoCommand(m_super, Constants.ArmSetpoints.MIDDLE_GOAL_NON_STOW));
+            addCommands(new SupersystemToPoseAutoCommand(m_super, Constants.ArmSetpoints.MIDDLE_GOAL));
         }
 
         addCommands(new IntakeControlCommand(m_wrist, -0.3)
-                .raceWith(new WaitCommand(0.5)));
+                .raceWith(new WaitCommand(0.25)));
         addCommands(new IntakeControlCommand(m_wrist, 0.0)
                 .raceWith(new WaitCommand(0.0)));
 

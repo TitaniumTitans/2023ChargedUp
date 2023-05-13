@@ -19,7 +19,7 @@ public class OneCubeCommandGroup extends SequentialCommandGroup {
         if (height == AutoUtils.ScoringHeights.HIGH) {
             addCommands(new SupersystemToPoseAutoCommand(m_super, Constants.ArmSetpoints.HIGH_GOAL));
         } else {
-            addCommands(new SupersystemToPoseAutoCommand(m_super, Constants.ArmSetpoints.MIDDLE_GOAL_NON_STOW));
+            addCommands(new SupersystemToPoseAutoCommand(m_super, Constants.ArmSetpoints.MIDDLE_GOAL));
         }
 
         addCommands(new IntakeControlCommand(m_wrist, -1.0)
