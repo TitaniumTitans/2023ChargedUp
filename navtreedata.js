@@ -54,8 +54,8 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"classfrc_1_1robot_1_1subsystems_1_1wrist_1_1_wrist_subsystem.html#a040cdc84d96b331fec71ef881baf05b2",
-"interfacefrc_1_1robot_1_1subsystems_1_1swerve_1_1module_1_1_swerve_module_interface.html#a2e89c689e76108b6ab22bca267b7e1d9"
+"classfrc_1_1robot_1_1subsystems_1_1swerve_1_1module_1_1_swerve_mod_neo.html#a46bc210f7cad393ae668b788b4820b13",
+"enumlib_1_1controllers_1_1_foot_pedal_1_1_pedals.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

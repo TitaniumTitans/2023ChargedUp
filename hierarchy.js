@@ -1,6 +1,7 @@
 var hierarchy =
 [
     [ "frc.robot.subsystems.swerve.SwerveDrivetrain.AlignmentOptions", "enumfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_drivetrain_1_1_alignment_options.html", null ],
+    [ "frc.robot.subsystems.LedSubsystem.Animations", "enumfrc_1_1robot_1_1subsystems_1_1_led_subsystem_1_1_animations.html", null ],
     [ "frc.robot.supersystems.ArmLimits", "classfrc_1_1robot_1_1supersystems_1_1_arm_limits.html", null ],
     [ "frc.robot.supersystems.ArmSupersystem", "classfrc_1_1robot_1_1supersystems_1_1_arm_supersystem.html", null ],
     [ "frc.robot.commands.autonomous.AutoFactory", "classfrc_1_1robot_1_1commands_1_1autonomous_1_1_auto_factory.html", null ],
@@ -43,6 +44,7 @@ var hierarchy =
       [ "frc.robot.commands.AutoBalanceTransCommand", "classfrc_1_1robot_1_1commands_1_1_auto_balance_trans_command.html", null ],
       [ "frc.robot.commands.HoldArmAngleCommand", "classfrc_1_1robot_1_1commands_1_1_hold_arm_angle_command.html", null ],
       [ "frc.robot.commands.IntakeControlCommand", "classfrc_1_1robot_1_1commands_1_1_intake_control_command.html", null ],
+      [ "frc.robot.commands.LEDControllerCommand", "classfrc_1_1robot_1_1commands_1_1_l_e_d_controller_command.html", null ],
       [ "frc.robot.commands.SupersystemToPoseAutoCommand", "classfrc_1_1robot_1_1commands_1_1_supersystem_to_pose_auto_command.html", null ],
       [ "frc.robot.commands.SupersystemToPoseCommand", "classfrc_1_1robot_1_1commands_1_1_supersystem_to_pose_command.html", null ],
       [ "frc.robot.commands.SwerveTeleopDrive", "classfrc_1_1robot_1_1commands_1_1_swerve_teleop_drive.html", null ],
@@ -78,6 +80,7 @@ var hierarchy =
       [ "frc.robot.subsystems.vision.CameraSubsystem", "classfrc_1_1robot_1_1subsystems_1_1vision_1_1_camera_subsystem.html", null ]
     ] ],
     [ "SubsystemBase", null, [
+      [ "frc.robot.subsystems.LedSubsystem", "classfrc_1_1robot_1_1subsystems_1_1_led_subsystem.html", null ],
       [ "frc.robot.subsystems.arm.ArmAngleSubsystem", "classfrc_1_1robot_1_1subsystems_1_1arm_1_1_arm_angle_subsystem.html", null ],
       [ "frc.robot.subsystems.arm.ArmExtSubsystem", "classfrc_1_1robot_1_1subsystems_1_1arm_1_1_arm_ext_subsystem.html", null ],
       [ "frc.robot.subsystems.swerve.SwerveDrivetrain", "classfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_drivetrain.html", null ],

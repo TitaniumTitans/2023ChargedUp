@@ -33,6 +33,7 @@ var annotated_dup =
           [ "AutoBalanceTransCommand", "classfrc_1_1robot_1_1commands_1_1_auto_balance_trans_command.html", "classfrc_1_1robot_1_1commands_1_1_auto_balance_trans_command" ],
           [ "HoldArmAngleCommand", "classfrc_1_1robot_1_1commands_1_1_hold_arm_angle_command.html", "classfrc_1_1robot_1_1commands_1_1_hold_arm_angle_command" ],
           [ "IntakeControlCommand", "classfrc_1_1robot_1_1commands_1_1_intake_control_command.html", "classfrc_1_1robot_1_1commands_1_1_intake_control_command" ],
+          [ "LEDControllerCommand", "classfrc_1_1robot_1_1commands_1_1_l_e_d_controller_command.html", "classfrc_1_1robot_1_1commands_1_1_l_e_d_controller_command" ],
           [ "MaitnanceModeCommandGroup", "classfrc_1_1robot_1_1commands_1_1_maitnance_mode_command_group.html", "classfrc_1_1robot_1_1commands_1_1_maitnance_mode_command_group" ],
           [ "SupersystemToPoseAutoCommand", "classfrc_1_1robot_1_1commands_1_1_supersystem_to_pose_auto_command.html", "classfrc_1_1robot_1_1commands_1_1_supersystem_to_pose_auto_command" ],
           [ "SupersystemToPoseCommand", "classfrc_1_1robot_1_1commands_1_1_supersystem_to_pose_command.html", "classfrc_1_1robot_1_1commands_1_1_supersystem_to_pose_command" ],
@@ -58,7 +59,8 @@ var annotated_dup =
           ] ],
           [ "wrist", null, [
             [ "WristSubsystem", "classfrc_1_1robot_1_1subsystems_1_1wrist_1_1_wrist_subsystem.html", "classfrc_1_1robot_1_1subsystems_1_1wrist_1_1_wrist_subsystem" ]
-          ] ]
+          ] ],
+          [ "LedSubsystem", "classfrc_1_1robot_1_1subsystems_1_1_led_subsystem.html", "classfrc_1_1robot_1_1subsystems_1_1_led_subsystem" ]
         ] ],
         [ "supersystems", null, [
           [ "ArmLimits", "classfrc_1_1robot_1_1supersystems_1_1_arm_limits.html", "classfrc_1_1robot_1_1supersystems_1_1_arm_limits" ],
