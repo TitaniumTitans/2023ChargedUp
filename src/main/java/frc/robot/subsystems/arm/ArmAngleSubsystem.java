@@ -182,7 +182,7 @@ public class ArmAngleSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("Angle PID Output", targetAnglePID);
 
         // Set voltage based off of PID
-        m_armAngleMaster.setVoltage(targetAnglePID);
+        m_armAngleMaster.setVoltage(targetAnglePID * 0.6);
     }
 
     public double getArmAngle() {

@@ -178,7 +178,7 @@ public class WristSubsystem extends SubsystemBase {
             SmartDashboard.putBoolean(HITTING_SOFT_LIMIT_STRING, true);
             m_wristMotor.set(0.0);
         } else {
-            m_wristMotor.set(speed);
+            m_wristMotor.set(speed  * 0.2);
             SmartDashboard.putBoolean(HITTING_SOFT_LIMIT_STRING, false);
         }
     }

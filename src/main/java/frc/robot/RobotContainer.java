@@ -85,7 +85,21 @@ public class RobotContainer {
      * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
      */
     private void configureButtonBindings() {
-        m_drive.setDefaultCommand(new SwerveTeleopDrive(m_drive, m_driveController));
+        if (m_candle != null) {
+                /* 
+                if (DriverStation.getAlliance() == Alliance.Red) {
+                    m_candle.animate(new ColorFlowAnimation(255, 0, 0));
+                } else {
+                    m_candle.animate(new ColorFlowAnimation(0, 0, 255));
+                }
+                */
+                m_candle.animate(new RainbowAnimation());                
+        }
+
+        if (m_driveController != null) {
+            m_drive.setDefaultCommand(new SwerveTeleopDrive(m_drive, m_driveController));
+            m_arm.setDefaultCommand(new HoldArmAngleCommand(m_arm));
+
 
         m_driveController.button(7).onTrue(m_drive.resetGyroBase());
         m_driveController.start().onTrue(m_drive.toggleFieldRelative());
