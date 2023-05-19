@@ -41,10 +41,6 @@ public class ArmExtSubsystem extends SubsystemBase {
     private GenericEntry armExtSetpointClampedEntry;
     private GenericEntry armExtMotorOutputEntry;
 
-
-
-
-
     @AutoLog
     public static class ArmExtIOInputs {
         public double armExtension = 0.0;
@@ -179,6 +175,12 @@ public class ArmExtSubsystem extends SubsystemBase {
             resetExtensionEncoder();
         }
         updateShuffleboardData();
+
+        if(!SmartDashboard.getBoolean("Stella Mode", true)) {
+            m_extPID.setOutputRange(-0.75, 0.75);
+        } else {
+            m_extPID.setOutputRange(-0.2, 0.2);
+        }
 
         SmartDashboard.putBoolean("Periodic Ext at setpoint", atSetpoint());
     }

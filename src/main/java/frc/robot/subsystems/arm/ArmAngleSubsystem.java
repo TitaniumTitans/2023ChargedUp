@@ -181,12 +181,12 @@ public class ArmAngleSubsystem extends SubsystemBase {
         double targetAnglePID;
         // Clamp target
         double targetAngleClamped = MathUtil.clamp(targetAngleRaw, LimitConstants.ARM_ANGLE_LOWER.getValue(), LimitConstants.ARM_ANGLE_UPPER.getValue());
-        if (DriverStation.isAutonomous()) {
+        if (DriverStation.isAutonomous()) { // Autonomous cap speed slightly higher +/- than teleop
             targetAnglePID = MathUtil.clamp(m_anglePID.calculate(currentArmAngle, targetAngleClamped), -10, 10);
-        } else {
-            if (targetAngleClamped < currentArmAngle) {
+        } else { // Teleop
+            if (targetAngleClamped < currentArmAngle) { // If arm is moving backwards
                 targetAnglePID = MathUtil.clamp(m_anglePID.calculate(currentArmAngle, targetAngleClamped), -7, 7);
-            } else {
+            } else { // If arm is moving forwards
                 targetAnglePID = MathUtil.clamp(m_anglePID.calculate(currentArmAngle, targetAngleClamped), -9, 9);
             }
         }
@@ -203,8 +203,15 @@ public class ArmAngleSubsystem extends SubsystemBase {
         // Calculate feedforward values for gravity control
         double ffOutput = MathUtil.clamp(m_feedforward.calculate(Units.degreesToRadians(targetAngleClamped), 1.0), -6, 6);
 
-        // Set voltage based off of PID
-        m_armAngleMaster.setVoltage((targetAnglePID * 0.2) + ffOutput);
+        // Set voltage based off of PID and FF
+
+        if (SmartDashboard.getBoolean("Stella Mode", true)) {
+            targetAnglePID = targetAnglePID * 0.2;
+            ffOutput *= 0.5;
+        }
+
+        targetAnglePID = 0.0;
+        m_armAngleMaster.setVoltage(targetAnglePID + ffOutput);
     }
 
     public double getArmAngle() {
