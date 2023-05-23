@@ -4,7 +4,12 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.PathConstraints;
+import com.pathplanner.lib.PathPlanner;
+import com.pathplanner.lib.PathPlannerTrajectory;
 import edu.wpi.first.wpilibj.PowerDistribution;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import lib.factories.SparkMaxFactory;
 import org.littletonrobotics.junction.*;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
@@ -26,6 +31,7 @@ public class Robot extends LoggedRobot {
   private RobotContainer m_robotContainer;
   private PowerDistribution m_pdh;
 
+  private final Field2d flipField = new Field2d();
 
   private Timer m_timer;
   /**
@@ -34,6 +40,13 @@ public class Robot extends LoggedRobot {
    */
   @Override
   public void robotInit() {
+    PathPlannerTrajectory path = PathPlanner.loadPath("PickUp Left", new PathConstraints(1.0, 1.0));
+    PathPlannerTrajectory fpath = frc.lib.util.PathPlannerFlipper.flipTrajectory(path);
+
+    flipField.getObject("path").setTrajectory(path);
+    flipField.getObject("f-path").setTrajectory(fpath);
+
+    SmartDashboard.putData("Flip Test", flipField);
 
     //Base code written from the AdvantageKit logging framework (6328 Mechanical Advantage)
     //Sets up a base logger for non-subsystem inputs
