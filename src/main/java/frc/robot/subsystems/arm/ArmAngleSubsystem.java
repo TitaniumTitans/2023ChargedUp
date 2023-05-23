@@ -196,10 +196,6 @@ public class ArmAngleSubsystem extends SubsystemBase {
         prevSetpointClamped = targetAngleClamped;
         prevSetpointPID = targetAnglePID;
 
-        SmartDashboard.putNumber("Target Angle Clamped", targetAngleClamped);
-        SmartDashboard.putNumber("Raw output", m_anglePID.calculate(currentArmAngle, targetAngleClamped));
-        SmartDashboard.putNumber("Angle PID Output", targetAnglePID);
-
         // Calculate feedforward values for gravity control
         double ffOutput = MathUtil.clamp(m_feedforward.calculate(Units.degreesToRadians(targetAngleClamped), 1.0), -6, 6);
 
@@ -207,10 +203,10 @@ public class ArmAngleSubsystem extends SubsystemBase {
 
         if (SmartDashboard.getBoolean("Stella Mode", true)) {
             targetAnglePID = targetAnglePID * 0.2;
-            ffOutput *= 0.5;
         }
 
-        targetAnglePID = 0.0;
+        SmartDashboard.putNumber("Angle PID Output", targetAnglePID);
+        SmartDashboard.putNumber("FF Output", ffOutput);
         m_armAngleMaster.setVoltage(targetAnglePID + ffOutput);
     }
 
