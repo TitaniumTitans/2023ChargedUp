@@ -228,18 +228,15 @@ public class SwerveDrivetrain extends SubsystemBase {
     public void setModuleStates(SwerveModuleState[] states) {
         for (SwerveModuleState state : states) {
             state.speedMetersPerSecond *= m_speedMult;
-            state.speedMetersPerSecond *= 0.2;
+            if (SmartDashboard.getBoolean("Stella Mode", true)) {
+                state.speedMetersPerSecond *= 0.2;
+            }
         }
 
         m_flMod.setDesiredState(states[0]);
         m_frMod.setDesiredState(states[1]);
         m_blMod.setDesiredState(states[2]);
         m_brMod.setDesiredState(states[3]);
-
-        SmartDashboard.putNumber("FL Desired Speed", states[0].speedMetersPerSecond);
-        SmartDashboard.putNumber("FR Desired Speed", states[1].speedMetersPerSecond);
-        SmartDashboard.putNumber("BL Desired Speed", states[2].speedMetersPerSecond);
-        SmartDashboard.putNumber("BR Desired Speed", states[3].speedMetersPerSecond);
     }
 
     public void resetGyro(double heading) {
@@ -306,9 +303,6 @@ public class SwerveDrivetrain extends SubsystemBase {
         Optional<EstimatedRobotPose> leftCamEstimatePose =
                 m_leftCamSubsystem.getPose(getPose());
 
-        SmartDashboard.putBoolean("FC pose present", frontCamEstimatePose.isPresent());
-        SmartDashboard.putBoolean("LC pose present", leftCamEstimatePose.isPresent());
-
         /*
          * Add each vision measurement to the pose estimator if it exists for each camera
          */
@@ -316,17 +310,11 @@ public class SwerveDrivetrain extends SubsystemBase {
         if (frontCamEstimatePose.isPresent()) {
             EstimatedRobotPose frontCamPose = frontCamEstimatePose.get();
 
-            SmartDashboard.putNumber("FC pose X", frontCamPose.estimatedPose.getX());
-            SmartDashboard.putNumber("FC pose Y", frontCamPose.estimatedPose.getY());
-
             m_poseEstimator.addVisionMeasurement(frontCamPose.estimatedPose.toPose2d(), frontCamPose.timestampSeconds);
         }
 
         if (leftCamEstimatePose.isPresent()) {
             EstimatedRobotPose leftCamPose = leftCamEstimatePose.get();
-
-            SmartDashboard.putNumber("LC pose X", leftCamPose.estimatedPose.getX());
-            SmartDashboard.putNumber("LC pose Y", leftCamPose.estimatedPose.getY());
 
             m_poseEstimator.addVisionMeasurement(leftCamPose.estimatedPose.toPose2d(), leftCamPose.timestampSeconds);
         }

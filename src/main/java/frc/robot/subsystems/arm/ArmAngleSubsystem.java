@@ -6,7 +6,9 @@ import com.revrobotics.CANSparkMax;
 
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
@@ -31,6 +33,7 @@ public class ArmAngleSubsystem extends SubsystemBase {
     private final DutyCycleEncoder m_encoderArmAngle;
     // Misc.
     private final PIDController m_anglePID;
+    private final ArmFeedforward m_feedforward;
     private final ArmAngleIOInputsAutoLogged m_inputs;
     // Logging variables
     private double prevSetpointRaw;
@@ -80,6 +83,8 @@ public class ArmAngleSubsystem extends SubsystemBase {
 
         m_anglePID = new PIDController(ArmConstants.KP_ANGLE, ArmConstants.KI_ANGLE, 0.0);
         m_anglePID.setTolerance(7);
+
+        m_feedforward = new ArmFeedforward(ArmConstants.ARM_KS, ArmConstants.ARM_KG, ArmConstants.ARM_KV);
 
         m_inputs = new ArmAngleIOInputsAutoLogged();
 
@@ -176,12 +181,12 @@ public class ArmAngleSubsystem extends SubsystemBase {
         double targetAnglePID;
         // Clamp target
         double targetAngleClamped = MathUtil.clamp(targetAngleRaw, LimitConstants.ARM_ANGLE_LOWER.getValue(), LimitConstants.ARM_ANGLE_UPPER.getValue());
-        if (DriverStation.isAutonomous()) {
+        if (DriverStation.isAutonomous()) { // Autonomous cap speed slightly higher +/- than teleop
             targetAnglePID = MathUtil.clamp(m_anglePID.calculate(currentArmAngle, targetAngleClamped), -10, 10);
-        } else {
-            if (targetAngleClamped < currentArmAngle) {
+        } else { // Teleop
+            if (targetAngleClamped < currentArmAngle) { // If arm is moving backwards
                 targetAnglePID = MathUtil.clamp(m_anglePID.calculate(currentArmAngle, targetAngleClamped), -7, 7);
-            } else {
+            } else { // If arm is moving forwards
                 targetAnglePID = MathUtil.clamp(m_anglePID.calculate(currentArmAngle, targetAngleClamped), -9, 9);
             }
         }
@@ -191,12 +196,18 @@ public class ArmAngleSubsystem extends SubsystemBase {
         prevSetpointClamped = targetAngleClamped;
         prevSetpointPID = targetAnglePID;
 
-        SmartDashboard.putNumber("Target Angle Clamped", targetAngleClamped);
-        SmartDashboard.putNumber("Raw output", m_anglePID.calculate(currentArmAngle, targetAngleClamped));
-        SmartDashboard.putNumber("Angle PID Output", targetAnglePID);
+        // Calculate feedforward values for gravity control
+        double ffOutput = MathUtil.clamp(m_feedforward.calculate(Units.degreesToRadians(targetAngleClamped), 1.0), -6, 6);
 
-        // Set voltage based off of PID
-        m_armAngleMaster.setVoltage(targetAnglePID * 0.2);
+        // Set voltage based off of PID and FF
+
+        if (SmartDashboard.getBoolean("Stella Mode", true)) {
+            targetAnglePID = targetAnglePID * 0.2;
+        }
+
+        SmartDashboard.putNumber("Angle PID Output", targetAnglePID);
+        SmartDashboard.putNumber("FF Output", ffOutput);
+        m_armAngleMaster.setVoltage(targetAnglePID + ffOutput);
     }
 
     public double getArmAngle() {
