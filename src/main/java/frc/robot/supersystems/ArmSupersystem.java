@@ -190,7 +190,7 @@ public class ArmSupersystem {
         m_swerve.setSpeedMult(range.doubleValue());
 
         if (m_ext.getArmExtension() > 5) {
-            m_swerve.setRotationMult(0.5);
+            m_swerve.setRotationMult(0.75);
         } else {
             m_swerve.setRotationMult(1);
         }
