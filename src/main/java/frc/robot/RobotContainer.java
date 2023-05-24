@@ -6,6 +6,7 @@ package frc.robot;
 
 import com.ctre.phoenix.led.*;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import frc.robot.commands.*;
@@ -157,6 +158,7 @@ public class RobotContainer {
      * This method sets up Shuffleboard tabs for test commands
      */
     public void configDashboard() {
+        SmartDashboard.putBoolean("Stella Mode", true);
         ShuffleboardTab testCommands = Shuffleboard.getTab("Commands");
 
         testCommands.add("balance", new Balance(m_drive));

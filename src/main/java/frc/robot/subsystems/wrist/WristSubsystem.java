@@ -32,6 +32,7 @@ public class WristSubsystem extends SubsystemBase {
     private double prevSetpointClamped;
     private double prevSetpointPID;
     public static boolean m_hasWristHomed = false;
+
     //Shuffleboard data
     private final ShuffleboardTab wristSubsystemTab;
     private GenericEntry wristAtSetpointEntry;
@@ -163,6 +164,10 @@ public class WristSubsystem extends SubsystemBase {
         prevSetpointRaw = targetAngleRaw;
         prevSetpointClamped = targetAngleClamped;
         prevSetpointPID = targetAnglePID;
+
+        if (SmartDashboard.getBoolean("Stella Mode", true)) {
+            targetAnglePID *= 0.2;
+        }
 
         m_wristMotor.set(targetAnglePID);
     }
