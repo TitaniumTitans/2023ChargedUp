@@ -201,9 +201,9 @@ public class ArmAngleSubsystem extends SubsystemBase {
 
         // Set voltage based off of PID and FF
 
-        if (SmartDashboard.getBoolean("Stella Mode", true)) {
-            targetAnglePID = targetAnglePID * 0.2;
-        }
+//        if (SmartDashboard.getBoolean("Stella Mode", true)) {
+//            targetAnglePID = targetAnglePID * 0.2;
+//        }
 
         SmartDashboard.putNumber("Angle PID Output", targetAnglePID);
         SmartDashboard.putNumber("FF Output", ffOutput);

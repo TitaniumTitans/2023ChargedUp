@@ -226,12 +226,12 @@ public class SwerveDrivetrain extends SubsystemBase {
     }
 
     public void setModuleStates(SwerveModuleState[] states) {
-        for (SwerveModuleState state : states) {
-            state.speedMetersPerSecond *= m_speedMult;
-            if (SmartDashboard.getBoolean("Stella Mode", true)) {
-                state.speedMetersPerSecond *= 0.2;
-            }
-        }
+//        for (SwerveModuleState state : states) {
+//            state.speedMetersPerSecond *= m_speedMult;
+//            if (SmartDashboard.getBoolean("Stella Mode", true)) {
+//                state.speedMetersPerSecond *= 0.2;
+//            }
+//        }
 
         m_flMod.setDesiredState(states[0]);
         m_frMod.setDesiredState(states[1]);
@@ -310,13 +310,13 @@ public class SwerveDrivetrain extends SubsystemBase {
         if (frontCamEstimatePose.isPresent()) {
             EstimatedRobotPose frontCamPose = frontCamEstimatePose.get();
 
-            m_poseEstimator.addVisionMeasurement(frontCamPose.estimatedPose.toPose2d(), frontCamPose.timestampSeconds);
+//            m_poseEstimator.addVisionMeasurement(frontCamPose.estimatedPose.toPose2d(), frontCamPose.timestampSeconds);
         }
 
         if (leftCamEstimatePose.isPresent()) {
             EstimatedRobotPose leftCamPose = leftCamEstimatePose.get();
 
-            m_poseEstimator.addVisionMeasurement(leftCamPose.estimatedPose.toPose2d(), leftCamPose.timestampSeconds);
+//            m_poseEstimator.addVisionMeasurement(leftCamPose.estimatedPose.toPose2d(), leftCamPose.timestampSeconds);
         }
     }
 
@@ -465,7 +465,7 @@ public class SwerveDrivetrain extends SubsystemBase {
                 AutoConstants.THETA_CONSTANTS,
                 this::setModuleStates,
                 eventMap,
-                true,
+                false,
                 this
         );
     }

@@ -199,16 +199,16 @@ public final class Constants {
         }
 
         //Trajectory following values
-        public static final double MAX_VELOCITY_MPS_AUTO = Units.feetToMeters(16);
+        public static final double MAX_VELOCITY_MPS_AUTO = Units.feetToMeters(0.1);
         public static final double MAX_ACCELERATION_MPS_AUTO = MAX_VELOCITY_MPS_AUTO / 2.0;
 
         public static final PIDController THETA_CONTROLLER =
                 new PIDController(3.25, 0.1, 0.3);
 
         public static final PIDController CONTROLLER_X =
-            new PIDController(3.2, 0.03, 0.3);
+            new PIDController(4, 0.03, 0.3);
         public static final PIDController CONTROLLER_Y =
-            new PIDController(3.2, 0.03, 0.3);
+            new PIDController(4, 0.03, 0.3);
 
         public static final PIDConstants CONSTANTS_X =
                 new PIDConstants(4.0, 0.005, 0.0);

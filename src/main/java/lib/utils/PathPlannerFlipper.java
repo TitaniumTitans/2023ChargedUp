@@ -19,7 +19,7 @@ public class PathPlannerFlipper {
         new RuntimeException("Utility Class should not be constructed");
     }
 
-    public static PathPlannerTrajectory flipTrajectory(PathPlannerTrajectory trajectory, PathConstraints constraints) {
+    public static PathPlannerTrajectory flipTrajectory(PathPlannerTrajectory trajectory) {
         List<Trajectory.State> origStates = trajectory.getStates();
         List<Trajectory.State> trajStatesNew = new ArrayList<>(List.of());
 
@@ -38,6 +38,16 @@ public class PathPlannerFlipper {
         }
     }
 
+    public static List<PathPlannerTrajectory> flipTrajectory(List<PathPlannerTrajectory> paths) {
+        List<PathPlannerTrajectory> reverse = List.of();
+
+        for (PathPlannerTrajectory p : paths) {
+            reverse.add(flipTrajectory(p));
+        }
+
+        return reverse;
+    }
+
     public static Trajectory.State flipState(PathPlannerTrajectory.PathPlannerState state, DriverStation.Alliance alliance) {
         if (alliance == DriverStation.Alliance.Red) {
             // Create a new state so that we don't overwrite the original
@@ -45,8 +55,12 @@ public class PathPlannerFlipper {
 
             Translation2d transformedTranslation =
                     new Translation2d(FIELD_LENGTH_METERS - state.poseMeters.getX(), state.poseMeters.getY());
-            Rotation2d transformedHeading = state.poseMeters.getRotation().times(-1);
-            Rotation2d transformedHolonomicRotation = state.holonomicRotation.times(-1);
+
+            double headingdif = state.poseMeters.getRotation().getDegrees();
+            Rotation2d transformedHeading = Rotation2d.fromDegrees(180 - headingdif);
+
+            double holodif = state.poseMeters.getRotation().getDegrees();
+            Rotation2d transformedHolonomicRotation = Rotation2d.fromDegrees(180 - holodif);
 
             transformedState.timeSeconds = state.timeSeconds;
             transformedState.velocityMetersPerSecond = state.velocityMetersPerSecond;
