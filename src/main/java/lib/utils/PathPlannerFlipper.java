@@ -59,8 +59,9 @@ public class PathPlannerFlipper {
             double headingdif = state.poseMeters.getRotation().getDegrees();
             Rotation2d transformedHeading = Rotation2d.fromDegrees(180 - headingdif);
 
-            double holodif = state.poseMeters.getRotation().getDegrees();
-            Rotation2d transformedHolonomicRotation = Rotation2d.fromDegrees(180 - holodif);
+            Rotation2d oldHolo = state.poseMeters.getRotation();
+            Rotation2d transformedHolonomicRotation = new Rotation2d(-oldHolo.getCos(), oldHolo.getSin());
+
 
             transformedState.timeSeconds = state.timeSeconds;
             transformedState.velocityMetersPerSecond = state.velocityMetersPerSecond;
