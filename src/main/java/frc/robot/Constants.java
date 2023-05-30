@@ -21,6 +21,7 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 import frc.robot.supersystems.ArmLimits;
 import frc.robot.supersystems.ArmPose;
+import kotlin.Unit;
 import lib.utils.piecewise.PiecewiseInterval;
 import lib.utils.piecewise.Range;
 import lib.utils.piecewise.RangedPiecewise;
@@ -137,14 +138,14 @@ public final class Constants {
         public static final String LEFT_GLOBAL_CAM = "LeftGlobalCam";
         public static final String RIGHT_GLOBAL_CAM = "RightGlobalCam";
 
-        public static final Transform3d LEFT_CAM_POSE = new Transform3d(
-                new Translation3d(0, 0, 0),
-                new Rotation3d(0, 0, 0)
+        public static final Transform3d RIGHT_CAM_POSE = new Transform3d(
+                new Translation3d(Units.inchesToMeters(10.25), Units.inchesToMeters(8.25), Units.inchesToMeters(6)),
+                new Rotation3d(Units.degreesToRadians(61.87), Units.degreesToRadians(-55.0), 0)
         );
 
-        public static final Transform3d RIGHT_CAM_POSE = new Transform3d(
-                new Translation3d(0, 0, 0),
-                new Rotation3d(0, 0, 0)
+        public static final Transform3d LEFT_CAM_POSE = new Transform3d(
+                new Translation3d(Units.inchesToMeters(10.25), Units.inchesToMeters(-8.25), Units.inchesToMeters(6)),
+                new Rotation3d(Units.degreesToRadians(61.87), Units.degreesToRadians(55.0), 0)
         );
 
         public static final ProfiledPIDController FOLLOW_CONTROLLER_X = new ProfiledPIDController(
