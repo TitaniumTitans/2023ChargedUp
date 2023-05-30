@@ -55,7 +55,10 @@ public class SwerveDrivetrain extends SubsystemBase {
     private final Field2d m_field;
     private final SwerveDrivePoseEstimator m_poseEstimator;
     private final CameraSubsystem m_frontCamSubsystem;
-    private final CameraSubsystem m_leftCamSubsystem;
+//    private final CameraSubsystem m_leftCamSubsystem;
+
+    private final CameraSubsystem m_leftCam;
+    private final CameraSubsystem m_rightCam;
 
 
     private double m_currentPitch = 0;
@@ -128,7 +131,12 @@ public class SwerveDrivetrain extends SubsystemBase {
         );
 
         m_frontCamSubsystem = new CameraSubsystem(DriveConstants.FRONT_CAM_NAME, DriveConstants.FRONT_CAM_POSE);
-        m_leftCamSubsystem = new CameraSubsystem(DriveConstants.LEFT_CAM_NAME, DriveConstants.LEFT_CAM_POSE);
+//        m_leftCamSubsystem = new CameraSubsystem(DriveConstants.LEFT_CAM_NAME, DriveConstants.LEFT_CAM_POSE);
+
+//        if (Constants.CURRENT_MODE == Constants.Mode.HELIOS_V2) {
+            m_leftCam = new CameraSubsystem(DriveConstants.LEFT_GLOBAL_CAM, DriveConstants.LEFT_CAM_POSE);
+            m_rightCam = new CameraSubsystem(DriveConstants.RIGHT_GLOBAL_CAM, DriveConstants.RIGHT_CAM_POSE);
+//        }
 
         SmartDashboard.putData("Field", m_field);
         resetGyro();
@@ -300,8 +308,8 @@ public class SwerveDrivetrain extends SubsystemBase {
          */
         Optional<EstimatedRobotPose> frontCamEstimatePose =
                 m_frontCamSubsystem.getPose(getPose());
-        Optional<EstimatedRobotPose> leftCamEstimatePose =
-                m_leftCamSubsystem.getPose(getPose());
+//        Optional<EstimatedRobotPose> leftCamEstimatePose =
+//                m_leftCamSubsystem.getPose(getPose());
 
         /*
          * Add each vision measurement to the pose estimator if it exists for each camera
@@ -313,11 +321,11 @@ public class SwerveDrivetrain extends SubsystemBase {
 //            m_poseEstimator.addVisionMeasurement(frontCamPose.estimatedPose.toPose2d(), frontCamPose.timestampSeconds);
         }
 
-        if (leftCamEstimatePose.isPresent()) {
-            EstimatedRobotPose leftCamPose = leftCamEstimatePose.get();
+        Optional<EstimatedRobotPose> leftCamPose = m_leftCam.getPose(getPose());
+        Optional<EstimatedRobotPose> rightCamPose = m_rightCam.getPose(getPose());
 
-//            m_poseEstimator.addVisionMeasurement(leftCamPose.estimatedPose.toPose2d(), leftCamPose.timestampSeconds);
-        }
+        leftCamPose.ifPresent(estimatedRobotPose -> m_poseEstimator.addVisionMeasurement(estimatedRobotPose.estimatedPose.toPose2d(), leftCamPose.get().timestampSeconds));
+        rightCamPose.ifPresent(estimatedRobotPose -> m_poseEstimator.addVisionMeasurement(estimatedRobotPose.estimatedPose.toPose2d(), rightCamPose.get().timestampSeconds));
     }
 
     public Pose2d getFrontCamTagPose() {
@@ -354,10 +362,6 @@ public class SwerveDrivetrain extends SubsystemBase {
         };
     }
 
-    /**
-     * Align the robot to a desired tag using PathPlanner and trajectory generation
-     * @param align weather to align left, right, or center to the tag
-     */
     @SuppressWarnings("PMD.AvoidReassigningParameters")
     public Command alignToTag(AlignmentOptions align) {
         // Figure out what pose the robot should be

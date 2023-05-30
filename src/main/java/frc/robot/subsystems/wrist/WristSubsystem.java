@@ -165,10 +165,6 @@ public class WristSubsystem extends SubsystemBase {
         prevSetpointClamped = targetAngleClamped;
         prevSetpointPID = targetAnglePID;
 
-        if (SmartDashboard.getBoolean("Stella Mode", true)) {
-            targetAnglePID *= 0.2;
-        }
-
         m_wristMotor.set(targetAnglePID);
     }
 

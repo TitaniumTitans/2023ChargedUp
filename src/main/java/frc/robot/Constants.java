@@ -123,9 +123,9 @@ public final class Constants {
         public static final Transform3d FRONT_CAM_POSE = new Transform3d(
                 new Translation3d(Units.inchesToMeters(12.0), 0.0, Units.inchesToMeters(8.00)),
                 new Rotation3d(Units.degreesToRadians(-2.2), 0.0, 0.0));
-        public static final Transform3d LEFT_CAM_POSE = new Transform3d(
-                new Translation3d(Units.inchesToMeters(2.0), Units.inchesToMeters(6.0), Units.inchesToMeters(24.0)),
-                new Rotation3d(Units.degreesToRadians(180.0), 0.0, Units.degreesToRadians(90.0)));
+//        public static final Transform3d LEFT_CAM_POSE = new Transform3d(
+//                new Translation3d(Units.inchesToMeters(2.0), Units.inchesToMeters(6.0), Units.inchesToMeters(24.0)),
+//                new Rotation3d(Units.degreesToRadians(180.0), 0.0, Units.degreesToRadians(90.0)));
         public static final String FRONT_CAM_NAME = "FrontPiCam";
         public static final String LEFT_CAM_NAME = "LeftWebCam";
 
@@ -133,6 +133,19 @@ public final class Constants {
                 = new GosDoubleProperty(false, "Camera ambiguity threshold", 0.2);
         public static final GosDoubleProperty CAM_DISTANCE_THRESHOLD
                 = new GosDoubleProperty(false, "Camera distance threshold", 4);
+
+        public static final String LEFT_GLOBAL_CAM = "LeftGlobalCam";
+        public static final String RIGHT_GLOBAL_CAM = "RightGlobalCam";
+
+        public static final Transform3d LEFT_CAM_POSE = new Transform3d(
+                new Translation3d(0, 0, 0),
+                new Rotation3d(0, 0, 0)
+        );
+
+        public static final Transform3d RIGHT_CAM_POSE = new Transform3d(
+                new Translation3d(0, 0, 0),
+                new Rotation3d(0, 0, 0)
+        );
 
         public static final ProfiledPIDController FOLLOW_CONTROLLER_X = new ProfiledPIDController(
                 4.0,
@@ -271,7 +284,7 @@ public final class Constants {
 
         public static final double ARM_KV = 0.05;
         public static final double ARM_KS = 0.0;
-        public static final double ARM_KG = 0.37;
+        public static final double ARM_KG = 0.27;
 
         public static final double ARM_OFFSET = CURRENT_MODE == Mode.HELIOS_V1 ? 165.0 : 294;
 
@@ -426,7 +439,7 @@ public final class Constants {
         public static final ArmPose HUMAN_PLAYER_STATION = new ArmPose(0.0, 230.6, 78.0);
 
         public static final ArmPose MIDDLE_GOAL = new ArmPose(0.0, 252.1, 99.7);
-        public static final ArmPose HIGH_GOAL = new ArmPose(20, 240.0, 95.3);
+        public static final ArmPose HIGH_GOAL = new ArmPose(20, 245.0, 95.3);
     }
 
     public static final int DRIVER_PORT = 0;
