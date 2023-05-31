@@ -46,13 +46,14 @@ public class CameraSubsystem implements Subsystem {
         try {
             m_aprilTagFieldLayout =
                 AprilTagFieldLayout.loadFromResource(AprilTagFields.k2023ChargedUp.m_resourceFile);
-//            if (DriverStation.getAlliance() == DriverStation.Alliance.Blue) {
-//                m_aprilTagFieldLayout.setOrigin(AprilTagFieldLayout.OriginPosition.kBlueAllianceWallRightSide);
-//            } else {
-//                m_aprilTagFieldLayout.setOrigin(AprilTagFieldLayout.OriginPosition.kRedAllianceWallRightSide);
+           if (DriverStation.getAlliance() == DriverStation.Alliance.Blue) {
+               m_aprilTagFieldLayout.setOrigin(AprilTagFieldLayout.OriginPosition.kBlueAllianceWallRightSide);
+           } else {
+               m_aprilTagFieldLayout.setOrigin(AprilTagFieldLayout.OriginPosition.kRedAllianceWallRightSide);
+           }
 
         m_photonPoseEstimator = new PhotonPoseEstimator
-            (m_aprilTagFieldLayout, PhotonPoseEstimator.PoseStrategy.MULTI_TAG_PNP, m_camera,
+            (m_aprilTagFieldLayout, PhotonPoseEstimator.PoseStrategy.CLOSEST_TO_REFERENCE_POSE, m_camera,
                 robotToCam);
         } catch (IOException e) {
             throw new IllegalStateException(e);
@@ -67,16 +68,16 @@ public class CameraSubsystem implements Subsystem {
     public Optional<EstimatedRobotPose> getPose(Pose2d prevEstimatedRobotPose) {
         m_photonPoseEstimator.setReferencePose(prevEstimatedRobotPose);
 
-//        if (DriverStation.getAlliance() != m_prevAlliance) {
-//            m_prevAlliance = DriverStation.getAlliance();
-//            if (DriverStation.getAlliance() == DriverStation.Alliance.Red) {
-//                m_aprilTagFieldLayout.setOrigin(AprilTagFieldLayout.OriginPosition.kRedAllianceWallRightSide);
-//
-//            } else {
-//                m_aprilTagFieldLayout.setOrigin(AprilTagFieldLayout.OriginPosition.kBlueAllianceWallRightSide);
-//            }
-//            m_photonPoseEstimator.setFieldTags(m_aprilTagFieldLayout);
-//        }
+       if (DriverStation.getAlliance() != m_prevAlliance) {
+           m_prevAlliance = DriverStation.getAlliance();
+           if (DriverStation.getAlliance() == DriverStation.Alliance.Red) {
+               m_aprilTagFieldLayout.setOrigin(AprilTagFieldLayout.OriginPosition.kRedAllianceWallRightSide);
+
+           } else {
+               m_aprilTagFieldLayout.setOrigin(AprilTagFieldLayout.OriginPosition.kBlueAllianceWallRightSide);
+           }
+           m_photonPoseEstimator.setFieldTags(m_aprilTagFieldLayout);
+       }
 
         PhotonPipelineResult camResult = m_camera.getLatestResult();
 

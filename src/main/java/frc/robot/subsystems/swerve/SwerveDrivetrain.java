@@ -127,7 +127,7 @@ public class SwerveDrivetrain extends SubsystemBase {
                 getModulePositions(),
                 new Pose2d(),
                 new MatBuilder<>(Nat.N3(), Nat.N1()).fill(0.1, 0.1, 0.1),
-                new MatBuilder<>(Nat.N3(), Nat.N1()).fill(1.25, 1.25, Units.degreesToRadians(2.9))
+                new MatBuilder<>(Nat.N3(), Nat.N1()).fill(0.75, 0.75, Units.degreesToRadians(1.5))
         );
 
         m_frontCamSubsystem = new CameraSubsystem(DriveConstants.FRONT_CAM_NAME, DriveConstants.FRONT_CAM_POSE);
@@ -324,8 +324,8 @@ public class SwerveDrivetrain extends SubsystemBase {
         Optional<EstimatedRobotPose> leftCamPose = m_leftCam.getPose(getPose());
         Optional<EstimatedRobotPose> rightCamPose = m_rightCam.getPose(getPose());
 
-        leftCamPose.ifPresent(estimatedRobotPose -> m_poseEstimator.addVisionMeasurement(estimatedRobotPose.estimatedPose.toPose2d(), leftCamPose.get().timestampSeconds));
-        rightCamPose.ifPresent(estimatedRobotPose -> m_poseEstimator.addVisionMeasurement(estimatedRobotPose.estimatedPose.toPose2d(), rightCamPose.get().timestampSeconds));
+        // leftCamPose.ifPresent(estimatedRobotPose -> m_poseEstimator.addVisionMeasurement(estimatedRobotPose.estimatedPose.toPose2d(), leftCamPose.get().timestampSeconds));
+        // rightCamPose.ifPresent(estimatedRobotPose -> m_poseEstimator.addVisionMeasurement(estimatedRobotPose.estimatedPose.toPose2d(), rightCamPose.get().timestampSeconds));
     }
 
     public Pose2d getFrontCamTagPose() {
@@ -469,7 +469,7 @@ public class SwerveDrivetrain extends SubsystemBase {
                 AutoConstants.THETA_CONSTANTS,
                 this::setModuleStates,
                 eventMap,
-                false,
+                true,
                 this
         );
     }
