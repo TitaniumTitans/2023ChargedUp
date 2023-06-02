@@ -39,7 +39,7 @@ import java.util.List;
  */
 public final class Constants {
 
-    public static final Mode CURRENT_MODE = Mode.HELIOS_V1;
+    public static final Mode CURRENT_MODE = Mode.HELIOS_V2;
 
     /*Constants for physical aspects of the modules, plus PID loops constants*/
     public static final class ModuleConstants {
