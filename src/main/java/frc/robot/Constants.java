@@ -275,7 +275,7 @@ public final class Constants {
         public static final int ARM_ANGLE_ID_FOLLOWER = 17;
         public static final int LIMIT_SWITCH_PORT = 3;
 
-        public static final double KP_ANGLE = CURRENT_MODE == Mode.HELIOS_V1 ? 0.53 : 0.227;
+        public static final double KP_ANGLE = CURRENT_MODE == Mode.HELIOS_V2 ? 0.53 : 0.227;
         public static final double KI_ANGLE = 0.007;
         public static final double KD_ANGLE = 0.08;
 
