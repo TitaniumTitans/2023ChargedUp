@@ -134,7 +134,7 @@ public class SwerveDrivetrain extends SubsystemBase {
         m_visionEstimator = new SwerveDrivePoseEstimator(
             DriveConstants.DRIVE_KINEMATICS, 
             new Rotation2d(), 
-            new SwerveModulePosition[4], 
+            getModulePositions(), 
             new Pose2d());
 
         m_frontCamSubsystem = new CameraSubsystem(DriveConstants.FRONT_CAM_NAME, DriveConstants.FRONT_CAM_POSE);
@@ -147,6 +147,7 @@ public class SwerveDrivetrain extends SubsystemBase {
 
         SmartDashboard.putData("Field", m_field);
         resetGyro();
+        m_visionEstimator.update(new Rotation2d(), getModulePositions());
     }
 
     @Override
@@ -331,8 +332,8 @@ public class SwerveDrivetrain extends SubsystemBase {
         Optional<EstimatedRobotPose> leftCamPose = m_leftCam.getPose(getPose());
         Optional<EstimatedRobotPose> rightCamPose = m_rightCam.getPose(getPose());
 
-        Logger.getInstance().recordOutput("L Cam Pose", leftCamPose.get().estimatedPose.toPose2d());
-        Logger.getInstance().recordOutput("R Cam Pose", rightCamPose.get().estimatedPose.toPose2d());
+        Logger.getInstance().recordOutput("L Cam Pose", leftCamPose.isPresent() ? leftCamPose.get().estimatedPose.toPose2d() : new Pose2d());
+        Logger.getInstance().recordOutput("R Cam Pose", leftCamPose.isPresent() ? rightCamPose.get().estimatedPose.toPose2d() : new Pose2d());
 
         leftCamPose.ifPresent(estimatedRobotPose -> m_visionEstimator.addVisionMeasurement(estimatedRobotPose.estimatedPose.toPose2d(), leftCamPose.get().timestampSeconds));
         rightCamPose.ifPresent(estimatedRobotPose -> m_visionEstimator.addVisionMeasurement(estimatedRobotPose.estimatedPose.toPose2d(), rightCamPose.get().timestampSeconds));
