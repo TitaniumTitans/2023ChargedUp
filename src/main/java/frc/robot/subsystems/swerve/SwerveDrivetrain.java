@@ -242,12 +242,12 @@ public class SwerveDrivetrain extends SubsystemBase {
     }
 
     public void setModuleStates(SwerveModuleState[] states) {
-//        for (SwerveModuleState state : states) {
-//            state.speedMetersPerSecond *= m_speedMult;
+       for (SwerveModuleState state : states) {
+           state.speedMetersPerSecond *= m_speedMult;
 //            if (SmartDashboard.getBoolean("Stella Mode", true)) {
 //                state.speedMetersPerSecond *= 0.2;
 //            }
-//        }
+       }
 
         m_flMod.setDesiredState(states[0]);
         m_frMod.setDesiredState(states[1]);
@@ -333,7 +333,7 @@ public class SwerveDrivetrain extends SubsystemBase {
         Optional<EstimatedRobotPose> rightCamPose = m_rightCam.getPose(getPose());
 
         Logger.getInstance().recordOutput("L Cam Pose", leftCamPose.isPresent() ? leftCamPose.get().estimatedPose.toPose2d() : new Pose2d());
-        Logger.getInstance().recordOutput("R Cam Pose", leftCamPose.isPresent() ? rightCamPose.get().estimatedPose.toPose2d() : new Pose2d());
+        Logger.getInstance().recordOutput("R Cam Pose", rightCamPose.isPresent() ? rightCamPose.get().estimatedPose.toPose2d() : new Pose2d());
 
         leftCamPose.ifPresent(estimatedRobotPose -> m_visionEstimator.addVisionMeasurement(estimatedRobotPose.estimatedPose.toPose2d(), leftCamPose.get().timestampSeconds));
         rightCamPose.ifPresent(estimatedRobotPose -> m_visionEstimator.addVisionMeasurement(estimatedRobotPose.estimatedPose.toPose2d(), rightCamPose.get().timestampSeconds));
