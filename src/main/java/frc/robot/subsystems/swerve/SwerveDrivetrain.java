@@ -54,6 +54,7 @@ public class SwerveDrivetrain extends SubsystemBase {
 
     private final Field2d m_field;
     private final SwerveDrivePoseEstimator m_poseEstimator;
+    private final SwerveDrivePoseEstimator m_visionEstimator;
     private final CameraSubsystem m_frontCamSubsystem;
 //    private final CameraSubsystem m_leftCamSubsystem;
 
@@ -129,6 +130,12 @@ public class SwerveDrivetrain extends SubsystemBase {
                 new MatBuilder<>(Nat.N3(), Nat.N1()).fill(0.1, 0.1, 0.1),
                 new MatBuilder<>(Nat.N3(), Nat.N1()).fill(0.75, 0.75, Units.degreesToRadians(1.5))
         );
+
+        m_visionEstimator = new SwerveDrivePoseEstimator(
+            DriveConstants.DRIVE_KINEMATICS, 
+            new Rotation2d(), 
+            new SwerveModulePosition[4], 
+            new Pose2d());
 
         m_frontCamSubsystem = new CameraSubsystem(DriveConstants.FRONT_CAM_NAME, DriveConstants.FRONT_CAM_POSE);
 //        m_leftCamSubsystem = new CameraSubsystem(DriveConstants.LEFT_CAM_NAME, DriveConstants.LEFT_CAM_POSE);
@@ -323,6 +330,14 @@ public class SwerveDrivetrain extends SubsystemBase {
 
         Optional<EstimatedRobotPose> leftCamPose = m_leftCam.getPose(getPose());
         Optional<EstimatedRobotPose> rightCamPose = m_rightCam.getPose(getPose());
+
+        Logger.getInstance().recordOutput("L Cam Pose", leftCamPose.get().estimatedPose.toPose2d());
+        Logger.getInstance().recordOutput("R Cam Pose", rightCamPose.get().estimatedPose.toPose2d());
+
+        leftCamPose.ifPresent(estimatedRobotPose -> m_visionEstimator.addVisionMeasurement(estimatedRobotPose.estimatedPose.toPose2d(), leftCamPose.get().timestampSeconds));
+        rightCamPose.ifPresent(estimatedRobotPose -> m_visionEstimator.addVisionMeasurement(estimatedRobotPose.estimatedPose.toPose2d(), rightCamPose.get().timestampSeconds));
+
+        Logger.getInstance().recordOutput("Merged Cam pose", m_visionEstimator.getEstimatedPosition());
 
         // leftCamPose.ifPresent(estimatedRobotPose -> m_poseEstimator.addVisionMeasurement(estimatedRobotPose.estimatedPose.toPose2d(), leftCamPose.get().timestampSeconds));
         // rightCamPose.ifPresent(estimatedRobotPose -> m_poseEstimator.addVisionMeasurement(estimatedRobotPose.estimatedPose.toPose2d(), rightCamPose.get().timestampSeconds));

@@ -39,7 +39,7 @@ import java.util.List;
  */
 public final class Constants {
 
-    public static final Mode CURRENT_MODE = Mode.HELIOS_V2;
+    public static final Mode CURRENT_MODE = Mode.HELIOS_V1;
 
     /*Constants for physical aspects of the modules, plus PID loops constants*/
     public static final class ModuleConstants {
@@ -287,7 +287,7 @@ public final class Constants {
         public static final double ARM_KS = 0.0;
         public static final double ARM_KG = 0.17;
 
-        public static final double ARM_OFFSET = CURRENT_MODE == Mode.HELIOS_V1 ? 165.0 : 294;
+        public static final double ARM_OFFSET = CURRENT_MODE == Mode.HELIOS_V1 ? 280.0 : 294;
 
         public static final int ENCODER_PORT = 4;
 

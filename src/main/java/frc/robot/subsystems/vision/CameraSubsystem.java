@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.Constants;
+
+import org.littletonrobotics.junction.Logger;
 import org.photonvision.EstimatedRobotPose;
 import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonPoseEstimator;
@@ -213,5 +215,10 @@ public class CameraSubsystem implements Subsystem {
         } else {
             return m_prevTag;
         }
+    }
+
+    @Override
+    public void periodic() {
+        
     }
 }
