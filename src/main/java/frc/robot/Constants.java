@@ -140,12 +140,12 @@ public final class Constants {
 
         public static final Transform3d RIGHT_CAM_POSE = new Transform3d(
                 new Translation3d(Units.inchesToMeters(50.0), Units.inchesToMeters(-25.0), Units.inchesToMeters(6)),
-                new Rotation3d(Units.degreesToRadians(61.87), 0, Units.degreesToRadians(35.0))
+                new Rotation3d(0.0, Units.degreesToRadians(61.87), Units.degreesToRadians(-55.0))//new Rotation3d(Units.degreesToRadians(61.87), 0, Units.degreesToRadians(35.0))
         );
 
         public static final Transform3d LEFT_CAM_POSE = new Transform3d(
                 new Translation3d(Units.inchesToMeters(10.25), Units.inchesToMeters(8.25), Units.inchesToMeters(6)),
-                new Rotation3d(Units.degreesToRadians(61.87), 0, Units.degreesToRadians(-70.0))
+                new Rotation3d(0.0, Units.degreesToRadians(61.87), Units.degreesToRadians(55.0))//new Rotation3d(Units.degreesToRadians(61.87), 0, Units.degreesToRadians(-70.0))
         );
 
         public static final ProfiledPIDController FOLLOW_CONTROLLER_X = new ProfiledPIDController(
@@ -275,8 +275,8 @@ public final class Constants {
         public static final int ARM_ANGLE_ID_FOLLOWER = 17;
         public static final int LIMIT_SWITCH_PORT = 3;
 
-        public static final double KP_ANGLE = CURRENT_MODE == Mode.HELIOS_V2 ? 0.53 : 0.227;
-        public static final double KI_ANGLE = 0.007;
+        public static final double KP_ANGLE = CURRENT_MODE == Mode.HELIOS_V1 ? 0.53 : 0.227;
+        public static final double KI_ANGLE = 0.0007;
         public static final double KD_ANGLE = 0.08;
 
         public static final GosDoubleProperty ARM_EXT_KP = new GosDoubleProperty(true, "Arm extension kP", 0.5);
