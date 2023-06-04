@@ -66,7 +66,7 @@ public class SwerveModNeo implements SwerveModuleIO {
     m_driveFF = new SimpleMotorFeedforward(ModuleConstants.MODULE_KS, ModuleConstants.MODULE_KV, ModuleConstants.MODULE_KA);
   }
 
-  public void setDesiredState(SwerveModuleState state) {
+  public SwerveModuleState setDesiredState(SwerveModuleState state) {
     // Prevents angle motor from turning further than it needs to. 
     // E.G. rotating from 10 to 270 degrees CW vs CCW.
     state = SwerveModuleState.optimize(state, getState().angle);
@@ -84,6 +84,8 @@ public class SwerveModNeo implements SwerveModuleIO {
 
     m_anglePID.setReference(angle, CANSparkMax.ControlType.kPosition);
     m_lastAngle = angle;
+
+    return state;
   }
 
   public SwerveModuleState getState() {

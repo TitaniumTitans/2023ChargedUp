@@ -22,7 +22,7 @@ public interface SwerveModuleIO {
 
     default void updateInputs(SwerveModuleInputsAutoLogged inputs) {}
 
-    default void setDesiredState(SwerveModuleState state) {}
+    default SwerveModuleState setDesiredState(SwerveModuleState state) {return new SwerveModuleState();}
 
     default SwerveModuleState getModuleState() { return new SwerveModuleState();}
 

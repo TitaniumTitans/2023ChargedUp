@@ -52,7 +52,7 @@ public class FalconProModule implements SwerveModuleIO {
      *
      * @param state the desired state of the module
      */
-    public void setDesiredState(SwerveModuleState state) {
+    public SwerveModuleState setDesiredState(SwerveModuleState state) {
         //Optimize the state so the module doesn't rotate more than 90 degrees
         state = CTREModuleState.optimize(state, getModuleAngle());
 
@@ -69,8 +69,8 @@ public class FalconProModule implements SwerveModuleIO {
 
         // Set the motor outputs
         m_driveMotor.setControl(m_driveControl);
-//        m_driveMotor.setControl(new DutyCycleOut(state.speedMetersPerSecond / ModuleConstants.MAX_SPEED_L1_MPS));
         m_azimuthMotor.setControl(m_azimuthControl);
+        return state;
     }
 
     /**

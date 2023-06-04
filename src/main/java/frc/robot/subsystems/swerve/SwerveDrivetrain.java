@@ -48,15 +48,11 @@ public class SwerveDrivetrain extends SubsystemBase {
     private final WPI_Pigeon2 m_gyro;
     private final TimeOfFlight m_tofSensor;
 
-    private final SwerveIOInputsAutoLogged m_inputs;
-
     private boolean fieldOriented = true;
 
     private final Field2d m_field;
     private final SwerveDrivePoseEstimator m_poseEstimator;
     private final SwerveDrivePoseEstimator m_visionEstimator;
-    private final CameraSubsystem m_frontCamSubsystem;
-//    private final CameraSubsystem m_leftCamSubsystem;
 
     private final CameraSubsystem m_leftCam;
     private final CameraSubsystem m_rightCam;
@@ -77,31 +73,8 @@ public class SwerveDrivetrain extends SubsystemBase {
         HUMAN_PLAYER_ALIGN
     }
 
-
-    @AutoLog
-    public static class SwerveIOInputs {
-        // Mod fr
-        public double frAngleDeg = 0.0;
-        public double frDriveSpeedMPS = 0.0;
-
-        // Mod fl
-        public double flAngleDeg = 0.0;
-        public double flDriveSpeedMPS = 0.0;
-
-        // Mod br
-        public double brAngleDeg = 0.0;
-        public double brDriveSpeedMPS = 0.0;
-
-        // Mod bl
-        public double blAngleDeg = 0.0;
-        public double blDriveSpeedMPS = 0.0;
-
-        // General robot
-        public double gyroYawDeg = 0.0;
-        public double gyroPitchDeg = 0.0;
-    }
-
     public SwerveDrivetrain() {
+        // Check current robot mode for the proper hardware
         if (Constants.CURRENT_MODE == Constants.Mode.HELIOS_V1) {
             m_flMod = new SwerveModNeo(0, DriveConstants.MOD_FL_OFFSET, DriveConstants.MOD_FL_CANS, false);
             m_frMod = new SwerveModNeo(1, DriveConstants.MOD_FR_OFFSET, DriveConstants.MOD_FR_CANS, false);
@@ -114,14 +87,16 @@ public class SwerveDrivetrain extends SubsystemBase {
             m_brMod = new FalconProModule(DriveConstants.MOD_BR_OFFSET_V2, DriveConstants.MOD_BR_CANS);
         }
 
+        // open gyro and ToF sensor
         m_gyro = new WPI_Pigeon2(DriveConstants.GYRO_CAN);
-        m_inputs = new SwerveIOInputsAutoLogged();
 
         m_tofSensor = new TimeOfFlight(Constants.WristConstants.TOF_PORT);
         m_tofSensor.setRangingMode(TimeOfFlight.RangingMode.Short, 10);
 
+        // open field data and advantagekit outputs
         m_field = new Field2d();
-        SmartDashboard.putData("Field", m_field);
+
+        // construct the pose estimator for odometry
         m_poseEstimator = new SwerveDrivePoseEstimator(
                 DriveConstants.DRIVE_KINEMATICS,
                 getGyroYaw(),
@@ -131,20 +106,19 @@ public class SwerveDrivetrain extends SubsystemBase {
                 new MatBuilder<>(Nat.N3(), Nat.N1()).fill(0.75, 0.75, Units.degreesToRadians(1.5))
         );
 
+        // construct a secondary estimator for testing with cameras
         m_visionEstimator = new SwerveDrivePoseEstimator(
             DriveConstants.DRIVE_KINEMATICS, 
             new Rotation2d(), 
             getModulePositions(), 
             new Pose2d());
 
-        m_frontCamSubsystem = new CameraSubsystem(DriveConstants.FRONT_CAM_NAME, DriveConstants.FRONT_CAM_POSE);
-//        m_leftCamSubsystem = new CameraSubsystem(DriveConstants.LEFT_CAM_NAME, DriveConstants.LEFT_CAM_POSE);
+        // Construct cameras
+        m_leftCam = new CameraSubsystem(DriveConstants.LEFT_GLOBAL_CAM, DriveConstants.LEFT_CAM_POSE);
+        m_rightCam = new CameraSubsystem(DriveConstants.RIGHT_GLOBAL_CAM, DriveConstants.RIGHT_CAM_POSE);
 
-//        if (Constants.CURRENT_MODE == Constants.Mode.HELIOS_V2) {
-            m_leftCam = new CameraSubsystem(DriveConstants.LEFT_GLOBAL_CAM, DriveConstants.LEFT_CAM_POSE);
-            m_rightCam = new CameraSubsystem(DriveConstants.RIGHT_GLOBAL_CAM, DriveConstants.RIGHT_CAM_POSE);
-//        }
 
+        // Setup field and initialize gyro
         SmartDashboard.putData("Field", m_field);
         resetGyro();
         m_visionEstimator.update(new Rotation2d(), getModulePositions());
@@ -152,44 +126,25 @@ public class SwerveDrivetrain extends SubsystemBase {
 
     @Override
     public void periodic() {
-        updateInputs();
-        Logger.getInstance().processInputs("Swerve", m_inputs);
-        Logger.getInstance().recordOutput("Robot Pose", getPose());
+        // Update logged values
+        Logger.getInstance().recordOutput("Odometry/Robot Pose", getPose());
 
         updatePoseEstimator();
         m_field.setRobotPose(getPose());
 
-        double[] angles = getAngles();
-        SmartDashboard.putNumber("Swerve Gyro Yaw", getGyroYaw().getDegrees());
+        SwerveModuleState[] states = getModuleStates();
+        for (SwerveModuleState s : states) {
 
-        SmartDashboard.putNumber("FL Angle", angles[0]);
-        SmartDashboard.putNumber("FR Angle", angles[1]);
-        SmartDashboard.putNumber("BL Angle", angles[2]);
-        SmartDashboard.putNumber("BR Angle", angles[3]);
-
-        Rotation2d[] cancoderAngles = getCancoderAngles();
-        SmartDashboard.putNumber("FL Cancoder", cancoderAngles[0].getDegrees());
-        SmartDashboard.putNumber("FR Cancoder", cancoderAngles[1].getDegrees());
-        SmartDashboard.putNumber("BL Cancoder", cancoderAngles[2].getDegrees());
-        SmartDashboard.putNumber("BR Cancoder", cancoderAngles[3].getDegrees());
-        SmartDashboard.putNumber("TOF Sensor Distance", getDetectionRange());
-
-        SmartDashboard.putNumber("FL Actual Speed", m_flMod.getModuleState().speedMetersPerSecond);
-        SmartDashboard.putNumber("FR Actual Speed", m_frMod.getModuleState().speedMetersPerSecond);
-        SmartDashboard.putNumber("BL Actual Speed", m_blMod.getModuleState().speedMetersPerSecond);
-        SmartDashboard.putNumber("BR Actual Speed", m_blMod.getModuleState().speedMetersPerSecond);
+        }
 
         m_field.setRobotPose(m_poseEstimator.getEstimatedPosition());
 
+        // Record prev and current pitch and time used for auto balance
         m_previousPitch = m_currentPitch;
         m_currentPitch = getGyroPitch().getDegrees();
 
-        SmartDashboard.putNumber("Calculated speed for 2 mps", calculateRPSForMPS(2));
-
         m_prevTime = m_currentTime;
         m_currentTime = RobotController.getFPGATime();
-
-        getFrontCamTagID();
     }
 
     public double calculateRPSForMPS(double metersPerSecond) {
@@ -288,23 +243,6 @@ public class SwerveDrivetrain extends SubsystemBase {
         m_brMod.setMagnetOffset();
     }
 
-    public void updateInputs() {
-        m_inputs.flAngleDeg = m_flMod.getModuleState().angle.getDegrees();
-        m_inputs.flDriveSpeedMPS = m_flMod.getModuleState().speedMetersPerSecond;
-
-        m_inputs.frAngleDeg = m_frMod.getModuleState().angle.getDegrees();
-        m_inputs.frDriveSpeedMPS = m_frMod.getModuleState().speedMetersPerSecond;
-
-        m_inputs.blAngleDeg = m_blMod.getModuleState().angle.getDegrees();
-        m_inputs.blDriveSpeedMPS = m_blMod.getModuleState().speedMetersPerSecond;
-
-        m_inputs.brAngleDeg = m_brMod.getModuleState().angle.getDegrees();
-        m_inputs.brDriveSpeedMPS = m_brMod.getModuleState().speedMetersPerSecond;
-
-        m_inputs.gyroPitchDeg = m_gyro.getPitch();
-        m_inputs.gyroYawDeg = m_gyro.getYaw();
-    }
-
     public void updatePoseEstimator() {
         /*
          * Get swerve odometry
@@ -314,20 +252,6 @@ public class SwerveDrivetrain extends SubsystemBase {
         /*
          * Create new vision poses for each cam
          */
-        Optional<EstimatedRobotPose> frontCamEstimatePose =
-                m_frontCamSubsystem.getPose(getPose());
-//        Optional<EstimatedRobotPose> leftCamEstimatePose =
-//                m_leftCamSubsystem.getPose(getPose());
-
-        /*
-         * Add each vision measurement to the pose estimator if it exists for each camera
-         */
-
-        if (frontCamEstimatePose.isPresent()) {
-            EstimatedRobotPose frontCamPose = frontCamEstimatePose.get();
-
-//            m_poseEstimator.addVisionMeasurement(frontCamPose.estimatedPose.toPose2d(), frontCamPose.timestampSeconds);
-        }
 
         Optional<EstimatedRobotPose> leftCamPose = m_leftCam.getPose(getPose());
         Optional<EstimatedRobotPose> rightCamPose = m_rightCam.getPose(getPose());
@@ -335,21 +259,23 @@ public class SwerveDrivetrain extends SubsystemBase {
         Logger.getInstance().recordOutput("L Cam Pose", leftCamPose.isPresent() ? leftCamPose.get().estimatedPose.toPose2d() : new Pose2d());
         Logger.getInstance().recordOutput("R Cam Pose", rightCamPose.isPresent() ? rightCamPose.get().estimatedPose.toPose2d() : new Pose2d());
 
+
+        /*
+         * Add each vision measurement to the pose estimator if it exists for each camera
+         */
+
         leftCamPose.ifPresent(estimatedRobotPose -> m_visionEstimator.addVisionMeasurement(estimatedRobotPose.estimatedPose.toPose2d(), leftCamPose.get().timestampSeconds));
         rightCamPose.ifPresent(estimatedRobotPose -> m_visionEstimator.addVisionMeasurement(estimatedRobotPose.estimatedPose.toPose2d(), rightCamPose.get().timestampSeconds));
 
         Logger.getInstance().recordOutput("Merged Cam pose", m_visionEstimator.getEstimatedPosition());
-
-        // leftCamPose.ifPresent(estimatedRobotPose -> m_poseEstimator.addVisionMeasurement(estimatedRobotPose.estimatedPose.toPose2d(), leftCamPose.get().timestampSeconds));
-        // rightCamPose.ifPresent(estimatedRobotPose -> m_poseEstimator.addVisionMeasurement(estimatedRobotPose.estimatedPose.toPose2d(), rightCamPose.get().timestampSeconds));
     }
 
     public Pose2d getFrontCamTagPose() {
-        return m_frontCamSubsystem.getTagPose();
+        return new Pose2d();
     }
 
     public int getFrontCamTagID() {
-        return m_frontCamSubsystem.getTagID();
+        return 0;
     }
 
     public void resetPose(Pose2d newPose) {
@@ -369,16 +295,6 @@ public class SwerveDrivetrain extends SubsystemBase {
         };
     }
 
-    public Rotation2d[] getCancoderAngles() {
-        return new Rotation2d[] {
-                m_flMod.getAbsoluteAngle(),
-                m_frMod.getAbsoluteAngle(),
-                m_blMod.getAbsoluteAngle(),
-                m_brMod.getAbsoluteAngle(),
-        };
-    }
-
-    @SuppressWarnings("PMD.AvoidReassigningParameters")
     public Command alignToTag(AlignmentOptions align) {
         // Figure out what pose the robot should be
         Pose2d tagPose = getFrontCamTagPose();
@@ -447,18 +363,9 @@ public class SwerveDrivetrain extends SubsystemBase {
         );
     }
 
-    public Command alignToAngle(double angle) {
-        PathPlannerTrajectory traj = PathPlanner.generatePath(
-                AutoUtils.getDefaultConstraints(),
-                new PathPoint(getPose().getTranslation(), new Rotation2d(), getPose().getRotation()),
-                new PathPoint(getPose().getTranslation(), new Rotation2d(), Rotation2d.fromDegrees(angle)));
-
-        return getAutoBuilder(new HashMap<>()).followPath(traj);
-    }
-
     public void followTag(Translation2d offset) {
         // Determine the "end point" for the follow
-        Transform3d tagToRobot = m_frontCamSubsystem.robotToTag();
+        Transform3d tagToRobot = m_leftCam.robotToTag();
         tagToRobot.plus(new Transform3d(new Translation3d(offset.getX(), offset.getY(), 0.0), new Rotation3d()));
 
         double xOut = MathUtil.clamp(DriveConstants.FOLLOW_CONTROLLER_X.calculate(getPose().getX(), tagToRobot.getX()), -1.0, 1.0);
@@ -490,12 +397,9 @@ public class SwerveDrivetrain extends SubsystemBase {
         );
     }
 
+    // Command factories and their respective methods
     public Command resetGyroBase() {
         return runOnce(this::resetGyro);
-    }
-
-    public Command toggleFieldRelative() {
-        return runOnce(() -> fieldOriented = !fieldOriented);
     }
 
     public void setFieldRelative(boolean relative) {
