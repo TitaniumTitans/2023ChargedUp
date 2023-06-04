@@ -4,6 +4,8 @@ plugins {
     id "org.sonarqube" version "3.5.0.2730"
     id "checkstyle"
     id 'org.jetbrains.kotlin.jvm' version '1.8.10'
+    id "com.peterabeles.gversion" version "1.10"
+    id "com.diffplug.spotless" version "6.12.0"
 }
 
 checkstyle {
@@ -24,6 +26,8 @@ sonar {
         property "sonar.projectKey", "TitaniumTitans_2023ChargedUp_AYY7_VG9-ummmaNu3Sxv"
     }
 }
+
+
 
 repositories {
     maven {
@@ -149,4 +153,15 @@ compileTestKotlin {
     kotlinOptions {
         jvmTarget = "11"
     }
+}
+
+// Create version file
+project.compileJava.dependsOn(createVersionFile)
+gversion {
+    srcDir       = "src/main/java/"
+    classPackage = "org.littletonrobotics.frc2023"
+    className    = "BuildConstants"
+    dateFormat   = "yyyy-MM-dd HH:mm:ss z"
+    timeZone     = "America/New_York"
+    indent       = "  "
 }

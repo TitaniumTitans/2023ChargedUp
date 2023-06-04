@@ -22,7 +22,7 @@ import lib.utils.Rev.SparkMaxConfigs;
 import lib.utils.drivers.CTREUtil;
 import lib.utils.drivers.RevUtil;
 
-public class SwerveModNeo implements SwerveModuleInterface{
+public class SwerveModNeo implements SwerveModuleIO {
   public final int moduleNumber;
   private static final int TIMEOUT_MILLISECONDS = 600;
 

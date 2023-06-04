@@ -19,6 +19,7 @@ import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import org.littletonrobotics.frc2023.BuildConstants;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -56,20 +57,25 @@ public class Robot extends LoggedRobot {
     m_pdh = new PowerDistribution(1, PowerDistribution.ModuleType.kRev);
     m_pdh.setSwitchableChannel(false);
 
-     // Set up data receivers & replay source
+    // Log git and build metadata
+    logger.recordMetadata("RuntimeType", getRuntimeType().toString());
+    logger.recordMetadata("ProjectName", BuildConstants.MAVEN_NAME);
+    logger.recordMetadata("BuildDate", BuildConstants.BUILD_DATE);
+    logger.recordMetadata("GitSHA", BuildConstants.GIT_SHA);
+    logger.recordMetadata("GitDate", BuildConstants.GIT_DATE);
+    logger.recordMetadata("GitBranch", BuildConstants.GIT_BRANCH);
+
+    // Set up data receivers & replay source
      switch (Constants.CURRENT_MODE) {
       // Running on a real robot, log to a USB stick
       case HELIOS_V2:
-      case SIM:
       case HELIOS_V1:
-      logger.addDataReceiver(new WPILOGWriter("/media/sda1/helios"));
-      logger.addDataReceiver(new NT4Publisher());
-      break;
-
-      // Running a physics simulator, log to local folder
-
-
-
+        logger.addDataReceiver(new WPILOGWriter("/media/sda1/helios"));
+        logger.addDataReceiver(new NT4Publisher());
+         // Running a physics simulator, log to local folder
+       case SIM:
+         logger.addDataReceiver(new WPILOGWriter("/"));
+         logger.addDataReceiver(new NT4Publisher());
       // Replaying a log, set up replay source
       case REPLAY:
         setUseTiming(false); // Run as fast as possible

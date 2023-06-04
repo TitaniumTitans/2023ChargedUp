@@ -4,19 +4,13 @@ import com.ctre.phoenix.sensors.AbsoluteSensorRange;
 import com.ctre.phoenix.sensors.CANCoderStatusFrame;
 import com.ctre.phoenix.sensors.SensorInitializationStrategy;
 import com.ctre.phoenixpro.StatusCode;
-import com.ctre.phoenixpro.configs.CANcoderConfiguration;
 import com.ctre.phoenixpro.configs.TalonFXConfiguration;
-import com.ctre.phoenixpro.controls.DutyCycleOut;
 import com.ctre.phoenixpro.controls.PositionDutyCycle;
-import com.ctre.phoenixpro.controls.VelocityDutyCycle;
 import com.ctre.phoenixpro.controls.VelocityVoltage;
 import com.ctre.phoenix.sensors.CANCoder;
 import com.ctre.phoenixpro.hardware.TalonFX;
-import com.ctre.phoenixpro.signals.AbsoluteSensorRangeValue;
 import com.ctre.phoenixpro.signals.NeutralModeValue;
-import com.ctre.phoenixpro.signals.SensorDirectionValue;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
@@ -26,9 +20,7 @@ import lib.utils.Swerve.CTREModuleState;
 import lib.utils.Swerve.FalconProConfigFactory;
 import lib.utils.Utils;
 
-import static com.ctre.phoenix.motorcontrol.TalonFXControlMode.Velocity;
-
-public class FalconProModule implements SwerveModuleInterface {
+public class FalconProModule implements SwerveModuleIO {
 
     private final TalonFX m_driveMotor;
     private final TalonFX m_azimuthMotor;

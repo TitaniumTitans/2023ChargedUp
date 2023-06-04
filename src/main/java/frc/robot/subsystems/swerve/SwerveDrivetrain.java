@@ -29,7 +29,7 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.commands.autonomous.AutoUtils;
 import frc.robot.subsystems.swerve.module.FalconProModule;
 import frc.robot.subsystems.swerve.module.SwerveModNeo;
-import frc.robot.subsystems.swerve.module.SwerveModuleInterface;
+import frc.robot.subsystems.swerve.module.SwerveModuleIO;
 import frc.robot.subsystems.vision.CameraSubsystem;
 import org.littletonrobotics.junction.AutoLog;
 import org.littletonrobotics.junction.Logger;
@@ -40,10 +40,10 @@ import java.util.Map;
 import java.util.Optional;
 
 public class SwerveDrivetrain extends SubsystemBase {
-    private final SwerveModuleInterface m_frMod;
-    private final SwerveModuleInterface m_flMod;
-    private final SwerveModuleInterface m_blMod;
-    private final SwerveModuleInterface m_brMod;
+    private final SwerveModuleIO m_frMod;
+    private final SwerveModuleIO m_flMod;
+    private final SwerveModuleIO m_blMod;
+    private final SwerveModuleIO m_brMod;
 
     private final WPI_Pigeon2 m_gyro;
     private final TimeOfFlight m_tofSensor;
