@@ -139,14 +139,14 @@ public final class Constants {
         public static final String RIGHT_GLOBAL_CAM = "RightGlobalCam";
 
         public static final Transform3d RIGHT_CAM_POSE = new Transform3d(
-                new Translation3d(Units.inchesToMeters(50.0), Units.inchesToMeters(-25.0), Units.inchesToMeters(6)),
-                new Rotation3d(0.0, Units.degreesToRadians(61.87), Units.degreesToRadians(-55.0))//new Rotation3d(Units.degreesToRadians(61.87), 0, Units.degreesToRadians(35.0))
+                new Translation3d(Units.inchesToMeters(10.5), Units.inchesToMeters(8.5), Units.inchesToMeters(6)),
+                new Rotation3d(0.0, Units.degreesToRadians(50), Units.degreesToRadians(-18))//new Rotation3d(Units.degreesToRadians(61.87), 0, Units.degreesToRadians(35.0))
         );
 
         public static final Transform3d LEFT_CAM_POSE = new Transform3d(
-                new Translation3d(Units.inchesToMeters(10.25), Units.inchesToMeters(8.25), Units.inchesToMeters(6)),
-                new Rotation3d(0.0, Units.degreesToRadians(61.87), Units.degreesToRadians(55.0))//new Rotation3d(Units.degreesToRadians(61.87), 0, Units.degreesToRadians(-70.0))
-        );
+                new Translation3d(Units.inchesToMeters(10.5), Units.inchesToMeters(-8.5), Units.inchesToMeters(6)),
+                new Rotation3d(0.0, Units.degreesToRadians(50), Units.degreesToRadians(18))//new Rotation3d(Units.degreesToRadians(61.87), 0, Units.degreesToRadians(-70.0))
+                );
 
         public static final ProfiledPIDController FOLLOW_CONTROLLER_X = new ProfiledPIDController(
                 4.0,

@@ -48,7 +48,7 @@ public class RobotContainer {
 
     //Controllers
     private final CommandXboxController m_driveController = new CommandXboxController(Constants.DRIVER_PORT);
-    private final CommandXboxController m_testController = new CommandXboxController(2);
+//    private final CommandXboxController m_testController = new CommandXboxController(2);
 
     //Logged chooser for auto
     private final AutoFactory m_autoFactory;
@@ -144,13 +144,13 @@ public class RobotContainer {
             m_driveController.leftBumper().whileTrue(new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.HIGH_GOAL));
             m_driveController.rightBumper().whileTrue(new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.MIDDLE_GOAL));
 
-            m_foot.leftPedal().whileTrue(m_drive.setSlowmodeFactory()).whileFalse(m_drive.setSlowmodeFactory());
+//            m_foot.leftPedal().whileTrue(m_drive.setSlowmodeFactory()).whileFalse(m_drive.setSlowmodeFactory());
 
-            m_foot.middlePedal().onTrue(new PrintCommand("Middle Pedal Pressed"));
-            m_foot.rightPedal().onTrue(new PrintCommand("Right Pedal Pressed"));
+//            m_foot.middlePedal().onTrue(new PrintCommand("Middle Pedal Pressed"));
+//            m_foot.rightPedal().onTrue(new PrintCommand("Right Pedal Pressed"));
         } else {
-            m_testController.a().whileTrue(m_ext.setArmSpeedFactory(0.25)).whileFalse(m_ext.setArmSpeedFactory(0.0));
-            m_testController.b().whileTrue(m_ext.setArmSpeedFactory(-0.25)).whileTrue(m_ext.setArmSpeedFactory(0.0));
+//            m_testController.a().whileTrue(m_ext.setArmSpeedFactory(0.25)).whileFalse(m_ext.setArmSpeedFactory(0.0));
+//            m_testController.b().whileTrue(m_ext.setArmSpeedFactory(-0.25)).whileTrue(m_ext.setArmSpeedFactory(0.0));
         }
     }
 

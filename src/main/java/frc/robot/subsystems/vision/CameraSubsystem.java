@@ -44,6 +44,8 @@ public class CameraSubsystem implements Subsystem {
         m_camera = new PhotonCamera(camName);
         m_prevAlliance = DriverStation.getAlliance();
 
+        SmartDashboard.putBoolean("Use Vision Filtering?", true);
+
         robotToCam = camPose;
         try {
             m_aprilTagFieldLayout =
@@ -83,98 +85,102 @@ public class CameraSubsystem implements Subsystem {
 
         PhotonPipelineResult camResult = m_camera.getLatestResult();
 
-        ArrayList<PhotonTrackedTarget> goodTargets = new ArrayList<>();
+        return m_photonPoseEstimator.update(camResult);
 
-        Double robotToTagDist;
-
-        if(!camResult.hasTargets()) {
-            return Optional.empty();
-        } else {
-            for (PhotonTrackedTarget target: camResult.getTargets())
-            {
-                /**
-                 * Get the current target position and check if it is a valid target.
-                 */
-                Optional<Pose3d> targetPose = m_aprilTagFieldLayout.getTagPose(target.getFiducialId());
-
-                if (targetPose.isEmpty())
-                {
-                    continue;
-                }
-
-                /**
-                 * Calculate the position of the robot based on the best target result and alternate target result.
-                 */
-                Pose3d bestTagPose = targetPose.get().transformBy(target.getBestCameraToTarget().inverse())
-                        .transformBy(robotToCam);
-                Pose3d altTagPose = targetPose.get().transformBy(target.getAlternateCameraToTarget().inverse())
-                        .transformBy(robotToCam);
-
-                SmartDashboard.putNumber("Best Tag X", bestTagPose.getX());
-                SmartDashboard.putNumber("Best Tag Y", bestTagPose.getY());
-                SmartDashboard.putNumber("Alt Tag X", altTagPose.getX());
-                SmartDashboard.putNumber("Alt Tag Y", altTagPose.getY());
-
-                /**
-                 * Calculate the distance between the bestTagPose and the previous pose.
-                 * And calculate the distance between the altTagPose and the previous pose.
-                 */
-                double bestPoseAndPrevPoseDist = Math.sqrt((bestTagPose.getX() - prevEstimatedRobotPose.getX()
-                * (bestTagPose.getX() - prevEstimatedRobotPose.getX()))
-                + ((bestTagPose.getY() - prevEstimatedRobotPose.getY())
-                * (bestTagPose.getY() - prevEstimatedRobotPose.getY())));
-                double altPoseAndPrevPoseDist = Math.sqrt((altTagPose.getX() - prevEstimatedRobotPose.getX()
-                        * (altTagPose.getX() - prevEstimatedRobotPose.getX()))
-                        + ((altTagPose.getY() - prevEstimatedRobotPose.getY())
-                        * (altTagPose.getY() - prevEstimatedRobotPose.getY())));
-
-                /**
-                 * check which robot position based on the two different results is closer to the previous pose.
-                 * Then calculate the distance between the desired robot position and the tag position.
-                 */
-                if (bestPoseAndPrevPoseDist < altPoseAndPrevPoseDist) {
-                    /*
-                    robotToTagDist = Math.sqrt(((bestTagPose.getX() - targetPose.get().getX())
-                            * (bestTagPose.getX() - targetPose.get().getX()))
-                            + ((bestTagPose.getY() - targetPose.get().getY())
-                            * (bestTagPose.getY() - targetPose.get().getY())));
-
-                     */
-
-                    robotToTagDist = bestTagPose.minus(targetPose.get()).getTranslation().getNorm();
-                } else {
-                    /*
-                    robotToTagDist = Math.sqrt(((altTagPose.getX() - targetPose.get().getX())
-                            * (altTagPose.getX() - targetPose.get().getX()))
-                            + ((altTagPose.getY() - targetPose.get().getY())
-                            * (altTagPose.getY() - targetPose.get().getY())));
-                    */
-                    robotToTagDist = altTagPose.minus(targetPose.get()).getTranslation().getNorm();
-                }
-
-                SmartDashboard.putNumber("Robot to Tag Distance", robotToTagDist);
-
-                /**
-                 * Check if the ambiguity of the tag is below the predetermined threshold.
-                 * And check if the distance between the robot and tag is below the predetermined threshold.
-                 */
-                if (target.getPoseAmbiguity() <= Constants.DriveConstants.CAM_AMBIGUITY_THRESHOLD.getValue()
-                        && robotToTagDist < Constants.DriveConstants.CAM_DISTANCE_THRESHOLD.getValue())
-                {
-                    goodTargets.add(target);
-                }
-            }
+//        ArrayList<PhotonTrackedTarget> goodTargets = new ArrayList<>();
+//
+//        Double robotToTagDist;
+//
+//        if(!camResult.hasTargets()) {
+//            return Optional.empty();
+//        } else {
+//            for (PhotonTrackedTarget target: camResult.getTargets()) {
+//                /**
+//                 * Get the current target position and check if it is a valid target.
+//                 */
+//                Optional<Pose3d> targetPose = m_aprilTagFieldLayout.getTagPose(target.getFiducialId());
+//
+//                if (targetPose.isEmpty()) {
+//                    continue;
+//                }
+//
+//                if (SmartDashboard.getBoolean("Use Vision Filtering?", true)) {
+//
+//                    /**
+//                     * Calculate the position of the robot based on the best target result and alternate target result.
+//                     */
+//                    Pose3d bestTagPose = targetPose.get().transformBy(target.getBestCameraToTarget().inverse())
+//                            .transformBy(robotToCam);
+//                    Pose3d altTagPose = targetPose.get().transformBy(target.getAlternateCameraToTarget().inverse())
+//                            .transformBy(robotToCam);
+//
+//                SmartDashboard.putNumber("Best Tag X", bestTagPose.getX());
+//                SmartDashboard.putNumber("Best Tag Y", bestTagPose.getY());
+//                SmartDashboard.putNumber("Alt Tag X", altTagPose.getX());
+//                SmartDashboard.putNumber("Alt Tag Y", altTagPose.getY());
+//
+//                    /**
+//                     * Calculate the distance between the bestTagPose and the previous pose.
+//                     * And calculate the distance between the altTagPose and the previous pose.
+//                     */
+//                    double bestPoseAndPrevPoseDist = Math.sqrt((bestTagPose.getX() - prevEstimatedRobotPose.getX()
+//                            * (bestTagPose.getX() - prevEstimatedRobotPose.getX()))
+//                            + ((bestTagPose.getY() - prevEstimatedRobotPose.getY())
+//                            * (bestTagPose.getY() - prevEstimatedRobotPose.getY())));
+//                    double altPoseAndPrevPoseDist = Math.sqrt((altTagPose.getX() - prevEstimatedRobotPose.getX()
+//                            * (altTagPose.getX() - prevEstimatedRobotPose.getX()))
+//                            + ((altTagPose.getY() - prevEstimatedRobotPose.getY())
+//                            * (altTagPose.getY() - prevEstimatedRobotPose.getY())));
+//
+//                    /**
+//                     * check which robot position based on the two different results is closer to the previous pose.
+//                     * Then calculate the distance between the desired robot position and the tag position.
+//                     */
+//                    if (bestPoseAndPrevPoseDist < altPoseAndPrevPoseDist) {
+//                    /*
+//                    robotToTagDist = Math.sqrt(((bestTagPose.getX() - targetPose.get().getX())
+//                            * (bestTagPose.getX() - targetPose.get().getX()))
+//                            + ((bestTagPose.getY() - targetPose.get().getY())
+//                            * (bestTagPose.getY() - targetPose.get().getY())));
+//
+//                     */
+//
+//                        robotToTagDist = bestTagPose.minus(targetPose.get()).getTranslation().getNorm();
+//                    } else {
+//                    /*
+//                    robotToTagDist = Math.sqrt(((altTagPose.getX() - targetPose.get().getX())
+//                            * (altTagPose.getX() - targetPose.get().getX()))
+//                            + ((altTagPose.getY() - targetPose.get().getY())
+//                            * (altTagPose.getY() - targetPose.get().getY())));
+//                    */
+//                        robotToTagDist = altTagPose.minus(targetPose.get()).getTranslation().getNorm();
+//                    }
+//
+//                    SmartDashboard.putNumber("Robot to Tag Distance", robotToTagDist);
+//
+//                    /**
+//                     * Check if the ambiguity of the tag is below the predetermined threshold.
+//                     * And check if the distance between the robot and tag is below the predetermined threshold.
+//                     */
+//                    if (target.getPoseAmbiguity() <= Constants.DriveConstants.CAM_AMBIGUITY_THRESHOLD.getValue()
+//                            && robotToTagDist < Constants.DriveConstants.CAM_DISTANCE_THRESHOLD.getValue()) {
+//                        goodTargets.add(target);
+//                    }
+//                } else {
+//                    goodTargets = (ArrayList<PhotonTrackedTarget>) camResult.getTargets();
+//                }
+//            }
         }
 
-        /**
-         * Create a new photon pipeline with the list of good targets
-         */
-        PhotonPipelineResult filteredCamResults = new PhotonPipelineResult
-                (camResult.getLatencyMillis(), goodTargets);
-        filteredCamResults.setTimestampSeconds(camResult.getTimestampSeconds());
-
-        return m_photonPoseEstimator.update(filteredCamResults);
-    }
+//        /**
+//         * Create a new photon pipeline with the list of good targets
+//         */
+//        PhotonPipelineResult filteredCamResults = new PhotonPipelineResult
+//                (camResult.getLatencyMillis(), goodTargets);
+//        filteredCamResults.setTimestampSeconds(camResult.getTimestampSeconds());
+//
+//        return m_photonPoseEstimator.update(filteredCamResults);
+//    }
 
 
     public Pose2d getTagPose() {
