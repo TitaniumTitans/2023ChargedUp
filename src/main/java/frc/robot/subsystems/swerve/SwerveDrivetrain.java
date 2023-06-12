@@ -235,10 +235,16 @@ public class SwerveDrivetrain extends SubsystemBase {
            state.speedMetersPerSecond *= m_speedMult;
        }
 
+
         m_flMod.setDesiredState(states[0]);
         m_frMod.setDesiredState(states[1]);
         m_blMod.setDesiredState(states[2]);
         m_brMod.setDesiredState(states[3]);
+
+        SmartDashboard.putNumber("FL Desired Speed", states[0].speedMetersPerSecond);
+        SmartDashboard.putNumber("FR Desired Speed", states[1].speedMetersPerSecond);
+        SmartDashboard.putNumber("BL Desired Speed", states[2].speedMetersPerSecond);
+        SmartDashboard.putNumber("BR Desired Speed", states[3].speedMetersPerSecond);
     }
 
     public void resetGyro(double heading) {

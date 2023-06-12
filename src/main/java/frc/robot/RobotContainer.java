@@ -24,6 +24,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import frc.robot.subsystems.LedSubsystem;
 import frc.robot.subsystems.arm.ArmAngleSubsystem;
 import frc.robot.subsystems.swerve.SwerveDrivetrain;
 import frc.robot.subsystems.wrist.WristSubsystem;
@@ -44,7 +45,7 @@ public class RobotContainer {
     private ArmExtSubsystem m_ext;
     private ArmSupersystem m_super;
     private FootPedal m_foot;
-    private CANdle m_candle;
+    private LedSubsystem m_led;
 
     //Controllers
     private final CommandXboxController m_driveController = new CommandXboxController(Constants.DRIVER_PORT);
@@ -60,7 +61,7 @@ public class RobotContainer {
         switch (Constants.CURRENT_MODE) {
             // Beta robot hardware implementation
             case HELIOS_V2:
-                m_candle = new CANdle(22);
+                m_led = new LedSubsystem(22);
 //                m_drive = new SwerveDrivetrain();
 //                break;
             case HELIOS_V1:
@@ -96,13 +97,7 @@ public class RobotContainer {
      * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
      */
     private void configureButtonBindings() {
-        if (m_candle != null) {
-                if (DriverStation.getAlliance() == Alliance.Red) {
-                    m_candle.animate(new ColorFlowAnimation(255, 0, 0));
-                } else {
-                    m_candle.animate(new ColorFlowAnimation(0, 0, 255));
-                }
-        }
+        m_led.setDefaultCommand(new LEDControllerCommand(m_led));
 
         m_drive.setDefaultCommand(new SwerveTeleopDrive(m_drive, m_driveController));
         m_arm.setDefaultCommand(new HoldArmAngleCommand(m_arm));
