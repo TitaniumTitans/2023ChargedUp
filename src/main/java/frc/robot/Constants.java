@@ -124,10 +124,6 @@ public final class Constants {
         public static final Transform3d FRONT_CAM_POSE = new Transform3d(
                 new Translation3d(Units.inchesToMeters(12.0), 0.0, Units.inchesToMeters(8.00)),
                 new Rotation3d(Units.degreesToRadians(-2.2), 0.0, 0.0));
-//        public static final Transform3d LEFT_CAM_POSE = new Transform3d(
-//                new Translation3d(Units.inchesToMeters(2.0), Units.inchesToMeters(6.0), Units.inchesToMeters(24.0)),
-//                new Rotation3d(Units.degreesToRadians(180.0), 0.0, Units.degreesToRadians(90.0)));
-        public static final String FRONT_CAM_NAME = "FrontPiCam";
         public static final String LEFT_CAM_NAME = "LeftWebCam";
 
         public static final GosDoubleProperty CAM_AMBIGUITY_THRESHOLD
@@ -148,6 +144,7 @@ public final class Constants {
                 new Rotation3d(0.0, Units.degreesToRadians(50), Units.degreesToRadians(18))
                 );
 
+        // Tag Follow controllers
         public static final ProfiledPIDController FOLLOW_CONTROLLER_X = new ProfiledPIDController(
                 4.0,
                 0.0,
@@ -184,6 +181,7 @@ public final class Constants {
             throw new IllegalStateException("Utility Class");
         }
 
+        // Motor and sensor ids
         public static final int WRIST_ID = 20;
         public static final int INTAKE_ID = 19;
 
@@ -197,6 +195,8 @@ public final class Constants {
 
         public static final double WRIST_UPPER_LIMIT = 125.0;
         public static final int TOF_PORT = 23;
+
+        // Controller constants
         public static final double WRIST_KP = 0.05;
         public static final double WRIST_KI = 0.0;
         public static final double WRIST_KD = 0.0;
@@ -270,6 +270,7 @@ public final class Constants {
             throw new IllegalStateException("Utility Class");
         }
 
+        // Motor and sensor constants
         public static final int ARM_EXTENSION_ID = 18;
         public static final int ARM_ANGLE_ID_MASTER = 16;
         public static final int ARM_ANGLE_ID_FOLLOWER = 17;
@@ -279,18 +280,22 @@ public final class Constants {
         public static final double KI_ANGLE = 0.0007;
         public static final double KD_ANGLE = 0.08;
 
+        // Pid constants
         public static final GosDoubleProperty ARM_EXT_KP = new GosDoubleProperty(true, "Arm extension kP", 0.5);
         public static final GosDoubleProperty ARM_EXT_KI = new GosDoubleProperty(false, "Arm extension kI", 0);
         public static final GosDoubleProperty ARM_EXT_KD = new GosDoubleProperty(false, "Arm extension kD", 0);
 
+        // Feedforward constants
         public static final double ARM_KV = 0.05;
         public static final double ARM_KS = 0.0;
         public static final double ARM_KG = 0.17;
 
+        // offset for the absolute value sensor
         public static final double ARM_OFFSET = CURRENT_MODE == Mode.HELIOS_V1 ? 280.0 : 294;
 
         public static final int ENCODER_PORT = 4;
 
+        // Physical constantst
         public static final double SPROCKET_DIAMETER = 1.99;
         public static final double EXTENSION_RATIO = 0.3532;
 
@@ -309,8 +314,6 @@ public final class Constants {
         private LimitConstants() {
             throw new IllegalStateException("Utility Class");
         }
-
-
 
         // Arm Extension limits for Piecewise Function
         public static final GosDoubleProperty ARM_EXT_STOW =
@@ -428,6 +431,7 @@ public final class Constants {
             throw new IllegalStateException("Utility Class");
         }
 
+        // Setpoints that are able to be adjusted mid match
         public static final GosDoubleProperty HUMAN_HEIGHT = new GosDoubleProperty(false, "HUMAN HIEGHT", 233.6);
         public static final GosDoubleProperty HUMAN_WRIST = new GosDoubleProperty(false, "HUMAN WRIST", 78.0);
 

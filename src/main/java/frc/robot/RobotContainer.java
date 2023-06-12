@@ -104,54 +104,44 @@ public class RobotContainer {
                 }
         }
 
-        if (m_driveController != null) {
-            m_drive.setDefaultCommand(new SwerveTeleopDrive(m_drive, m_driveController));
-            m_arm.setDefaultCommand(new HoldArmAngleCommand(m_arm));
+        m_drive.setDefaultCommand(new SwerveTeleopDrive(m_drive, m_driveController));
+        m_arm.setDefaultCommand(new HoldArmAngleCommand(m_arm));
 
 
-            m_driveController.button(7).onTrue(m_drive.resetGyroBase());
+        m_driveController.button(7).onTrue(m_drive.resetGyroBase());
 
-            m_driveController.leftTrigger().whileTrue(new IntakeControlCommand(m_wrist, -0.5));
-            m_driveController.rightTrigger().whileTrue(new IntakeControlCommand(m_wrist, 1.0));
+        m_driveController.leftTrigger().whileTrue(new IntakeControlCommand(m_wrist, -0.5));
+        m_driveController.rightTrigger().whileTrue(new IntakeControlCommand(m_wrist, 1.0));
 
-            if (Constants.CURRENT_MODE != Constants.Mode.HELIOS_V1) {
-                m_driveController.x().whileTrue(
-                        new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.INTAKE_BATTERY)
-                                .alongWith(new IntakeControlCommand(m_wrist, 1.0, m_driveController.getHID())));
-            }
-            m_driveController.y().whileTrue(
-                new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.INTAKE_BATTERY)
+        if (Constants.CURRENT_MODE != Constants.Mode.HELIOS_V1) {
+            m_driveController.x().whileTrue(
+                    new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.INTAKE_BATTERY)
+                            .alongWith(new IntakeControlCommand(m_wrist, 1.0, m_driveController.getHID())));
+        }
+        m_driveController.y().whileTrue(
+            new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.INTAKE_BATTERY)
+                    .alongWith(new IntakeControlCommand(m_wrist, 1.0, m_driveController.getHID())));
+
+        m_driveController.a().whileTrue(new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.STOW_POSITION));
+        m_driveController.b().whileTrue(
+                new SupersystemToPoseCommand(m_super, new ArmPose(0.0, () -> Constants.ArmSetpoints.HUMAN_HEIGHT.getValue(), () -> Constants.ArmSetpoints.HUMAN_WRIST.getValue()))
                         .alongWith(new IntakeControlCommand(m_wrist, 1.0, m_driveController.getHID())));
 
-            m_driveController.a().whileTrue(new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.STOW_POSITION));
-            m_driveController.b().whileTrue(
-                    new SupersystemToPoseCommand(m_super, new ArmPose(0.0, () -> Constants.ArmSetpoints.HUMAN_HEIGHT.getValue(), () -> Constants.ArmSetpoints.HUMAN_WRIST.getValue()))
-                            .alongWith(new IntakeControlCommand(m_wrist, 1.0, m_driveController.getHID())));
+        //Auto Align with rumble for driving
+        m_driveController.povLeft()
+                .whileTrue(m_drive.createPPSwerveController(SwerveDrivetrain.AlignmentOptions.LEFT_ALIGN));
 
-            //Auto Align with rumble for driving
-            m_driveController.povLeft()
-                    .whileTrue(m_drive.createPPSwerveController(SwerveDrivetrain.AlignmentOptions.LEFT_ALIGN));
+        m_driveController.povUp()
+                .whileTrue(m_drive.createPPSwerveController(SwerveDrivetrain.AlignmentOptions.CENTER_ALIGN));
 
-            m_driveController.povUp()
-                    .whileTrue(m_drive.createPPSwerveController(SwerveDrivetrain.AlignmentOptions.CENTER_ALIGN));
+        m_driveController.povRight()
+                .whileTrue(m_drive.createPPSwerveController(SwerveDrivetrain.AlignmentOptions.RIGHT_ALIGN));
 
-            m_driveController.povRight()
-                    .whileTrue(m_drive.createPPSwerveController(SwerveDrivetrain.AlignmentOptions.RIGHT_ALIGN));
+        m_driveController.povDown()
+                .whileTrue(new InstantCommand(() -> m_drive.resetPose(new Pose2d(10, 0, new Rotation2d()))));
 
-            m_driveController.povDown()
-                    .whileTrue(new InstantCommand(() -> m_drive.resetPose(new Pose2d(10, 0, new Rotation2d()))));
-
-            m_driveController.leftBumper().whileTrue(new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.HIGH_GOAL));
-            m_driveController.rightBumper().whileTrue(new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.MIDDLE_GOAL));
-
-//            m_foot.leftPedal().whileTrue(m_drive.setSlowmodeFactory()).whileFalse(m_drive.setSlowmodeFactory());
-
-//            m_foot.middlePedal().onTrue(new PrintCommand("Middle Pedal Pressed"));
-//            m_foot.rightPedal().onTrue(new PrintCommand("Right Pedal Pressed"));
-        } else {
-//            m_testController.a().whileTrue(m_ext.setArmSpeedFactory(0.25)).whileFalse(m_ext.setArmSpeedFactory(0.0));
-//            m_testController.b().whileTrue(m_ext.setArmSpeedFactory(-0.25)).whileTrue(m_ext.setArmSpeedFactory(0.0));
-        }
+        m_driveController.leftBumper().whileTrue(new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.HIGH_GOAL));
+        m_driveController.rightBumper().whileTrue(new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.MIDDLE_GOAL));
     }
 
     /**

@@ -47,6 +47,9 @@ public class CameraSubsystem implements Subsystem {
         SmartDashboard.putBoolean("Use Vision Filtering?", true);
 
         robotToCam = camPose;
+
+        // set origin point for allience. This is done because pathplanner flips paths for alliances weirdly,
+        // causing need for this
         try {
             m_aprilTagFieldLayout =
                 AprilTagFieldLayout.loadFromResource(AprilTagFields.k2023ChargedUp.m_resourceFile);
@@ -72,6 +75,7 @@ public class CameraSubsystem implements Subsystem {
     public Optional<EstimatedRobotPose> getPose(Pose2d prevEstimatedRobotPose) {
         m_photonPoseEstimator.setReferencePose(prevEstimatedRobotPose);
 
+        // Check for alllience switch, used mainly for non-comp testing
        if (DriverStation.getAlliance() != m_prevAlliance) {
            m_prevAlliance = DriverStation.getAlliance();
            if (DriverStation.getAlliance() == DriverStation.Alliance.Red) {
@@ -86,6 +90,8 @@ public class CameraSubsystem implements Subsystem {
         PhotonPipelineResult camResult = m_camera.getLatestResult();
 
         return m_photonPoseEstimator.update(camResult);
+
+        // temporarily commented code used for filtering targets based on distance and ambiguity
 
 //        ArrayList<PhotonTrackedTarget> goodTargets = new ArrayList<>();
 //
@@ -194,6 +200,7 @@ public class CameraSubsystem implements Subsystem {
             pose = m_aprilTagFieldLayout.getTagPose(m_prevTag);
         }
 
+        // return the pose of the tag currently visible to the camera
         if(pose.isPresent()) {
             return pose.get().toPose2d();
         } else {
