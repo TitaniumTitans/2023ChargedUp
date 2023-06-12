@@ -36,7 +36,27 @@ public class LedSubsystem extends SubsystemBase {
     }
 
     public void nextAnimation() {
-        m_currentAnimation = Animations.values()[m_currentAnimation.ordinal() + 1 < 5 ? 0 : m_currentAnimation.ordinal() + 1];
+        switch (m_currentAnimation) {
+            case BLUE:
+                m_currentAnimation = Animations.FIRE;
+                break;
+            case FIRE:
+                m_currentAnimation = Animations.LARSON;
+                break;
+            case LARSON:
+                m_currentAnimation = Animations.RAINBOW;
+                break;
+            case RAINBOW:
+                m_currentAnimation = Animations.RED;
+                break;
+            case RED:
+                m_currentAnimation = Animations.BLUE;
+                break;
+            default:
+                m_currentAnimation = Animations.RAINBOW;
+                break;
+            
+        }
     }
 
     public void setAnimation(Animations animation) {
