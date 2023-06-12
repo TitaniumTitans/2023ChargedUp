@@ -33,9 +33,6 @@ public class ArmSupersystem {
             new PiecewiseInterval<>(fullRangeZone, ignored -> LimitConstants.FULL_RANGE_LIMIT),
             new PiecewiseInterval<>(intakeRange, ignored -> LimitConstants.INTAKE_LIMIT),
             new PiecewiseInterval<>(highStowRange, ignored -> LimitConstants.NO_EXTENTION),
-            /*
-             * Extension upper not constant?
-             */
             new PiecewiseInterval<>(floorCollisionZone, ignored -> LimitConstants.GROUND_LIMIT)
     );
 
@@ -84,6 +81,7 @@ public class ArmSupersystem {
         m_angle.setArmAngle(calculateArmAngleLimit(angleSetpoint));
     }
 
+    // Calculate the minimum arm angle to not run into the ground based on extension and wrist angle
     public double calculateArmAngleLimit(double desiredAngle) {
         // Angle limits and outputs are calculated here
         double currentArmAngle = m_angle.getArmAngle();
@@ -173,6 +171,7 @@ public class ArmSupersystem {
         return physicalVector;
     }
 
+    // Part of an unused idea but never removed
     public double clampArmExt (double setpoint, double startZone) {
     return setpoint * (Math.pow(0.1, Constants.ArmConstants.EXT_AGRESSION))
                 * Math.pow(MathUtil.clamp(Math.abs(m_angle.getError()), 0.0, startZone) - startZone,
@@ -185,6 +184,7 @@ public class ArmSupersystem {
                 Constants.ArmConstants.ANGLE_AGRESSION);
     }
 
+    // Modify the max drive speed based on arm position
     public void getDriveSpeed () {
         Double range = LimitConstants.DRIVE_SPEED_PIECEWISE.calculate(m_angle.getArmAngle());
         m_swerve.setSpeedMult(range.doubleValue());

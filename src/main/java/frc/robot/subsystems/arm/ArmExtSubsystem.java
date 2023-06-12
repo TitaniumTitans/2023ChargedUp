@@ -61,15 +61,7 @@ public class ArmExtSubsystem extends SubsystemBase {
         m_extPID.setP(Constants.ArmConstants.ARM_EXT_KP.getValue());
         m_extPID.setI(Constants.ArmConstants.ARM_EXT_KI.getValue());
         m_extPID.setD(Constants.ArmConstants.ARM_EXT_KD.getValue());
-//        m_extPID.setOutputRange(-0.4, 0.4);
-         m_extPID.setOutputRange(-1, 1);
-
-//        m_extPID = new PIDController(
-//                Constants.ArmConstants.ARM_EXT_KP.getValue(),
-//                Constants.ArmConstants.ARM_EXT_KI.getValue(),
-//                Constants.ArmConstants.ARM_EXT_KD.getValue());
-//        m_extPID.setTolerance(0.5);
-//        m_extPID.disableContinuousInput();
+        m_extPID.setOutputRange(-1, 1);
 
         m_armLimitSwitch = new DigitalInput(Constants.ArmConstants.LIMIT_SWITCH_PORT);
 
@@ -175,12 +167,6 @@ public class ArmExtSubsystem extends SubsystemBase {
             resetExtensionEncoder();
         }
         updateShuffleboardData();
-
-        if(!SmartDashboard.getBoolean("Stella Mode", true)) {
-            m_extPID.setOutputRange(-0.75, 0.75);
-        } else {
-            m_extPID.setOutputRange(-0.2, 0.2);
-        }
 
         SmartDashboard.putBoolean("Periodic Ext at setpoint", atSetpoint());
     }

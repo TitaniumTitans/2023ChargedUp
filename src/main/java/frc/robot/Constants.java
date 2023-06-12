@@ -9,6 +9,7 @@ import com.gos.lib.properties.GosDoubleProperty;
 import com.pathplanner.lib.auto.PIDConstants;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
@@ -16,9 +17,11 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 import frc.robot.supersystems.ArmLimits;
 import frc.robot.supersystems.ArmPose;
+import kotlin.Unit;
 import lib.utils.piecewise.PiecewiseInterval;
 import lib.utils.piecewise.Range;
 import lib.utils.piecewise.RangedPiecewise;
@@ -64,6 +67,8 @@ public final class Constants {
         public static final double MAX_SPEED_L2_MPS = 3.657;
         public static final GosDoubleProperty MAX_SPEED_FPS = new GosDoubleProperty(false, "Max Drive Speed", 17);
         public static final double MAX_SPEED_L3_MPS = Units.feetToMeters(MAX_SPEED_FPS.getValue());
+
+
 
         /** Constants for the Phoenix Pro Modules using Falcon 500s **/
         public static final double L3_GEAR_RATIO = 6.12;
@@ -119,16 +124,56 @@ public final class Constants {
         public static final Transform3d FRONT_CAM_POSE = new Transform3d(
                 new Translation3d(Units.inchesToMeters(12.0), 0.0, Units.inchesToMeters(8.00)),
                 new Rotation3d(Units.degreesToRadians(-2.2), 0.0, 0.0));
-        public static final Transform3d LEFT_CAM_POSE = new Transform3d(
-                new Translation3d(Units.inchesToMeters(2.0), Units.inchesToMeters(6.0), Units.inchesToMeters(24.0)),
-                new Rotation3d(Units.degreesToRadians(180.0), 0.0, Units.degreesToRadians(90.0)));
-        public static final String FRONT_CAM_NAME = "FrontPiCam";
         public static final String LEFT_CAM_NAME = "LeftWebCam";
 
         public static final GosDoubleProperty CAM_AMBIGUITY_THRESHOLD
                 = new GosDoubleProperty(false, "Camera ambiguity threshold", 0.2);
         public static final GosDoubleProperty CAM_DISTANCE_THRESHOLD
                 = new GosDoubleProperty(false, "Camera distance threshold", 4);
+
+        public static final String LEFT_GLOBAL_CAM = "LeftGlobalCam";
+        public static final String RIGHT_GLOBAL_CAM = "RightGlobalCam";
+
+        public static final Transform3d RIGHT_CAM_POSE = new Transform3d(
+                new Translation3d(Units.inchesToMeters(10.5), Units.inchesToMeters(8.5), Units.inchesToMeters(6)),
+                new Rotation3d(0.0, Units.degreesToRadians(50), Units.degreesToRadians(-18))
+        );
+
+        public static final Transform3d LEFT_CAM_POSE = new Transform3d(
+                new Translation3d(Units.inchesToMeters(10.5), Units.inchesToMeters(-8.5), Units.inchesToMeters(6)),
+                new Rotation3d(0.0, Units.degreesToRadians(50), Units.degreesToRadians(18))
+                );
+
+        // Tag Follow controllers
+        public static final ProfiledPIDController FOLLOW_CONTROLLER_X = new ProfiledPIDController(
+                4.0,
+                0.0,
+                0.0,
+                new TrapezoidProfile.Constraints(
+                        AutoConstants.MAX_VELOCITY_MPS_AUTO,
+                        AutoConstants.MAX_ACCELERATION_MPS_AUTO
+                )
+        );
+
+        public static final ProfiledPIDController FOLLOW_CONTROLLER_Y = new ProfiledPIDController(
+                4.0,
+                0.0,
+                0.0,
+                new TrapezoidProfile.Constraints(
+                        AutoConstants.MAX_VELOCITY_MPS_AUTO,
+                        AutoConstants.MAX_ACCELERATION_MPS_AUTO
+                )
+        );
+
+        public static final ProfiledPIDController FOLLOW_CONTROLLER_THETA = new ProfiledPIDController(
+                4.0,
+                0.0,
+                0.0,
+                new TrapezoidProfile.Constraints(
+                        AutoConstants.MAX_VELOCITY_MPS_AUTO,
+                        AutoConstants.MAX_ACCELERATION_MPS_AUTO
+                )
+        );
     }
 
     public static class WristConstants {
@@ -136,6 +181,7 @@ public final class Constants {
             throw new IllegalStateException("Utility Class");
         }
 
+        // Motor and sensor ids
         public static final int WRIST_ID = 20;
         public static final int INTAKE_ID = 19;
 
@@ -149,6 +195,8 @@ public final class Constants {
 
         public static final double WRIST_UPPER_LIMIT = 125.0;
         public static final int TOF_PORT = 23;
+
+        // Controller constants
         public static final double WRIST_KP = 0.05;
         public static final double WRIST_KI = 0.0;
         public static final double WRIST_KD = 0.0;
@@ -165,22 +213,22 @@ public final class Constants {
         }
 
         //Trajectory following values
-        public static final double MAX_VELOCITY_MPS_AUTO = Units.feetToMeters(16);
+        public static final double MAX_VELOCITY_MPS_AUTO = Units.feetToMeters(16.0);
         public static final double MAX_ACCELERATION_MPS_AUTO = MAX_VELOCITY_MPS_AUTO / 2.0;
 
         public static final PIDController THETA_CONTROLLER =
                 new PIDController(3.25, 0.1, 0.3);
 
         public static final PIDController CONTROLLER_X =
-            new PIDController(3.2, 0.03, 0.3);
+            new PIDController(4, 0.03, 0.3);
         public static final PIDController CONTROLLER_Y =
-            new PIDController(3.2, 0.03, 0.3);
+            new PIDController(4, 0.03, 0.3);
 
         public static final PIDConstants CONSTANTS_X =
-                new PIDConstants(4.0, 0.005, 0.0);
+                new PIDConstants(6.0, 0.01, 0.0);
 
         public static final PIDConstants THETA_CONSTANTS =
-                new PIDConstants(3.2, 0.0, 0.0);
+                new PIDConstants(4.2, 0.0, 0.0);
         
         //Auto balance constants
         public static final double BALANCE_P = -0.04;
@@ -222,27 +270,32 @@ public final class Constants {
             throw new IllegalStateException("Utility Class");
         }
 
+        // Motor and sensor constants
         public static final int ARM_EXTENSION_ID = 18;
         public static final int ARM_ANGLE_ID_MASTER = 16;
         public static final int ARM_ANGLE_ID_FOLLOWER = 17;
         public static final int LIMIT_SWITCH_PORT = 3;
 
         public static final double KP_ANGLE = CURRENT_MODE == Mode.HELIOS_V1 ? 0.53 : 0.227;
-        public static final double KI_ANGLE = 0.007;
+        public static final double KI_ANGLE = 0.0007;
         public static final double KD_ANGLE = 0.08;
 
+        // Pid constants
         public static final GosDoubleProperty ARM_EXT_KP = new GosDoubleProperty(true, "Arm extension kP", 0.5);
         public static final GosDoubleProperty ARM_EXT_KI = new GosDoubleProperty(false, "Arm extension kI", 0);
         public static final GosDoubleProperty ARM_EXT_KD = new GosDoubleProperty(false, "Arm extension kD", 0);
 
+        // Feedforward constants
         public static final double ARM_KV = 0.05;
         public static final double ARM_KS = 0.0;
-        public static final double ARM_KG = 0.37;
+        public static final double ARM_KG = 0.17;
 
-        public static final double ARM_OFFSET = CURRENT_MODE == Mode.HELIOS_V1 ? 165.0 : 294;
+        // offset for the absolute value sensor
+        public static final double ARM_OFFSET = CURRENT_MODE == Mode.HELIOS_V1 ? 280.0 : 294;
 
         public static final int ENCODER_PORT = 4;
 
+        // Physical constantst
         public static final double SPROCKET_DIAMETER = 1.99;
         public static final double EXTENSION_RATIO = 0.3532;
 
@@ -261,8 +314,6 @@ public final class Constants {
         private LimitConstants() {
             throw new IllegalStateException("Utility Class");
         }
-
-
 
         // Arm Extension limits for Piecewise Function
         public static final GosDoubleProperty ARM_EXT_STOW =
@@ -380,6 +431,7 @@ public final class Constants {
             throw new IllegalStateException("Utility Class");
         }
 
+        // Setpoints that are able to be adjusted mid match
         public static final GosDoubleProperty HUMAN_HEIGHT = new GosDoubleProperty(false, "HUMAN HIEGHT", 233.6);
         public static final GosDoubleProperty HUMAN_WRIST = new GosDoubleProperty(false, "HUMAN WRIST", 78.0);
 
@@ -392,7 +444,7 @@ public final class Constants {
         public static final ArmPose HUMAN_PLAYER_STATION = new ArmPose(0.0, 230.6, 78.0);
 
         public static final ArmPose MIDDLE_GOAL = new ArmPose(0.0, 252.1, 99.7);
-        public static final ArmPose HIGH_GOAL = new ArmPose(20, 240.0, 95.3);
+        public static final ArmPose HIGH_GOAL = new ArmPose(20, 245.0, 95.3);
     }
 
     public static final int DRIVER_PORT = 0;

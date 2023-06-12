@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.swerve.SwerveDrivetrain;
 import frc.robot.commands.autonomous.AutoUtils.StartingZones;
+import lib.utils.PathPlannerFlipper;
 
 import java.util.HashMap;
 
@@ -39,6 +40,8 @@ public class MobilityCommandGroup extends SequentialCommandGroup {
             default:
                 trajectory = new PathPlannerTrajectory();
         }
+
+        // trajectory = PathPlannerFlipper.flipTrajectory(trajectory);
 
         addCommands(m_swerve.getAutoBuilder(new HashMap<>()).fullAuto(trajectory));
     }
