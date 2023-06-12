@@ -112,9 +112,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:acf4fa426823b3a8b68006161a27926b5"><td class="memItemLeft" align="right" valign="top"><a id="acf4fa426823b3a8b68006161a27926b5"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>periodic</b> ()</td></tr>
 <tr class="separator:acf4fa426823b3a8b68006161a27926b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae2250322afd6b8e34845a0393d41d1d5"><td class="memItemLeft" align="right" valign="top"><a id="ae2250322afd6b8e34845a0393d41d1d5"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>calculateRPSForMPS</b> (double metersPerSecond)</td></tr>
-<tr class="separator:ae2250322afd6b8e34845a0393d41d1d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a00a171936f264a04fba363aaf057961a"><td class="memItemLeft" align="right" valign="top"><a id="a00a171936f264a04fba363aaf057961a"></a>
 SwerveModulePosition[]&#160;</td><td class="memItemRight" valign="bottom"><b>getModulePositions</b> ()</td></tr>
 <tr class="separator:a00a171936f264a04fba363aaf057961a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -154,12 +151,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>updateInputs</b> ()</
 <tr class="memitem:a3c480436deb2f8df78a6076f71cbc9f5"><td class="memItemLeft" align="right" valign="top"><a id="a3c480436deb2f8df78a6076f71cbc9f5"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>updatePoseEstimator</b> ()</td></tr>
 <tr class="separator:a3c480436deb2f8df78a6076f71cbc9f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4b544c938e8d2716b302c286d6fa3eac"><td class="memItemLeft" align="right" valign="top"><a id="a4b544c938e8d2716b302c286d6fa3eac"></a>
-Pose2d&#160;</td><td class="memItemRight" valign="bottom"><b>getFrontCamTagPose</b> ()</td></tr>
-<tr class="separator:a4b544c938e8d2716b302c286d6fa3eac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a87fc40ba6b911605b59f33453d610e49"><td class="memItemLeft" align="right" valign="top"><a id="a87fc40ba6b911605b59f33453d610e49"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>getFrontCamTagID</b> ()</td></tr>
-<tr class="separator:a87fc40ba6b911605b59f33453d610e49"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1fbb6f56910f06f9bd4046f7fadccbd6"><td class="memItemLeft" align="right" valign="top"><a id="a1fbb6f56910f06f9bd4046f7fadccbd6"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>resetPose</b> (Pose2d newPose)</td></tr>
 <tr class="separator:a1fbb6f56910f06f9bd4046f7fadccbd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -178,6 +169,9 @@ Command&#160;</td><td class="memItemRight" valign="bottom"><b>alignToTag</b> (<a
 <tr class="memitem:afab8a3c83009207bc233e2bb4e070742"><td class="memItemLeft" align="right" valign="top"><a id="afab8a3c83009207bc233e2bb4e070742"></a>
 Command&#160;</td><td class="memItemRight" valign="bottom"><b>alignToAngle</b> (double angle)</td></tr>
 <tr class="separator:afab8a3c83009207bc233e2bb4e070742"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4012d5e6d3bfcd5fba7e43e77065370"><td class="memItemLeft" align="right" valign="top"><a id="ad4012d5e6d3bfcd5fba7e43e77065370"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>followTag</b> (Translation2d offset)</td></tr>
+<tr class="separator:ad4012d5e6d3bfcd5fba7e43e77065370"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aee9f7f642d1d5edb18534edacb8d0d73"><td class="memItemLeft" align="right" valign="top"><a id="aee9f7f642d1d5edb18534edacb8d0d73"></a>
 ChassisSpeeds&#160;</td><td class="memItemRight" valign="bottom"><b>getChassisSpeed</b> ()</td></tr>
 <tr class="separator:aee9f7f642d1d5edb18534edacb8d0d73"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -190,9 +184,6 @@ SwerveAutoBuilder&#160;</td><td class="memItemRight" valign="bottom"><b>getAutoB
 <tr class="memitem:a9cbc23b2c532019c9bb7dc401af85894"><td class="memItemLeft" align="right" valign="top"><a id="a9cbc23b2c532019c9bb7dc401af85894"></a>
 Command&#160;</td><td class="memItemRight" valign="bottom"><b>resetGyroBase</b> ()</td></tr>
 <tr class="separator:a9cbc23b2c532019c9bb7dc401af85894"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac42a2102bf994f4a1bba12c85954d93"><td class="memItemLeft" align="right" valign="top"><a id="aac42a2102bf994f4a1bba12c85954d93"></a>
-Command&#160;</td><td class="memItemRight" valign="bottom"><b>toggleFieldRelative</b> ()</td></tr>
-<tr class="separator:aac42a2102bf994f4a1bba12c85954d93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab2ea05d722c8df2cfceb8ef302831715"><td class="memItemLeft" align="right" valign="top"><a id="ab2ea05d722c8df2cfceb8ef302831715"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setFieldRelative</b> (boolean relative)</td></tr>
 <tr class="separator:ab2ea05d722c8df2cfceb8ef302831715"><td class="memSeparator" colspan="2">&#160;</td></tr>

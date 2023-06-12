@@ -108,9 +108,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a45c46c0e5d7ab0f98b7aede60a2b9b34"><td class="memItemLeft" align="right" valign="top"><a id="a45c46c0e5d7ab0f98b7aede60a2b9b34"></a>
 Pose2d&#160;</td><td class="memItemRight" valign="bottom"><b>getTagPose</b> ()</td></tr>
 <tr class="separator:a45c46c0e5d7ab0f98b7aede60a2b9b34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4110851f2e81c8727d4912d62c6be290"><td class="memItemLeft" align="right" valign="top"><a id="a4110851f2e81c8727d4912d62c6be290"></a>
+Transform3d&#160;</td><td class="memItemRight" valign="bottom"><b>robotToTag</b> ()</td></tr>
+<tr class="separator:a4110851f2e81c8727d4912d62c6be290"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9ec67daab0cd469b585cf61336e6cec4"><td class="memItemLeft" align="right" valign="top"><a id="a9ec67daab0cd469b585cf61336e6cec4"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>getTagID</b> ()</td></tr>
 <tr class="separator:a9ec67daab0cd469b585cf61336e6cec4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab48d95f8dd3c6bfe41436ce68f97f4c5"><td class="memItemLeft" align="right" valign="top"><a id="ab48d95f8dd3c6bfe41436ce68f97f4c5"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>periodic</b> ()</td></tr>
+<tr class="separator:ab48d95f8dd3c6bfe41436ce68f97f4c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a12b1823e933431ce5620fb8c14d51b49"></a>
@@ -172,12 +178,6 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>getTagID</b> ()</td></
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Optional estimatedRobotPose, a Pose3d and a timestamp in seconds </dd></dl>
-<p>Get the current target position and check if it is a valid target.</p>
-<p>Calculate the position of the robot based on the best target result and alternate target result.</p>
-<p>Calculate the distance between the bestTagPose and the previous pose. And calculate the distance between the altTagPose and the previous pose.</p>
-<p>check which robot position based on the two different results is closer to the previous pose. Then calculate the distance between the desired robot position and the tag position.</p>
-<p>Check if the ambiguity of the tag is below the predetermined threshold. And check if the distance between the robot and tag is below the predetermined threshold.</p>
-<p>Create a new photon pipeline with the list of good targets</p>
 
 </div>
 </div>

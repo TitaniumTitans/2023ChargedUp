@@ -93,6 +93,7 @@ var annotated_dup =
           [ "FalconProConfigFactory", "classlib_1_1utils_1_1_swerve_1_1_falcon_pro_config_factory.html", null ],
           [ "SwerveAzimuthFactoy", "classlib_1_1utils_1_1_swerve_1_1_swerve_azimuth_factoy.html", null ]
         ] ],
+        [ "PathPlannerFlipper", "classlib_1_1utils_1_1_path_planner_flipper.html", null ],
         [ "Utils", "classlib_1_1utils_1_1_utils.html", null ]
       ] ]
     ] ],

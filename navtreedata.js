@@ -54,7 +54,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"classfrc_1_1robot_1_1subsystems_1_1swerve_1_1module_1_1_swerve_mod_neo.html#a46bc210f7cad393ae668b788b4820b13",
+"classfrc_1_1robot_1_1subsystems_1_1swerve_1_1module_1_1_swerve_mod_neo.html#aa30043e29b787bcbd81851621e9b65c5",
 "enumlib_1_1controllers_1_1_foot_pedal_1_1_pedals.html"
 ];
 
