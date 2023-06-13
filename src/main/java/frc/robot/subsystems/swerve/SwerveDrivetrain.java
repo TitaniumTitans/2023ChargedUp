@@ -268,6 +268,12 @@ public class SwerveDrivetrain extends SubsystemBase {
         rightCamPose.ifPresent(estimatedRobotPose -> m_visionEstimator.addVisionMeasurement(estimatedRobotPose.estimatedPose.toPose2d(), rightCamPose.get().timestampSeconds));
 
         Logger.getInstance().recordOutput("Merged Cam pose", m_visionEstimator.getEstimatedPosition());
+
+        Logger.getInstance().recordOutput("Left Cam Has Pose", leftCamPose.isPresent());
+        Logger.getInstance().recordOutput("Right Cam Has Pose", rightCamPose.isPresent());
+
+//         leftCamPose.ifPresent(estimatedRobotPose -> m_poseEstimator.addVisionMeasurement(estimatedRobotPose.estimatedPose.toPose2d(), leftCamPose.get().timestampSeconds));
+//         rightCamPose.ifPresent(estimatedRobotPose -> m_poseEstimator.addVisionMeasurement(estimatedRobotPose.estimatedPose.toPose2d(), rightCamPose.get().timestampSeconds));
     }
 
     public Pose2d getFrontCamTagPose() {
