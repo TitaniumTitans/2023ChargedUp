@@ -197,9 +197,6 @@ public class RobotContainer {
 
         testCommands.add("Auto Balance", new AutoBalanceTransCommand(m_drive));
         testCommands.add("Reset Pose", new InstantCommand(() -> m_drive.resetPoseBase())).withSize(2, 1);
-
-        testCommands.add("Align to Zero Degrees", m_drive.alignToAngle(0).asProxy());
-
     }
 
     /**

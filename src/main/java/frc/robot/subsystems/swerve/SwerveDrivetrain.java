@@ -147,10 +147,6 @@ public class SwerveDrivetrain extends SubsystemBase {
         m_currentTime = RobotController.getFPGATime();
     }
 
-    public double calculateRPSForMPS(double metersPerSecond) {
-        return (metersPerSecond / (Math.PI * Constants.ModuleConstants.WHEEL_DIAMETER_METERS)) * Constants.ModuleConstants.L3_GEAR_RATIO;
-    }
-
     // Getters
     public SwerveModulePosition[] getModulePositions() {
         SwerveModulePosition[] modPos = new SwerveModulePosition[4];
