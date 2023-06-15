@@ -412,9 +412,9 @@ public class SwerveDrivetrain extends SubsystemBase {
         //generate a path based on the tag you see, flipped 180 from tag pose
         traj = PathPlanner.generatePath(
                 AutoUtils.getDefaultConstraints(),
-                new PathPoint(getPose().getTranslation(), new Rotation2d(), getPose().getRotation(), chassisSpeed.getNorm()),
-                new PathPoint(translatedMiddle, new Rotation2d(), tagPose.getRotation().rotateBy(Rotation2d.fromDegrees(180))),
-                new PathPoint(translatedEnd, new Rotation2d(), tagPose.getRotation().rotateBy(Rotation2d.fromDegrees(180)))
+                new PathPoint(getPose().getTranslation(), getPose().getRotation(), getPose().getRotation(), chassisSpeed.getNorm()),
+                new PathPoint(translatedMiddle, tagPose.getRotation().rotateBy(Rotation2d.fromDegrees(180)), tagPose.getRotation().rotateBy(Rotation2d.fromDegrees(180))),
+                new PathPoint(translatedEnd, tagPose.getRotation().rotateBy(Rotation2d.fromDegrees(180)), tagPose.getRotation().rotateBy(Rotation2d.fromDegrees(180)))
         );
 
         Logger.getInstance().recordOutput("Current Trajectory", traj);
