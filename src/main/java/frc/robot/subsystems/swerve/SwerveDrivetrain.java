@@ -55,7 +55,10 @@ public class SwerveDrivetrain extends SubsystemBase {
     private final Field2d m_field;
     private final SwerveDrivePoseEstimator m_poseEstimator;
     private final CameraSubsystem m_frontCamSubsystem;
-    private final CameraSubsystem m_leftCamSubsystem;
+//    private final CameraSubsystem m_leftCamSubsystem;
+
+    private final CameraSubsystem m_leftCam;
+    private final CameraSubsystem m_rightCam;
 
 
     private double m_currentPitch = 0;
@@ -124,11 +127,16 @@ public class SwerveDrivetrain extends SubsystemBase {
                 getModulePositions(),
                 new Pose2d(),
                 new MatBuilder<>(Nat.N3(), Nat.N1()).fill(0.1, 0.1, 0.1),
-                new MatBuilder<>(Nat.N3(), Nat.N1()).fill(1.25, 1.25, Units.degreesToRadians(2.9))
+                new MatBuilder<>(Nat.N3(), Nat.N1()).fill(0.75, 0.75, Units.degreesToRadians(1.5))
         );
 
         m_frontCamSubsystem = new CameraSubsystem(DriveConstants.FRONT_CAM_NAME, DriveConstants.FRONT_CAM_POSE);
-        m_leftCamSubsystem = new CameraSubsystem(DriveConstants.LEFT_CAM_NAME, DriveConstants.LEFT_CAM_POSE);
+//        m_leftCamSubsystem = new CameraSubsystem(DriveConstants.LEFT_CAM_NAME, DriveConstants.LEFT_CAM_POSE);
+
+//        if (Constants.CURRENT_MODE == Constants.Mode.HELIOS_V2) {
+            m_leftCam = new CameraSubsystem(DriveConstants.LEFT_GLOBAL_CAM, DriveConstants.LEFT_CAM_POSE);
+            m_rightCam = new CameraSubsystem(DriveConstants.RIGHT_GLOBAL_CAM, DriveConstants.RIGHT_CAM_POSE);
+//        }
 
         SmartDashboard.putData("Field", m_field);
         resetGyro();
@@ -226,20 +234,17 @@ public class SwerveDrivetrain extends SubsystemBase {
     }
 
     public void setModuleStates(SwerveModuleState[] states) {
-        for (SwerveModuleState state : states) {
-            state.speedMetersPerSecond *= m_speedMult;
-            state.speedMetersPerSecond *= 0.2;
-        }
+//        for (SwerveModuleState state : states) {
+//            state.speedMetersPerSecond *= m_speedMult;
+//            if (SmartDashboard.getBoolean("Stella Mode", true)) {
+//                state.speedMetersPerSecond *= 0.2;
+//            }
+//        }
 
         m_flMod.setDesiredState(states[0]);
         m_frMod.setDesiredState(states[1]);
         m_blMod.setDesiredState(states[2]);
         m_brMod.setDesiredState(states[3]);
-
-        SmartDashboard.putNumber("FL Desired Speed", states[0].speedMetersPerSecond);
-        SmartDashboard.putNumber("FR Desired Speed", states[1].speedMetersPerSecond);
-        SmartDashboard.putNumber("BL Desired Speed", states[2].speedMetersPerSecond);
-        SmartDashboard.putNumber("BR Desired Speed", states[3].speedMetersPerSecond);
     }
 
     public void resetGyro(double heading) {
@@ -303,11 +308,8 @@ public class SwerveDrivetrain extends SubsystemBase {
          */
         Optional<EstimatedRobotPose> frontCamEstimatePose =
                 m_frontCamSubsystem.getPose(getPose());
-        Optional<EstimatedRobotPose> leftCamEstimatePose =
-                m_leftCamSubsystem.getPose(getPose());
-
-        SmartDashboard.putBoolean("FC pose present", frontCamEstimatePose.isPresent());
-        SmartDashboard.putBoolean("LC pose present", leftCamEstimatePose.isPresent());
+//        Optional<EstimatedRobotPose> leftCamEstimatePose =
+//                m_leftCamSubsystem.getPose(getPose());
 
         /*
          * Add each vision measurement to the pose estimator if it exists for each camera
@@ -316,20 +318,14 @@ public class SwerveDrivetrain extends SubsystemBase {
         if (frontCamEstimatePose.isPresent()) {
             EstimatedRobotPose frontCamPose = frontCamEstimatePose.get();
 
-            SmartDashboard.putNumber("FC pose X", frontCamPose.estimatedPose.getX());
-            SmartDashboard.putNumber("FC pose Y", frontCamPose.estimatedPose.getY());
-
-            m_poseEstimator.addVisionMeasurement(frontCamPose.estimatedPose.toPose2d(), frontCamPose.timestampSeconds);
+//            m_poseEstimator.addVisionMeasurement(frontCamPose.estimatedPose.toPose2d(), frontCamPose.timestampSeconds);
         }
 
-        if (leftCamEstimatePose.isPresent()) {
-            EstimatedRobotPose leftCamPose = leftCamEstimatePose.get();
+        Optional<EstimatedRobotPose> leftCamPose = m_leftCam.getPose(getPose());
+        Optional<EstimatedRobotPose> rightCamPose = m_rightCam.getPose(getPose());
 
-            SmartDashboard.putNumber("LC pose X", leftCamPose.estimatedPose.getX());
-            SmartDashboard.putNumber("LC pose Y", leftCamPose.estimatedPose.getY());
-
-            m_poseEstimator.addVisionMeasurement(leftCamPose.estimatedPose.toPose2d(), leftCamPose.timestampSeconds);
-        }
+        // leftCamPose.ifPresent(estimatedRobotPose -> m_poseEstimator.addVisionMeasurement(estimatedRobotPose.estimatedPose.toPose2d(), leftCamPose.get().timestampSeconds));
+        // rightCamPose.ifPresent(estimatedRobotPose -> m_poseEstimator.addVisionMeasurement(estimatedRobotPose.estimatedPose.toPose2d(), rightCamPose.get().timestampSeconds));
     }
 
     public Pose2d getFrontCamTagPose() {
@@ -366,10 +362,6 @@ public class SwerveDrivetrain extends SubsystemBase {
         };
     }
 
-    /**
-     * Align the robot to a desired tag using PathPlanner and trajectory generation
-     * @param align weather to align left, right, or center to the tag
-     */
     @SuppressWarnings("PMD.AvoidReassigningParameters")
     public Command alignToTag(AlignmentOptions align) {
         // Figure out what pose the robot should be
@@ -420,9 +412,9 @@ public class SwerveDrivetrain extends SubsystemBase {
         //generate a path based on the tag you see, flipped 180 from tag pose
         traj = PathPlanner.generatePath(
                 AutoUtils.getDefaultConstraints(),
-                new PathPoint(getPose().getTranslation(), new Rotation2d(), getPose().getRotation(), chassisSpeed.getNorm()),
-                new PathPoint(translatedMiddle, new Rotation2d(), tagPose.getRotation().rotateBy(Rotation2d.fromDegrees(180))),
-                new PathPoint(translatedEnd, new Rotation2d(), tagPose.getRotation().rotateBy(Rotation2d.fromDegrees(180)))
+                new PathPoint(getPose().getTranslation(), getPose().getRotation(), getPose().getRotation(), chassisSpeed.getNorm()),
+                new PathPoint(translatedMiddle, tagPose.getRotation().rotateBy(Rotation2d.fromDegrees(180)), tagPose.getRotation().rotateBy(Rotation2d.fromDegrees(180))),
+                new PathPoint(translatedEnd, tagPose.getRotation().rotateBy(Rotation2d.fromDegrees(180)), tagPose.getRotation().rotateBy(Rotation2d.fromDegrees(180)))
         );
 
         Logger.getInstance().recordOutput("Current Trajectory", traj);

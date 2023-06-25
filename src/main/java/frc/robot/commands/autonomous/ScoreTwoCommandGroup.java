@@ -13,6 +13,7 @@ import frc.robot.commands.SupersystemToPoseAutoCommand;
 import frc.robot.subsystems.swerve.SwerveDrivetrain;
 import frc.robot.supersystems.ArmPose;
 import frc.robot.supersystems.ArmSupersystem;
+import lib.utils.PathPlannerFlipper;
 
 import java.util.HashMap;
 
@@ -58,8 +59,10 @@ public class ScoreTwoCommandGroup extends SequentialCommandGroup {
                 .andThen(m_armSupersystem.runIntakeForTime(0.25, -0.05))
                 .andThen(new SupersystemToPoseAutoCommand(m_armSupersystem, Constants.ArmSetpoints.STOW_POSITION)));
 
-         addCommands(new SupersystemToPoseAutoCommand(m_armSupersystem, armScoringPose));
-         addCommands(m_armSupersystem.runIntakeForTime(0.3, -0.4));
+        // trajectory = PathPlannerFlipper.flipTrajectory(trajectory);
+
+        addCommands(new SupersystemToPoseAutoCommand(m_armSupersystem, armScoringPose));
+        addCommands(m_armSupersystem.runIntakeForTime(0.3, -0.4));
         addCommands(m_swerve.getAutoBuilder(autoEvents).fullAuto(trajectory));
     }
 

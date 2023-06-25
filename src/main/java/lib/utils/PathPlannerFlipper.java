@@ -1,4 +1,4 @@
-package frc.lib.util;
+package lib.utils;
 
 import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlannerTrajectory;
@@ -39,6 +39,16 @@ public class PathPlannerFlipper {
         }
     }
 
+    public static List<PathPlannerTrajectory> flipTrajectory(List<PathPlannerTrajectory> paths) {
+        List<PathPlannerTrajectory> reverse = List.of();
+
+        for (PathPlannerTrajectory p : paths) {
+            reverse.add(flipTrajectory(p));
+        }
+
+        return reverse;
+    }
+
     public static Trajectory.State flipState(PathPlannerTrajectory.PathPlannerState state, DriverStation.Alliance alliance) {
         if (alliance == DriverStation.Alliance.Red) {
             // Create a new state so that we don't overwrite the original
@@ -46,8 +56,13 @@ public class PathPlannerFlipper {
 
             Translation2d transformedTranslation =
                     new Translation2d(FIELD_LENGTH_METERS - state.poseMeters.getX(), state.poseMeters.getY());
-            Rotation2d transformedHeading = state.poseMeters.getRotation().times(-1);
-            Rotation2d transformedHolonomicRotation = state.holonomicRotation.times(-1);
+
+            Rotation2d oldRot = state.poseMeters.getRotation();
+            Rotation2d transformedHeading = new Rotation2d(oldRot.getCos(), -oldRot.getSin());
+
+            Rotation2d oldHolo = state.poseMeters.getRotation();
+            Rotation2d transformedHolonomicRotation = new Rotation2d(oldHolo.getCos(), -oldHolo.getSin());
+
 
             transformedState.timeSeconds = state.timeSeconds;
             transformedState.velocityMetersPerSecond = state.velocityMetersPerSecond;

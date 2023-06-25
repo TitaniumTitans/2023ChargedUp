@@ -41,10 +41,6 @@ public class ArmExtSubsystem extends SubsystemBase {
     private GenericEntry armExtSetpointClampedEntry;
     private GenericEntry armExtMotorOutputEntry;
 
-
-
-
-
     @AutoLog
     public static class ArmExtIOInputs {
         public double armExtension = 0.0;
@@ -65,8 +61,8 @@ public class ArmExtSubsystem extends SubsystemBase {
         m_extPID.setP(Constants.ArmConstants.ARM_EXT_KP.getValue());
         m_extPID.setI(Constants.ArmConstants.ARM_EXT_KI.getValue());
         m_extPID.setD(Constants.ArmConstants.ARM_EXT_KD.getValue());
-        m_extPID.setOutputRange(-0.2, 0.2);
-        // m_extPID.setOutputRange(-0.75, 0.75);
+        m_extPID.setOutputRange(-1, 1
+         );
 
 //        m_extPID = new PIDController(
 //                Constants.ArmConstants.ARM_EXT_KP.getValue(),
