@@ -195,9 +195,6 @@ public class SwerveDrivetrain extends SubsystemBase {
     public void setModuleStates(SwerveModuleState[] states) {
        for (SwerveModuleState state : states) {
            state.speedMetersPerSecond *= m_speedMult;
-//            if (SmartDashboard.getBoolean("Stella Mode", true)) {
-//                state.speedMetersPerSecond *= 0.2;
-//            }
        }
 
         m_flMod.setDesiredState(states[0]);
@@ -223,7 +220,7 @@ public class SwerveDrivetrain extends SubsystemBase {
     }
 
     public double getGyroPitchRate() {
-        //Account for initail boot time
+        //Account for initial boot time
         if (m_prevTime == 0) {
             m_prevTime = RobotController.getFPGATime();
         }

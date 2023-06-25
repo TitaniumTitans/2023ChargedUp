@@ -16,7 +16,7 @@ public class PathPlannerFlipper {
     public static final double FIELD_LENGTH_METERS = Units.inchesToMeters(651.25); // Area of actual gameplay area, not carpeted area
     public static final double FIELD_WIDTH_METERS = Units.inchesToMeters(315.5);
     private PathPlannerFlipper() {
-        new RuntimeException("Utility Class should not be constructed");
+        throw new RuntimeException("Utility Class should not be constructed");
     }
 
     public static PathPlannerTrajectory flipTrajectory(PathPlannerTrajectory trajectory) {
