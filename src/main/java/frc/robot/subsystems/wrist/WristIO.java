@@ -1,11 +1,13 @@
 package frc.robot.subsystems.wrist;
 
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import org.littletonrobotics.junction.AutoLog;
 
 public interface WristIO {
     @AutoLog
     class WristIOInputs {
         public boolean wristAtSetpoint = false;
+        public double wristAngle = 0.0;
         public boolean pieceInsideIntake = false;
         public boolean wristAtLowerLimit = false;
         public boolean wristAtUpperLimit = false;
@@ -27,15 +29,15 @@ public interface WristIO {
 
     default void setIntakePower(double speed) {}
 
-    default void setIntakePowerFactory(double speed) {}
+    default CommandBase setIntakePowerFactory(double speed) {}
 
     default void setWristAngle(double angle) {}
 
     default void setWristPower(double speed) {}
 
-    default void setWristAngleFactory(double angle) {}
+    default CommandBase setWristAngleFactory(double angle) {}
 
-    default void setWristPowerFactory(double speed) {}
+    default CommandBase setWristPowerFactory(double speed) {}
 
     default void setBrakeMode(boolean brakeMode) {}
 
