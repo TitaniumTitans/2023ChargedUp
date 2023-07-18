@@ -25,7 +25,7 @@ public class WristSubsystem extends SubsystemBase {
     private final DigitalInput m_wristZeroLimit;
     private final CANCoder m_wristEncoder;
     private final PIDController m_wristPID;
-    private final WristIOInputsAutoLogged m_input;
+//    private final WristIOInputsAutoLogged m_input;
 
     // Logging variables
     private double prevSetpointRaw;
@@ -48,15 +48,15 @@ public class WristSubsystem extends SubsystemBase {
     private GenericEntry wristMotorOutputEntry;
     private GenericEntry intakeMotorOutputEntry;
 
-    @AutoLog
-    public static class WristIOInputs {
-        public double wristAngle = 0.0;
-        public double intakeAmps = 0.0;
-    }
+//    @AutoLog
+//    public static class WristIOInputs {
+//        public double wristAngle = 0.0;
+//        public double intakeAmps = 0.0;
+//    }
 
     public WristSubsystem() {
 
-        m_input = new WristIOInputsAutoLogged();
+//        m_input = new WristIOInputsAutoLogged();
 
         SparkMaxFactory.SparkMaxConfig config = new SparkMaxFactory.SparkMaxConfig();
         config.setInverted(true);
@@ -133,8 +133,8 @@ public class WristSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        updateInputs(m_input);
-        Logger.getInstance().processInputs("Arm Wrist", m_input);
+//        updateInputs(m_input);
+//        Logger.getInstance().processInputs("Arm Wrist", m_input);
 
         updateShuffleboardData();
 
@@ -148,10 +148,10 @@ public class WristSubsystem extends SubsystemBase {
         SmartDashboard.putBoolean("Periodic Wrist at setpoint", atSetpoint());
     }
 
-    public void updateInputs(WristIOInputsAutoLogged inputs){
-        inputs.intakeAmps = getIntakeAmps();
-        inputs.wristAngle = getWristAngle();
-    }
+//    public void updateInputs(WristIOInputsAutoLogged inputs){
+//        inputs.intakeAmps = getIntakeAmps();
+//        inputs.wristAngle = getWristAngle();
+//    }
     
     //Setters
     public void setWristAngle(double targetAngleRaw) {
