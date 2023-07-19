@@ -56,7 +56,7 @@ public class WristIOPhysical implements WristIO{
     }
 
     @Override
-    public void updateInputs(WristIOInputsAutoLogged inputs) {
+    public void update(WristIOInputsAutoLogged inputs) {
         inputs.intakeAmpOutput = m_intake.getOutputCurrent();
         inputs.intakeStalling = m_intake.getFault(CANSparkMax.FaultID.kStall);
         inputs.intakeTemperature = m_intake.getMotorTemperature();
@@ -101,20 +101,6 @@ public class WristIOPhysical implements WristIO{
         } else {
             m_wrist.set(speed);
         }
-    }
-
-    @Override
-    public CommandBase setWristAngleFactory(double angle) {
-        return runOnce(() -> {
-            setWristAngle(angle);
-        });
-    }
-
-    @Override
-    public CommandBase setWristPowerFactory(double speed) {
-        return runOnce(() -> {
-            setWristPowerFactory(speed);
-        });
     }
 
     @Override
