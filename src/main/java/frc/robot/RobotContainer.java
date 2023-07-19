@@ -8,14 +8,15 @@ import com.ctre.phoenix.led.*;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.PrintCommand;
 import frc.robot.commands.*;
 import frc.robot.commands.autonomous.AutoFactory;
 import frc.robot.commands.autonomous.Balance;
 import frc.robot.subsystems.arm.ArmExtSubsystem;
+import frc.robot.subsystems.wrist.WristIOPhysical;
+import frc.robot.subsystems.wrist.WristIOSim;
+import frc.robot.subsystems.wrist.WristSubsystem;
 import frc.robot.supersystems.ArmPose;
 import frc.robot.supersystems.ArmSupersystem;
-import lib.controllers.FootPedal;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -26,7 +27,6 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import frc.robot.subsystems.arm.ArmAngleSubsystem;
 import frc.robot.subsystems.swerve.SwerveDrivetrain;
-import frc.robot.subsystems.wrist.WristSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
@@ -43,7 +43,6 @@ public class RobotContainer {
     private ArmAngleSubsystem m_arm;
     private ArmExtSubsystem m_ext;
     private ArmSupersystem m_super;
-    private FootPedal m_foot;
     private CANdle m_candle;
 
     //Controllers
@@ -57,22 +56,19 @@ public class RobotContainer {
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
     public RobotContainer() {
-        switch (Constants.CURRENT_MODE) {
+        switch (Constants.CURRENT_ROBOT) {
             // Beta robot hardware implementation
             case HELIOS_V2:
                 m_candle = new CANdle(22);
-//                m_drive = new SwerveDrivetrain();
-//                break;
             case HELIOS_V1:
                 m_drive = new SwerveDrivetrain();
-                m_wrist = new WristSubsystem();
+                m_wrist = new WristSubsystem(new WristIOPhysical());
                 m_arm = new ArmAngleSubsystem();
                 m_ext = new ArmExtSubsystem();
                 m_super = new ArmSupersystem(m_arm, m_ext, m_wrist, m_drive);
-                m_foot = new FootPedal(1);
                 break;
-
             case SIM:
+                m_wrist = new WristSubsystem(new WristIOSim());
                 break;
 
             // Default case, should be set to a replay mode
@@ -114,7 +110,7 @@ public class RobotContainer {
             m_driveController.leftTrigger().whileTrue(new IntakeControlCommand(m_wrist, -0.5));
             m_driveController.rightTrigger().whileTrue(new IntakeControlCommand(m_wrist, 1.0));
 
-            if (Constants.CURRENT_MODE != Constants.Mode.HELIOS_V1) {
+            if (Constants.CURRENT_ROBOT != Constants.ROBOT.HELIOS_V1) {
                 m_driveController.x().whileTrue(
                         new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.INTAKE_BATTERY)
                                 .alongWith(new IntakeControlCommand(m_wrist, 1.0, m_driveController.getHID())));
@@ -162,9 +158,6 @@ public class RobotContainer {
         ShuffleboardTab testCommands = Shuffleboard.getTab("Commands");
 
         testCommands.add("balance", new Balance(m_drive));
-
-        testCommands.add("Toggle Angle Brake Mode", new ToggleArmBrakeModeCommand(m_arm)).withSize(2, 1);
-        testCommands.add("Toggle Wrist Brake Mode", new InstantCommand(() -> m_wrist.toggleBrakeMode()).runsWhenDisabled());
 
         // Multiple stow positions for edge case testing
         testCommands.add("Test Stow Zone",

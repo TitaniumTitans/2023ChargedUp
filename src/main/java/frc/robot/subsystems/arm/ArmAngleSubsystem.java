@@ -1,7 +1,6 @@
 package frc.robot.subsystems.arm;
 
 
-import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.revrobotics.CANSparkMax;
 
 
@@ -71,7 +70,7 @@ public class ArmAngleSubsystem extends SubsystemBase {
 
         config.setFrame0Rate(SparkMaxFactory.MAX_CAN_FRAME_PERIOD);
         config.setFollowingMotor(m_armAngleMaster);
-        config.setInverted(Constants.CURRENT_MODE == Constants.Mode.HELIOS_V1);
+        config.setInverted(Constants.CURRENT_ROBOT == Constants.ROBOT.HELIOS_V1);
         // The SparkMaxFactory will set the motor to follow the given motor
         m_armAngleFollower = SparkMaxFactory.Companion.createSparkMax(ArmConstants.ARM_ANGLE_ID_FOLLOWER, config);
         m_armAngleFollower.enableVoltageCompensation(12);

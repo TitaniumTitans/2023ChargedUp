@@ -3,29 +3,22 @@ package frc.robot.subsystems.wrist;
 import com.ctre.phoenix.sensors.CANCoder;
 import com.ctre.phoenix.sensors.SensorInitializationStrategy;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.motorcontrol.Spark;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.Constants;
 import frc.robot.Constants.*;
 import lib.factories.SparkMaxFactory;
 
-import static edu.wpi.first.wpilibj2.command.Commands.runOnce;
-
 public class WristIOPhysical implements WristIO{
-    private CANSparkMax m_wrist;
+    protected CANSparkMax m_wrist;
     private final CANCoder m_wristEncoder;
     private CANSparkMax m_intake;
     private PIDController m_pid;
 
     private DigitalInput m_lowerLimit;
 
-    private WristIOInputsAutoLogged m_inputs;
+    private boolean wristHomed = false;
     public WristIOPhysical() {
         // config for wrist
         SparkMaxFactory.SparkMaxConfig config = new SparkMaxFactory.SparkMaxConfig();
@@ -49,8 +42,6 @@ public class WristIOPhysical implements WristIO{
         config.setInverted(false);
         m_intake = SparkMaxFactory.Companion.createSparkMax(WristConstants.INTAKE_ID, config);
 
-        m_inputs = new WristIOInputsAutoLogged();
-
         // Sensors for limiting and piece detection
         m_lowerLimit = new DigitalInput(WristConstants.LIMIT_SWITCH_PORT);
     }
@@ -69,6 +60,7 @@ public class WristIOPhysical implements WristIO{
         inputs.wristTemperature = m_wrist.getMotorTemperature();
         inputs.wristStalling = m_wrist.getFault(CANSparkMax.FaultID.kStall);
         inputs.wristAngle = m_wrist.getEncoder().getPosition();
+        inputs.wristHomed = wristHomed;
     }
 
     @Override
@@ -77,16 +69,9 @@ public class WristIOPhysical implements WristIO{
     }
 
     @Override
-    public CommandBase setIntakePowerFactory(double speed) {
-        return runOnce(() -> {
-            setIntakePower(speed);
-        });
-    }
-
-    @Override
-    public void setWristAngle(double targetAngleRaw) {
-        double targetAngleClamped = MathUtil.clamp(targetAngleRaw, Constants.LimitConstants.WRIST_SCORE_LOWER.getValue(), Constants.LimitConstants.WRIST_SCORE_UPPER.getValue());
-        double targetAnglePID = MathUtil.clamp(m_pid.calculate(m_inputs.wristAngle, targetAngleClamped), -0.7, 0.7);
+    public void setWristAngle(double angle, double setpoint) {
+        double clampedSetpoint = MathUtil.clamp(setpoint, Constants.LimitConstants.WRIST_SCORE_LOWER.getValue(), Constants.LimitConstants.WRIST_SCORE_UPPER.getValue());
+        double targetAnglePID = MathUtil.clamp(m_pid.calculate(angle, clampedSetpoint), -0.7, 0.7);
 
         m_wrist.set(targetAnglePID);
     }
@@ -94,9 +79,9 @@ public class WristIOPhysical implements WristIO{
     @Override
     public void setWristPower(double speed) {
 
-        if (m_inputs.wristAtLowerLimit && speed <= 0){
+        if (m_lowerLimit.get() && speed <= 0){
             m_wrist.set(0.0);
-        } else if (m_inputs.wristAngle >= Constants.LimitConstants.WRIST_SCORE_UPPER.getValue() && speed >= 0) {
+        } else if (m_wristEncoder.getPosition() >= Constants.LimitConstants.WRIST_SCORE_UPPER.getValue() && speed >= 0) {
             m_wrist.set(0.0);
         } else {
             m_wrist.set(speed);
@@ -104,25 +89,30 @@ public class WristIOPhysical implements WristIO{
     }
 
     @Override
-    public void setBrakeMode(boolean brakeMode) {
-        if (brakeMode) {
-            m_wrist.setIdleMode(CANSparkMax.IdleMode.kBrake);
-        } else{
+    public void setBrakeMode(CANSparkMax.IdleMode brakeMode) {
+        m_wrist.setIdleMode(brakeMode);
+    }
+
+    @Override
+    public void toggleBrakeMode() {
+        if (m_wrist.getIdleMode() == CANSparkMax.IdleMode.kBrake) {
             m_wrist.setIdleMode(CANSparkMax.IdleMode.kCoast);
+        } else {
+            m_wrist.setIdleMode(CANSparkMax.IdleMode.kBrake);
         }
     }
 
     @Override
     public void resetHomed() {
-        m_inputs.wristHomed = false;
+        wristHomed = false;
     }
 
     @Override
     public void goToHome() {
-        if(!m_inputs.wristHomed) {
-            if(m_inputs.wristAtLowerLimit) {
+        if(!wristHomed) {
+            if(m_lowerLimit.get()) {
                 setWristPower(0);
-                m_inputs.wristHomed = true;
+                wristHomed = true;
             } else {
                 setWristPower(-0.2);
             }

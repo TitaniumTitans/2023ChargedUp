@@ -31,11 +31,9 @@ import frc.robot.subsystems.swerve.module.FalconProModule;
 import frc.robot.subsystems.swerve.module.SwerveModNeo;
 import frc.robot.subsystems.swerve.module.SwerveModuleIO;
 import frc.robot.subsystems.vision.CameraSubsystem;
-import org.littletonrobotics.junction.AutoLog;
 import org.littletonrobotics.junction.Logger;
 import org.photonvision.EstimatedRobotPose;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -75,7 +73,7 @@ public class SwerveDrivetrain extends SubsystemBase {
 
     public SwerveDrivetrain() {
         // Check current robot mode for the proper hardware
-        if (Constants.CURRENT_MODE == Constants.Mode.HELIOS_V1) {
+        if (Constants.CURRENT_ROBOT == Constants.ROBOT.HELIOS_V1) {
             m_flMod = new SwerveModNeo(0, DriveConstants.MOD_FL_OFFSET, DriveConstants.MOD_FL_CANS, false);
             m_frMod = new SwerveModNeo(1, DriveConstants.MOD_FR_OFFSET, DriveConstants.MOD_FR_CANS, false);
             m_blMod = new SwerveModNeo(2, DriveConstants.MOD_BL_OFFSET, DriveConstants.MOD_BL_CANS, false);

@@ -5,7 +5,6 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -49,7 +48,7 @@ public class ArmExtSubsystem extends SubsystemBase {
     public ArmExtSubsystem() {
         SparkMaxFactory.SparkMaxConfig config = new SparkMaxFactory.SparkMaxConfig();
         config.setCurrentLimit(50);
-        config.setInverted(Constants.CURRENT_MODE == Constants.Mode.HELIOS_V1);
+        config.setInverted(Constants.CURRENT_ROBOT == Constants.ROBOT.HELIOS_V1);
 
         m_armExt = SparkMaxFactory.Companion.createSparkMax(Constants.ArmConstants.ARM_EXTENSION_ID, config);
         m_armExt.setClosedLoopRampRate(0.1);

@@ -26,8 +26,8 @@ public class CheckHomedCommand extends CommandBase {
 
     @Override
     public void execute() {
-        if (!wristSubsystem.hasWristHomed()) {
-            wristSubsystem.goWristToHome();
+        if (!wristSubsystem.m_inputs.wristHomed) {
+            wristSubsystem.goToHomed();
         }
 
         if (!armExtSubsystem.hasArmHomed()) {
@@ -43,7 +43,7 @@ public class CheckHomedCommand extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return timedOut || (wristSubsystem.hasWristHomed() && armExtSubsystem.hasArmHomed());
+        return timedOut || (wristSubsystem.m_inputs.wristHomed && armExtSubsystem.hasArmHomed());
     }
 
     @Override

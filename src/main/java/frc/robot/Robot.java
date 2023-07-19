@@ -21,7 +21,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import org.littletonrobotics.frc2023.BuildConstants;
 
-/**
+import static frc.robot.Constants.MODE.*;
+
+   /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
  * the package after creating this project, you must also update the build.gradle file in the
@@ -68,8 +70,7 @@ public class Robot extends LoggedRobot {
     // Set up data receivers & replay source
      switch (Constants.CURRENT_MODE) {
       // Running on a real robot, log to a USB stick
-      case HELIOS_V2:
-      case HELIOS_V1:
+      case REAL:
         logger.addDataReceiver(new WPILOGWriter("/media/sda1/helios"));
         logger.addDataReceiver(new NT4Publisher());
          // Running a physics simulator, log to local folder

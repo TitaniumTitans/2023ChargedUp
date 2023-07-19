@@ -30,7 +30,7 @@ public class IntakeControlCommand extends CommandBase {
     @Override
     public void execute() {
         m_wrist.setIntakeSpeed(m_speed);
-        if(m_wrist.isStalling()) {
+        if(m_wrist.m_inputs.wristStalling) {
             setRumble(1);
         } else {
             setRumble(0);

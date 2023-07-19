@@ -88,7 +88,7 @@ public class ArmSupersystem {
         // Angle limits and outputs are calculated here
         double currentArmAngle = m_angle.getArmAngle();
         double currentArmExtension = m_ext.getArmExtension();
-        double currentWristAngle = m_wrist.getWristAngle();
+        double currentWristAngle = m_wrist.m_inputs.wristAngle;
 
         // Added safety when on the battery side of the bot
         if((currentArmAngle < 75)  && (currentWristAngle > 10 || currentArmExtension > 0.6)) {
@@ -144,22 +144,22 @@ public class ArmSupersystem {
     }
 
     public boolean atSetpoint() {
-        return m_wrist.atSetpoint() && m_ext.atSetpoint() && m_angle.atSetpoint();
+        return m_wrist.m_inputs.wristAtSetpoint && m_ext.atSetpoint() && m_angle.atSetpoint();
     }
 
     public CommandBase runIntakeForTime(double seconds, double speed) {
-        return m_wrist.setIntakeSpeedFactory(speed)
+        return m_wrist.setIntakeSpeed(speed)
                 .andThen(new WaitCommand(seconds))
-                .andThen(m_wrist.setIntakeSpeedFactory(0));
+                .andThen(m_wrist.setIntakeSpeed(0));
     }
 
     public Command runIntake(double speed) {
-        return m_wrist.setIntakeSpeedFactory(speed);
+        return m_wrist.setIntakeSpeed(speed);
     }
 
     public Translation2d getPhysicalArmExtension() {
         double currentArmAngleRadians = Math.toRadians(m_angle.getArmAngle());
-        double currentWristAngleRadians = Math.toRadians(m_wrist.getWristAngle());
+        double currentWristAngleRadians = Math.toRadians(m_wrist.m_inputs.wristAngle);
         double physicalExtension = m_ext.getPhysicalExtension();
         double physicalX = Math.cos(currentArmAngleRadians) * physicalExtension;
         double physicalY = Math.sin(currentArmAngleRadians) * physicalExtension;

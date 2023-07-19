@@ -21,7 +21,6 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 import frc.robot.supersystems.ArmLimits;
 import frc.robot.supersystems.ArmPose;
-import kotlin.Unit;
 import lib.utils.piecewise.PiecewiseInterval;
 import lib.utils.piecewise.Range;
 import lib.utils.piecewise.RangedPiecewise;
@@ -39,7 +38,8 @@ import java.util.List;
  */
 public final class Constants {
 
-    public static final Mode CURRENT_MODE = Mode.HELIOS_V2;
+    public static final ROBOT CURRENT_ROBOT = ROBOT.SIM;
+    public static final MODE CURRENT_MODE = MODE.REAL;
 
     /*Constants for physical aspects of the modules, plus PID loops constants*/
     public static final class ModuleConstants {
@@ -275,7 +275,7 @@ public final class Constants {
         public static final int ARM_ANGLE_ID_FOLLOWER = 17;
         public static final int LIMIT_SWITCH_PORT = 3;
 
-        public static final double KP_ANGLE = CURRENT_MODE == Mode.HELIOS_V1 ? 0.53 : 0.227;
+        public static final double KP_ANGLE = CURRENT_ROBOT == ROBOT.HELIOS_V1 ? 0.53 : 0.227;
         public static final double KI_ANGLE = 0.0007;
         public static final double KD_ANGLE = 0.08;
 
@@ -287,14 +287,14 @@ public final class Constants {
         public static final double ARM_KS = 0.0;
         public static final double ARM_KG = 0.17;
 
-        public static final double ARM_OFFSET = CURRENT_MODE == Mode.HELIOS_V1 ? 280.0 : 294;
+        public static final double ARM_OFFSET = CURRENT_ROBOT == ROBOT.HELIOS_V1 ? 280.0 : 294;
 
         public static final int ENCODER_PORT = 4;
 
         public static final double SPROCKET_DIAMETER = 1.99;
         public static final double EXTENSION_RATIO = 0.3532;
 
-        public static final double PIVOT_HEIGHT = CURRENT_MODE == Mode.HELIOS_V1 ? 33.0 : 33.0;
+        public static final double PIVOT_HEIGHT = CURRENT_ROBOT == ROBOT.HELIOS_V1 ? 33.0 : 33.0;
 
 
         public static final double EXT_PID_TOLERANCE = 1.0;
@@ -446,17 +446,18 @@ public final class Constants {
     public static final int DRIVER_PORT = 0;
 
 
-    public enum Mode {
+    public enum ROBOT {
         /** Running on the test bot */
         HELIOS_V2,
 
         /**Running on the competition bot */
         HELIOS_V1,
+        SIM;
+    }
 
-        /** Running a physics simulator */
+    public enum MODE {
+        REAL,
         SIM,
-
-        /**Replaying from a log file */
         REPLAY;
     }
 }
