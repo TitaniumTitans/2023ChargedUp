@@ -25,19 +25,13 @@ public interface WristIO {
         public boolean intakeStalling = false;
     }
 
-    default void updateInputs(WristIOInputsAutoLogged inputs) {}
+    default void update(WristIOInputsAutoLogged inputs) {}
 
     default void setIntakePower(double speed) {}
-
-    default CommandBase setIntakePowerFactory(double speed) {}
 
     default void setWristAngle(double angle) {}
 
     default void setWristPower(double speed) {}
-
-    default CommandBase setWristAngleFactory(double angle) {}
-
-    default CommandBase setWristPowerFactory(double speed) {}
 
     default void setBrakeMode(boolean brakeMode) {}
 
@@ -46,4 +40,6 @@ public interface WristIO {
     default void goToHome() {}
 
     default void zeroWrist() {}
+
+    default void updatePeriodic() {}
 }
