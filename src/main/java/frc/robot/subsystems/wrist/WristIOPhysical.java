@@ -102,4 +102,49 @@ public class WristIOPhysical implements WristIO{
             m_wrist.set(speed);
         }
     }
+
+    @Override
+    public CommandBase setWristAngleFactory(double angle) {
+        return runOnce(() -> {
+            setWristAngle(angle);
+        });
+    }
+
+    @Override
+    public CommandBase setWristPowerFactory(double speed) {
+        return runOnce(() -> {
+            setWristPowerFactory(speed);
+        });
+    }
+
+    @Override
+    public void setBrakeMode(boolean brakeMode) {
+        if (brakeMode) {
+            m_wrist.setIdleMode(CANSparkMax.IdleMode.kBrake);
+        } else{
+            m_wrist.setIdleMode(CANSparkMax.IdleMode.kCoast);
+        }
+    }
+
+    @Override
+    public void resetHomed() {
+        m_inputs.wristHomed = false;
+    }
+
+    @Override
+    public void goToHome() {
+        if(!m_inputs.wristHomed) {
+            if(m_inputs.wristAtLowerLimit) {
+                setWristPower(0);
+                m_inputs.wristHomed = true;
+            } else {
+                setWristPower(-0.2);
+            }
+        } // endif
+    }
+
+    @Override
+    public void zeroWrist() {
+        m_wristEncoder.setPosition(0.0);
+    }
 }
