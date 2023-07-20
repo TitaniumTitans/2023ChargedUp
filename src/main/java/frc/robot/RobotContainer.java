@@ -59,11 +59,6 @@ public class RobotContainer {
      */
     public RobotContainer() {
         switch (Constants.CURRENT_MODE) {
-            // Beta robot hardware implementation
-            case HELIOS_V2:
-                m_led = new LedSubsystem(22);
-//                m_drive = new SwerveDrivetrain();
-//                break;
             case HELIOS_V1:
                 m_drive = new SwerveDrivetrain();
                 m_wrist = new WristSubsystem();
@@ -97,8 +92,6 @@ public class RobotContainer {
      * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
      */
     private void configureButtonBindings() {
-        m_led.setDefaultCommand(new LEDControllerCommand(m_led));
-
         m_drive.setDefaultCommand(new SwerveTeleopDrive(m_drive, m_driveController));
         m_arm.setDefaultCommand(new HoldArmAngleCommand(m_arm));
 
@@ -108,11 +101,6 @@ public class RobotContainer {
         m_driveController.leftTrigger().whileTrue(new IntakeControlCommand(m_wrist, -0.5));
         m_driveController.rightTrigger().whileTrue(new IntakeControlCommand(m_wrist, 1.0));
 
-        if (Constants.CURRENT_MODE != Constants.Mode.HELIOS_V1) {
-            m_driveController.x().whileTrue(
-                    new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.INTAKE_BATTERY)
-                            .alongWith(new IntakeControlCommand(m_wrist, 1.0, m_driveController.getHID())));
-        }
         m_driveController.y().whileTrue(
             new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.INTAKE_BATTERY)
                     .alongWith(new IntakeControlCommand(m_wrist, 1.0, m_driveController.getHID())));
