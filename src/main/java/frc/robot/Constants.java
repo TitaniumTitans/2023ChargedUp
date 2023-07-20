@@ -97,15 +97,10 @@ public final class Constants {
         public static final int GYRO_CAN = 15;
 
         //Thanos Offsets
-        public static final double MOD_FR_OFFSET = 141.35 + 180;
-        public static final double MOD_FL_OFFSET = -23.555 + 180;
-        public static final double MOD_BR_OFFSET = -142.207 + 180;
-        public static final double MOD_BL_OFFSET = 140.625;
-        // Competition Offset
-        public static final double MOD_FL_OFFSET_V2 = 262.8 + 180;
-        public static final double MOD_FR_OFFSET_V2 = 255.893 + 180;
-        public static final double MOD_BL_OFFSET_V2 = 173.4 + 180;
-        public static final double MOD_BR_OFFSET_V2 = 169.4 + 180;
+        public static final double MOD_FR_OFFSET = 325.020;
+        public static final double MOD_FL_OFFSET = 11.62;
+        public static final double MOD_BR_OFFSET = 116.543;
+        public static final double MOD_BL_OFFSET = 126.211;
 
         // Kinematics
         // Distance between centers of right and left wheels on robot

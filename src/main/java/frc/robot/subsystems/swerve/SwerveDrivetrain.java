@@ -27,23 +27,18 @@ import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.commands.autonomous.AutoUtils;
-import frc.robot.subsystems.swerve.module.FalconProModule;
 import frc.robot.subsystems.swerve.module.SwerveModNeo;
-import frc.robot.subsystems.swerve.module.SwerveModuleInterface;
-import frc.robot.subsystems.vision.CameraSubsystem;
 import org.littletonrobotics.junction.AutoLog;
 import org.littletonrobotics.junction.Logger;
-import org.photonvision.EstimatedRobotPose;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 public class SwerveDrivetrain extends SubsystemBase {
-    private final SwerveModuleInterface m_frMod;
-    private final SwerveModuleInterface m_flMod;
-    private final SwerveModuleInterface m_blMod;
-    private final SwerveModuleInterface m_brMod;
+    private final SwerveModNeo m_frMod;
+    private final SwerveModNeo m_flMod;
+    private final SwerveModNeo m_blMod;
+    private final SwerveModNeo m_brMod;
 
     private final WPI_Pigeon2 m_gyro;
     private final TimeOfFlight m_tofSensor;
@@ -100,18 +95,10 @@ public class SwerveDrivetrain extends SubsystemBase {
     }
 
     public SwerveDrivetrain() {
-        // Check which robot code is on
-        if (Constants.CURRENT_MODE == Constants.Mode.HELIOS_V1) {
             m_flMod = new SwerveModNeo(0, DriveConstants.MOD_FL_OFFSET, DriveConstants.MOD_FL_CANS, false);
             m_frMod = new SwerveModNeo(1, DriveConstants.MOD_FR_OFFSET, DriveConstants.MOD_FR_CANS, false);
             m_blMod = new SwerveModNeo(2, DriveConstants.MOD_BL_OFFSET, DriveConstants.MOD_BL_CANS, false);
             m_brMod = new SwerveModNeo(3, DriveConstants.MOD_BR_OFFSET, DriveConstants.MOD_BR_CANS, false);
-        } else {
-            m_flMod = new FalconProModule(DriveConstants.MOD_FL_OFFSET_V2, DriveConstants.MOD_FL_CANS);
-            m_frMod = new FalconProModule(DriveConstants.MOD_FR_OFFSET_V2, DriveConstants.MOD_FR_CANS);
-            m_blMod = new FalconProModule(DriveConstants.MOD_BL_OFFSET_V2, DriveConstants.MOD_BL_CANS);
-            m_brMod = new FalconProModule(DriveConstants.MOD_BR_OFFSET_V2, DriveConstants.MOD_BR_CANS);
-        }
 
         m_gyro = new WPI_Pigeon2(DriveConstants.GYRO_CAN);
         m_inputs = new SwerveIOInputsAutoLogged();

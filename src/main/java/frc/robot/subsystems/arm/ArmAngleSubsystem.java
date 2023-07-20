@@ -207,7 +207,7 @@ public class ArmAngleSubsystem extends SubsystemBase {
 
         SmartDashboard.putNumber("Angle PID Output", targetAnglePID);
         SmartDashboard.putNumber("FF Output", ffOutput);
-        m_armAngleMaster.setVoltage(targetAnglePID + ffOutput);
+        m_armAngleMaster.setVoltage(targetAnglePID);
     }
 
     public double getArmAngle() {
