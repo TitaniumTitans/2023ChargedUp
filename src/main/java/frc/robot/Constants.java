@@ -66,7 +66,7 @@ public final class Constants {
 
         public static final double MAX_SPEED_L2_MPS = 3.657;
         public static final GosDoubleProperty MAX_SPEED_FPS = new GosDoubleProperty(false, "Max Drive Speed", 17);
-        public static final double MAX_SPEED_L3_MPS = Units.feetToMeters(MAX_SPEED_FPS.getValue());
+        public static final double MAX_SPEED_L3_MPS = Units.feetToMeters(12);// Units.feetToMeters(MAX_SPEED_FPS.getValue());
 
 
 

@@ -56,8 +56,8 @@ public class SwerveDrivetrain extends SubsystemBase {
     private final SwerveDrivePoseEstimator m_poseEstimator;
     private final SwerveDrivePoseEstimator m_visionEstimator;
 
-    private final CameraSubsystem m_leftCam;
-    private final CameraSubsystem m_rightCam;
+//    private final CameraSubsystem m_leftCam;
+//    private final CameraSubsystem m_rightCam;
 
 
     private double m_currentPitch = 0;
@@ -136,8 +136,8 @@ public class SwerveDrivetrain extends SubsystemBase {
             getModulePositions(), 
             new Pose2d());
 
-        m_leftCam = new CameraSubsystem(DriveConstants.LEFT_GLOBAL_CAM, DriveConstants.LEFT_CAM_POSE);
-        m_rightCam = new CameraSubsystem(DriveConstants.RIGHT_GLOBAL_CAM, DriveConstants.RIGHT_CAM_POSE);
+//        m_leftCam = new CameraSubsystem(DriveConstants.LEFT_GLOBAL_CAM, DriveConstants.LEFT_CAM_POSE);
+//        m_rightCam = new CameraSubsystem(DriveConstants.RIGHT_GLOBAL_CAM, DriveConstants.RIGHT_CAM_POSE);
 
 
         SmartDashboard.putData("Field", m_field);
@@ -306,19 +306,19 @@ public class SwerveDrivetrain extends SubsystemBase {
         /*
          * Add each vision measurement to the pose estimator if it exists for each camera
          */
-        Optional<EstimatedRobotPose> leftCamPose = m_leftCam.getPose(getPose());
-        Optional<EstimatedRobotPose> rightCamPose = m_rightCam.getPose(getPose());
+//        Optional<EstimatedRobotPose> leftCamPose = m_leftCam.getPose(getPose());
+//        Optional<EstimatedRobotPose> rightCamPose = m_rightCam.getPose(getPose());
 
-        Logger.getInstance().recordOutput("L Cam Pose", leftCamPose.isPresent() ? leftCamPose.get().estimatedPose.toPose2d() : new Pose2d());
-        Logger.getInstance().recordOutput("R Cam Pose", rightCamPose.isPresent() ? rightCamPose.get().estimatedPose.toPose2d() : new Pose2d());
+//        Logger.getInstance().recordOutput("L Cam Pose", leftCamPose.isPresent() ? leftCamPose.get().estimatedPose.toPose2d() : new Pose2d());
+//        Logger.getInstance().recordOutput("R Cam Pose", rightCamPose.isPresent() ? rightCamPose.get().estimatedPose.toPose2d() : new Pose2d());
 
-        leftCamPose.ifPresent(estimatedRobotPose -> m_visionEstimator.addVisionMeasurement(estimatedRobotPose.estimatedPose.toPose2d(), leftCamPose.get().timestampSeconds));
-        rightCamPose.ifPresent(estimatedRobotPose -> m_visionEstimator.addVisionMeasurement(estimatedRobotPose.estimatedPose.toPose2d(), rightCamPose.get().timestampSeconds));
+//        leftCamPose.ifPresent(estimatedRobotPose -> m_visionEstimator.addVisionMeasurement(estimatedRobotPose.estimatedPose.toPose2d(), leftCamPose.get().timestampSeconds));
+//        rightCamPose.ifPresent(estimatedRobotPose -> m_visionEstimator.addVisionMeasurement(estimatedRobotPose.estimatedPose.toPose2d(), rightCamPose.get().timestampSeconds));
 
-        Logger.getInstance().recordOutput("Merged Cam pose", m_visionEstimator.getEstimatedPosition());
+//        Logger.getInstance().recordOutput("Merged Cam pose", m_visionEstimator.getEstimatedPosition());
 
-        Logger.getInstance().recordOutput("Left Cam Has Pose", leftCamPose.isPresent());
-        Logger.getInstance().recordOutput("Right Cam Has Pose", rightCamPose.isPresent());
+//        Logger.getInstance().recordOutput("Left Cam Has Pose", leftCamPose.isPresent());
+//        Logger.getInstance().recordOutput("Right Cam Has Pose", rightCamPose.isPresent());
 
 //         leftCamPose.ifPresent(estimatedRobotPose -> m_poseEstimator.addVisionMeasurement(estimatedRobotPose.estimatedPose.toPose2d(), leftCamPose.get().timestampSeconds));
 //         rightCamPose.ifPresent(estimatedRobotPose -> m_poseEstimator.addVisionMeasurement(estimatedRobotPose.estimatedPose.toPose2d(), rightCamPose.get().timestampSeconds));
