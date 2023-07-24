@@ -110,18 +110,6 @@ public class RobotContainer {
                 new SupersystemToPoseCommand(m_super, new ArmPose(0.0, () -> Constants.ArmSetpoints.HUMAN_HEIGHT.getValue(), () -> Constants.ArmSetpoints.HUMAN_WRIST.getValue()))
                         .alongWith(new IntakeControlCommand(m_wrist, 1.0, m_driveController.getHID())));
 
-        //Auto Align with rumble for driving
-        m_driveController.povLeft()
-                .whileTrue(m_drive.createPPSwerveController(SwerveDrivetrain.AlignmentOptions.LEFT_ALIGN));
-
-        m_driveController.povUp()
-                .whileTrue(m_drive.createPPSwerveController(SwerveDrivetrain.AlignmentOptions.CENTER_ALIGN));
-
-        m_driveController.povRight()
-                .whileTrue(m_drive.createPPSwerveController(SwerveDrivetrain.AlignmentOptions.RIGHT_ALIGN));
-
-        m_driveController.povDown()
-                .whileTrue(new InstantCommand(() -> m_drive.resetPose(new Pose2d(10, 0, new Rotation2d()))));
 
         m_driveController.leftBumper().whileTrue(new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.HIGH_GOAL));
         m_driveController.rightBumper().whileTrue(new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.MIDDLE_GOAL));
@@ -170,9 +158,6 @@ public class RobotContainer {
 
         testCommands.add("Auto Balance", new AutoBalanceTransCommand(m_drive));
         testCommands.add("Reset Pose", new InstantCommand(() -> m_drive.resetPoseBase())).withSize(2, 1);
-
-        testCommands.add("Align to Zero Degrees", m_drive.alignToAngle(0).asProxy());
-
     }
 
     /**
