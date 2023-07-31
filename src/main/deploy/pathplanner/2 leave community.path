@@ -1,0 +1,56 @@
+{
+  "waypoints": [
+    {
+      "anchorPoint": {
+        "x": 2.0353907374481426,
+        "y": 1.6283020066040144
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.7570485140970291,
+        "y": 0.0974197781728916
+      },
+      "holonomicAngle": 0,
+      "isReversal": false,
+      "velOverride": null,
+      "isLocked": false,
+      "isStopPoint": false,
+      "stopEvent": {
+        "names": [],
+        "executionBehavior": "parallel",
+        "waitBehavior": "none",
+        "waitTime": 0
+      }
+    },
+    {
+      "anchorPoint": {
+        "x": 5.848679197358395,
+        "y": 0.8767780035560083
+      },
+      "prevControl": {
+        "x": 6.238358310049954,
+        "y": 0.7793582253831189
+      },
+      "nextControl": null,
+      "holonomicAngle": 0,
+      "isReversal": false,
+      "velOverride": null,
+      "isLocked": false,
+      "isStopPoint": false,
+      "stopEvent": {
+        "names": [],
+        "executionBehavior": "parallel",
+        "waitBehavior": "none",
+        "waitTime": 0
+      }
+    }
+  ],
+  "markers": [
+    {
+      "position": 0.0,
+      "names": [
+        "PutCone"
+      ]
+    }
+  ]
+}
