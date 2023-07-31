@@ -45,6 +45,7 @@ public class SwerveDrivetrain extends SubsystemBase {
     private final SwerveModNeo m_brMod;
 
     private final WPI_Pigeon2 m_gyro;
+    private final WPI_PigeonIMU m_pigeonIMU;
     private final TimeOfFlight m_tofSensor;
 
     private final SwerveIOInputsAutoLogged m_inputs;
@@ -85,6 +86,8 @@ public class SwerveDrivetrain extends SubsystemBase {
         // General robot
         public double gyroYawDeg = 0.0;
         public double gyroPitchDeg = 0.0;
+
+
     }
 
     public SwerveDrivetrain() {
@@ -95,6 +98,7 @@ public class SwerveDrivetrain extends SubsystemBase {
 
         m_gyro = new WPI_Pigeon2(DriveConstants.GYRO_CAN);
         m_inputs = new SwerveIOInputsAutoLogged();
+        m_pigeonIMU = new WPI_PigeonIMU(25);
 
         m_tofSensor = new TimeOfFlight(Constants.WristConstants.TOF_PORT);
         m_tofSensor.setRangingMode(TimeOfFlight.RangingMode.Short, 10);
@@ -130,6 +134,7 @@ public class SwerveDrivetrain extends SubsystemBase {
         updatePoseEstimator();
         m_field.setRobotPose(getPose());
 
+
 //        double[] angles = getAngles();
 //        SmartDashboard.putNumber("Swerve Gyro Yaw", getGyroYaw().getDegrees());
 //
@@ -159,7 +164,33 @@ public class SwerveDrivetrain extends SubsystemBase {
 
         //getFrontCamTagID();
     }
+    public double getPitch(){
+        return m_pigeonIMU.getRoll();
+    }
+    public void docAndEngage(){
+        double speed;
 
+        double kP = 0.05;
+
+        speed = kP * -getPitch();
+        if (getPitch() < 2 && getPitch() > -2) {
+            speed = 0;
+        }
+
+        if (speed > 0.35) {
+            speed = 0.35;
+        }
+        if (speed < -0.35) {
+            speed =-0.35;
+        }
+    }
+
+
+
+    }
+
+
+    setArcadeDrive(speed, 0);
     // Getters
     public SwerveModulePosition[] getModulePositions() {
         SwerveModulePosition[] modPos = new SwerveModulePosition[4];
