@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.Constants.LimitConstants;
+import frc.robot.Robot;
 import frc.robot.subsystems.arm.ArmAngleSubsystem;
 import frc.robot.subsystems.arm.ArmExtSubsystem;
 import frc.robot.subsystems.swerve.SwerveDrivetrain;
@@ -68,7 +69,7 @@ public class ArmSupersystem {
      */
     public void setToPose(ArmPose pose) {
         ArmLimits armLimits = limitPiecewise.calculate(m_angle.getArmAngle());
-        double wristSetpoint = armLimits.wristRange.clamp(pose.getWristSetpoint());
+        double wristSetpoint = Robot.isSimulation() ? pose.getWristSetpoint() : armLimits.wristRange.clamp(pose.getWristSetpoint());
         double angleSetpoint = armLimits.armAngleRange.clamp(pose.getAngleSetpoint());
         double extSetpoint = armLimits.armExtRange.clamp(pose.extSetpoint);
 

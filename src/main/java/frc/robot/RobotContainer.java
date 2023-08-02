@@ -69,6 +69,10 @@ public class RobotContainer {
                 break;
             case SIM:
                 m_wrist = new WristSubsystem(new WristIOSim());
+                m_drive = new SwerveDrivetrain();
+                m_arm = new ArmAngleSubsystem();
+                m_ext = new ArmExtSubsystem();
+                m_super = new ArmSupersystem(m_arm, m_ext, m_wrist, m_drive);
                 break;
 
             // Default case, should be set to a replay mode
@@ -156,6 +160,14 @@ public class RobotContainer {
     public void configDashboard() {
         SmartDashboard.putBoolean("Stella Mode", true);
         ShuffleboardTab testCommands = Shuffleboard.getTab("Commands");
+        ShuffleboardTab simCommands = Shuffleboard.getTab("Sim Commands");
+
+        simCommands.add("Wrist -> 0", m_wrist.setWristAngle(0));
+        simCommands.add("Wrist -> 90", m_wrist.setWristAngle(90));
+        simCommands.add("Wrist -> 45", m_wrist.setWristAngle(45));
+
+        simCommands.add("Intake On", m_wrist.setIntakeSpeed(1.0));
+        simCommands.add("Intake Off", m_wrist.setIntakeSpeed(0.0));
 
         testCommands.add("balance", new Balance(m_drive));
 

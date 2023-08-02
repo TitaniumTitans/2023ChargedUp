@@ -25,7 +25,7 @@ public class WristSubsystem extends SubsystemBase {
 
         m_mechanism = new Mechanism2d(3, 3, new Color8Bit(Color.kGray));
         m_root = m_mechanism.getRoot("Wrist", 1.5, 0.5);
-        m_wristLigament = m_root.append(new MechanismLigament2d("Wrist", 2, 0, 0.5, new Color8Bit(Color.kFirstRed)));
+        m_wristLigament = m_root.append(new MechanismLigament2d("Wrist", 2, 0, 1.5, new Color8Bit(Color.kFirstRed)));
 
         SmartDashboard.putData("Wrist Mechanism", m_mechanism);
     }
@@ -63,7 +63,7 @@ public class WristSubsystem extends SubsystemBase {
     }
 
     public CommandBase setIntakeSpeed(double speed) {
-        return runOnce(() -> m_io.setIntakePower(speed));
+        return run(() -> m_io.setIntakePower(speed));
     }
 
     public void setWristPower(double speed) {

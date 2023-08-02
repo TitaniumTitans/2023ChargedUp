@@ -2,6 +2,7 @@ package frc.robot.subsystems.wrist;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SimableCANSparkMax;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
@@ -14,6 +15,7 @@ import frc.robot.Constants;
 import frc.robot.Constants.WristConstants;
 import frc.robot.Robot;
 import org.snobotv2.interfaces.IDigitalWrapper;
+import org.snobotv2.module_wrappers.ctre.CtreEncoderSimWrapper;
 import org.snobotv2.module_wrappers.rev.RevEncoderSimWrapper;
 import org.snobotv2.module_wrappers.rev.RevMotorControllerSimWrapper;
 import org.snobotv2.sim_wrappers.SingleJointedArmSimWrapper;
@@ -21,8 +23,11 @@ import org.snobotv2.sim_wrappers.SingleJointedArmSimWrapper;
 public class WristIOSim implements WristIO{
     private final SimableCANSparkMax m_intake;
     private final SimableCANSparkMax m_wrist;
+    private final RelativeEncoder m_wristEncoder;
     private final SingleJointedArmSimWrapper m_wristSim;
     private final PIDController m_pid;
+
+    private double old_setpoint = 0;
 
     public WristIOSim() {
         if (!Robot.isSimulation()) {
@@ -32,6 +37,7 @@ public class WristIOSim implements WristIO{
 
         m_intake = new SimableCANSparkMax(WristConstants.INTAKE_ID, CANSparkMaxLowLevel.MotorType.kBrushless);
         m_wrist = new SimableCANSparkMax(WristConstants.WRIST_ID, CANSparkMaxLowLevel.MotorType.kBrushless);
+        m_wristEncoder = m_wrist.getEncoder();
 
         SingleJointedArmSim wristsim = new SingleJointedArmSim(
                 DCMotor.getNeo550(1),
@@ -45,7 +51,7 @@ public class WristIOSim implements WristIO{
         m_wristSim = new SingleJointedArmSimWrapper(
                 wristsim,
                 new RevMotorControllerSimWrapper(m_wrist),
-                RevEncoderSimWrapper.create(m_wrist));
+                CtreEncoderSimWrapper);
 
         m_pid = new PIDController(WristConstants.WRIST_KP, WristConstants.WRIST_KI, WristConstants.WRIST_KD);
     }
@@ -61,12 +67,12 @@ public class WristIOSim implements WristIO{
         inputs.wristAmpOutput = m_wrist.getOutputCurrent();
         inputs.wristAtSetpoint = m_pid.atSetpoint();
         inputs.wristAtLowerLimit = inputs.wristAngle <= 0.0;
-        inputs.wristPidSetpoint = m_pid.calculate(inputs.wristAngle);
+        inputs.wristPidSetpoint = old_setpoint;
         inputs.wristAtUpperLimit = m_wrist.getEncoder().getPosition() > Constants.LimitConstants.WRIST_SCORE_UPPER.getValue();
         inputs.wristOutputRaw = m_wrist.getAppliedOutput();
         inputs.wristTemperature = m_wrist.getMotorTemperature();
         inputs.wristStalling = m_wrist.getFault(CANSparkMax.FaultID.kStall);
-        inputs.wristAngle = m_wrist.getEncoder().getPosition();
+        inputs.wristAngle = m_wristEncoder.getPosition();
     }
 
     @Override
@@ -76,6 +82,7 @@ public class WristIOSim implements WristIO{
 
     @Override
     public void setWristAngle(double angle, double setpoint) {
+        old_setpoint = setpoint;
         double pidOutput = m_pid.calculate(angle, setpoint);
         double clampedOutput = MathUtil.clamp(pidOutput, -0.7, 0.7);
 
