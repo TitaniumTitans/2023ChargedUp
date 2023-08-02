@@ -15,7 +15,6 @@ import frc.robot.Constants;
 import frc.robot.Constants.WristConstants;
 import frc.robot.Robot;
 import org.snobotv2.interfaces.IDigitalWrapper;
-import org.snobotv2.module_wrappers.ctre.CtreEncoderSimWrapper;
 import org.snobotv2.module_wrappers.rev.RevEncoderSimWrapper;
 import org.snobotv2.module_wrappers.rev.RevMotorControllerSimWrapper;
 import org.snobotv2.sim_wrappers.SingleJointedArmSimWrapper;
@@ -51,7 +50,7 @@ public class WristIOSim implements WristIO{
         m_wristSim = new SingleJointedArmSimWrapper(
                 wristsim,
                 new RevMotorControllerSimWrapper(m_wrist),
-                CtreEncoderSimWrapper);
+                RevEncoderSimWrapper.create(m_wrist));
 
         m_pid = new PIDController(WristConstants.WRIST_KP, WristConstants.WRIST_KI, WristConstants.WRIST_KD);
     }
