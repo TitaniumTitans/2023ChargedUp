@@ -22,7 +22,6 @@ import org.snobotv2.sim_wrappers.SingleJointedArmSimWrapper;
 public class WristIOSim implements WristIO{
     private final SimableCANSparkMax m_intake;
     private final SimableCANSparkMax m_wrist;
-    private final RelativeEncoder m_wristEncoder;
     private final SingleJointedArmSimWrapper m_wristSim;
     private final PIDController m_pid;
 
@@ -36,7 +35,6 @@ public class WristIOSim implements WristIO{
 
         m_intake = new SimableCANSparkMax(WristConstants.INTAKE_ID, CANSparkMaxLowLevel.MotorType.kBrushless);
         m_wrist = new SimableCANSparkMax(WristConstants.WRIST_ID, CANSparkMaxLowLevel.MotorType.kBrushless);
-        m_wristEncoder = m_wrist.getEncoder();
 
         SingleJointedArmSim wristsim = new SingleJointedArmSim(
                 DCMotor.getNeo550(1),
@@ -71,7 +69,7 @@ public class WristIOSim implements WristIO{
         inputs.wristOutputRaw = m_wrist.getAppliedOutput();
         inputs.wristTemperature = m_wrist.getMotorTemperature();
         inputs.wristStalling = m_wrist.getFault(CANSparkMax.FaultID.kStall);
-        inputs.wristAngle = m_wristEncoder.getPosition();
+        inputs.wristAngle = m_wrist.getEncoder().getPosition();
     }
 
     @Override

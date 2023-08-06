@@ -74,7 +74,7 @@ public class WristSubsystem extends SubsystemBase {
     }
 
     public void setWristPower(double speed) {
-        m_io.setWristPower(0.0);
+        m_io.setWristPower(speed);
     }
 }
 

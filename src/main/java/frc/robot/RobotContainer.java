@@ -8,6 +8,7 @@ import com.ctre.phoenix.led.*;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.commands.*;
 import frc.robot.commands.autonomous.AutoFactory;
 import frc.robot.commands.autonomous.Balance;
@@ -165,6 +166,9 @@ public class RobotContainer {
         simCommands.add("Wrist -> 0", m_wrist.setWristAngle(0));
         simCommands.add("Wrist -> 90", m_wrist.setWristAngle(90));
         simCommands.add("Wrist -> 45", m_wrist.setWristAngle(45));
+
+        simCommands.add("Wrist Power -> 0%", new RunCommand(() -> m_wrist.setWristPower(0)));
+        simCommands.add("Wrist Power -> 30%", new RunCommand(() -> m_wrist.setWristPower(0.3)));
 
         simCommands.add("Intake On", m_wrist.setIntakeSpeed(1.0));
         simCommands.add("Intake Off", m_wrist.setIntakeSpeed(0.0));
