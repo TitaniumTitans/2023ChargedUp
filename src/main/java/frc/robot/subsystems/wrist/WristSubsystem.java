@@ -38,6 +38,13 @@ public class WristSubsystem extends SubsystemBase {
         m_wristLigament.setAngle(m_inputs.wristAngle);
     }
 
+    @Override
+    public void simulationPeriodic() {
+        m_io.update(m_inputs);
+
+        m_wristLigament.setAngle(m_inputs.wristAngle);
+    }
+
     public void setBrakeMode(CANSparkMax.IdleMode brakeMode){
         m_io.setBrakeMode(brakeMode);
     }
