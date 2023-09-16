@@ -8,13 +8,13 @@ import org.littletonrobotics.junction.AutoLog;
 public interface SwerveModuleIO {
     @AutoLog
     class SwerveModuleInputs {
-        public double azimuthAngle = 0.0;
-        public double azimuthAbsoluteAngle = 0.0;
+        public double azimuthAngleDegrees = 0.0;
+        public double azimuthAbsoluteAngleDegrees = 0.0;
         public double azimuthCurrentDraw = 0.0;
         public double azimuthVelocityDegPerSec = 0.0;
         public double azimuthAppliedVolts = 0.0;
 
-        public double drivePosition = 0.0;
+        public double drivePositionMeters = 0.0;
         public double driveVelocityMPS = 0.0;
         public double driveSpeedDegPerSec = 0.0;
         public double driveAppliedVolts = 0.0;
@@ -22,7 +22,7 @@ public interface SwerveModuleIO {
 
     default void updateInputs(SwerveModuleInputsAutoLogged inputs) {}
 
-    default SwerveModuleState setDesiredState(SwerveModuleState state) {return new SwerveModuleState();}
+    default void setDesiredState(SwerveModuleState state) {}
 
     default SwerveModuleState getModuleState() { return new SwerveModuleState();}
 

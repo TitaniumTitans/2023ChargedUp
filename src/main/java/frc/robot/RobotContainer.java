@@ -173,6 +173,8 @@ public class RobotContainer {
         simCommands.add("Intake On", m_wrist.setIntakeSpeed(1.0));
         simCommands.add("Intake Off", m_wrist.setIntakeSpeed(0.0));
 
+        simCommands.add("Swerve Forward", new RunCommand(() -> m_drive.drive(0.5, 0.0, 0.0)));
+
         testCommands.add("balance", new Balance(m_drive));
 
         // Multiple stow positions for edge case testing

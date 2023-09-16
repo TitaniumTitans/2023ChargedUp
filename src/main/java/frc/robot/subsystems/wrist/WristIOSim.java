@@ -2,19 +2,18 @@ package frc.robot.subsystems.wrist;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
-import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SimableCANSparkMax;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.simulation.DCMotorSim;
+import edu.wpi.first.wpilibj.RobotController;
+import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
 import frc.robot.Constants;
 import frc.robot.Constants.WristConstants;
 import frc.robot.Robot;
-import org.snobotv2.interfaces.IDigitalWrapper;
 import org.snobotv2.module_wrappers.rev.RevEncoderSimWrapper;
 import org.snobotv2.module_wrappers.rev.RevMotorControllerSimWrapper;
 import org.snobotv2.sim_wrappers.SingleJointedArmSimWrapper;
@@ -22,7 +21,8 @@ import org.snobotv2.sim_wrappers.SingleJointedArmSimWrapper;
 public class WristIOSim implements WristIO{
     private final SimableCANSparkMax m_intake;
     private final SimableCANSparkMax m_wrist;
-    private final SingleJointedArmSimWrapper m_wristSim;
+    private final SingleJointedArmSim m_wristSim;
+    private final SingleJointedArmSimWrapper m_wristSimWrapper;
     private final PIDController m_pid;
 
     private double old_setpoint = 0;
@@ -36,7 +36,9 @@ public class WristIOSim implements WristIO{
         m_intake = new SimableCANSparkMax(WristConstants.INTAKE_ID, CANSparkMaxLowLevel.MotorType.kBrushless);
         m_wrist = new SimableCANSparkMax(WristConstants.WRIST_ID, CANSparkMaxLowLevel.MotorType.kBrushless);
 
-        SingleJointedArmSim wristsim = new SingleJointedArmSim(
+        m_wrist.setInverted(false);
+
+        m_wristSim = new SingleJointedArmSim(
                 DCMotor.getNeo550(1),
                 WristConstants.WRIST_PIVOT_RATIO,
                 1,
@@ -45,8 +47,8 @@ public class WristIOSim implements WristIO{
                 Math.toRadians(Constants.LimitConstants.WRIST_SCORE_UPPER.getValue()),
                 true);
 
-        m_wristSim = new SingleJointedArmSimWrapper(
-                wristsim,
+        m_wristSimWrapper = new SingleJointedArmSimWrapper(
+                m_wristSim,
                 new RevMotorControllerSimWrapper(m_wrist),
                 RevEncoderSimWrapper.create(m_wrist));
 
@@ -55,7 +57,7 @@ public class WristIOSim implements WristIO{
 
     @Override
     public void update(WristIOInputsAutoLogged inputs) {
-        m_wristSim.update();
+        m_wristSimWrapper.update();
 
         inputs.intakeAmpOutput = m_intake.getOutputCurrent();
         inputs.intakeStalling = m_intake.getFault(CANSparkMax.FaultID.kStall);
@@ -69,7 +71,7 @@ public class WristIOSim implements WristIO{
         inputs.wristOutputRaw = m_wrist.getAppliedOutput();
         inputs.wristTemperature = m_wrist.getMotorTemperature();
         inputs.wristStalling = m_wrist.getFault(CANSparkMax.FaultID.kStall);
-        inputs.wristAngle = m_wrist.getEncoder().getPosition();
+        inputs.wristAngle = Math.toDegrees(m_wristSim.getAngleRads());
     }
 
     @Override
@@ -88,6 +90,9 @@ public class WristIOSim implements WristIO{
 
     @Override
     public void setWristPower(double speed) {
+        m_wristSim.setInputVoltage(speed * RobotController.getBatteryVoltage());
+        m_wristSim.update(20);
+
         m_wrist.set(speed);
     }
 

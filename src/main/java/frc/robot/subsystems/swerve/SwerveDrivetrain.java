@@ -16,6 +16,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -26,10 +27,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.AutoConstants;
+import frc.robot.Robot;
 import frc.robot.commands.autonomous.AutoUtils;
-import frc.robot.subsystems.swerve.module.FalconProModule;
-import frc.robot.subsystems.swerve.module.SwerveModNeo;
-import frc.robot.subsystems.swerve.module.SwerveModuleIO;
+import frc.robot.subsystems.swerve.module.*;
 import frc.robot.subsystems.vision.CameraSubsystem;
 import org.littletonrobotics.junction.Logger;
 import org.photonvision.EstimatedRobotPose;
@@ -42,6 +42,9 @@ public class SwerveDrivetrain extends SubsystemBase {
     private final SwerveModuleIO m_flMod;
     private final SwerveModuleIO m_blMod;
     private final SwerveModuleIO m_brMod;
+
+    private final SwerveModuleIO[] m_modArray;
+    private final SwerveModuleInputsAutoLogged[] m_inputs;
 
     private final WPI_Pigeon2 m_gyro;
     private final TimeOfFlight m_tofSensor;
@@ -73,17 +76,37 @@ public class SwerveDrivetrain extends SubsystemBase {
 
     public SwerveDrivetrain() {
         // Check current robot mode for the proper hardware
-        if (Constants.CURRENT_ROBOT == Constants.ROBOT.HELIOS_V1) {
+        if (Robot.isSimulation()) {
+            m_flMod = new SwerveModSim();
+            m_frMod = new SwerveModSim();
+            m_blMod = new SwerveModSim();
+            m_brMod = new SwerveModSim();
+//            DriverStation.reportError("Sim Module", false);
+//            System.out.println("Sim Module");
+        } else if (Constants.CURRENT_ROBOT == Constants.ROBOT.HELIOS_V1) {
             m_flMod = new SwerveModNeo(0, DriveConstants.MOD_FL_OFFSET, DriveConstants.MOD_FL_CANS, false);
             m_frMod = new SwerveModNeo(1, DriveConstants.MOD_FR_OFFSET, DriveConstants.MOD_FR_CANS, false);
             m_blMod = new SwerveModNeo(2, DriveConstants.MOD_BL_OFFSET, DriveConstants.MOD_BL_CANS, false);
             m_brMod = new SwerveModNeo(3, DriveConstants.MOD_BR_OFFSET, DriveConstants.MOD_BR_CANS, false);
+//            DriverStation.reportError("Neo Module", false);
+//            System.out.println("Neo Module");
         } else {
             m_flMod = new FalconProModule(DriveConstants.MOD_FL_OFFSET_V2, DriveConstants.MOD_FL_CANS);
             m_frMod = new FalconProModule(DriveConstants.MOD_FR_OFFSET_V2, DriveConstants.MOD_FR_CANS);
             m_blMod = new FalconProModule(DriveConstants.MOD_BL_OFFSET_V2, DriveConstants.MOD_BL_CANS);
             m_brMod = new FalconProModule(DriveConstants.MOD_BR_OFFSET_V2, DriveConstants.MOD_BR_CANS);
+//            DriverStation.reportError("Falcon Module", false);
+//            System.out.println("Falcon Module");
         }
+
+        m_modArray = new SwerveModuleIO[]{m_flMod, m_frMod, m_blMod, m_brMod};
+
+        m_inputs = new SwerveModuleInputsAutoLogged[]{
+                new SwerveModuleInputsAutoLogged(),
+                new SwerveModuleInputsAutoLogged(),
+                new SwerveModuleInputsAutoLogged(),
+                new SwerveModuleInputsAutoLogged()
+        };
 
         // open gyro and ToF sensor
         m_gyro = new WPI_Pigeon2(DriveConstants.GYRO_CAN);
@@ -131,9 +154,8 @@ public class SwerveDrivetrain extends SubsystemBase {
         m_field.setRobotPose(getPose());
 
         SwerveModuleState[] states = getModuleStates();
-        for (SwerveModuleState s : states) {
-
-        }
+        SmartDashboard.putNumber("FL Drive", states[0].speedMetersPerSecond);
+        SmartDashboard.putNumber("FL AZIMUTH", states[0].angle.getDegrees());
 
         m_field.setRobotPose(m_poseEstimator.getEstimatedPosition());
 
@@ -143,6 +165,13 @@ public class SwerveDrivetrain extends SubsystemBase {
 
         m_prevTime = m_currentTime;
         m_currentTime = RobotController.getFPGATime();
+
+        int i = 0;
+
+        for (SwerveModuleIO mod : m_modArray) {
+            mod.updateInputs(m_inputs[i]);
+            i++;
+        }
     }
 
     // Getters
