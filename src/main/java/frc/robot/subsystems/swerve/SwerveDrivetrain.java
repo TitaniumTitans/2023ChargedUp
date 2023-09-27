@@ -183,6 +183,9 @@ public class SwerveDrivetrain extends SubsystemBase {
         m_currentTime = RobotController.getFPGATime();
 
         //getFrontCamTagID();
+
+        m_leftCam.periodic();
+        m_rightCam.periodic();
     }
 
     // Getters
