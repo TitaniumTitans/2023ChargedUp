@@ -1,7 +1,7 @@
 plugins {
     id "java"
     id "edu.wpi.first.GradleRIO" version "2023.4.3"
-    id "org.sonarqube" version "3.5.0.2730"
+    id "org.sonarqube" version "4.2.1.3168"
     id "checkstyle"
     id 'org.jetbrains.kotlin.jvm' version '1.8.10'
 }
@@ -20,9 +20,10 @@ tasks.withType(Checkstyle).configureEach {
 }
 
 sonar {
-    properties {
-        property "sonar.projectKey", "TitaniumTitans_2023ChargedUp_AYY7_VG9-ummmaNu3Sxv"
-    }
+  properties {
+    property "sonar.projectKey", "TitaniumTitans_2023ChargedUp_AYuNOF2eIUhDfMzpVOqP"
+    property "sonar.projectName", "2023ChargedUp"
+  }
 }
 
 repositories {
