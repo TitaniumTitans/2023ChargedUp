@@ -44,11 +44,11 @@ public class Robot extends LoggedRobot {
     //Sets up a base logger for non-subsystem inputs
 
     PathPlannerTrajectory traj = PathPlanner.loadPath("Mobility Right", new PathConstraints(1.0, 1.0));
-    PathPlannerTrajectory ftraj = lib.utils.PathPlannerFlipper.flipTrajectory(traj);
+//    PathPlannerTrajectory ftraj = lib.utils.PathPlannerFlipper.flipTrajectory(traj);
 
     Field2d ffield = new Field2d();
     ffield.getObject("Traj").setTrajectory(traj);
-    ffield.getObject("FTraj").setTrajectory(ftraj);
+//    ffield.getObject("FTraj").setTrajectory(ftraj);
 
     SmartDashboard.putData("FLIP FIELD", ffield);
 
