@@ -1,6 +1,5 @@
 var NAVTREEINDEX2 =
 {
-"enumlib_1_1controllers_1_1_foot_pedal_1_1_pedals.html":[10,0,1,0,0,0],
 "enumlib_1_1controllers_1_1_foot_pedal_1_1_pedals.html#a1586fe6ca81aba84bfc6e5a8b0e509f2":[10,0,1,0,0,0,2],
 "enumlib_1_1controllers_1_1_foot_pedal_1_1_pedals.html#a2bddf1fa9bbc481982466022bfa28950":[10,0,1,0,0,0,1],
 "enumlib_1_1controllers_1_1_foot_pedal_1_1_pedals.html#aaf8161b40ce6b5c3c4f2c5233127bee8":[10,0,1,0,0,0,3],
@@ -15,8 +14,8 @@ var NAVTREEINDEX2 =
 "functions_func.html":[10,3,1],
 "functions_vars.html":[10,3,2],
 "hierarchy.html":[10,2],
-"index.html":[0],
 "index.html":[],
+"index.html":[0],
 "interfacefrc_1_1robot_1_1subsystems_1_1swerve_1_1module_1_1_swerve_module_interface.html":[10,0,0,0,1,1,0,3],
 "interfacefrc_1_1robot_1_1subsystems_1_1swerve_1_1module_1_1_swerve_module_interface.html#a2e89c689e76108b6ab22bca267b7e1d9":[10,0,0,0,1,1,0,3,5],
 "interfacefrc_1_1robot_1_1subsystems_1_1swerve_1_1module_1_1_swerve_module_interface.html#a52aa3a87cea168acc679f647b5d9e4af":[10,0,0,0,1,1,0,3,3],

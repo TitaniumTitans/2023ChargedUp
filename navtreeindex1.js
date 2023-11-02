@@ -82,7 +82,6 @@ var NAVTREEINDEX1 =
 "classlib_1_1controllers_1_1_foot_pedal.html#ab5e902bec1b83ee028c3e91ab6b90b43":[10,0,1,0,0,3],
 "classlib_1_1controllers_1_1_foot_pedal.html#ada8a8410bb8b84413a2c643b56e93a62":[10,0,1,0,0,1],
 "classlib_1_1controllers_1_1_foot_pedal.html#af2e4ee989552f35598fc66171ecd8ec0":[10,0,1,0,0,8],
-"classlib_1_1utils_1_1_path_planner_flipper.html":[10,0,1,1,3],
 "classlib_1_1utils_1_1_rev_1_1_spark_max_configs.html":[10,0,1,1,1,0],
 "classlib_1_1utils_1_1_rev_1_1_spark_max_wrapper.html":[10,0,1,1,1,1],
 "classlib_1_1utils_1_1_rev_1_1_spark_max_wrapper.html#a0eead167ee3321aadbcc0c4756298faf":[10,0,1,1,1,1,4],
@@ -104,7 +103,7 @@ var NAVTREEINDEX1 =
 "classlib_1_1utils_1_1_swerve_1_1_c_t_r_e_module_state.html":[10,0,1,1,2,0],
 "classlib_1_1utils_1_1_swerve_1_1_falcon_pro_config_factory.html":[10,0,1,1,2,1],
 "classlib_1_1utils_1_1_swerve_1_1_swerve_azimuth_factoy.html":[10,0,1,1,2,2],
-"classlib_1_1utils_1_1_utils.html":[10,0,1,1,4],
+"classlib_1_1utils_1_1_utils.html":[10,0,1,1,3],
 "classlib_1_1utils_1_1drivers_1_1_c_t_r_e_util.html":[10,0,1,1,0,0],
 "classlib_1_1utils_1_1drivers_1_1_rev_util.html":[10,0,1,1,0,1],
 "classlib_1_1utils_1_1drivers_1_1_talon_enhanced.html":[10,0,1,1,0,2],
@@ -249,5 +248,6 @@ var NAVTREEINDEX1 =
 "enumfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_drivetrain_1_1_alignment_options.html#a71248102199298f3509a2c227873e889":[10,0,0,0,1,1,1,0,3],
 "enumfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_drivetrain_1_1_alignment_options.html#a7f598b8622972bd8c38d08ce547f32cb":[10,0,0,0,1,1,1,0,0],
 "enumfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_drivetrain_1_1_alignment_options.html#aa2a4815d89991697aa61e4753f5c58e6":[10,0,0,0,1,1,1,0,1],
-"enumfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_drivetrain_1_1_alignment_options.html#ac152040b8098a3e78d7ca022f5975047":[10,0,0,0,1,1,1,0,2]
+"enumfrc_1_1robot_1_1subsystems_1_1swerve_1_1_swerve_drivetrain_1_1_alignment_options.html#ac152040b8098a3e78d7ca022f5975047":[10,0,0,0,1,1,1,0,2],
+"enumlib_1_1controllers_1_1_foot_pedal_1_1_pedals.html":[10,0,1,0,0,0]
 };

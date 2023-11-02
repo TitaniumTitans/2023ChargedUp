@@ -23,7 +23,6 @@ var hierarchy =
     ] ],
     [ "frc.robot.Main", "classfrc_1_1robot_1_1_main.html", null ],
     [ "frc.robot.Constants.Mode", "enumfrc_1_1robot_1_1_constants_1_1_mode.html", null ],
-    [ "lib.utils.PathPlannerFlipper", "classlib_1_1utils_1_1_path_planner_flipper.html", null ],
     [ "lib.controllers.FootPedal.Pedals", "enumlib_1_1controllers_1_1_foot_pedal_1_1_pedals.html", null ],
     [ "lib.utils.drivers.RevUtil", "classlib_1_1utils_1_1drivers_1_1_rev_util.html", null ],
     [ "frc.robot.RobotContainer", "classfrc_1_1robot_1_1_robot_container.html", null ],
