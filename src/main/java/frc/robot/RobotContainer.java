@@ -5,6 +5,7 @@
 package frc.robot;
 
 import com.ctre.phoenix.led.*;
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -13,6 +14,7 @@ import frc.robot.commands.*;
 import frc.robot.commands.autonomous.AutoFactory;
 import frc.robot.commands.autonomous.Balance;
 import frc.robot.subsystems.arm.ArmExtSubsystem;
+import frc.robot.subsystems.vision.CameraSubsystem;
 import frc.robot.supersystems.ArmPose;
 import frc.robot.supersystems.ArmSupersystem;
 import lib.controllers.FootPedal;
@@ -47,6 +49,9 @@ public class RobotContainer {
     private FootPedal m_foot;
     private LedSubsystem m_led;
 
+    // Camera testing crap
+    private CameraSubsystem m_testingCamera;
+
     //Controllers
     private final CommandXboxController m_driveController = new CommandXboxController(Constants.DRIVER_PORT);
 //    private final CommandXboxController m_testController = new CommandXboxController(2);
@@ -71,6 +76,8 @@ public class RobotContainer {
                 m_ext = new ArmExtSubsystem();
                 m_super = new ArmSupersystem(m_arm, m_ext, m_wrist, m_drive);
                 m_foot = new FootPedal(1);
+
+                m_testingCamera = new CameraSubsystem("TestCamera", new Transform3d());
                 break;
 
             case SIM:

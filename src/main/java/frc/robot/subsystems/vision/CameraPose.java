@@ -1,6 +1,7 @@
 package frc.robot.subsystems.vision;
 
 import com.gos.lib.properties.GosDoubleProperty;
+import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
@@ -14,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.MechanismRoot2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj.util.Color8Bit;
+import org.littletonrobotics.junction.Logger;
 
 import java.awt.*;
 
@@ -129,6 +131,8 @@ public class CameraPose {
     }
 
     public boolean hasChanged() {
+        Logger.getInstance().recordOutput(m_camName + "/transform", new Pose3d(getTranslation(), getRotation()));
+
         if (m_lastx != m_x.getValue() ||
                 m_lasty != m_y.getValue() ||
                 m_lastz != m_z.getValue() ||

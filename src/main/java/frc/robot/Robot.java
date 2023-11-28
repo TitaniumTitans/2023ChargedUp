@@ -34,8 +34,6 @@ public class Robot extends LoggedRobot {
   private RobotContainer m_robotContainer;
   private PowerDistribution m_pdh;
 
-  private CameraPose cameraPose;
-
 
   private Timer m_timer;
   /**
@@ -93,7 +91,6 @@ public class Robot extends LoggedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    cameraPose = new CameraPose("Test cam", new Translation3d(), new Rotation3d(1.5, 1.5, 1.5));
   }
 
   /**
@@ -110,9 +107,6 @@ public class Robot extends LoggedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
-    if (cameraPose.hasChanged()) {
-      cameraPose.updateVisualization();
-    }
 
     // Checks every 100 milliseconds (roughly 10 robot cycles) to see if any Spark Maxes have rebooted
     // if one has it will then rerun CAN ID configurations on it to stop CAN bus from overflowing

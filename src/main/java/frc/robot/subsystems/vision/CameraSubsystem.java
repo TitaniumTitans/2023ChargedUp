@@ -1,6 +1,7 @@
 package frc.robot.subsystems.vision;
 
 
+import edu.wpi.first.apriltag.AprilTag;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.*;
@@ -19,6 +20,7 @@ import org.photonvision.targeting.PhotonTrackedTarget;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -236,6 +238,20 @@ public class CameraSubsystem implements Subsystem {
         } else {
             return m_prevTag;
         }
+    }
+
+    public void useSingleTag(int tagId) {
+        AprilTagFieldLayout field = new AprilTagFieldLayout(
+                List.of(new AprilTag(tagId, new Pose3d())),
+                0.0,
+                0.0
+        );
+
+        m_photonPoseEstimator.setFieldTags(field);
+    }
+
+    public void resetTagField() {
+        m_photonPoseEstimator.setFieldTags(m_aprilTagFieldLayout);
     }
 
     @Override
