@@ -182,12 +182,12 @@ public class ArmAngleSubsystem extends SubsystemBase {
         // Clamp target
         double targetAngleClamped = MathUtil.clamp(targetAngleRaw, LimitConstants.ARM_ANGLE_LOWER.getValue(), LimitConstants.ARM_ANGLE_UPPER.getValue());
         if (DriverStation.isAutonomous()) { // Autonomous cap speed slightly higher +/- than teleop
-            targetAnglePID = MathUtil.clamp(m_anglePID.calculate(currentArmAngle, targetAngleClamped), -10, 10);
+            targetAnglePID = MathUtil.clamp(m_anglePID.calculate(currentArmAngle, targetAngleClamped), -6, 6);
         } else { // Teleop
             if (targetAngleClamped < currentArmAngle) { // If arm is moving backwards
-                targetAnglePID = MathUtil.clamp(m_anglePID.calculate(currentArmAngle, targetAngleClamped), -7, 7);
+                targetAnglePID = MathUtil.clamp(m_anglePID.calculate(currentArmAngle, targetAngleClamped), -6, 6);
             } else { // If arm is moving forwards
-                targetAnglePID = MathUtil.clamp(m_anglePID.calculate(currentArmAngle, targetAngleClamped), -9, 9);
+                targetAnglePID = MathUtil.clamp(m_anglePID.calculate(currentArmAngle, targetAngleClamped), -6, 6);
             }
         }
 
@@ -207,7 +207,7 @@ public class ArmAngleSubsystem extends SubsystemBase {
 
         SmartDashboard.putNumber("Angle PID Output", targetAnglePID);
         SmartDashboard.putNumber("FF Output", ffOutput);
-        m_armAngleMaster.setVoltage(targetAnglePID + ffOutput);
+        m_armAngleMaster.setVoltage(targetAnglePID);
     }
 
     public double getArmAngle() {

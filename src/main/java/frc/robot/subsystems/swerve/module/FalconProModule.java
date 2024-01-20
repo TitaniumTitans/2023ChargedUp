@@ -28,7 +28,7 @@ import lib.utils.Utils;
 
 import static com.ctre.phoenix.motorcontrol.TalonFXControlMode.Velocity;
 
-public class FalconProModule implements SwerveModuleInterface {
+public class FalconProModule{
 
     private final TalonFX m_driveMotor;
     private final TalonFX m_azimuthMotor;

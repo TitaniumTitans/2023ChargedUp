@@ -22,7 +22,7 @@ import lib.utils.Rev.SparkMaxConfigs;
 import lib.utils.drivers.CTREUtil;
 import lib.utils.drivers.RevUtil;
 
-public class SwerveModNeo implements SwerveModuleInterface{
+public class SwerveModNeo{
   public final int moduleNumber;
   private static final int TIMEOUT_MILLISECONDS = 600;
 
@@ -61,7 +61,7 @@ public class SwerveModNeo implements SwerveModuleInterface{
     m_canCoderOffsetDegrees = offsets;
 
     configureDevices();
-    m_lastAngle = getState().angle.getRadians();
+    m_lastAngle = getModuleState().angle.getRadians();
 
     m_driveFF = new SimpleMotorFeedforward(ModuleConstants.MODULE_KS, ModuleConstants.MODULE_KV, ModuleConstants.MODULE_KA);
   }
@@ -69,7 +69,7 @@ public class SwerveModNeo implements SwerveModuleInterface{
   public void setDesiredState(SwerveModuleState state) {
     // Prevents angle motor from turning further than it needs to. 
     // E.G. rotating from 10 to 270 degrees CW vs CCW.
-    state = SwerveModuleState.optimize(state, getState().angle);
+    state = SwerveModuleState.optimize(state, getModuleState().angle);
 
     double speed = state.speedMetersPerSecond;
     if (isOpenLoop) {
@@ -86,28 +86,28 @@ public class SwerveModNeo implements SwerveModuleInterface{
     m_lastAngle = angle;
   }
 
-  public SwerveModuleState getState() {
+  public SwerveModuleState getModuleState() {
     double velocity = m_driveEncoder.getVelocity();
     Rotation2d rot = new Rotation2d(m_angleEncoder.getPosition());
     return new SwerveModuleState(velocity, rot);
   }
 
-  public double getAngle() {
-    return Units.radiansToDegrees(m_angleEncoder.getPosition());
+  public Rotation2d getModuleAngle() {
+    return Rotation2d.fromRadians(m_angleEncoder.getPosition());
   }
 
-  public SwerveModulePosition getPosition() {
+  public SwerveModulePosition getModulePosition() {
     double distance = m_driveEncoder.getPosition();
     Rotation2d rot = new Rotation2d(m_angleEncoder.getPosition());
     return new SwerveModulePosition(distance, rot);
   }
 
-  public Rotation2d getCanCoder(){
+  public Rotation2d getAbsoluteAngle(){
     return Rotation2d.fromDegrees(m_canCoder.getAbsolutePosition());
   }
 
   public void setMagnetOffset(){
-    autoRetry(() -> m_angleEncoder.setPosition(Units.degreesToRadians(getCanCoder().getDegrees() - m_canCoderOffsetDegrees)));
+    autoRetry(() -> m_angleEncoder.setPosition(Units.degreesToRadians(getAbsoluteAngle().getDegrees() - m_canCoderOffsetDegrees)));
   }
 
   /**

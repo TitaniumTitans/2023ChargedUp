@@ -59,11 +59,6 @@ public class RobotContainer {
      */
     public RobotContainer() {
         switch (Constants.CURRENT_MODE) {
-            // Beta robot hardware implementation
-            case HELIOS_V2:
-                m_led = new LedSubsystem(22);
-//                m_drive = new SwerveDrivetrain();
-//                break;
             case HELIOS_V1:
                 m_drive = new SwerveDrivetrain();
                 m_wrist = new WristSubsystem();
@@ -97,8 +92,6 @@ public class RobotContainer {
      * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
      */
     private void configureButtonBindings() {
-        m_led.setDefaultCommand(new LEDControllerCommand(m_led));
-
         m_drive.setDefaultCommand(new SwerveTeleopDrive(m_drive, m_driveController));
         m_arm.setDefaultCommand(new HoldArmAngleCommand(m_arm));
 
@@ -108,11 +101,6 @@ public class RobotContainer {
         m_driveController.leftTrigger().whileTrue(new IntakeControlCommand(m_wrist, -0.5));
         m_driveController.rightTrigger().whileTrue(new IntakeControlCommand(m_wrist, 1.0));
 
-        if (Constants.CURRENT_MODE != Constants.Mode.HELIOS_V1) {
-            m_driveController.x().whileTrue(
-                    new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.INTAKE_BATTERY)
-                            .alongWith(new IntakeControlCommand(m_wrist, 1.0, m_driveController.getHID())));
-        }
         m_driveController.y().whileTrue(
             new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.INTAKE_BATTERY)
                     .alongWith(new IntakeControlCommand(m_wrist, 1.0, m_driveController.getHID())));
@@ -122,18 +110,6 @@ public class RobotContainer {
                 new SupersystemToPoseCommand(m_super, new ArmPose(0.0, () -> Constants.ArmSetpoints.HUMAN_HEIGHT.getValue(), () -> Constants.ArmSetpoints.HUMAN_WRIST.getValue()))
                         .alongWith(new IntakeControlCommand(m_wrist, 1.0, m_driveController.getHID())));
 
-        //Auto Align with rumble for driving
-        m_driveController.povLeft()
-                .whileTrue(m_drive.createPPSwerveController(SwerveDrivetrain.AlignmentOptions.LEFT_ALIGN));
-
-        m_driveController.povUp()
-                .whileTrue(m_drive.createPPSwerveController(SwerveDrivetrain.AlignmentOptions.CENTER_ALIGN));
-
-        m_driveController.povRight()
-                .whileTrue(m_drive.createPPSwerveController(SwerveDrivetrain.AlignmentOptions.RIGHT_ALIGN));
-
-        m_driveController.povDown()
-                .whileTrue(new InstantCommand(() -> m_drive.resetPose(new Pose2d(10, 0, new Rotation2d()))));
 
         m_driveController.leftBumper().whileTrue(new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.HIGH_GOAL));
         m_driveController.rightBumper().whileTrue(new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.MIDDLE_GOAL));
@@ -182,9 +158,6 @@ public class RobotContainer {
 
         testCommands.add("Auto Balance", new AutoBalanceTransCommand(m_drive));
         testCommands.add("Reset Pose", new InstantCommand(() -> m_drive.resetPoseBase())).withSize(2, 1);
-
-        testCommands.add("Align to Zero Degrees", m_drive.alignToAngle(0).asProxy());
-
     }
 
     /**
