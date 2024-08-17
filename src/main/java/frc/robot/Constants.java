@@ -6,7 +6,6 @@ package frc.robot;
 
 import com.ctre.phoenixpro.signals.InvertedValue;
 import com.gos.lib.properties.GosDoubleProperty;
-import com.pathplanner.lib.auto.PIDConstants;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
@@ -225,11 +224,11 @@ public final class Constants {
         public static final PIDController CONTROLLER_Y =
             new PIDController(4, 0.03, 0.3);
 
-        public static final PIDConstants CONSTANTS_X =
-                new PIDConstants(6.0, 0.01, 0.0);
+//        public static final PIDConstants CONSTANTS_X =
+//                new PIDConstants(6.0, 0.01, 0.0);
 
-        public static final PIDConstants THETA_CONSTANTS =
-                new PIDConstants(4.2, 0.0, 0.0);
+//        public static final PIDConstants THETA_CONSTANTS =
+//                new PIDConstants(4.2, 0.0, 0.0);
         
         //Auto balance constants
         public static final double BALANCE_P = -0.04;
@@ -277,7 +276,7 @@ public final class Constants {
         public static final int ARM_ANGLE_ID_FOLLOWER = 17;
         public static final int LIMIT_SWITCH_PORT = 3;
 
-        public static final double KP_ANGLE = CURRENT_MODE == Mode.HELIOS_V1 ? 0.53 : 0.227;
+        public static final double KP_ANGLE = CURRENT_MODE == Mode.HELIOS_V2 ? 0.53 : 0.227;
         public static final double KI_ANGLE = 0.0007;
         public static final double KD_ANGLE = 0.08;
 
@@ -292,7 +291,7 @@ public final class Constants {
         public static final double ARM_KG = 0.17;
 
         // offset for the absolute value sensor
-        public static final double ARM_OFFSET = CURRENT_MODE == Mode.HELIOS_V1 ? 280.0 : 294;
+        public static final double ARM_OFFSET = CURRENT_MODE == Mode.HELIOS_V2 ? 280.0 + 130.0 : 294;
 
         public static final int ENCODER_PORT = 4;
 

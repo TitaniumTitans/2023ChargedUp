@@ -4,9 +4,9 @@
 
 package frc.robot;
 
-import com.pathplanner.lib.PathConstraints;
-import com.pathplanner.lib.PathPlanner;
-import com.pathplanner.lib.PathPlannerTrajectory;
+//import com.pathplanner.lib.PathConstraints;
+//import com.pathplanner.lib.PathPlanner;
+//import com.pathplanner.lib.PathPlannerTrajectory;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.wpilibj.PowerDistribution;
@@ -46,12 +46,12 @@ public class Robot extends LoggedRobot {
     //Base code written from the AdvantageKit logging framework (6328 Mechanical Advantage)
     //Sets up a base logger for non-subsystem inputs
 
-    PathPlannerTrajectory traj = PathPlanner.loadPath("Mobility Right", new PathConstraints(1.0, 1.0));
-    PathPlannerTrajectory ftraj = lib.utils.PathPlannerFlipper.flipTrajectory(traj);
+//    PathPlannerTrajectory traj = PathPlanner.loadPath("Mobility Right", new PathConstraints(1.0, 1.0));
+//    PathPlannerTrajectory ftraj = lib.utils.PathPlannerFlipper.flipTrajectory(traj);
 
     Field2d ffield = new Field2d();
-    ffield.getObject("Traj").setTrajectory(traj);
-    ffield.getObject("FTraj").setTrajectory(ftraj);
+//    ffield.getObject("Traj").setTrajectory(traj);
+//    ffield.getObject("FTraj").setTrajectory(ftraj);
 
     SmartDashboard.putData("FLIP FIELD", ffield);
 

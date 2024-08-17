@@ -11,10 +11,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import frc.robot.commands.*;
-import frc.robot.commands.autonomous.AutoFactory;
-import frc.robot.commands.autonomous.Balance;
+//import frc.robot.commands.autonomous..AutoFactory;
+//import frc.robot.commands.autonomous.Balance;
 import frc.robot.subsystems.arm.ArmExtSubsystem;
-import frc.robot.subsystems.vision.CameraSubsystem;
+//import frc.robot.subsystems.vision.CameraSubsystem;
 import frc.robot.supersystems.ArmPose;
 import frc.robot.supersystems.ArmSupersystem;
 import lib.controllers.FootPedal;
@@ -50,14 +50,14 @@ public class RobotContainer {
     private LedSubsystem m_led;
 
     // Camera testing crap
-    private CameraSubsystem m_testingCamera;
+//    private CameraSubsystem m_testingCamera;
 
     //Controllers
     private final CommandXboxController m_driveController = new CommandXboxController(Constants.DRIVER_PORT);
 //    private final CommandXboxController m_testController = new CommandXboxController(2);
 
     //Logged chooser for auto
-    private final AutoFactory m_autoFactory;
+//    private final AutoFactory m_autoFactory;
 
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -77,7 +77,7 @@ public class RobotContainer {
                 m_super = new ArmSupersystem(m_arm, m_ext, m_wrist, m_drive);
                 m_foot = new FootPedal(1);
 
-                m_testingCamera = new CameraSubsystem("TestCamera", new Transform3d());
+//                m_testingCamera = new CameraSubsystem("TestCamera", new Transform3d());
                 break;
 
             case SIM:
@@ -89,7 +89,7 @@ public class RobotContainer {
 
         LiveWindow.disableAllTelemetry();
 
-        m_autoFactory = new AutoFactory(m_super, m_drive, m_wrist, m_ext);
+//        m_autoFactory = new AutoFactory(m_super, m_drive, m_wrist, m_ext);
 
         
         // Configure the button bindings
@@ -115,14 +115,15 @@ public class RobotContainer {
         m_driveController.leftTrigger().whileTrue(new IntakeControlCommand(m_wrist, -0.5));
         m_driveController.rightTrigger().whileTrue(new IntakeControlCommand(m_wrist, 1.0));
 
-        if (Constants.CURRENT_MODE != Constants.Mode.HELIOS_V1) {
+        if (Constants.CURRENT_MODE != Constants.Mode.HELIOS_V1 && false) {
             m_driveController.x().whileTrue(
                     new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.INTAKE_BATTERY)
                             .alongWith(new IntakeControlCommand(m_wrist, 1.0, m_driveController.getHID())));
         }
-        m_driveController.y().whileTrue(
-            new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.INTAKE_BATTERY)
-                    .alongWith(new IntakeControlCommand(m_wrist, 1.0, m_driveController.getHID())));
+
+//        m_driveController.y().whileTrue(
+//            new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.INTAKE_BATTERY)
+//                    .alongWith(new IntakeControlCommand(m_wrist, 1.0, m_driveController.getHID())));
 
         m_driveController.a().whileTrue(new SupersystemToPoseCommand(m_super, Constants.ArmSetpoints.STOW_POSITION));
         m_driveController.b().whileTrue(
@@ -153,7 +154,7 @@ public class RobotContainer {
         SmartDashboard.putBoolean("Stella Mode", true);
         ShuffleboardTab testCommands = Shuffleboard.getTab("Commands");
 
-        testCommands.add("balance", new Balance(m_drive));
+//        testCommands.add("balance", new Balance(m_drive));
 
         testCommands.add("Toggle Angle Brake Mode", new ToggleArmBrakeModeCommand(m_arm)).withSize(2, 1);
         testCommands.add("Toggle Wrist Brake Mode", new InstantCommand(() -> m_wrist.toggleBrakeMode()).runsWhenDisabled());
@@ -190,7 +191,7 @@ public class RobotContainer {
         testCommands.add("Auto Balance", new AutoBalanceTransCommand(m_drive));
         testCommands.add("Reset Pose", new InstantCommand(() -> m_drive.resetPoseBase())).withSize(2, 1);
 
-        testCommands.add("Align to Zero Degrees", m_drive.alignToAngle(0).asProxy());
+//        testCommands.add("Align to Zero Degrees", m_drive.alignToAngle(0).asProxy());
 
     }
 
@@ -201,8 +202,8 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         return new InstantCommand(() ->
-                m_drive.resetGyro(180))
-                .andThen(m_autoFactory.getAutoRoutine());
+                m_drive.resetGyro(180));
+//                .andThen(m_autoFactory.getAutoRoutine());
     }
 
     public ArmSupersystem getArmSupersystem() {

@@ -49,7 +49,7 @@ public class ArmExtSubsystem extends SubsystemBase {
     public ArmExtSubsystem() {
         SparkMaxFactory.SparkMaxConfig config = new SparkMaxFactory.SparkMaxConfig();
         config.setCurrentLimit(50);
-        config.setInverted(Constants.CURRENT_MODE == Constants.Mode.HELIOS_V1);
+        config.setInverted(true);
 
         m_armExt = SparkMaxFactory.Companion.createSparkMax(Constants.ArmConstants.ARM_EXTENSION_ID, config);
         m_armExt.setClosedLoopRampRate(0.1);
@@ -61,7 +61,7 @@ public class ArmExtSubsystem extends SubsystemBase {
         m_extPID.setP(Constants.ArmConstants.ARM_EXT_KP.getValue());
         m_extPID.setI(Constants.ArmConstants.ARM_EXT_KI.getValue());
         m_extPID.setD(Constants.ArmConstants.ARM_EXT_KD.getValue());
-        m_extPID.setOutputRange(-1, 1);
+        m_extPID.setOutputRange(-0.5, 0.5);
 
         m_armLimitSwitch = new DigitalInput(Constants.ArmConstants.LIMIT_SWITCH_PORT);
 

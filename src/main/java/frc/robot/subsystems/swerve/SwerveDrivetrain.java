@@ -1,11 +1,11 @@
 package frc.robot.subsystems.swerve;
 
 import com.ctre.phoenix.sensors.WPI_Pigeon2;
-import com.pathplanner.lib.PathPlanner;
-import com.pathplanner.lib.PathPlannerTrajectory;
-import com.pathplanner.lib.PathPoint;
-import com.pathplanner.lib.auto.SwerveAutoBuilder;
-import com.pathplanner.lib.commands.PPSwerveControllerCommand;
+//import com.pathplanner.lib.PathPlanner;
+//import com.pathplanner.lib.PathPlannerTrajectory;
+//import com.pathplanner.lib.PathPoint;
+//import com.pathplanner.lib.auto.SwerveAutoBuilder;
+//import com.pathplanner.lib.commands.PPSwerveControllerCommand;
 import com.playingwithfusion.TimeOfFlight;
 import edu.wpi.first.math.MatBuilder;
 import edu.wpi.first.math.MathUtil;
@@ -19,21 +19,18 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.ProxyCommand;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.AutoConstants;
-import frc.robot.commands.autonomous.AutoUtils;
+//import frc.robot.commands.autonomous.AutoUtils;
 import frc.robot.subsystems.swerve.module.FalconProModule;
 import frc.robot.subsystems.swerve.module.SwerveModNeo;
 import frc.robot.subsystems.swerve.module.SwerveModuleInterface;
-import frc.robot.subsystems.vision.CameraSubsystem;
+//import frc.robot.subsystems.vision.CameraSubsystem;
 import org.littletonrobotics.junction.AutoLog;
 import org.littletonrobotics.junction.Logger;
-import org.photonvision.EstimatedRobotPose;
+//import org.photonvision.EstimatedRobotPose;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -56,8 +53,8 @@ public class SwerveDrivetrain extends SubsystemBase {
     private final SwerveDrivePoseEstimator m_poseEstimator;
     private final SwerveDrivePoseEstimator m_visionEstimator;
 
-    private final CameraSubsystem m_leftCam;
-    private final CameraSubsystem m_rightCam;
+//    private final CameraSubsystem m_leftCam;
+//    private final CameraSubsystem m_rightCam;
 
 
     private double m_currentPitch = 0;
@@ -101,7 +98,7 @@ public class SwerveDrivetrain extends SubsystemBase {
 
     public SwerveDrivetrain() {
         // Check which robot code is on
-        if (Constants.CURRENT_MODE == Constants.Mode.HELIOS_V1) {
+        if (Constants.CURRENT_MODE == Constants.Mode.HELIOS_V2) {
             m_flMod = new SwerveModNeo(0, DriveConstants.MOD_FL_OFFSET, DriveConstants.MOD_FL_CANS, false);
             m_frMod = new SwerveModNeo(1, DriveConstants.MOD_FR_OFFSET, DriveConstants.MOD_FR_CANS, false);
             m_blMod = new SwerveModNeo(2, DriveConstants.MOD_BL_OFFSET, DriveConstants.MOD_BL_CANS, false);
@@ -136,8 +133,8 @@ public class SwerveDrivetrain extends SubsystemBase {
             getModulePositions(), 
             new Pose2d());
 
-        m_leftCam = new CameraSubsystem(DriveConstants.LEFT_GLOBAL_CAM, DriveConstants.LEFT_CAM_POSE);
-        m_rightCam = new CameraSubsystem(DriveConstants.RIGHT_GLOBAL_CAM, DriveConstants.RIGHT_CAM_POSE);
+//        m_leftCam = new CameraSubsystem(DriveConstants.LEFT_GLOBAL_CAM, DriveConstants.LEFT_CAM_POSE);
+//        m_rightCam = new CameraSubsystem(DriveConstants.RIGHT_GLOBAL_CAM, DriveConstants.RIGHT_CAM_POSE);
 
 
         SmartDashboard.putData("Field", m_field);
@@ -184,8 +181,8 @@ public class SwerveDrivetrain extends SubsystemBase {
 
         //getFrontCamTagID();
 
-        m_leftCam.periodic();
-        m_rightCam.periodic();
+//        m_leftCam.periodic();
+//        m_rightCam.periodic();
     }
 
     // Getters
@@ -309,19 +306,19 @@ public class SwerveDrivetrain extends SubsystemBase {
         /*
          * Add each vision measurement to the pose estimator if it exists for each camera
          */
-        Optional<EstimatedRobotPose> leftCamPose = m_leftCam.getPose(getPose());
-        Optional<EstimatedRobotPose> rightCamPose = m_rightCam.getPose(getPose());
+//        Optional<EstimatedRobotPose> leftCamPose = m_leftCam.getPose(getPose());
+//        Optional<EstimatedRobotPose> rightCamPose = m_rightCam.getPose(getPose());
 
-        Logger.getInstance().recordOutput("L Cam Pose", leftCamPose.isPresent() ? leftCamPose.get().estimatedPose.toPose2d() : new Pose2d());
-        Logger.getInstance().recordOutput("R Cam Pose", rightCamPose.isPresent() ? rightCamPose.get().estimatedPose.toPose2d() : new Pose2d());
+//        Logger.getInstance().recordOutput("L Cam Pose", leftCamPose.isPresent() ? leftCamPose.get().estimatedPose.toPose2d() : new Pose2d());
+//        Logger.getInstance().recordOutput("R Cam Pose", rightCamPose.isPresent() ? rightCamPose.get().estimatedPose.toPose2d() : new Pose2d());
 
-        leftCamPose.ifPresent(estimatedRobotPose -> m_visionEstimator.addVisionMeasurement(estimatedRobotPose.estimatedPose.toPose2d(), leftCamPose.get().timestampSeconds));
-        rightCamPose.ifPresent(estimatedRobotPose -> m_visionEstimator.addVisionMeasurement(estimatedRobotPose.estimatedPose.toPose2d(), rightCamPose.get().timestampSeconds));
+//        leftCamPose.ifPresent(estimatedRobotPose -> m_visionEstimator.addVisionMeasurement(estimatedRobotPose.estimatedPose.toPose2d(), leftCamPose.get().timestampSeconds));
+//        rightCamPose.ifPresent(estimatedRobotPose -> m_visionEstimator.addVisionMeasurement(estimatedRobotPose.estimatedPose.toPose2d(), rightCamPose.get().timestampSeconds));
 
-        Logger.getInstance().recordOutput("Merged Cam pose", m_visionEstimator.getEstimatedPosition());
+//        Logger.getInstance().recordOutput("Merged Cam pose", m_visionEstimator.getEstimatedPosition());
 
-        Logger.getInstance().recordOutput("Left Cam Has Pose", leftCamPose.isPresent());
-        Logger.getInstance().recordOutput("Right Cam Has Pose", rightCamPose.isPresent());
+//        Logger.getInstance().recordOutput("Left Cam Has Pose", leftCamPose.isPresent());
+//        Logger.getInstance().recordOutput("Right Cam Has Pose", rightCamPose.isPresent());
 
 //         leftCamPose.ifPresent(estimatedRobotPose -> m_poseEstimator.addVisionMeasurement(estimatedRobotPose.estimatedPose.toPose2d(), leftCamPose.get().timestampSeconds));
 //         rightCamPose.ifPresent(estimatedRobotPose -> m_poseEstimator.addVisionMeasurement(estimatedRobotPose.estimatedPose.toPose2d(), rightCamPose.get().timestampSeconds));
@@ -369,7 +366,7 @@ public class SwerveDrivetrain extends SubsystemBase {
 
         Translation2d translatedEnd;
         Translation2d translatedMiddle;
-        PathPlannerTrajectory traj;
+//        PathPlannerTrajectory traj;
 
         // Plan which offset to use
         switch (align) {
@@ -410,47 +407,49 @@ public class SwerveDrivetrain extends SubsystemBase {
 
 
         //generate a path based on the tag you see, flipped 180 from tag pose
-        traj = PathPlanner.generatePath(
-                AutoUtils.getDefaultConstraints(),
-                new PathPoint(getPose().getTranslation(), new Rotation2d(), getPose().getRotation(), chassisSpeed.getNorm()),
-                new PathPoint(translatedMiddle, new Rotation2d(), tagPose.getRotation().rotateBy(Rotation2d.fromDegrees(180))),
-                new PathPoint(translatedEnd, new Rotation2d(), tagPose.getRotation().rotateBy(Rotation2d.fromDegrees(180)))
-        );
+//        traj = PathPlanner.generatePath(
+//                AutoUtils.getDefaultConstraints(),
+//                new PathPoint(getPose().getTranslation(), new Rotation2d(), getPose().getRotation(), chassisSpeed.getNorm()),
+//                new PathPoint(translatedMiddle, new Rotation2d(), tagPose.getRotation().rotateBy(Rotation2d.fromDegrees(180))),
+//                new PathPoint(translatedEnd, new Rotation2d(), tagPose.getRotation().rotateBy(Rotation2d.fromDegrees(180)))
+//        );
 
-        Logger.getInstance().recordOutput("Current Trajectory", traj);
+//        Logger.getInstance().recordOutput("Current Trajectory", traj);
 
-        return new PPSwerveControllerCommand(
-                traj,
-                this::getPose,
-                DriveConstants.DRIVE_KINEMATICS,
-                Constants.AutoConstants.CONTROLLER_X,
-                Constants.AutoConstants.CONTROLLER_Y,
-                Constants.AutoConstants.THETA_CONTROLLER,
-                this::setModuleStates,
-                this
-        );
+//        return new PPSwerveControllerCommand(
+//                traj,
+//                this::getPose,
+//                DriveConstants.DRIVE_KINEMATICS,
+//                Constants.AutoConstants.CONTROLLER_X,
+//                Constants.AutoConstants.CONTROLLER_Y,
+//                Constants.AutoConstants.THETA_CONTROLLER,
+//                this::setModuleStates,
+//                this
+//        );
+
+        return new InstantCommand();
     }
 
-    public Command alignToAngle(double angle) {
-        PathPlannerTrajectory traj = PathPlanner.generatePath(
-                AutoUtils.getDefaultConstraints(),
-                new PathPoint(getPose().getTranslation(), new Rotation2d(), getPose().getRotation()),
-                new PathPoint(getPose().getTranslation(), new Rotation2d(), Rotation2d.fromDegrees(angle)));
+//    public Command alignToAngle(double angle) {
+//        PathPlannerTrajectory traj = PathPlanner.generatePath(
+//                AutoUtils.getDefaultConstraints(),
+//                new PathPoint(getPose().getTranslation(), new Rotation2d(), getPose().getRotation()),
+//                new PathPoint(getPose().getTranslation(), new Rotation2d(), Rotation2d.fromDegrees(angle)));
+//
+//        return getAutoBuilder(new HashMap<>()).followPath(traj);
+//    }
 
-        return getAutoBuilder(new HashMap<>()).followPath(traj);
-    }
-
-    public void followTag(Translation2d offset) {
-        // Determine the "end point" for the follow
-        Transform3d tagToRobot = new Transform3d(); //m_frontCamSubsystem.robotToTag();
-        tagToRobot.plus(new Transform3d(new Translation3d(offset.getX(), offset.getY(), 0.0), new Rotation3d()));
-
-        double xOut = MathUtil.clamp(DriveConstants.FOLLOW_CONTROLLER_X.calculate(getPose().getX(), tagToRobot.getX()), -1.0, 1.0);
-        double yOut = MathUtil.clamp(DriveConstants.FOLLOW_CONTROLLER_Y.calculate(getPose().getY(), tagToRobot.getY()), -1.0, 1.0);
-        double zOut = MathUtil.clamp(DriveConstants.FOLLOW_CONTROLLER_THETA.calculate(getPose().getRotation().getDegrees(), tagToRobot.getRotation().toRotation2d().getDegrees()), -1.0, 1.0);
-
-        drive(xOut, yOut, zOut);
-    }
+//    public void followTag(Translation2d offset) {
+//         Determine the "end point" for the follow
+//        Transform3d tagToRobot = new Transform3d(); //m_frontCamSubsystem.robotToTag();
+//        tagToRobot.plus(new Transform3d(new Translation3d(offset.getX(), offset.getY(), 0.0), new Rotation3d()));
+//
+//        double xOut = MathUtil.clamp(DriveConstants.FOLLOW_CONTROLLER_X.calculate(getPose().getX(), tagToRobot.getX()), -1.0, 1.0);
+//        double yOut = MathUtil.clamp(DriveConstants.FOLLOW_CONTROLLER_Y.calculate(getPose().getY(), tagToRobot.getY()), -1.0, 1.0);
+//        double zOut = MathUtil.clamp(DriveConstants.FOLLOW_CONTROLLER_THETA.calculate(getPose().getRotation().getDegrees(), tagToRobot.getRotation().toRotation2d().getDegrees()), -1.0, 1.0);
+//
+//        drive(xOut, yOut, zOut);
+//    }
 
     public ChassisSpeeds getChassisSpeed() {
         return DriveConstants.DRIVE_KINEMATICS.toChassisSpeeds(getModuleStates());
@@ -460,19 +459,19 @@ public class SwerveDrivetrain extends SubsystemBase {
         return m_tofSensor.getRange();
     }
 
-    public SwerveAutoBuilder getAutoBuilder(Map<String, Command> eventMap) {
-        return new SwerveAutoBuilder(
-                this::getPose,
-                this::resetPose,
-                DriveConstants.DRIVE_KINEMATICS,
-                AutoConstants.CONSTANTS_X,
-                AutoConstants.THETA_CONSTANTS,
-                this::setModuleStates,
-                eventMap,
-                true,
-                this
-        );
-    }
+//    public SwerveAutoBuilder getAutoBuilder(Map<String, Command> eventMap) {
+//        return new SwerveAutoBuilder(
+//                this::getPose,
+//                this::resetPose,
+//                DriveConstants.DRIVE_KINEMATICS,
+//                AutoConstants.CONSTANTS_X,
+//                AutoConstants.THETA_CONSTANTS,
+//                this::setModuleStates,
+//                eventMap,
+//                true,
+//                this
+//        );
+//    }
 
     public Command resetGyroBase() {
         return runOnce(this::resetGyro);
